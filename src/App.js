@@ -9,6 +9,7 @@ import AppRouter from "components/routing/routers/AppRouter";
 const App = () => {
   return (
     <div>
+      <script> localStorage.clear(); </script>
       <Header height="100"/>
       <AppRouter/>
     </div>

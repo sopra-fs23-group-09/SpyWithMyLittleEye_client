@@ -4,20 +4,9 @@ import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 import "styles/views/Game.scss";
 
-const Player = ({user}) => (
-  <div className="player container">
-    <div className="player username">{user.username}</div>
-    <div className="player name">{user.name}</div>
-    <div className="player id">id: {user.id}</div>
-  </div>
-);
-
-Player.propTypes = {
-  user: PropTypes.object
-};
 
 const Game = () => {
   // use react-router-dom's hook to access the history
@@ -30,11 +19,14 @@ const Game = () => {
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
 
-  const logout = () => {
+  const logout = async () => {
+    const title = {title: 'logout request'};
+    await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
+
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
     history.push('/login');
   }
-
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
   // this can be achieved by leaving the second argument an empty array.
@@ -43,7 +35,7 @@ const Game = () => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
       try {
-        const response = await api.get('/users');
+        const response = await api.get('/users', {headers: {Token: localStorage.getItem("token")}});
 
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
@@ -79,7 +71,12 @@ const Game = () => {
       <div className="game">
         <ul className="game user-list">
           {users.map(user => (
-            <Player user={user} key={user.id}/>
+            <div >
+                <div className="player container">
+                    <button onClick={() => history.push(`/users/${user.id}`)}> {user.username} </button>
+                    <div className="player id">id: {user.id}</div>
+                </div>
+            </div>
           ))}
         </ul>
         <Button
@@ -94,7 +91,7 @@ const Game = () => {
 
   return (
     <BaseContainer className="game container">
-      <h2>Happy Coding!</h2>
+      <h2>Users Overview</h2>
       <p className="game paragraph">
         Get all users from secure endpoint:
       </p>

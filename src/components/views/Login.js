@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import User from 'models/User';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
@@ -20,8 +19,9 @@ const FormField = props => {
         {props.label}
       </label>
       <input
+        type={props.password}
         className="login input"
-        placeholder="enter here.."
+        placeholder="enter here..."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
       />
@@ -32,25 +32,22 @@ const FormField = props => {
 FormField.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  password: PropTypes.string
 };
 
 const Login = props => {
   const history = useHistory();
-  const [name, setName] = useState(null);
+  const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
 
   const doLogin = async () => {
     try {
-      const requestBody = JSON.stringify({username, name});
-      const response = await api.post('/users', requestBody);
-
-      // Get the returned user and update a new object.
-      const user = new User(response.data);
-
-      // Store the token into the local storage.
-      localStorage.setItem('token', user.token);
-
+      const response = await api.get('/v1/loginChecker?username='+ username + '&pass='+ password);
+      const token = response.headers.token;
+      const id = response.headers.id;
+      localStorage.setItem('token', token);
+      localStorage.setItem('id', id);
       // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
     } catch (error) {
@@ -63,22 +60,32 @@ const Login = props => {
       <div className="login container">
         <div className="login form">
           <FormField
+            password="text"
             label="Username"
             value={username}
             onChange={un => setUsername(un)}
           />
           <FormField
-            label="Name"
-            value={name}
-            onChange={n => setName(n)}
+            password="password"
+            label="Password"
+            value={password}
+            onChange={n => setPassword(n)}
           />
           <div className="login button-container">
             <Button
-              disabled={!username || !name}
-              width="100%"
+              style={{marginRight: "2px"}}
+              disabled={!username || !password}
+              width="50%"
               onClick={() => doLogin()}
             >
               Login
+            </Button>
+            <Button
+              style={{marginLeft: "2px"}}
+              width="50%"
+              onClick={() => history.push(`/register`)}
+            >
+              Register
             </Button>
           </div>
         </div>
