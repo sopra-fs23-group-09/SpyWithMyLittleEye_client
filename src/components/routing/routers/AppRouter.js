@@ -7,6 +7,7 @@ import Register from "components/views/Register";
 import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
 import Lobby from "components/views/Lobby";
+import HomePage from "components/views/HomePage";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
 /**
@@ -47,6 +48,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/">
           <Redirect to="/game"/>
+        </Route>
+        <Route exact path ="/home">
+            <HomePage/>
         </Route>
         <Route exact path ="/lobby/:lobbyId">
             <Lobby/>

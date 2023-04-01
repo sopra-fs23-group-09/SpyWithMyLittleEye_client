@@ -17,35 +17,36 @@ const Lobby = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
-            <div className="lobby lobbycode">
-                <div className="lobby lobbycodetext">
+            <div className="lobby lobby-code">
+                <div className="lobby lobby-code-text">
                     Code:
                 </div>
             </div>
-            <div className="lobby roundsbox">
-                <div className="lobby roundstext">
+            <div className="lobby rounds-box">
+                <div className="lobby rounds-text">
                     Rounds:
                 </div>
             </div>
-            <div className="lobby playeramountcontainer">
-                <div className="lobby playeramounttext">
+            <div className="lobby player-amount-container">
+                <div className="lobby player-amount-text">
                     ?/10
                 </div>
             </div>
-            <div className="lobby lobbytext">
+            <div className="lobby lobby-text">
                 LOBBY
             </div>
             <div className="lobby player">
-                <div className="lobby playername">
+                <div className="lobby profile-picture">
+                </div>
+                <div className="lobby player-name">
                     PlayerName
                 </div>
             </div>
-            <Button>
-                <div className="lobby profilepicture">
+            <Button className="primary-button"
 
-                </div>
-                <div className="lobby buttontext">
-                    Start Game
+            >
+                <div className="lobby button-text">
+                    Start game
                 </div>
             </Button>
         </BaseContainer>

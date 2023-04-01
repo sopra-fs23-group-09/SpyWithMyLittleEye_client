@@ -1,7 +1,7 @@
 @import 'styles/theme';
 
 .lobby {
-  &.roundsbox {
+  &.rounds-box {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -19,7 +19,7 @@
     border-radius: 40px;
   }
 
-  &.roundstext {
+  &.rounds-text {
     width: 184px;
     height: 50px;
 
@@ -39,7 +39,7 @@
     flex-grow: 0;
   }
 
-  &.buttontext {
+  &.button-text {
 
     width: 271px;
     height: 63px;
@@ -69,7 +69,7 @@
     top: 0px;
   }
 
-  &.playername {
+  &.player-name {
     position: absolute;
     width: 72px;
     height: 38px;
@@ -87,7 +87,7 @@
     color: #000000;
   }
 
-  &.profilepicture {
+  &.profile-picture {
     position: absolute;
     width: 122px;
     height: 122px;
@@ -97,7 +97,7 @@
     //TODO background: url(heart-aesthetic-profile-xpanduyanw9zla6p.jpg);
   }
 
-  &.lobbytext {
+  &.lobby-text {
 
     position: absolute;
     width: 292px;
@@ -117,7 +117,7 @@
 
   }
 
-  &.lobbycode {
+  &.lobby-code {
 
     display: flex;
     flex-direction: row;
@@ -137,7 +137,7 @@
 
   }
 
-  &.lobbycodetext {
+  &.lobby-code-text {
     width: 269px;
     height: 50px;
 
@@ -157,7 +157,7 @@
     flex-grow: 0;
   }
 
-  &.playeramountcontainer {
+  &.player-amount-container {
 
     position: absolute;
     width: 122px;
@@ -169,7 +169,7 @@
     background: rgba(255, 255, 255, 0.46);
   }
 
-  &.playeramounttext {
+  &.player-amount-text {
     position: absolute;
     width: 84px;
     height: 50px;
