@@ -1,0 +1,147 @@
+@import 'styles/theme';
+
+.start-page {
+  &.nose {
+    position: absolute;
+    width: 41.12px;
+    height: 93.59px;
+    left: 700.72px;
+    top: 221.09px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 63px;
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+
+  &.game-title {
+    position: absolute;
+    width: 647.4px;
+    height: 93.59px;
+    left: 397.8px;
+    top: 164.5px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 63px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+  }
+
+  &.instructions-container {
+    position: absolute;
+    width: 1384px;
+    height: 650px;
+    left: 50px;
+    top: 550px;
+
+    background: rgba(255, 255, 255, 0.46);
+    border-radius: 40px;
+  }
+
+  &.introduction-text {
+    position: absolute;
+    width: 1158px;
+    height: 268px;
+    left: 110px;
+    top: 70px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.header-rules {
+
+    position: absolute;
+    width: 97px;
+    height: 38px;
+    left: 625px;
+    top: 350px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.rules-text {
+    position: absolute;
+    width: 1296px;
+    height: 288px;
+    left: 40px;
+    top: 400px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.login-button-text {
+    width: 146px;
+    height: 63px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.signup-button-text {
+    width: 182px;
+    height: 63px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+}
