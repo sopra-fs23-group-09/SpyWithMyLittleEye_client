@@ -6,17 +6,18 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Register.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import 'styles/views/Login.scss';
 
 const FormField = props => {
   return (
-    <div className="register field">
-      <label className="register label">
+    <div className="login field">
+      <label className="login label">
         {props.label}
       </label>
       <input
         type = {props.password}
-        className="register input"
-        placeholder="enter here.."
+        className="login input"
+        placeholder={props.placeholder}
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
       />
@@ -48,7 +49,7 @@ const Register = props => {
       localStorage.setItem('token', user.token);
       localStorage.setItem('id', user.id);
 
-      history.push(`/game`);
+      history.push(`/HomePage`);
     } catch (error) {
       alert(`Something went wrong during the registration: \n${handleError(error)}`);
     }
@@ -56,31 +57,52 @@ const Register = props => {
 
   return (
     <BaseContainer>
-      <div className="register container">
-        <div className="register form">
-          <FormField
-            label="Username"
-            value={username}
-            onChange={un => setUsername(un)}
-          />
-          <FormField
-            password = "password"
-            label="Password"
-            value={password}
-            onChange={n => setPassword(n)}
-          />
-          <div className="register button-container">
-            <Button
-              disabled={!username || !password}
-              width="100%"
-              onClick={() => doRegistration()}
-            >
-              Register
-            </Button>
+                                    <div className="base-container ellipse1">
+                                    </div>
+                                    <div className="base-container ellipse2">
+                                    </div>
+                                    <div className="base-container ellipse3">
+                                    </div>
+                                    <div className="base-container ellipse4">
+                                    </div>
+
+                              <div className="login container">
+                                <div className="login form">
+                                <div className="login login-title">
+                                 Signup
+                                </div>
+                              <FormField
+                                password="text"
+                                placeholder = "Username"
+                                value={username}
+                                onChange={un => setUsername(un)}
+                              />
+                              <FormField
+                                password="password"
+                                placeholder = "*******"
+                                value={password}
+                                onChange={n => setPassword(n)}
+                              />
+                              <div className="login button-container">
+                                <Button className="button login-button-loginpage"
+                                  style={{marginRight: "2px"}}
+                                  disabled={!username || !password}
+                                  width="50%"
+                                  onClick={() => doRegistration()}
+                                >
+                            <div className="login login-text">
+                                Create account
+                            </div>
+                                </Button>
+                                <div className= "login login-line">
+                                </div>
+                            <div className="login register-text">
+                              Already have an account? <a href="#" onClick={() => window.location.href = '/Login'}>Log in</a>
+                            </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </BaseContainer>
+        </BaseContainer>
   );
 };
 
