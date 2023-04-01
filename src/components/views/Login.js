@@ -85,7 +85,7 @@ const Login = props => {
                             onChange={n => setPassword(n)}
                           />
                           <div className="login button-container">
-                            <Button className="button login-button"
+                            <Button className="button login-button-loginpage"
                               style={{marginRight: "2px"}}
                               disabled={!username || !password}
                               width="50%"
