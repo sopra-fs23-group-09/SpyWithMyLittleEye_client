@@ -2,25 +2,28 @@
 
 .login {
   &.container {
-    margin-top: 2em;
+    margin-top: 4em;
     min-height: 300px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
   }
+
+
   &.form {
     display: flex;
+    z-index: 1;
     flex-direction: column;
     justify-content: center;
     width: 60%;
-    max-width: 30em;
-    height: 20em;
+    max-width: 50em;
+    height: 30em;
     font-size: 16px;
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
-    border-radius: 0.75em;
-    background-color: $background;
+    border-radius: 40px;
+    background-color: #FFFFFF;
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
   }
@@ -29,25 +32,122 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  &.login-title{
+  width: 100px;
+  height: 30px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 20px;
+  padding-left: 20px;
+  padding-bottom: 30px;
+  color: #000000;
+  display: flex;
+  text-align: right;
+  margin-top: -100px;
+  }
+
   &.input {
-    height: 35px;
-    padding-left: 15px;
-    margin-left: -4px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+    margin-left: 10px;
     border: none;
-    border-radius: 0.75em;
     margin-bottom: 20px;
-    background: transparentize(white, 0.85);
-    color: $textColor;
+    color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(30px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 40px;
+  }
+  &.login input::placeholder {
+    font-size: 18px;
+    padding-left: 10px
   }
   &.label {
-    color: $textColor;
-    margin-bottom: 10px;
-    text-transform: lowercase;
-    font-weight: 300;
+    width: 71px;
+        height: 25px;
+
+        font-family: 'Mulish';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        /* identical to box height */
+        text-align: center;
+
+        color: #000000;
+
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+  }
+  &.login-line{
+      position: absolute;
+      width: 43em;
+      height: 0px;
+      left: 0px;
+      top: calc(100% + 20px);
+      border: 2px solid #97E1D4;
   }
   &.button-container {
     display: flex;
     justify-content: center;
+    flex-direction: row;
+    align-items:center;
+    padding: 10px;
+    gap: 10px;
     margin-top: 2em;
+    background: #97E1D4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(30px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 40px;
   }
+  &.register-text{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 514px;
+  height: 58px;
+  left: 0px;
+  top: 100px;
+  }
+  &.register-text a {
+      font-weight: bold;
+      color: #000000;
+    }
+  &.login-text{
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 40px;
+/* identical to box height */
+
+text-align: center;
+
+color: black;
 }
+
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+    }
+

@@ -154,6 +154,22 @@
   border: none;
 }
 
+.login-button {
+  font-family: 'Mulish';
+  background-color: transparent;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 63px;
+  text-align: center;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  border: none;
+}
+
+
+
 .signup-button {
   box-sizing: border-box;
 
@@ -178,3 +194,4 @@
   border-radius: 40px;
   border: none;
 }
+

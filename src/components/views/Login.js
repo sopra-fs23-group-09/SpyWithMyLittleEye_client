@@ -22,7 +22,7 @@ const FormField = props => {
       <input
         type={props.password}
         className="login input"
-        placeholder="enter here..."
+        placeholder={props.placeholder}
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
       />
@@ -57,37 +57,49 @@ const Login = props => {
   };
 
   return (
-    <BaseContainer>
-      <div className="login container">
-        <div className="login form">
-          <FormField
-            password="text"
-            label="Username"
-            value={username}
-            onChange={un => setUsername(un)}
-          />
-          <FormField
-            password="password"
-            label="Password"
-            value={password}
-            onChange={n => setPassword(n)}
-          />
-          <div className="login button-container">
-            <Button
-              style={{marginRight: "2px"}}
-              disabled={!username || !password}
-              width="50%"
-              onClick={() => doLogin()}
-            >
-              Login
-            </Button>
-            <Button
-              style={{marginLeft: "2px"}}
-              width="50%"
-              onClick={() => history.push(`/register`)}
-            >
-              Register
-            </Button>
+        <BaseContainer>
+                                <div className="base-container ellipse1">
+                                </div>
+                                <div className="base-container ellipse2">
+                                </div>
+                                <div className="base-container ellipse3">
+                                </div>
+                                <div className="base-container ellipse4">
+                                </div>
+
+                          <div className="login container">
+                            <div className="login form">
+                            <div className="login login-title">
+                              Login
+                            </div>
+                          <FormField
+                            password="text"
+                            placeholder = "Username"
+                            value={username}
+                            onChange={un => setUsername(un)}
+                          />
+                          <FormField
+                            password="password"
+                            placeholder = "*******"
+                            value={password}
+                            onChange={n => setPassword(n)}
+                          />
+                          <div className="login button-container">
+                            <Button className="button login-button"
+                              style={{marginRight: "2px"}}
+                              disabled={!username || !password}
+                              width="50%"
+                              onClick={() => doLogin()}
+                            >
+                        <div className="login login-text">
+                            Login
+                        </div>
+                            </Button>
+                            <div className= "login login-line">
+                            </div>
+                        <div className="login register-text">
+                          Don’t have an account yet? <a href="#" onClick={() => window.location.href = '/Register'}>Sign up</a>
+                        </div>
           </div>
         </div>
       </div>
