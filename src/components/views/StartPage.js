@@ -23,14 +23,14 @@ const StartPage = () => {
             <div className="start-page nose">
                 Y
             </div>
-            <Button className="login-button"
+            <Button className="login-button-start-page"
 
             >
                 <div className="start-page login-button-text">
                     Log in
                 </div>
             </Button>
-            <Button className="signup-button"
+            <Button className="signup-button-start-page"
 
             >
                 <div className="start-page signup-button-text">
@@ -58,7 +58,6 @@ const StartPage = () => {
                 </div>
 
             </div>
-
         </BaseContainer>
     );
 
