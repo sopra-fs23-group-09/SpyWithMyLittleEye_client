@@ -4,28 +4,19 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-
-const WS_URL = 'wss://localhost:8100';
 
 
 const Lobby = () => {
     const history = useHistory();
     const [rounds, setRounds] = useState("");
-    //Public API that will echo messages sent to it back to the client
-    const [socketUrl, setSocketUrl] = useState(WS_URL);
-    const [messageHistory, setMessageHistory] = useState([]);
 
-    const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+    const { sendMessage, lastMessage, readyState } = useWebSocket('ws://127.0.0.1:8080');
 
-    useEffect(() => {
-        if (lastMessage !== null) {
-            setMessageHistory((prev) => prev.concat(lastMessage));
-        }
-    }, [lastMessage, setMessageHistory]);
-
-
+    const handleMessageSend = () => {
+        sendMessage('Hello, WebSocket!');
+    };
     const connectionStatus = {
         [ReadyState.CONNECTING]: 'Connecting',
         [ReadyState.OPEN]: 'Open',
@@ -70,9 +61,13 @@ const Lobby = () => {
                 <div className="lobby player-name">
                     PlayerName
                 </div>
+                <div>
+                    <p>WebSocket status: {readyState}</p>
+                    <p>Last message: {lastMessage && lastMessage.data}</p>
+                    <button onClick={handleMessageSend}>Send message</button>
+                </div>
             </div>
             <Button className="primary-button"
-
             >
                 <div className="lobby button-text">
                     Start game
