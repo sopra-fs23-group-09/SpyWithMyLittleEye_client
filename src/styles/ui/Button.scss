@@ -109,6 +109,31 @@
   border: none;
 }
 
+.login-button {
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 430px;
+  height: 112px;
+  left: 169px;
+  top: 362px;
+
+  background: #97E1D4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 40px;
+  border: none;
+}
+
 .logout-button {
   display: flex;
   flex-direction: row;
@@ -125,6 +150,31 @@
 
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  border: none;
+}
+
+.signup-button {
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 430px;
+  height: 112px;
+  left: 830px;
+  top: 360px;
+
+  background: #97E1D4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
 }
