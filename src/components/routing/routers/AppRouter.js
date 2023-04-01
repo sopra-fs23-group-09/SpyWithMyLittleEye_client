@@ -6,6 +6,7 @@ import Login from "components/views/Login";
 import Register from "components/views/Register";
 import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
+import Lobby from "components/views/Lobby";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
 /**
@@ -46,6 +47,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/">
           <Redirect to="/game"/>
+        </Route>
+        <Route exact path ="/lobby/:lobbyId">
+            <Lobby/>
         </Route>
       </Switch>
     </BrowserRouter>

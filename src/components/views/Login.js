@@ -12,6 +12,7 @@ however be sure not to clutter your files with an endless amount!
 As a rule of thumb, use one file per component and only add small,
 specific components that belong to the main one in the same file.
  */
+
 const FormField = props => {
   return (
     <div className="login field">

@@ -1,0 +1,191 @@
+@import 'styles/theme';
+
+.lobby {
+  &.roundsbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    position: absolute;
+    width: 333px;
+    height: 60px;
+    left: 1054px;
+    top: 18px;
+
+    background: rgba(255, 255, 255, 0.37);
+    border-radius: 40px;
+  }
+
+  &.roundstext {
+    width: 184px;
+    height: 50px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.buttontext {
+
+    width: 271px;
+    height: 63px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.player {
+    position: absolute;
+    width: 122px;
+    height: 180px;
+    left: 250px;
+    top: 0px;
+  }
+
+  &.playername {
+    position: absolute;
+    width: 72px;
+    height: 38px;
+    left: 400px;
+    top: 400px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+  }
+
+  &.profilepicture {
+    position: absolute;
+    width: 122px;
+    height: 122px;
+    left: 742px;
+    top: 554px;
+
+    //TODO background: url(heart-aesthetic-profile-xpanduyanw9zla6p.jpg);
+  }
+
+  &.lobbytext {
+
+    position: absolute;
+    width: 292px;
+    height: 126px;
+    left: 550px;
+    top: 130px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 126px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+  }
+
+  &.lobbycode {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    position: absolute;
+    width: 333px;
+    height: 60px;
+    left: 554px;
+    top: 20px;
+
+    background: rgba(255, 255, 255, 0.37);
+    border-radius: 40px;
+
+  }
+
+  &.lobbycodetext {
+    width: 269px;
+    height: 50px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.playeramountcontainer {
+
+    position: absolute;
+    width: 122px;
+    height: 121px;
+    left: 1259px;
+    top: 195px;
+    border-radius: 100px;
+
+    background: rgba(255, 255, 255, 0.46);
+  }
+
+  &.playeramounttext {
+    position: absolute;
+    width: 84px;
+    height: 50px;
+    left: 20px;
+    top: 35px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+  }
+
+
+}
