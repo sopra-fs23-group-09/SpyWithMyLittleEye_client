@@ -3,9 +3,38 @@ import 'styles/views/Lobby.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
+import useWebSocket, { ReadyState } from 'react-use-websocket';
+import React, { useState, useCallback, useEffect } from 'react';
+
+
+const WS_URL = 'wss://localhost:8100';
+
 
 const Lobby = () => {
     const history = useHistory();
+    const [rounds, setRounds] = useState("");
+    //Public API that will echo messages sent to it back to the client
+    const [socketUrl, setSocketUrl] = useState(WS_URL);
+    const [messageHistory, setMessageHistory] = useState([]);
+
+    const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+
+    useEffect(() => {
+        if (lastMessage !== null) {
+            setMessageHistory((prev) => prev.concat(lastMessage));
+        }
+    }, [lastMessage, setMessageHistory]);
+
+
+    const connectionStatus = {
+        [ReadyState.CONNECTING]: 'Connecting',
+        [ReadyState.OPEN]: 'Open',
+        [ReadyState.CLOSING]: 'Closing',
+        [ReadyState.CLOSED]: 'Closed',
+        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+    }[readyState];
+
+    console.log(connectionStatus);
 
     return (
         <BaseContainer>
