@@ -1,0 +1,120 @@
+@import 'styles/theme';
+
+.home-page {
+  &.join-lobby-button-text {
+    width: 393px;
+    height: 88px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 55px;
+    line-height: 88px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.create-lobby-button-text {
+
+    width: 487px;
+    height: 88px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 55px;
+    line-height: 88px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.navigation-bar {
+    position: absolute;
+    width: 1440px;
+    height: 95px;
+    left: 0px;
+    top: 0px;
+
+    background: linear-gradient(180deg, #97E1D4 0%, rgba(151, 225, 212, 0.27) 100%);
+  }
+
+  &.ranking-text {
+
+    width: 78px;
+    height: 25px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.profile-text {
+    width: 60px;
+    height: 25px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.logout-text {
+    width: 71px;
+    height: 25px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+}
