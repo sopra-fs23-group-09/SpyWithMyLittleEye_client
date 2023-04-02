@@ -5,12 +5,13 @@ import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import StartPage from "components/views/StartPage";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
+import HomePage from "components/views/HomePage";
+import Leaderboard from "components/views/Leaderboard";
 import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
-import Code from "components/views/Code";
 import Lobby from "components/views/Lobby";
+import Code from "components/views/Code";
 import Rounds from "components/views/Rounds";
-import HomePage from "components/views/HomePage";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
 /**
@@ -57,6 +58,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path ="/home">
             <HomePage/>
+        </Route>
+        <Route exact path="/leaderboard">
+            <Leaderboard/>
         </Route>
         <Route exact path ="/code">
             <Code/>

@@ -1,0 +1,190 @@
+@import 'styles/theme';
+
+.leaderboard {
+  &.container {
+    position: absolute;
+    width: 750px;
+    height: 800px;
+    left: 325px;
+    top: 91.37px;
+
+    background: #FFFFFF;
+    border-radius: 40px;
+  }
+
+  &.header {
+    position: absolute;
+    width: 375px;
+    height: 75px;
+    left: 190px;
+    top: 75px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 60px;
+    line-height: 75px;
+    text-align: center;
+
+    color: #000000;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &.back-button-text {
+    width: 157px;
+    height: 50px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+}
+
+.player {
+  &.container {
+    position: absolute;
+    width: 675px;
+    height: 90px;
+    left: 38px;
+    top: 300px;
+
+    background: rgba(151, 225, 212, 0.35);
+    border-radius: 40px;
+  }
+
+  &.name {
+    position: absolute;
+    width: 108px;
+    height: 38px;
+    left: 100px;
+    top: 25px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.points {
+    position: absolute;
+    width: 63px;
+    height: 47.16px;
+    left: 500px;
+    top: 10px;
+
+    font-family: 'Mulish';
+    font-style: italic;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 44px;
+    text-align: center;
+
+    color: #000000;
+  }
+
+  &.points-text {
+    position: absolute;
+    width: 92px;
+    height: 33.23px;
+    left: 485px;
+    top: 50px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 31px;
+    text-align: center;
+
+    color: #000000;
+
+  }
+}
+
+.leader {
+  &.container {
+    position: absolute;
+    width: 675px;
+    height: 100px;
+    left: 38px;
+    top: 200px;
+
+    background: linear-gradient(180deg, rgba(5, 57, 48, 0.2) 0%, rgba(0, 0, 0, 0) 100%), #A8F3E5;
+    border-radius: 50px;
+  }
+
+  &.name {
+    position: absolute;
+    width: 113px;
+    height: 38px;
+    left: 25px;
+    top: 50px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.points {
+    position: absolute;
+    width: 126px;
+    height: 88px;
+    left: 475px;
+    top: -35px;
+
+    font-family: 'Mulish';
+    font-style: italic;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 88px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &.points-text {
+    position: absolute;
+    width: 112px;
+    height: 38px;
+    left: 475px;
+    top: 35px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+  }
+}
