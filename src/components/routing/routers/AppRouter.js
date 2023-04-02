@@ -41,9 +41,7 @@ const AppRouter = () => {
           </LoginGuard>
         </Route>
         <Route exact path= "/users/:userId">
-            <UserPageGuard>
                 <UserPage/>
-            </UserPageGuard>
         </Route>
         <Route exact path= "/users/:userId/edit">
             <UserPageGuard>
