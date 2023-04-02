@@ -8,6 +8,7 @@ import Register from "components/views/Register";
 import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
 import Lobby from "components/views/Lobby";
+import Rounds from "components/views/Rounds";
 import HomePage from "components/views/HomePage";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
@@ -58,6 +59,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path ="/lobby/:lobbyId">
             <Lobby/>
+        </Route>
+        <Route excat path ="/lobby/:lobbyId/rounds">
+            <Rounds/>
         </Route>
       </Switch>
     </BrowserRouter>
