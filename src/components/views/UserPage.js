@@ -19,7 +19,7 @@ const UserPage = () => {
     async function fetchData() {
         try {
             const response = await api.get('/users/'+ userId, {headers: {Token: localStorage.getItem("token")}});
-            await new Promise(resolve => setTimeout(resolve, 500));
+            //await new Promise(resolve => setTimeout(resolve, 500));
             setUser(response.data);
             setCurrentID(response.headers.id);
         } catch (error) {
@@ -39,12 +39,6 @@ const UserPage = () => {
                    <Button width="100%" style={{marginRight: "2px"}} onClick={() => history.goBack()}> back </Button>
                 </div>);
 
-  if(currentID === userId){
-    buttons= (<div className = "userPage button-container">
-                <Button width="50%" style={{marginRight: "2px"}} onClick={() => history.push(`/game`)}> back </Button>
-                <Button width="50%" style={{marginLeft: "2px"}} onClick={() => editProfile()}> edit </Button>
-             </div>);
-  }
   if(user){
     if(user.birthday){birthday = (<div> BIRTHDAY: {user.birthday} </div>);}
     content = (
@@ -62,11 +56,35 @@ const UserPage = () => {
   }
   return (
       <BaseContainer>
+          <div className="base-container ellipse1">
+          </div>
+          <div className="base-container ellipse2">
+          </div>
+          <div className="base-container ellipse3">
+          </div>
+          <div className="base-container ellipse4">
+          </div>
        <div className="userPage container">
-       <div className= "userPage form">
-        <h2>Profile Page</h2>
-        {content}
-       </div>
+           <div className="userPage username-container">
+               <div className="userPage username-text">
+                   Username: ?
+               </div>
+           </div>
+           <div className="userPage score-container">
+               <div className="userPage score">
+                    Score: ?
+               </div>
+           </div>
+           <div className="userPage games-played-container">
+               <div className="userPage games-played-text">
+                   Games played: ?
+               </div>
+           </div>
+           <div className="userPage games-won-container">
+               <div className="userPage games-won-text">
+                   Games won: ?
+               </div>
+           </div>
        </div>
       </BaseContainer>
     );
