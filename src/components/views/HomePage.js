@@ -4,11 +4,13 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import {api, handleError} from 'helpers/api';
+import User from "../../models/User";
+import Lobby from "../../models/Lobby";
 
 const HomePage = () => {
     const history = useHistory();
+    const userId = localStorage.getItem('id');
     const goToProfile = () => {
-      const userId = localStorage.getItem('id');
       history.push(`/users/${userId}`);
     };
     const logout = async () => {
@@ -19,6 +21,14 @@ const HomePage = () => {
         localStorage.removeItem('id');
         history.push('/login');
       }
+
+    async function createLobby() {
+        let requestBody = JSON.stringify({userId});
+        const response = await api.put('/v1/lobbies', requestBody, {headers: {Token: localStorage.getItem("token")}});
+        const lobby = new Lobby(response.data);
+        localStorage.setItem('lobbyId', lobby.id);
+        history.push("/lobby/{lobbyId}")
+    }
 
     return (
         <BaseContainer>
@@ -56,7 +66,7 @@ const HomePage = () => {
                     Join a lobby
                 </div>
             </Button>
-            <Button className="create-lobby-button" onClick={() => history.push('/rounds')}
+            <Button className="create-lobby-button" onClick={() => createLobby()}
 
             >
                 <div className="home-page create-lobby-button-text">

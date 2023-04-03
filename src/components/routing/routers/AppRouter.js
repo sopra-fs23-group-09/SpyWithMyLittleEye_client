@@ -9,7 +9,7 @@ import HomePage from "components/views/HomePage";
 import Leaderboard from "components/views/Leaderboard";
 import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
-import Lobby from "components/views/Lobby";
+import Lobby from "components/views/LobbyView";
 import Code from "components/views/Code";
 import Rounds from "components/views/Rounds";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
