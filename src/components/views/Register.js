@@ -49,7 +49,7 @@ const Register = props => {
       localStorage.setItem('token', user.token);
       localStorage.setItem('id', user.id);
 
-      history.push(`/HomePage`);
+      history.push(`/home`);
     } catch (error) {
       alert(`Something went wrong during the registration: \n${handleError(error)}`);
     }
@@ -97,7 +97,7 @@ const Register = props => {
                                 <div className= "login login-line">
                                 </div>
                             <div className="login register-text">
-                              Already have an account? <a href="#" onClick={() => window.location.href = '/Login'}>Log in</a>
+                              Already have an account? <a href="#" onClick={() => window.location.href = '/login'}>Log in</a>
                             </div>
               </div>
             </div>

@@ -66,7 +66,7 @@ const AppRouter = () => {
         <Route exact path ="/lobby/:lobbyId">
             <Lobby/>
         </Route>
-        <Route excat path ="/lobby/:lobbyId/rounds">
+        <Route exact path ="/rounds">
             <Rounds/>
         </Route>
       </Switch>
