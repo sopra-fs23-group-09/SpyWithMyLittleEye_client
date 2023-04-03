@@ -1,9 +1,10 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/Lobby.scss';
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {api, handleError} from "../../helpers/api";
 
 const Stomp = require('@stomp/stompjs');
 var ws = null;
@@ -33,17 +34,46 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
-    ws.send("/app/hello", {}, JSON.stringify({"name": $("#name").val()}));
-}
-
 const Lobby = () => {
+    let userId = localStorage.getItem("id");
+    var [lobby, setLobby] = useState(null);
+    var [host, setHost] = useState(null);
+    var [users, setUsers] = useState(null);
+    let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
     const [rounds, setRounds] = useState("");
 
+    useEffect(() => {
+        async function fetchData() {
+            connect();
+            ws.subscribe("/lobbies/" + lobbyId, function(data) {
+                setLobby(data);
+                setHost(lobby.host);
+                setUsers(lobby.users);
+                console.log(data);
+            })
+        }
+        fetchData();
+    },[lobbyId]);
+
+    function startGame() {
+        const requestBody = JSON.stringify({lobbyId});
+        ws.send("/POST/games", {}, requestBody);
+        history.push(`/register`);
+    }
+
+    let button_startGame = (<div></div>);
+    if((host.id === userId) && (users.length >= 2)) {
+        button_startGame = (<Button className="primary-button"
+        >
+            <div className="lobby button-text">
+                Start game
+            </div>
+        </Button>)
+    }
 
 
-    return (
+        return (
         <BaseContainer>
             <div className="base-container ellipse1">
             </div>
@@ -55,17 +85,17 @@ const Lobby = () => {
             </div>
             <div className="lobby lobby-code">
                 <div className="lobby lobby-code-text">
-                    Code:
+                    Code: {lobby.accessCode}
                 </div>
             </div>
             <div className="lobby rounds-box">
                 <div className="lobby rounds-text">
-                    Rounds:
+                    Rounds: {lobby.rounds}
                 </div>
             </div>
             <div className="lobby player-amount-container">
                 <div className="lobby player-amount-text">
-                    ?/10
+                    {lobby.users.length}/10
                 </div>
             </div>
             <div className="lobby lobby-text">
@@ -77,18 +107,8 @@ const Lobby = () => {
                 <div className="lobby player-name">
                     PlayerName
                 </div>
-                <div>
-                    <p>WebSocket status: {readyState}</p>
-                    <p>Last message: {lastMessage && lastMessage.data}</p>
-                    <button onClick={handleMessageSend}>Send message</button>
-                </div>
             </div>
-            <Button className="primary-button"
-            >
-                <div className="lobby button-text">
-                    Start game
-                </div>
-            </Button>
+            {button_startGame}
         </BaseContainer>
     );
 
