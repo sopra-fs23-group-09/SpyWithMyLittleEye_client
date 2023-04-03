@@ -8,7 +8,15 @@ import {api, handleError} from "../../helpers/api";
 
 const Stomp = require('@stomp/stompjs');
 var ws = null;
+var connected = "Uninstantiated";
+function setConnected(connected) {
+    if (connected) {
+        connected = "Connected";
+    } else {
+        connected = "Disconnected";
+    }
 
+}
 function connect() {
     var socket = new WebSocket("ws://localhost:8008/greetings");
     ws = Stomp.overSocket(socket);
@@ -34,7 +42,7 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-const Lobby = () => {
+const LobbyView = () => {
     let userId = localStorage.getItem("id");
     var [lobby, setLobby] = useState(null);
     var [host, setHost] = useState(null);
