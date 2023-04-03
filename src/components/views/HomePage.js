@@ -3,9 +3,18 @@ import 'styles/views/HomePage.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
+import {api, handleError} from 'helpers/api';
 
 const HomePage = () => {
     const history = useHistory();
+    const logout = async () => {
+        const title = {title: 'logout request'};
+        await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        history.push('/login');
+      }
 
     return (
         <BaseContainer>
@@ -32,17 +41,13 @@ const HomePage = () => {
                             Profile
                         </div>
                     </Button>
-                    <Button className="logout-button"
-
-                    >
+                    <Button className="logout-button" onClick={() => logout()}>
                         <div className="home-page logout-text">
                             Log out
                         </div>
                     </Button>
             </div>
-            <Button className="join-lobby-button"
-
-            >
+            <Button className="join-lobby-button">
                 <div className="home-page join-lobby-button-text">
                     Join a lobby
                 </div>
