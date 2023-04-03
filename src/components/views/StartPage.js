@@ -23,14 +23,12 @@ const StartPage = () => {
             <div className="start-page nose">
                 Y
             </div>
-            <Button className="login-button-start-page"
-
-            >
+            <Button className="login-button-start-page" onClick={() => history.push('/login')}>
                 <div className="start-page login-button-text">
                     Log in
                 </div>
             </Button>
-            <Button className="signup-button-start-page"
+            <Button className="signup-button-start-page" onClick={() => history.push('/register')}
 
             >
                 <div className="start-page signup-button-text">
