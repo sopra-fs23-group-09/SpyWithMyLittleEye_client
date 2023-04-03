@@ -3,8 +3,10 @@ import 'styles/views/Rounds.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {api} from "../../helpers/api";
+import Lobby from "../../models/Lobby";
 
 
 const FormField = props => {
@@ -25,8 +27,21 @@ FormField.propTypes = {
     onChange: PropTypes.func,
 };
 
-const Rounds = () => {
+const SetRounds = () => {
     const history = useHistory();
+    const userId = localStorage.getItem('id');
+    const [rounds, setRounds] = useState(null);
+
+
+    async function createLobby() {
+        let requestBody = JSON.stringify({userId,rounds});
+        const response = await api.put('/v1/lobbies', requestBody, {headers: {Token: localStorage.getItem("token")}});
+        console.log(response);
+        const lobby = new Lobby(response.data);
+        localStorage.setItem('lobbyId', lobby.id);
+        history.push("/lobby/{lobbyId}")
+    }
+
 
     return (
         <BaseContainer>
@@ -43,10 +58,10 @@ const Rounds = () => {
             </div>
             <FormField
                 placeholder = "Enter your number..."
-                //value={username}
-                //onChange={un => setUsername(un)}
+                value={rounds}
+                onChange={un => setRounds(un)}
             />
-            <Button className="ok-button"
+            <Button className="ok-button" onClick={() => createLobby()}
 
             >
                 <div className="rounds ok-button-text">
@@ -58,4 +73,4 @@ const Rounds = () => {
 
 };
 
-export default Rounds;
+export default SetRounds;

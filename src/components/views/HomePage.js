@@ -22,14 +22,6 @@ const HomePage = () => {
         history.push('/login');
       }
 
-    async function createLobby() {
-        let requestBody = JSON.stringify({userId});
-        const response = await api.put('/v1/lobbies', requestBody, {headers: {Token: localStorage.getItem("token")}});
-        const lobby = new Lobby(response.data);
-        localStorage.setItem('lobbyId', lobby.id);
-        history.push("/lobby/{lobbyId}")
-    }
-
     return (
         <BaseContainer>
             <div className="base-container ellipse1">
@@ -66,7 +58,7 @@ const HomePage = () => {
                     Join a lobby
                 </div>
             </Button>
-            <Button className="create-lobby-button" onClick={() => createLobby()}
+            <Button className="create-lobby-button" onClick={() => history.push('/rounds')}
 
             >
                 <div className="home-page create-lobby-button-text">

@@ -11,7 +11,7 @@ import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
 import Lobby from "components/views/LobbyView";
 import Code from "components/views/Code";
-import Rounds from "components/views/Rounds";
+import SetRounds from "components/views/SetRounds";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
 /**
@@ -67,7 +67,7 @@ const AppRouter = () => {
             <Lobby/>
         </Route>
         <Route exact path ="/rounds">
-            <Rounds/>
+            <SetRounds/>
         </Route>
       </Switch>
     </BrowserRouter>
