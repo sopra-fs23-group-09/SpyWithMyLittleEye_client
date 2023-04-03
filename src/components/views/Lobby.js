@@ -3,29 +3,45 @@ import 'styles/views/Lobby.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
-import useWebSocket, { ReadyState } from 'react-use-websocket';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
+const Stomp = require('@stomp/stompjs');
+var ws = null;
 
+function connect() {
+    var socket = new WebSocket("ws://localhost:8008/greetings");
+    ws = Stomp.overSocket(socket);
+
+    ws.connect({}, function(frame) {
+        setConnected(true);
+        console.log("Connected: "+frame);
+        ws.subscribe("/greetings/reply", function(message) {
+            console.log(JSON.parse(message.body).content);
+        })
+        ws.subscribe("/queue/errors", function(message) {
+            alert("Error " + message.body);
+        }); // Subscribe to error messages through this
+    }, function(error) {
+        alert("STOMP error " + error)
+    });
+
+}
+
+function disconnect() {
+    if (ws != null) ws.disconnect();
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+function sendName() {
+    ws.send("/app/hello", {}, JSON.stringify({"name": $("#name").val()}));
+}
 
 const Lobby = () => {
     const history = useHistory();
     const [rounds, setRounds] = useState("");
 
-    const { sendMessage, lastMessage, readyState } = useWebSocket('ws://127.0.0.1:8080');
 
-    const handleMessageSend = () => {
-        sendMessage('Hello, WebSocket!');
-    };
-    const connectionStatus = {
-        [ReadyState.CONNECTING]: 'Connecting',
-        [ReadyState.OPEN]: 'Open',
-        [ReadyState.CLOSING]: 'Closing',
-        [ReadyState.CLOSED]: 'Closed',
-        [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-    }[readyState];
-
-    console.log(connectionStatus);
 
     return (
         <BaseContainer>
