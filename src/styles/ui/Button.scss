@@ -289,19 +289,42 @@
   gap: 10px;
 
   position: absolute;
-  width: 199px;
-  height: 69px;
-  left: 413px;
-  top: 833px;
+  width: 150px;
+  height: 50px;
+  left: 195px;
+  top: 500px;
 
   background: #97E1D4;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
+  border: none;
 }
 
-.profile-back-button {
+.userPage-back-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  left: 445px;
+  top: 500px;
+
+  background: #97E1D4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 40px;
+  border: none;
+}
+
+.edit-page-back-button {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -312,13 +335,38 @@
   position: absolute;
   width: 199px;
   height: 69px;
-  left: 828px;
-  top: 833px;
+  left: 415px;
+  top: 475px;
 
   background: #97E1D4;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
+  border: none;
 }
+
+.edit-page-save-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 199px;
+  height: 69px;
+  left: 145px;
+  top: 475px;
+
+  background: #97E1D4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 40px;
+  border: none;
+}
+
+
 
