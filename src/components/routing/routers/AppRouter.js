@@ -36,12 +36,12 @@ const AppRouter = () => {
           <StartPage/>
         </Route>
         <Route exact path="/login">
-          <LoginGuard>
-            <Login/>
-          </LoginGuard>
-        </Route>
+            <LoginGuard>
+                <Login/>
+            </LoginGuard>
+        </Route>npm
         <Route exact path= "/users/:userId">
-                <UserPage/>
+            <UserPage/>
         </Route>
         <Route exact path= "/users/:userId/edit">
             <UserPageGuard>
