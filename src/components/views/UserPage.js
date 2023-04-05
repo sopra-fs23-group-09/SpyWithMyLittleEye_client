@@ -85,6 +85,20 @@ const UserPage = () => {
                    Games won: ?
                </div>
            </div>
+           <Button className="userPage-back-button"
+
+           >
+               <div className="userPage back-button-text">
+                   Back
+               </div>
+           </Button>
+           <Button className="edit-button"
+
+           >
+               <div className="userPage edit-button-text">
+                   Edit
+               </div>
+           </Button>
        </div>
       </BaseContainer>
     );

@@ -2,19 +2,26 @@ import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/Login.scss';
+import 'styles/views/EditPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {useParams} from 'react-router-dom';
 
-const FormField = props => {
+
+// <FormField
+//             label="Birthday"
+//             value={birthday}
+//             type = "date"
+//             onChange={n => setBirthday(n)}
+//           />
+const FormFieldUsername = props => {
   return (
-    <div className="login field">
-      <label className="login label">
+    <div className="user-edit-page username-field">
+      <label className="user-edit-page username-label">
         {props.label}
       </label>
       <input
-        className="login input"
+        className="user-edit-page username-input"
         placeholder={props.placeholder}
         value={props.value}
         type = {props.type}
@@ -24,7 +31,32 @@ const FormField = props => {
   );
 };
 
-FormField.propTypes = {
+const FormFieldPassword = props => {
+  return (
+      <div className="user-edit-page password-field">
+        <label className="user-edit-page password-label">
+          {props.label}
+        </label>
+        <input
+            className="user-edit-page password-input"
+            placeholder={props.placeholder}
+            value={props.value}
+            type = {props.type}
+            onChange={e => props.onChange(e.target.value)}
+        />
+      </div>
+  );
+};
+
+FormFieldUsername.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  type: PropTypes.string
+};
+
+FormFieldPassword.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
@@ -53,39 +85,48 @@ const EditPage = props => {
   }
   return (
     <BaseContainer>
-      <div className="login container">
-        <div className="login form">
-          <FormField
-            label="Username"
-            placeholder="enter here.."
+      <div className="base-container ellipse1">
+      </div>
+      <div className="base-container ellipse2">
+      </div>
+      <div className="base-container ellipse3">
+      </div>
+      <div className="base-container ellipse4">
+      </div>
+      <div className="user-edit-page container">
+          <FormFieldUsername
+            label="Enter your new username:"
+            placeholder="New username..."
             value={username}
             type = "text"
             onChange={un => setUsername(un)}
           />
-          <FormField
-            label="Birthday"
-            value={birthday}
-            type = "date"
-            onChange={n => setBirthday(n)}
+          <FormFieldPassword
+              label="Enter your new password:"
+              placeholder="New password..."
+              value={username}
+              type = "text"
+              onChange={un => setUsername(un)}
           />
-          <div className="login button-container">
-            <Button
+          <Button className="edit-page-back-button"
               style={{marginRight: "2px"}}
-              width="50%"
+              width="30%"
               onClick={() => history.goBack()}
             >
+            <div className="user-edit-page back-button-text">
               Back
-            </Button>
-            <Button
-               style={{marginLeft: "2px"}}
-               disabled={!username && !birthday}
-               width="50%"
-               onClick={() => doUpdate()}
-             >
-             Save
-             </Button>
-          </div>
-        </div>
+            </div>
+          </Button>
+          <Button className="edit-page-save-button"
+              style={{marginLeft: "2px"}}
+              disabled={!username && !birthday}
+              width="30%"
+              onClick={() => doUpdate()}
+          >
+            <div className="user-edit-page save-button-text">
+              Save
+            </div>
+          </Button>
       </div>
     </BaseContainer>);
 
