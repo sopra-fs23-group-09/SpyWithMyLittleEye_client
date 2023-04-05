@@ -4,9 +4,15 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import {api, handleError} from 'helpers/api';
+import User from "../../models/User";
+import Lobby from "../../models/Lobby";
 
 const HomePage = () => {
     const history = useHistory();
+    const userId = localStorage.getItem('id');
+    const goToProfile = () => {
+        history.push(`/users/${userId}`);
+    };
     const logout = async () => {
         const title = {title: 'logout request'};
         await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
@@ -14,7 +20,7 @@ const HomePage = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         history.push('/login');
-      }
+    }
 
     return (
         <BaseContainer>
@@ -27,32 +33,32 @@ const HomePage = () => {
             <div className="base-container ellipse4">
             </div>
             <div className="home-page navigation-bar">
-                    <Button className="ranking-button"
+                <Button className="ranking-button" onClick={() => history.push('/leaderboard')}
 
-                    >
-                        <div className="home-page ranking-text">
-                            Ranking
-                        </div>
-                    </Button>
-                    <Button className="profile-button"
+                >
+                    <div className="home-page ranking-text">
+                        Ranking
+                    </div>
+                </Button>
+                <Button className="profile-button" onClick={goToProfile}
 
-                    >
-                        <div className="home-page profile-text">
-                            Profile
-                        </div>
-                    </Button>
-                    <Button className="logout-button" onClick={() => logout()}>
-                        <div className="home-page logout-text">
-                            Log out
-                        </div>
-                    </Button>
+                >
+                    <div className="home-page profile-text">
+                        Profile
+                    </div>
+                </Button>
+                <Button className="logout-button" onClick={() => logout()}>
+                    <div className="home-page logout-text">
+                        Log out
+                    </div>
+                </Button>
             </div>
-            <Button className="join-lobby-button">
+            <Button className="join-lobby-button" onClick={() => history.push('/code')}>
                 <div className="home-page join-lobby-button-text">
                     Join a lobby
                 </div>
             </Button>
-            <Button className="create-lobby-button"
+            <Button className="create-lobby-button" onClick={() => history.push('/rounds')}
 
             >
                 <div className="home-page create-lobby-button-text">
