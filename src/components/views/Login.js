@@ -50,7 +50,7 @@ const Login = props => {
       localStorage.setItem('token', token);
       localStorage.setItem('id', id);
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game`);
+      history.push(`/home`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }

@@ -4,11 +4,9 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import {api, handleError} from 'helpers/api';
-import {useEffect, useState} from "react";
 
 const HomePage = () => {
     const history = useHistory();
-
     const logout = async () => {
         const title = {title: 'logout request'};
         await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
@@ -16,7 +14,7 @@ const HomePage = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         history.push('/login');
-    }
+      }
 
     return (
         <BaseContainer>
