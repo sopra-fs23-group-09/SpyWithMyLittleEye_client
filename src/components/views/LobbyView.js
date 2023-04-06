@@ -1,46 +1,11 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
-import {useHistory, useParams} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import React, {useEffect, useState} from 'react';
-import {api, handleError} from "../../helpers/api";
+import {connect, getConnection, subscribe} from "../../helpers/stompClient";
 
-const Stomp = require('@stomp/stompjs');
-var ws = null;
-var connected = "Uninstantiated";
-function setConnected(connected) {
-    if (connected) {
-        connected = "Connected";
-    } else {
-        connected = "Disconnected";
-    }
-
-}
-function connect() {
-    var socket = new WebSocket("ws://localhost:8008/greetings");
-    ws = Stomp.overSocket(socket);
-
-    ws.connect({}, function(frame) {
-        setConnected(true);
-        console.log("Connected: "+frame);
-        ws.subscribe("/greetings/reply", function(message) {
-            console.log(JSON.parse(message.body).content);
-        })
-        ws.subscribe("/queue/errors", function(message) {
-            alert("Error " + message.body);
-        }); // Subscribe to error messages through this
-    }, function(error) {
-        alert("STOMP error " + error)
-    });
-
-}
-
-function disconnect() {
-    if (ws != null) ws.disconnect();
-    setConnected(false);
-    console.log("Disconnected");
-}
 
 const LobbyView = () => {
     let userId = localStorage.getItem("id");
@@ -52,22 +17,27 @@ const LobbyView = () => {
     const [rounds, setRounds] = useState("");
 
     useEffect(() => {
-        async function fetchData() {
-            connect();
-            ws.subscribe("/lobbies/" + lobbyId, function(data) {
-                setLobby(data);
-                setHost(lobby.host);
-                setUsers(lobby.users);
-                console.log(data);
-            })
+        if (getConnection()) {
+            subscribeToLobbyInformation();
+        } else {
+            connect(subscribeToLobbyInformation)
         }
-        fetchData();
-    },[lobbyId]);
+    },[]);
 
     function startGame() {
-        const requestBody = JSON.stringify({lobbyId});
-        ws.send("/POST/games", {}, requestBody);
-        history.push(`/register`);
+        startGame(lobbyId);
+        // TODO get gameId
+        history.push(`/game/` + 1);
+    }
+
+    function subscribeToLobbyInformation() {
+        subscribe("/lobbies/" + lobbyId,(data) => {
+            setLobby(data);
+            setHost(lobby.host);
+            setUsers(lobby.users);
+            setRounds(lobby.rounds);
+            console.log(data);
+        });
     }
 
     let button_startGame = (<div></div>);

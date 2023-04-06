@@ -19,7 +19,7 @@ const Game = () => {
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [users, setUsers] = useState(null);
 
-  const logout = async () => {
+  const logout = async () => { // TODO shall logout be allowed during the game? How will we deal with it?
     const title = {title: 'logout request'};
     await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
 
