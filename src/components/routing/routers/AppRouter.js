@@ -14,6 +14,7 @@ import Code from "components/views/Code";
 import SetRounds from "components/views/SetRounds";
 import SetLocation from "components/views/SetLocation";
 import Guessing from "components/views/Guessing";
+import RoundOver from "components/views/RoundOver";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
 /**
@@ -71,6 +72,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/game/:gameId/guesses">
             <Guessing/>
+        </Route>
+        <Route exact path ="/game/:gameId/rounds/score">
+            <RoundOver/>
         </Route>
       </Switch>
     </BrowserRouter>
