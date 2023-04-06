@@ -1,0 +1,191 @@
+
+.gameover {
+  &.container {
+    position: absolute;
+    width: 1000px;
+    height: 700px;
+    left: 225px;
+    top: 125px;
+
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+  }
+
+  &.header {
+    position: absolute;
+    width: 700px;
+    height: 88px;
+    left: 150px;
+    top: 50px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 88px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #97E1D4;
+  }
+
+  &.leaderboard-text {
+    position: absolute;
+    width: 184px;
+    height: 38px;
+    left: 400px;
+    top: 225px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: black;
+
+  }
+
+  &.ok-button-text {
+    width: 73px;
+    height: 63px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+}
+
+.finalscore {
+  &.name-1st {
+    position: absolute;
+    width: 113px;
+    height: 38px;
+    left: 435px;
+    top: 450px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+  }
+
+  &.points-1st {
+    position: absolute;
+    width: 60px;
+    height: 63px;
+    left: 465px;
+    top: 525px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+
+  &.name-2nd {
+    position: absolute;
+    width: 113px;
+    height: 38px;
+    left: 300px;
+    top: 475px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.points-2nd {
+    position: absolute;
+    width: 48px;
+    height: 50px;
+    left: 333px;
+    top: 550px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &.name-3rd {
+    position: absolute;
+    width: 113px;
+    height: 38px;
+    left: 570px;
+    top: 475px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.points-3rd {
+    position: absolute;
+    width: 48px;
+    height: 50px;
+    left: 605px;
+    top: 550px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
