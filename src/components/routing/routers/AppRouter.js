@@ -1,7 +1,6 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {GameGuard} from "components/routing/routeProtectors/GameGuard";
-import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
+import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 import StartPage from "components/views/StartPage";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
@@ -16,7 +15,8 @@ import SetLocation from "components/views/SetLocation";
 import Guessing from "components/views/Guessing";
 import RoundOver from "components/views/RoundOver";
 import GameOver from "components/views/GameOver";
-import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
+import {GameGuard} from "../routeProtectors/GameGuard";
+
 
 /**
  * Main router of your application.
@@ -38,9 +38,11 @@ const AppRouter = () => {
             <LoginGuard>
                 <Login/>
             </LoginGuard>
-        </Route>npm
+        </Route>
         <Route exact path= "/users/:userId">
-            <UserPage/>
+            <GameGuard>
+                <UserPage/>
+            </GameGuard>
         </Route>
         <Route exact path= "/users/:userId/edit">
             <UserPageGuard>
@@ -48,22 +50,30 @@ const AppRouter = () => {
             </UserPageGuard>
         </Route>
         <Route exact path="/register">
-          <Register/>
+            <Register/>
         </Route>
         <Route exact path="/">
           <Redirect to="/start"/>
         </Route>
         <Route exact path ="/home">
-            <HomePage/>
+            <GameGuard>
+                <HomePage/>
+            </GameGuard>
         </Route>
         <Route exact path="/leaderboard">
-            <Leaderboard/>
+            <GameGuard>
+                <Leaderboard/>
+            </GameGuard>
         </Route>
         <Route exact path ="/code">
-            <Code/>
+            <GameGuard>
+                <Code/>
+            </GameGuard>
         </Route>
         <Route exact path="/rounds">
-            <SetRounds/>
+            <GameGuard>
+                <SetRounds/>
+            </GameGuard>
         </Route>
         <Route exact path ="/lobby/:lobbyId">
             <Lobby/>
