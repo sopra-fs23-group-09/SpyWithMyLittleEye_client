@@ -81,7 +81,7 @@ const EditPage = props => {
   };
 
   if (localStorage.getItem("id") !== userId) {
-    history.push("/homePage");
+    history.push("/home");
   }
   return (
     <BaseContainer>
