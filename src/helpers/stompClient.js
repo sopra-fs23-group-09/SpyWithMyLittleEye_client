@@ -4,8 +4,8 @@ import {useHistory, useParams} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import React, {useEffect, useState} from 'react';
-import {api, handleError} from "../../helpers/api";
 import {getDomain} from "./getDomain";
+
 
 const Stomp = require('@stomp/stompjs');
 var ws = null;

@@ -4,7 +4,9 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import React, {useEffect, useState} from 'react';
+import Lobby from 'models/Lobby.js';
 import {connect, getConnection, subscribe} from "../../helpers/stompClient";
+import User from "../../models/User";
 
 
 const LobbyView = () => {
@@ -14,7 +16,6 @@ const LobbyView = () => {
     var [users, setUsers] = useState(null);
     let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
-    const [rounds, setRounds] = useState("");
 
     useEffect(() => {
         if (getConnection()) {
@@ -27,16 +28,16 @@ const LobbyView = () => {
     function startGame() {
         startGame(lobbyId);
         // TODO get gameId
+        localStorage.setItem("gameId", gameId)
         history.push(`/game/` + 1);
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/lobbies/" + lobbyId,(data) => {
-            setLobby(data);
+        subscribe("/lobbies/" + lobbyId,(response) => {
+            setLobby(new Lobby(response.data));
             setHost(lobby.host);
             setUsers(lobby.users);
-            setRounds(lobby.rounds);
-            console.log(data);
+            console.log(response.data);
         });
     }
 

@@ -6,27 +6,53 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 //import PropTypes from "prop-types";
 import "styles/views/Game.scss";
+import Game from 'models/Game.js';
+import {connect, getConnection, subscribe} from "../../helpers/stompClient";
+import Lobby from "../../models/Lobby";
+import Round from "../../models/Round";
 
 
-const Game = () => {
+const GameView = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
-
-  // define a state variable (using the state hook).
-  // if this variable changes, the component will re-render, but the variable will
-  // keep its value throughout render cycles.
-  // a component can have as many state variables as you like.
-  // more information can be found under https://reactjs.org/docs/hooks-state.html
+  let gameId = localStorage.getItem("gameId");
   const [users, setUsers] = useState(null);
+  var [game, setGame] = useState(null);
+  var [round, setRound] = useState(null);
+
 
   const logout = async () => { // TODO shall logout be allowed during the game? How will we deal with it?
+    // Thereza: I don't think it should
     const title = {title: 'logout request'};
     await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
-
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     history.push('/login');
   }
+
+  useEffect(() => {
+    if (getConnection()) {
+      subscribeToGameInformation();
+    } else {
+      connect(subscribeToGameInformation)
+    }
+  },[]);
+
+  function subscribeToGameInformation() {
+    subscribe("/games/" + gameId,(response) => {
+      setGame(new Game(response.data));
+      console.log(response.data);
+      setRound(game.currentRound);
+      subscribeToRoundInformation();
+    });
+  }
+
+  function subscribeToRoundInformation() {
+    subscribe("/games/" + gameId + "/round",(response) => {
+      setRound(new Round(response.data));
+    });
+  }
+
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
   // this can be achieved by leaving the second argument an empty array.
@@ -100,4 +126,4 @@ const Game = () => {
   );
 }
 
-export default Game;
+export default GameView;
