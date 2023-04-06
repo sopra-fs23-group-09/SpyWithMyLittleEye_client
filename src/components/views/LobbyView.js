@@ -42,7 +42,7 @@ const LobbyView = () => {
 
     let button_startGame = (<div></div>);
     if((host) && (host.id === userId) && (users.length >= 2)) {
-        button_startGame = (<Button className="primary-button"
+        button_startGame = (<Button className="primary-button"}
         >
             <div className="lobby button-text">
                 Start game
@@ -79,13 +79,17 @@ const LobbyView = () => {
             <div className="lobby lobby-text">
                 LOBBY
             </div>
-            <div className="lobby player">
-                <div className="lobby profile-picture">
-                </div>
-                <div className="lobby player-name">
-                    PlayerName
-                </div>
-            </div>
+            <ul className="game user-list">
+                {users.map(user => (
+                    <div className="lobby player">
+                        <div className="lobby profile-picture">
+                        </div>
+                        <div className="lobby player-name">
+                        user.username
+                        </div>
+                    </div>
+                ))}
+            </ul>
             {button_startGame}
         </BaseContainer>
     );
