@@ -42,7 +42,7 @@ const LobbyView = () => {
 
     let button_startGame = (<div></div>);
     if((host) && (host.id === userId) && (users.length >= 2)) {
-        button_startGame = (<Button className="primary-button"}
+        button_startGame = (<Button className="primary-button" onClick = {() => startGame()}
         >
             <div className="lobby button-text">
                 Start game
