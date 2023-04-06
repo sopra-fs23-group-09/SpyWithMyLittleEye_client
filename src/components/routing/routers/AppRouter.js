@@ -12,6 +12,7 @@ import EditPage from "components/views/EditPage";
 import Lobby from "components/views/LobbyView";
 import Code from "components/views/Code";
 import SetRounds from "components/views/SetRounds";
+import SetLocation from "components/views/SetLocation";
 import {UserPageGuard} from "components/routing/routeProtectors/UserPageGuard";
 
 /**
@@ -27,11 +28,6 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/game">
-          <GameGuard>
-            <GameRouter base="/game"/>
-          </GameGuard>
-        </Route>
         <Route exact path="/start">
           <StartPage/>
         </Route>
@@ -63,11 +59,14 @@ const AppRouter = () => {
         <Route exact path ="/code">
             <Code/>
         </Route>
+        <Route exact path="/rounds">
+            <SetRounds/>
+        </Route>
         <Route exact path ="/lobby/:lobbyId">
             <Lobby/>
         </Route>
-        <Route exact path ="/rounds">
-            <SetRounds/>
+        <Route exact path="/game/:gameId/location">
+            <SetLocation/>
         </Route>
       </Switch>
     </BrowserRouter>
