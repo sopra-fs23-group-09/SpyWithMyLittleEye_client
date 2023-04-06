@@ -18,7 +18,6 @@ const FormFieldObject = props => {
                 placeholder={props.placeholder}
                 value={props.value}
                 type = {props.type}
-                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -35,7 +34,6 @@ const FormFieldColor= props => {
                 placeholder={props.placeholder}
                 value={props.value}
                 type = {props.type}
-                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -71,7 +69,7 @@ const SetLocation = props => {
             <div className="base-container ellipse4">
             </div>
             <div className="setlocation header">
-                Choose a location by dragging a figurine into it
+                Choose a location by dragging the figurine into it
             </div>
             <div className="setlocation role-container">
                 <div className="setlocation role-text">
