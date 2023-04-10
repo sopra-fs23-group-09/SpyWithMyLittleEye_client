@@ -27,8 +27,9 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         startGame(lobbyId);
-        // TODO get gameId 
-        localStorage.setItem("gameId", gameId)
+        // TODO get gameId
+        var gameId = "0";
+        localStorage.setItem("gameId", gameId);
         history.push(`/game/` + 1);
     }
 

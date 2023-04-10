@@ -1,20 +1,19 @@
-import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
-import {useHistory, useParams} from "react-router-dom";
-import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import React, {useEffect, useState} from 'react';
 import {getDomain} from "./getDomain";
+import {Stomp} from "stompjs";
 
 
-const Stomp = require('@stomp/stompjs');
+
+
+//const Stomp = require('@stomp/stompjs');
 var ws = null;
 var connection = false;
 const baseURL = getDomain();
 
 export const connect = (callback) => {
     var socket = new WebSocket(baseURL + "/ws");
-    ws = Stomp.overSocket(socket);
+    ws = Stomp.over(socket);
     ws.connect({}, function() {
         console.log("Socket was connected.")
         connection = true;

@@ -16,7 +16,7 @@ const FormField = props => {
                 className="rounds input"
                 placeholder={props.placeholder}
                 value={props.value}
-                //onChange={e => props.onChange(e.target.value)}
+                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -30,12 +30,14 @@ FormField.propTypes = {
 const SetRounds = () => {
     const history = useHistory();
     const userId = localStorage.getItem('id');
-    const [rounds, setRounds] = useState(null);
+    const [amountRounds, setAmountRounds] = useState(null);
 
 
     async function createLobby() {
-        let requestBody = JSON.stringify({userId,rounds});
-        const response = await api.put('/v1/lobbies', requestBody, {headers: {Token: localStorage.getItem("token")}});
+        let token = localStorage.getItem("token");
+        const requestBody = JSON.stringify({amountRounds});
+        console.log(requestBody)
+        const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
         console.log(response);
         const lobby = new Lobby(response.data);
         localStorage.setItem('lobbyId', lobby.id);
@@ -58,8 +60,8 @@ const SetRounds = () => {
             </div>
             <FormField
                 placeholder = "Enter your number..."
-                value={rounds}
-                onChange={un => setRounds(un)}
+                value={amountRounds}
+                onChange={r => setAmountRounds(r)}
             />
             <Button className="ok-button" onClick={() => createLobby()}
 
