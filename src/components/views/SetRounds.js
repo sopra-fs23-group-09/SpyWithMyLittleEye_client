@@ -35,8 +35,8 @@ const SetRounds = () => {
 
     async function createLobby() {
         let token = localStorage.getItem("token");
-        const requestBody = JSON.stringify({amountRounds});
-        console.log(requestBody)
+        // TODO: Ensure amountRounds is an int
+        const requestBody = JSON.stringify(amountRounds);
         const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
         console.log(response);
         const lobby = new Lobby(response.data);
