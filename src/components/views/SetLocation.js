@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
@@ -6,7 +6,9 @@ import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {useParams} from 'react-router-dom';
+import { Loader } from "@googlemaps/js-api-loader"
 
+let map: google.maps.Map;
 const FormFieldObject = props => {
     return (
         <div className="setlocation object-field">
@@ -54,9 +56,24 @@ FormFieldColor.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string
 };
+const SetLocation = (props) => {
+  const history = useHistory();
+  const [map, setMap] = useState(null);
+  const loader = new Loader({
+    apiKey: 'AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ', // Replace with your Google Maps API key
+    version: 'weekly',
+  });
 
-const SetLocation = props => {
-    const history = useHistory();
+  useEffect(() => {
+    loader.load().then(() => {
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 47.36667, lng: 8.55 },
+        zoom: 8,
+      });
+      setMap(map);
+    });
+  }, []);
+
 
     return (
         <BaseContainer>
@@ -70,6 +87,9 @@ const SetLocation = props => {
             </div>
             <div className="setlocation header">
                 Choose a location by dragging the figurine into it
+            </div>
+            <div className="setlocation container">
+                    <div id="map"></div>
             </div>
             <div className="setlocation role-container">
                 <div className="setlocation role-text">
@@ -89,6 +109,9 @@ const SetLocation = props => {
                 placeholder="Your object..."
                 type = "text"
             />
+            <div className= "setlocation readytext">
+            Ready?
+            </div>
             <Button className="start-button"
 
             >
@@ -102,4 +125,3 @@ const SetLocation = props => {
 };
 
 export default SetLocation;
-
