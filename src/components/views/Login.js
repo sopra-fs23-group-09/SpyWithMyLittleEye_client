@@ -44,7 +44,7 @@ const Login = props => {
 
   const doLogin = async () => {
     try {
-      const response = await api.get('/v1/loginChecker?username='+ username + '&pass='+ password);
+      const response = await api.get('/users/login?username='+ username + '&pass='+ password);
       const token = response.headers.token;
       const id = response.headers.id;
       localStorage.setItem('token', token);
