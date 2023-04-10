@@ -14,12 +14,13 @@ const LobbyView = () => {
     var [lobby, setLobby] = useState(null);
     var [host, setHost] = useState(null);
     var [users, setUsers] = useState(null);
-    let lobbyId = localStorage.getItem("lobbyId");
+    let lobbyId = 0;
     const history = useHistory();
 
     useEffect(() => {
         if (getConnection()) {
             subscribeToLobbyInformation();
+            // TODO set Lobby Id
         } else {
             connect(subscribeToLobbyInformation)
         }
