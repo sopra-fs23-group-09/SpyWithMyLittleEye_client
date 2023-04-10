@@ -5,7 +5,7 @@ import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
-import {connect, getConnection, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, subscribe, startGame} from "../../helpers/stompClient";
 import User from "../../models/User";
 
 
@@ -25,9 +25,9 @@ const LobbyView = () => {
         }
     },[]);
 
-    function startGame() {
+    function startGameButtonClick() {
         startGame(lobbyId);
-        // TODO get gameId
+        // TODO get gameId 
         localStorage.setItem("gameId", gameId)
         history.push(`/game/` + 1);
     }
@@ -43,7 +43,7 @@ const LobbyView = () => {
 
     let button_startGame = (<div></div>);
     if((host) && (host.id === userId) && (users.length >= 2)) {
-        button_startGame = (<Button className="primary-button" onClick = {() => startGame()}
+        button_startGame = (<Button className="primary-button" onClick = {() => startGameButtonClick()}
         >
             <div className="lobby button-text">
                 Start game
