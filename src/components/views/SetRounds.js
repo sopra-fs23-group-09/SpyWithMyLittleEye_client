@@ -31,7 +31,6 @@ FormField.propTypes = {
 
 const SetRounds = () => {
     const history = useHistory();
-    const userId = localStorage.getItem('id');
     const [amountRounds, setAmountRounds] = useState(null);
 
 
@@ -40,12 +39,11 @@ const SetRounds = () => {
         const requestBody = JSON.stringify({amountRounds});
         const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
         console.log(response.data)
-        const lobbyId = response.data["lobbyId"]
+        const lobbyId = response.data["id"]
         localStorage.setItem('lobbyId', lobbyId);
-       // const accessCode = response.data["accessCode"]
-        console.log("USER")
+       const accessCode = response.data["accessCode"]
        // localStorage.setItem('accessCode', accessCode);
-        history.push("/lobby/"+lobbyId) // TODO "/lobby/"+accessCode
+        history.push("/lobby/"+accessCode) // TODO "/lobby/"+lobbyId
     }
 
 
@@ -67,9 +65,7 @@ const SetRounds = () => {
                 value={amountRounds}
                 onChange={r => setAmountRounds(r)}
             />
-            <Button className="ok-button" onClick={() => createLobby()}
-
-            >
+            <Button className="ok-button" onClick={() => createLobby()}>
                 <div className="rounds ok-button-text">
                     OK
                 </div>

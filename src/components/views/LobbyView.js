@@ -14,7 +14,7 @@ const LobbyView = () => {
     var [lobby, setLobby] = useState(null);
     var [host, setHost] = useState(null);
     var [users, setUsers] = useState(null);
-    let lobbyId = 0;
+    let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const LobbyView = () => {
 
     function subscribeToLobbyInformation() {
         subscribe("/lobbies/" + lobbyId,(response) => {
-            setLobby(new Lobby(response.data));
+            setLobby(response.data);
             setHost(lobby.host);
             setUsers(lobby.users);
             console.log(response.data);
