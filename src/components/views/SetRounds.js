@@ -39,9 +39,13 @@ const SetRounds = () => {
         let token = localStorage.getItem("token");
         const requestBody = JSON.stringify({amountRounds});
         const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
-        const accessCode = response.data
-        localStorage.setItem('accessCode', accessCode);
-        history.push("/lobby/"+accessCode)
+        console.log(response.data)
+        const lobbyId = response.data["lobbyId"]
+        localStorage.setItem('lobbyId', lobbyId);
+       // const accessCode = response.data["accessCode"]
+        console.log("USER")
+       // localStorage.setItem('accessCode', accessCode);
+        history.push("/lobby/"+lobbyId) // TODO "/lobby/"+accessCode
     }
 
 
