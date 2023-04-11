@@ -81,7 +81,7 @@ const AppRouter = () => {
         <Route exact path="/game/:gameId/location">
             <SetLocation/>
         </Route>
-        <Route exact path="/game/:gameId/guesses">
+        <Route exact path="/game/:gameId/round/:roundId/guesses">
             <Guessing/>
         </Route>
         <Route exact path ="/game/:gameId/rounds/score">
