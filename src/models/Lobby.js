@@ -5,9 +5,7 @@ class Lobby {
   constructor(data = {}) {
     this.id = null;
     this.accessCode = null;
-    this.users = null;
-    this.full = null;
-    this.rounds = null;
+    this.hostId = null;
     Object.assign(this, data);
   }
 }
