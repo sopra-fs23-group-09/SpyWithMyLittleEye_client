@@ -9,35 +9,44 @@ import Stomp from 'stompjs';
 
 const TestingGame = props => {
   const history = useHistory();
+  const [lobbyId, setLobbyId] = useState(1);
   const [guess, setGuess] = useState(null);
+  const [keyword, setKeyword] = useState(null);
+  const [color, setColor] = useState(null);
+  const [colorFromServer, setColorFromServer] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState("disconnected");
   const [stompClient, setStompClient] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const { userId } = useParams();
 
-
-  // TEST SETUP:
   const handshake_address = "http://localhost:8080/ws";
-  const channel = '/game/guesses';
+  const channel_guesses = '/game/'+ lobbyId +  '/guesses';
+  const channel_spiedObject = '/game/'+ lobbyId +  '/spiedObject';
 
   const connect = async () => {
     var socket = new SockJS(handshake_address);
     const client = Stomp.over(socket);
     setStompClient(client);
-    setConnectionStatus("connecting");
-    client.connect({}, function (frame) {
-      console.log('Connected: ' + frame);
-      setConnectionStatus("connected");
-      client.subscribe(channel, function (receivedGuessJSON) {
-        const { username, guess } = JSON.parse(receivedGuessJSON.body);
-        showGuesses({ username, guess });
+    setConnectionStatus("connected");
+
+    client.connect({}, function () {
+      //subscribe to spiedObject
+      client.subscribe(channel_spiedObject, function (receivedSpiedObjectJSON) {
+        const colorFromServer = JSON.parse(receivedSpiedObjectJSON.body).color;
+        setColorFromServer(colorFromServer);
+        console.log(colorFromServer);
       });
+      //subscribe to guesses
+      client.subscribe(channel_guesses, function (receivedGuessJSON) {
+         const { username, guess } = JSON.parse(receivedGuessJSON.body);
+         showGuesses({ username, guess });
+      });
+
     }, function(error) {
       console.log(error);
       setConnectionStatus("error");
     });
   };
-
 
   const disconnect = async () => {
       if (stompClient !== null) {
@@ -46,27 +55,45 @@ const TestingGame = props => {
       setConnectionStatus("disconnected");
   };
 
-  const sendGuess = async () => {
-      stompClient.send("/app/guess", {}, JSON.stringify({ "id" : localStorage.getItem("id"), "guess": guess })); //"id" : userId, "guess": guess
+  const sendspiedObject = async () => {
+      stompClient.send("/app/game/"+ lobbyId+ "/spiedObject", {}, JSON.stringify({ "keyword" : keyword, "color": color }));
   };
 
+  const sendGuess = async () => {
+      stompClient.send("/app/game/"+ lobbyId+ "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("id"), "guess": guess }));
+  };
 
   const showGuesses = async (guess) => {
     setGuesses(prevGuesses => [...prevGuesses, guess]);
   };
 
-
   return (
     <BaseContainer>
-      <p> connect and subscribe to {handshake_address}, channel: {channel} </p>
-      <button onClick={() => connect()}>connect</button>
-      <button onClick={() => disconnect()}>disconnect</button>
-      <p>{connectionStatus}</p>
-      <FormField
-        label="guess"
-        value={guess}
-        onChange={gue => setGuess(gue)}
-      />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <p style={{ marginRight: "10px" }}>connect and subscribe to {handshake_address}, channels: {channel_guesses}, {channel_spiedObject}</p>
+        <button onClick={() => connect()} style={{ marginRight: "10px" }}>connect</button>
+        <button onClick={() => disconnect()}>disconnect</button>
+        <p> => {connectionStatus}</p>
+      </div>
+      <label>
+        lobbyId:
+        <input type="text" value={lobbyId} onChange={event => setLobbyId(event.target.value)} />
+      </label>
+      <p></p>
+      <label>
+        Keyword:
+        <input type="text" value={keyword} onChange={event => setKeyword(event.target.value)} />
+      </label>
+      <label>
+        Color:
+        <input type="text" value={color} onChange={event => setColor(event.target.value)} />
+      </label>
+      <button onClick={() => sendspiedObject()}>send info spied object</button>
+      <p>Color: {colorFromServer}</p>
+      <label>
+        Guess:
+        <input type="text" value={guess} onChange={event => setGuess(event.target.value)} />
+      </label>
       <button onClick={() => sendGuess()}>send Guess</button>
       <h4> guesses </h4>
       <p>
