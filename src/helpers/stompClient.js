@@ -16,6 +16,9 @@ export var connect = (callback) => {
     socket = new SockJS(baseURL+"/ws");
     ws = over(socket);
     ws.connect({}, () => {
+        ws.subscribe('/topic/greetings', function (greeting) {
+            console.log(JSON.parse(greeting.body).content);
+        });
         connection = true;
         callback();
        /* ws.subscribe("/queue/errors", function(message) {
@@ -27,8 +30,12 @@ export var connect = (callback) => {
         console.log("Socket was closed, Reason: " + reason);
     }
 }
-export let subscribe = (mapping, callback) => {
-    ws.subscribe(mapping, data => callback(data));
+export const subscribe = (mapping, callback) => {
+    ws.subscribe(mapping, function (data) {
+       // console.log("Inside subscribe")
+        //console.log(JSON.parse(data.body));
+        callback(JSON.parse(data.body));
+    });
 }
 export let getConnection = () => connection;
 
@@ -44,6 +51,5 @@ export const startGame = (lobbyId) => {
 }
 
 export const notifyLobbyJoined = (lobbyId) => {
-    const requestBody = JSON.stringify({lobbyId});
     ws.send("/app/lobbies/"+lobbyId+"/joined", {});
 }
