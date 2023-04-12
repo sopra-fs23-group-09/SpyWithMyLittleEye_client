@@ -5,7 +5,7 @@ import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
-import {connect, getConnection, subscribe, startGame} from "../../helpers/stompClient";
+import {connect, getConnection, subscribe, startGame, notifyLobbyJoined} from "../../helpers/stompClient";
 import User from "../../models/User";
 
 
@@ -18,16 +18,16 @@ const LobbyView = () => {
     const history = useHistory();
 
     useEffect(() => {
+        console.log("Connected: " + getConnection())
         if (getConnection()) {
             subscribeToLobbyInformation();
-            // TODO set Lobby Id
         } else {
             connect(subscribeToLobbyInformation)
         }
     },[]);
 
     function startGameButtonClick() {
-        startGame(lobbyId);
+        startGame(lobbyId); // from stompClient
         // TODO get gameId
         var gameId = "0";
         localStorage.setItem("gameId", gameId);
@@ -35,12 +35,13 @@ const LobbyView = () => {
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/lobbies/" + lobbyId,(response) => {
-            setLobby(response.data);
+        subscribe("/app/lobbies/" + lobbyId,(response) => {
+            /**setLobby(response.data);
             setHost(lobby.host);
-            setUsers(lobby.users);
+            setUsers(lobby.users);**/
             console.log(response.data);
         });
+        notifyLobbyJoined(lobbyId);
     }
 
     let button_startGame = (<div></div>);
@@ -66,33 +67,22 @@ const LobbyView = () => {
             </div>
             <div className="lobby lobby-code">
                 <div className="lobby lobby-code-text">
-                    Code: {lobby.accessCode}
+                    Code: lobby.accessCode
                 </div>
             </div>
             <div className="lobby rounds-box">
                 <div className="lobby rounds-text">
-                    Rounds: {lobby.rounds}
+                    Rounds: lobby.rounds
                 </div>
             </div>
             <div className="lobby player-amount-container">
                 <div className="lobby player-amount-text">
-                    {lobby.users.length}/10
+                    lobby.users.length/10
                 </div>
             </div>
             <div className="lobby lobby-text">
                 LOBBY
             </div>
-            <ul className="game user-list">
-                {users.map(user => (
-                    <div className="lobby player">
-                        <div className="lobby profile-picture">
-                        </div>
-                        <div className="lobby player-name">
-                        user.username
-                        </div>
-                    </div>
-                ))}
-            </ul>
             {button_startGame}
         </BaseContainer>
     );
