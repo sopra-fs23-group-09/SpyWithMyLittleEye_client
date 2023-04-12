@@ -12,7 +12,7 @@ var connection = false;
 const baseURL = getDomain();
 
 export const connect = (callback) => {
-    var socket = new WebSocket(baseURL + "/ws");
+    var socket = new WebSocket(baseURL + '/ws');
     ws = Stomp.over(socket);
     ws.connect({}, function() {
         console.log("Socket was connected.")
