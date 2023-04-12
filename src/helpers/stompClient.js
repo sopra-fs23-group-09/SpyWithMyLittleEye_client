@@ -1,8 +1,7 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
 import {useHistory, useParams} from "react-router-dom";
-import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
+import BaseContainer from "components/ui/BaseContainer";
 import React, {useEffect, useState} from 'react';
 import {getDomain} from "./getDomain";
 

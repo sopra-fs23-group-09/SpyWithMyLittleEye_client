@@ -7,16 +7,18 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {api} from "../../helpers/api";
 import Lobby from "../../models/Lobby";
+import user from "../../models/User";
 
 
 const FormField = props => {
     return (
         <div className="rounds field">
             <input
+                type = "number"         // TODO: Ensure amountRounds is an int
                 className="rounds input"
                 placeholder={props.placeholder}
                 value={props.value}
-                //onChange={e => props.onChange(e.target.value)}
+                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -30,16 +32,16 @@ FormField.propTypes = {
 const SetRounds = () => {
     const history = useHistory();
     const userId = localStorage.getItem('id');
-    const [rounds, setRounds] = useState(null);
+    const [amountRounds, setAmountRounds] = useState(null);
 
 
     async function createLobby() {
-        let requestBody = JSON.stringify({userId,rounds});
-        const response = await api.put('/v1/lobbies', requestBody, {headers: {Token: localStorage.getItem("token")}});
-        console.log(response);
-        const lobby = new Lobby(response.data);
-        localStorage.setItem('lobbyId', lobby.id);
-        history.push("/lobby/{lobbyId}")
+        let token = localStorage.getItem("token");
+        const requestBody = JSON.stringify({amountRounds});
+        const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
+        const accessCode = response.data
+        localStorage.setItem('accessCode', accessCode);
+        history.push("/lobby/"+accessCode)
     }
 
 
@@ -58,8 +60,8 @@ const SetRounds = () => {
             </div>
             <FormField
                 placeholder = "Enter your number..."
-                value={rounds}
-                onChange={un => setRounds(un)}
+                value={amountRounds}
+                onChange={r => setAmountRounds(r)}
             />
             <Button className="ok-button" onClick={() => createLobby()}
 
