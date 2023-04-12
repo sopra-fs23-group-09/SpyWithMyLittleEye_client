@@ -9,7 +9,7 @@ import {useParams} from 'react-router-dom';
 import { Loader } from "@googlemaps/js-api-loader"
 import Round from "../../models/Round";
 
-let map: google.maps.Map;
+let map :  google.maps.Map;
 const FormFieldObject = props => {
     return (
         <div className="setlocation object-field">
