@@ -10,7 +10,7 @@ import User from "../../models/User";
 
 
 const LobbyView = () => {
-    let userId = localStorage.getItem("id");
+    let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
     var [host, setHost] = useState(null);
     var [users, setUsers] = useState(null);

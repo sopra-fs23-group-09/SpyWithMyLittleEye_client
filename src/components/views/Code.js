@@ -28,7 +28,7 @@ FormField.propTypes = {
 const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("id");
+    const userId = localStorage.getItem("userId");
     const [accessCode, setAccessCode] = useState(null);
 
 
