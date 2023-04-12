@@ -36,6 +36,10 @@ const Code = () => {
         try {
             const requestBody = JSON.stringify({accessCode});
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
+            console.log(response);
+            const accessCode = response.data["accessCode"]
+            // localStorage.setItem('accessCode', accessCode);
+            history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
         }  catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
