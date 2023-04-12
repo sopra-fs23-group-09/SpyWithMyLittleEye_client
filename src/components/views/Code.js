@@ -28,7 +28,7 @@ FormField.propTypes = {
 const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("id");
+    const userId = localStorage.getItem("userId");
     const [accessCode, setAccessCode] = useState(null);
 
 
@@ -36,6 +36,10 @@ const Code = () => {
         try {
             const requestBody = JSON.stringify({accessCode});
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
+            console.log(response);
+            const accessCode = response.data["accessCode"]
+            // localStorage.setItem('accessCode', accessCode);
+            history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
         }  catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
         }

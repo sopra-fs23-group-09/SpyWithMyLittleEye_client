@@ -47,7 +47,7 @@ const Register = props => {
       user.token = response.headers.token;
 
       localStorage.setItem('token', user.token);
-      localStorage.setItem('id', user.id);
+      localStorage.setItem('userId', user.id);
 
       history.push(`/home`);
     } catch (error) {

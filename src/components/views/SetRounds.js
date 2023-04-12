@@ -14,7 +14,7 @@ const FormField = props => {
     return (
         <div className="rounds field">
             <input
-                type = "number"         // TODO: Ensure amountRounds is an int
+                type="number"         // TODO: Ensure amountRounds is an int
                 className="rounds input"
                 placeholder={props.placeholder}
                 value={props.value}
@@ -41,9 +41,9 @@ const SetRounds = () => {
         console.log(response.data)
         const lobbyId = response.data["id"]
         localStorage.setItem('lobbyId', lobbyId);
-       const accessCode = response.data["accessCode"]
-       // localStorage.setItem('accessCode', accessCode);
-        history.push("/lobby/"+accessCode) // TODO "/lobby/"+lobbyId
+        const accessCode = response.data["accessCode"]
+        // localStorage.setItem('accessCode', accessCode);
+        history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
     }
 
 
@@ -61,7 +61,7 @@ const SetRounds = () => {
                 How many rounds do you want to play?
             </div>
             <FormField
-                placeholder = "Enter your number..."
+                placeholder="Enter your number..."
                 value={amountRounds}
                 onChange={r => setAmountRounds(r)}
             />
