@@ -9,16 +9,16 @@ import Lobby from "../../models/Lobby";
 
 const HomePage = () => {
     const history = useHistory();
-    const userId = localStorage.getItem('id');
+    const userId = localStorage.getItem('userId');
     const goToProfile = () => {
         history.push(`/users/${userId}`);
     };
     const logout = async () => {
         const title = {title: 'logout request'};
-        await api.put('/v1/logoutService', title,{headers: {Token: localStorage.getItem("token")}});
-
+        const response = await api.put('/users/logout', title,{headers: {Token: localStorage.getItem("token")}});
+        console.log(response);
         localStorage.removeItem('token');
-        localStorage.removeItem('id');
+        localStorage.removeItem('userId');
         history.push('/login');
     }
 
@@ -59,7 +59,6 @@ const HomePage = () => {
                 </div>
             </Button>
             <Button className="create-lobby-button" onClick={() => history.push('/rounds')}
-
             >
                 <div className="home-page create-lobby-button-text">
                     Create a lobby

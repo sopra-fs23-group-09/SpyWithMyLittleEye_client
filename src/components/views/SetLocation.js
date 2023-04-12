@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
@@ -6,7 +6,10 @@ import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {useParams} from 'react-router-dom';
+import { Loader } from "@googlemaps/js-api-loader"
+import Round from "../../models/Round";
 
+let map: google.maps.Map;
 const FormFieldObject = props => {
     return (
         <div className="setlocation object-field">
@@ -38,7 +41,6 @@ const FormFieldColor= props => {
         </div>
     );
 };
-
 FormFieldObject.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
@@ -54,9 +56,56 @@ FormFieldColor.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string
 };
+const SetLocation = (props) => {
+  const history = useHistory();
+  let gameId = localStorage.getItem("gameId");
+  const [location, setlocation] = useState("");
+  const [color, setColor] = useState("");
+  const [hint, setHint] = useState("");
+  const [map, setMap] = useState(null);
+  const loader = new Loader({
+    apiKey: 'YOUR_API_KEY', // Replace with your Google Maps API key
+    version: 'weekly',
+  });
 
-const SetLocation = props => {
-    const history = useHistory();
+  useEffect(() => {
+    loader.load().then(() => {
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 47.36667, lng: 8.55 },
+        zoom: 8,
+      });
+      setMap(map);
+      // Add a click listener to the map to get the latitude and longitude of the clicked location
+            google.maps.event.addListener(map, 'click', function(event) {
+              setlocation({lat: event.latLng.lat(), lng: event.latLng.lng()});
+            });
+    });
+  }, []);
+    const handleColorChange = (event) => {
+      setColor(event.target.value);
+    };
+
+    const handleHintChange = (event) => {
+      setHint(event.target.value);
+    };
+
+
+  const startGame = async () => {
+      try {
+        const requestBody = JSON.stringify({location, color, hint});
+        const response = await api.post('/games/${gameId}/rounds', requestBody);
+
+        // Get the returned round
+        const round = new Round(response.data);
+        localStorage.setItem("roundId", round.id);
+
+
+        history.push(`/games/${gameId}/round/${round.id}/guesses`);
+      } catch (error) {
+        alert(`Something went wrong during the starting process: \n${handleError(error)}`);
+      }
+    };
+
 
     return (
         <BaseContainer>
@@ -71,6 +120,9 @@ const SetLocation = props => {
             <div className="setlocation header">
                 Choose a location by dragging the figurine into it
             </div>
+            <div className="setlocation container">
+                    <div id="map"></div>
+            </div>
             <div className="setlocation role-container">
                 <div className="setlocation role-text">
                     You're a: Spier
@@ -82,14 +134,21 @@ const SetLocation = props => {
             <FormFieldColor
                 label="Enter color of the object:"
                 placeholder="The color of my object is..."
+                value={color}
+                onChange={handleColorChange}
                 type = "text"
             />
             <FormFieldObject
                 label="Enter your object:"
                 placeholder="Your object..."
+                value={hint}
+                onChange={handleHintChange}
                 type = "text"
             />
-            <Button className="start-button"
+            <div className= "setlocation readytext">
+            Ready?
+            </div>
+            <Button className="start-button" onClick={startGame}
 
             >
                 <div className="setlocation start-button-text">
@@ -102,4 +161,3 @@ const SetLocation = props => {
 };
 
 export default SetLocation;
-

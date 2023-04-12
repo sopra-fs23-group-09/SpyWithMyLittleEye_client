@@ -10,7 +10,7 @@ import User from "../../models/User";
 
 
 const LobbyView = () => {
-    let userId = localStorage.getItem("id");
+    let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
     var [host, setHost] = useState(null);
     var [users, setUsers] = useState(null);
@@ -20,6 +20,7 @@ const LobbyView = () => {
     useEffect(() => {
         if (getConnection()) {
             subscribeToLobbyInformation();
+            // TODO set Lobby Id
         } else {
             connect(subscribeToLobbyInformation)
         }
@@ -27,14 +28,15 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         startGame(lobbyId);
-        // TODO get gameId 
-        localStorage.setItem("gameId", gameId)
+        // TODO get gameId
+        var gameId = "0";
+        localStorage.setItem("gameId", gameId);
         history.push(`/game/` + 1);
     }
 
     function subscribeToLobbyInformation() {
         subscribe("/lobbies/" + lobbyId,(response) => {
-            setLobby(new Lobby(response.data));
+            setLobby(response.data);
             setHost(lobby.host);
             setUsers(lobby.users);
             console.log(response.data);
