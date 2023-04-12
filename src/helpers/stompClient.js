@@ -18,6 +18,7 @@ export var connect = (callback) => {
     ws.connect({}, () => {
         ws.subscribe('/topic/greetings', function (greeting) {
             console.log(JSON.parse(greeting.body).content);
+            console.log("Socket was connected.")
         });
         connection = true;
         callback();
