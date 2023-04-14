@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
@@ -11,7 +11,6 @@ import {connect, getConnection, subscribe} from "../../helpers/stompClient";
 import Lobby from "../../models/Lobby";
 import Round from "../../models/Round";
 
-
 const FormField = props => {
     return (
         <div className="guessing field">
@@ -19,7 +18,7 @@ const FormField = props => {
                 className="guessing input"
                 placeholder={props.placeholder}
                 value={props.value}
-                //onChange={e => props.onChange(e.target.value)}
+                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -34,12 +33,42 @@ const Guessing = () => {
     const history = useHistory();
     const [users, setUsers] = useState(null);
     let gameId = localStorage.getItem("gameId");
-    var [game, setGame] = useState(null);
-    let roundId = localStorage.getItem("roundId")
-    var [round, setRound] = useState(null);
+    let [game, setGame] = useState(null);
+    let roundId = localStorage.getItem("roundId");
+    let [round, setRound] = useState(null);
+    let [guess, setGuess] = useState(null);
+    let [dguess, setdGuess] = useState(null);
 
 
-    /*useEffect(() => {
+    const handleSubmit = () => {
+        console.log('form submitted ✅');
+        setdGuess(setGuess(guess));
+        setGuess("");
+        setGuess(null);
+    }
+
+    useEffect(() => {
+        const keyDownHandler = event => {
+            console.log('User pressed: ', event.key);
+
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                // 👇️ call submit function here
+                handleSubmit();
+            }
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, []);
+
+
+
+    useEffect(() => {
         if (getConnection()) {
             subscribeToGameInformation();
         } else {
@@ -52,6 +81,7 @@ const Guessing = () => {
             setGame(new Game(response.data));
             console.log(response.data);
             setRound(game.currentRound);
+            setUsers(game.currentRound);
             subscribeToRoundInformation();
         });
     }
@@ -60,41 +90,23 @@ const Guessing = () => {
         subscribe("/games/" + gameId + "/round" + roundId,(response) => {
             setRound(new Round(response.data));
 
+
         });
-    }*/
+    }
 
-    useEffect(() => {
-        // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
-        async function fetchData() {
-            try {
-                const response = await api.get('/users', {headers: {Token: localStorage.getItem("token")}});
+    /*useEffect(() => {
+        const listener = event => {
+            if (event.code === "Enter" || event.code === "NumpadEnter") {
+                console.log("Enter key was pressed. Run your function.");
+                event.preventDefault();
 
-                // delays continuous execution of an async operation for 1 second.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                // Get the returned users and update the state.
-                setUsers(response.data);
-
-                // This is just some data for you to see what is available.
-                // Feel free to remove it.
-                console.log('request to:', response.request.responseURL);
-                console.log('status code:', response.status);
-                console.log('status text:', response.statusText);
-                console.log('requested data:', response.data);
-
-                // See here to get more data.
-                console.log(response);
-            } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
             }
-        }
-
-        fetchData();
-    }, []);
+        };
+        document.addEventListener("keydown", listener);
+        return () => {
+            document.removeEventListener("keydown", listener);
+        };
+    }, []);*/
 
     return (
         <BaseContainer>
@@ -114,7 +126,7 @@ const Guessing = () => {
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
-                    You're a: ?
+                    You're a: users.role
                 </div>
             </div>
             <div className="guessing container">
@@ -124,29 +136,43 @@ const Guessing = () => {
                     </div>
                     <div className="guessing hint-container">
                         <div className="guessing hint-text">
-                            Hint: The object is ?
+                            Hint: The object is round.hints
                         </div>
                     </div>
-                    <div className="guessers wrong-container">
-                        <div className="guessers name">
-                            Name
-                        </div>
-                        <div className="guessers wrong-guess">
-                            Guess
-                        </div>
-                    </div>
-                    <div className="guessers correct-container">
-                        <div className="guessers name">
-                            Name
-                        </div>
-                        <div className="guessers correct-guess">
-                            GUESSED RIGHT
-                        </div>
-                    </div>
+                    {(() => {
+                        if (dguess !== null){
+                            return (
+                                <div className="guessers wrong-container">
+                                    <div className="guessers name">
+                                        users.username
+                                    </div>
+                                    <div className="guessers wrong-guess">
+                                        {dguess}
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })()}
+                    {(() => {
+                        if (dguess !== null){
+                            return (
+                                <div className="guessers correct-container">
+                                    <div className="guessers name">
+                                        users.username
+                                    </div>
+                                    <div className="guessers correct-guess">
+                                        GUESSED RIGHT
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })()}
                 </div>
                 <FormField
                     placeholder="Enter your guess..."
-                    type = "text"
+                    value={guess}
+                    onChange={g => setRound(g)}
+                    onSubmit={handleSubmit}
                 />
             </div>
         </BaseContainer>

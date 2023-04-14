@@ -6,6 +6,7 @@ class Round {
         this.id = null;
         this.currentSpier = null;
         this.googleMapsCoordinate = null;
+        this.keyword = null;
         this.guesses = null;
         this.hints = null;
         this.timePerRound = null;
