@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+
+    "@googlemaps/google-maps-services-js": "^3.3.28",
+
+    "@googlemaps/js-api-loader": "^1.15.1",
     "@stomp/stompjs": "^7.0.0",
     "axios": "^0.24.0",
+    "net": "^1.0.2",
     "node-gyp": "^8.4.1",
     "node-sass": "^8.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.0",
     "react-use-websocket": "^3.0.0",
     "sass": "^1.60.0",
     "sockjs-client": "^1.6.1",

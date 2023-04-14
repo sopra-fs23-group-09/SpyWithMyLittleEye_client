@@ -11,6 +11,8 @@ const TestingGame = props => {
   const history = useHistory();
   const [lobbyId, setLobbyId] = useState(1);
   const [guess, setGuess] = useState(null);
+  const [hint, setHint] = useState(null);
+  const [hintFromServer, setHintFromServer] = useState(null);
   const [keyword, setKeyword] = useState(null);
   const [color, setColor] = useState(null);
   const [colorFromServer, setColorFromServer] = useState(null);
@@ -22,6 +24,7 @@ const TestingGame = props => {
   const handshake_address = "http://localhost:8080/ws";
   const channel_guesses = '/game/'+ lobbyId +  '/guesses';
   const channel_spiedObject = '/game/'+ lobbyId +  '/spiedObject';
+  const channel_hints = '/game/'+ lobbyId +  '/hints';
 
   const connect = async () => {
     var socket = new SockJS(handshake_address);
@@ -34,12 +37,16 @@ const TestingGame = props => {
       client.subscribe(channel_spiedObject, function (receivedSpiedObjectJSON) {
         const colorFromServer = JSON.parse(receivedSpiedObjectJSON.body).color;
         setColorFromServer(colorFromServer);
-        console.log(colorFromServer);
       });
       //subscribe to guesses
       client.subscribe(channel_guesses, function (receivedGuessJSON) {
          const { username, guess } = JSON.parse(receivedGuessJSON.body);
          showGuesses({ username, guess });
+      });
+      //subscribe to hints
+      client.subscribe(channel_hints, function (receivedSpiedObjectJSON) {
+        const hintFromServer = JSON.parse(receivedSpiedObjectJSON.body).hint;
+        setHintFromServer(hintFromServer);
       });
 
     }, function(error) {
@@ -61,6 +68,10 @@ const TestingGame = props => {
 
   const sendGuess = async () => {
       stompClient.send("/app/game/"+ lobbyId+ "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("id"), "guess": guess }));
+  };
+
+  const sendHint = async () => {
+      stompClient.send("/app/game/"+ lobbyId+ "/hints", {}, JSON.stringify({ "hint": hint }));
   };
 
   const showGuesses = async (guess) => {
@@ -103,6 +114,12 @@ const TestingGame = props => {
           </span>
         ))}
       </p>
+      <label>
+        Hint:
+        <input type="text" value={hint} onChange={event => setHint(event.target.value)} />
+      </label>
+      <button onClick={() => sendHint()}>send hint</button>
+      <p>Hint: {hintFromServer}</p>
     </BaseContainer>
   );
 };
