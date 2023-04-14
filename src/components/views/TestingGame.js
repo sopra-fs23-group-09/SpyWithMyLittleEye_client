@@ -26,7 +26,7 @@ const TestingGame = props => {
   const channel_guesses = '/game/'+ lobbyId +  '/guesses';
   const channel_spiedObject = '/game/'+ lobbyId +  '/spiedObject';
   const channel_hints = '/game/'+ lobbyId +  '/hints';
-  const channel_roles = '/game/'+ lobbyId +  '/roles';
+  const channel_roles = '/game/'+ lobbyId +  '/round/1/spierId';
 
   const connect = async () => {
     var socket = new SockJS(handshake_address);
@@ -82,7 +82,7 @@ const TestingGame = props => {
   };
 
   const requestSpierId = async () => {
-      stompClient.send("/app/game/"+ lobbyId+ "/roles", {}, {});
+      stompClient.send("/app/game/"+ lobbyId+ "/round/1/spierId", {}, {});
   };
 
   const showGuesses = async (guess) => {
