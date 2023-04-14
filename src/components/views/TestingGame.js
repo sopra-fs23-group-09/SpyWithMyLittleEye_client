@@ -12,6 +12,7 @@ const TestingGame = props => {
   const [lobbyId, setLobbyId] = useState(1);
   const [guess, setGuess] = useState(null);
   const [hint, setHint] = useState(null);
+  const [spierId, setSpierId] = useState(null);
   const [hintFromServer, setHintFromServer] = useState(null);
   const [keyword, setKeyword] = useState(null);
   const [color, setColor] = useState(null);
@@ -25,6 +26,7 @@ const TestingGame = props => {
   const channel_guesses = '/game/'+ lobbyId +  '/guesses';
   const channel_spiedObject = '/game/'+ lobbyId +  '/spiedObject';
   const channel_hints = '/game/'+ lobbyId +  '/hints';
+  const channel_roles = '/game/'+ lobbyId +  '/roles';
 
   const connect = async () => {
     var socket = new SockJS(handshake_address);
@@ -47,6 +49,11 @@ const TestingGame = props => {
       client.subscribe(channel_hints, function (receivedSpiedObjectJSON) {
         const hintFromServer = JSON.parse(receivedSpiedObjectJSON.body).hint;
         setHintFromServer(hintFromServer);
+      });
+      //subscribe to roles
+      client.subscribe(channel_roles, function (receivedSpiedObjectJSON) {
+        const spierId = JSON.parse(receivedSpiedObjectJSON.body).userId;
+        setSpierId(spierId);
       });
 
     }, function(error) {
@@ -72,6 +79,10 @@ const TestingGame = props => {
 
   const sendHint = async () => {
       stompClient.send("/app/game/"+ lobbyId+ "/hints", {}, JSON.stringify({ "hint": hint }));
+  };
+
+  const requestSpierId = async () => {
+      stompClient.send("/app/game/"+ lobbyId+ "/roles", {}, {});
   };
 
   const showGuesses = async (guess) => {
@@ -120,6 +131,8 @@ const TestingGame = props => {
       </label>
       <button onClick={() => sendHint()}>send hint</button>
       <p>Hint: {hintFromServer}</p>
+      <button onClick={() => requestSpierId()}>get spier id</button>
+      <p>Spier id: {spierId}</p>
     </BaseContainer>
   );
 };
