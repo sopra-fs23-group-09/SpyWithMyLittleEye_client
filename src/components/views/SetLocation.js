@@ -64,7 +64,7 @@ const SetLocation = (props) => {
   const [hint, setHint] = useState("");
   const [map, setMap] = useState(null);
   const loader = new Loader({
-    apiKey: 'YOUR_API_KEY', // Replace with your Google Maps API key
+    apiKey: process.env.YOUR_API_KEY,
     version: 'weekly',
   });
 
@@ -89,22 +89,20 @@ const SetLocation = (props) => {
       setHint(event.target.value);
     };
 
-
   const startGame = async () => {
-      try {
-        const requestBody = JSON.stringify({location, color, hint});
-        const response = await api.post('/games/${gameId}/rounds', requestBody);
+    try {
+      const requestBody = JSON.stringify({location, color, hint});
+      const response = await api.post('/games/${gameId}/rounds', requestBody);
 
-        // Get the returned round
-        const round = new Round(response.data);
-        localStorage.setItem("roundId", round.id);
+      // Get the returned round
+      const round = new Round(response.data);
+      localStorage.setItem("roundId", round.id);
 
-
-        history.push(`/games/${gameId}/round/${round.id}/guesses`);
-      } catch (error) {
-        alert(`Something went wrong during the starting process: \n${handleError(error)}`);
-      }
-    };
+      history.push(`/games/${gameId}/round/${round.id}/guesses`);
+    } catch (error) {
+      alert(`Something went wrong during the starting process: \n${handleError(error)}`);
+    }
+  };
 
 
     return (
