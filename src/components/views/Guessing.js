@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
 import Game from 'models/Game.js';
-import {connect, getConnection, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, notifyLobbyJoined, notifySpierId, subscribe} from "../../helpers/stompClient";
 import Lobby from "../../models/Lobby";
 import Round from "../../models/Round";
 
@@ -38,6 +38,9 @@ const Guessing = () => {
     let [round, setRound] = useState(null);
     let [guess, setGuess] = useState(null);
     let [dguess, setdGuess] = useState(null);
+
+    const [role, setRole] = useState(null);
+    const {userId} = useParams();
 
 
     const handleSubmit = () => {
@@ -70,13 +73,13 @@ const Guessing = () => {
 
     useEffect(() => {
         if (getConnection()) {
-            subscribeToGameInformation();
+            subscribeToRoundInformation();
         } else {
-            connect(subscribeToGameInformation)
+            connect(subscribeToRoundInformation)
         }
     },[]);
 
-    function subscribeToGameInformation() {
+    /*function subscribeToGameInformation() {
         subscribe("/games/" + gameId,(response) => {
             setGame(new Game(response.data));
             console.log(response.data);
@@ -84,14 +87,16 @@ const Guessing = () => {
             setUsers(game.currentRound);
             subscribeToRoundInformation();
         });
-    }
+    }*/
 
     function subscribeToRoundInformation() {
-        subscribe("/games/" + gameId + "/round" + roundId,(response) => {
-            setRound(new Round(response.data));
-
-
+        subscribe("/game/" + "1" + "/round/" + "1" + "/spierId",(response) => {
+            //setRound(new Round(response.data));
+            const role = response["role"]
+            setRole(role);
+            console.log(role);
         });
+        notifySpierId(gameId, roundId);
     }
 
     /*useEffect(() => {
@@ -126,7 +131,7 @@ const Guessing = () => {
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
-                    You're a: users.role
+                    You're a: {role}
                 </div>
             </div>
             <div className="guessing container">

@@ -54,3 +54,7 @@ export const startGame = (lobbyId) => {
 export const notifyLobbyJoined = (lobbyId) => {
     ws.send("/app/lobbies/"+lobbyId+"/joined", {});
 }
+
+export const notifySpierId = (gameId, roundId) => {
+    ws.send("/app/game/"+"1"+"/round/"+"1"+"/spierId", {});
+}
