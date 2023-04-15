@@ -7,9 +7,39 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
 import Game from 'models/Game.js';
-import {connect, getConnection, notifyLobbyJoined, notifySpierId, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, notifyHint, notifyLobbyJoined, notifyRole, subscribe} from "../../helpers/stompClient";
 import Lobby from "../../models/Lobby";
 import Round from "../../models/Round";
+
+/*{(() => {
+    if (dguess !== null){
+        return (
+            <div className="guessers wrong-container">
+                <div className="guessers name">
+                    users.username
+                </div>
+                <div className="guessers wrong-guess">
+                    {dguess}
+                </div>
+            </div>
+        )
+    }
+})()}*/
+
+/*{(() => {
+    if (dguess !== null){
+        return (
+            <div className="guessers correct-container">
+                <div className="guessers name">
+                    users.username
+                </div>
+                <div className="guessers correct-guess">
+                    GUESSED RIGHT
+                </div>
+            </div>
+        )
+    }
+})()}*/
 
 const FormField = props => {
     return (
@@ -32,22 +62,28 @@ FormField.propTypes = {
 const Guessing = () => {
     const history = useHistory();
     const [users, setUsers] = useState(null);
-    let gameId = localStorage.getItem("gameId");
+    let playerId = localStorage.getItem("userId");
+    let lobbyId = localStorage.getItem("lobbyId");
+    console.log("Lobby ID: " + lobbyId)
     let [game, setGame] = useState(null);
-    let roundId = localStorage.getItem("roundId");
     let [round, setRound] = useState(null);
-    let [guess, setGuess] = useState(null);
-    let [dguess, setdGuess] = useState(null);
+    //let [guess, setGuess] = useState(null);
+    //let [dguess, setdGuess] = useState(null);
 
-    const [role, setRole] = useState(null);
-    const {userId} = useParams();
+    let [hint, setHint] = useState("");
+    const [role, setRole] = useState("spier");
+
+    let [input, setInput] = useState("");
 
 
     const handleSubmit = () => {
+        setHint(input);
+        console.log("Hint: " + hint);
         console.log('form submitted ✅');
-        setdGuess(setGuess(guess));
-        setGuess("");
-        setGuess(null);
+        //setdGuess(setGuess(guess));
+        //setGuess("");
+        //setGuess(null);
+        setInput("");
     }
 
     useEffect(() => {
@@ -70,14 +106,13 @@ const Guessing = () => {
     }, []);
 
 
-
     useEffect(() => {
         if (getConnection()) {
-            subscribeToRoundInformation();
+            subscribeToHintInformation();
         } else {
-            connect(subscribeToRoundInformation)
+            connect(subscribeToHintInformation)
         }
-    },[]);
+    }, []);
 
     /*function subscribeToGameInformation() {
         subscribe("/games/" + gameId,(response) => {
@@ -88,30 +123,24 @@ const Guessing = () => {
             subscribeToRoundInformation();
         });
     }*/
-
-    function subscribeToRoundInformation() {
-        subscribe("/game/" + "1" + "/round/" + "1" + "/spierId",(response) => {
+    /*function subscribeToRoleInformation() {
+        subscribe("/game/" + "1" + "/round/" + "1",(response) => {
             //setRound(new Round(response.data));
-            const role = response["role"]
+            const role = response
             setRole(role);
             console.log(role);
         });
-        notifySpierId(gameId, roundId);
+        notifyRole(lobbyId, playerId);
+    }*/
+
+    function subscribeToHintInformation() {
+        subscribe("/game/" + "2" + "/hints",(response) => {
+            const hint = response["hint"]
+            setHint(hint);
+        });
+        notifyHint(lobbyId, hint)
     }
 
-    /*useEffect(() => {
-        const listener = event => {
-            if (event.code === "Enter" || event.code === "NumpadEnter") {
-                console.log("Enter key was pressed. Run your function.");
-                event.preventDefault();
-
-            }
-        };
-        document.addEventListener("keydown", listener);
-        return () => {
-            document.removeEventListener("keydown", listener);
-        };
-    }, []);*/
 
     return (
         <BaseContainer>
@@ -141,44 +170,30 @@ const Guessing = () => {
                     </div>
                     <div className="guessing hint-container">
                         <div className="guessing hint-text">
-                            Hint: The object is round.hints
+                            Hint: {hint}
                         </div>
                     </div>
-                    {(() => {
-                        if (dguess !== null){
-                            return (
-                                <div className="guessers wrong-container">
-                                    <div className="guessers name">
-                                        users.username
-                                    </div>
-                                    <div className="guessers wrong-guess">
-                                        {dguess}
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })()}
-                    {(() => {
-                        if (dguess !== null){
-                            return (
-                                <div className="guessers correct-container">
-                                    <div className="guessers name">
-                                        users.username
-                                    </div>
-                                    <div className="guessers correct-guess">
-                                        GUESSED RIGHT
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })()}
                 </div>
-                <FormField
-                    placeholder="Enter your guess..."
-                    value={guess}
-                    onChange={g => setRound(g)}
-                    onSubmit={handleSubmit}
-                />
+                {(() => {
+                    if (role === "spier"){
+                        return (
+                            <FormField
+                                placeholder="Enter your hint..."
+                                value={input}
+                                onChange={g => setInput(g)}
+                                onSubmit={handleSubmit}
+                            />
+                        )
+                    }
+                    return (
+                        <FormField
+                            placeholder="Enter your guess..."
+                            value={input}
+                            onChange={g => setInput(g)}
+                            onSubmit={handleSubmit}
+                        />
+                    )
+                })()}
             </div>
         </BaseContainer>
     );
