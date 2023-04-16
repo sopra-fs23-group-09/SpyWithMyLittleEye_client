@@ -61,5 +61,10 @@ export const notifyRole = (lobbyId, playerId) => {
 
 export const notifyHint = (lobbyId, hint) => {
     const requestBody = JSON.stringify({hint});
-    ws.send("/app/game/"+"2"+"/hints", {}, requestBody);
+    ws.send("/app/game/"+lobbyId+"/hints", {}, requestBody);
+}
+
+export const notifyGuess = (lobbyId, playerId, guess) => {
+    const requestBody = JSON.stringify({playerId, guess});
+    ws.send("/app/game/"+lobbyId+"/guesses", {}, requestBody);
 }
