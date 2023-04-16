@@ -82,7 +82,7 @@ const Guessing = () => {
     const [hint, setHint] = useState("");
     const [guess, setGuess] = useState("");
 
-    const [role, setRole] = useState("guesser");
+    const [role, setRole] = useState("spier");
 
     const handleHintSubmit = () => {
         console.log('hint submitted ✅');
@@ -141,21 +141,21 @@ const Guessing = () => {
         };
     }, []);
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
         } else {
             connect(subscribeToHintInformation)
         }
-    }, [hint]);*/
+    }, [hint]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (getConnection()) {
             subscribeToGuessInformation();
         } else {
             connect(subscribeToGuessInformation)
         }
-    }, [guess]);
+    }, [guess]);*/
 
     /*useEffect(() => {
         if (getConnection()) {

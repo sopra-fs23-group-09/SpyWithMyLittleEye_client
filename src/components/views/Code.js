@@ -14,7 +14,7 @@ const FormField = props => {
                 className="code input"
                 placeholder={props.placeholder}
                 value={props.value}
-                //onChange={e => props.onChange(e.target.value)}
+                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -32,7 +32,7 @@ const Code = () => {
     const [accessCode, setAccessCode] = useState(null);
 
 
-    async function joinLobby() {
+    const joinLobby = async () => {
         try {
             const requestBody = JSON.stringify({accessCode});
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
@@ -40,6 +40,7 @@ const Code = () => {
             const accessCode = response.data["accessCode"]
             const lobbyId = response.data["lobbyId"]
             localStorage.setItem('lobbyId', lobbyId);
+
             history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
         }  catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -65,7 +66,11 @@ const Code = () => {
                 value={accessCode}
                 onChange={ac => setAccessCode(ac)}
             />
-            <Button className="ok-button" onClick={() => joinLobby()}>
+            <Button className="ok-button"
+                    disabled={!accessCode}
+                    onClick={() => joinLobby()}
+
+            >
                 <div className="rounds ok-button-text">
                     OK
                 </div>
