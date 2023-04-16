@@ -1,48 +1,38 @@
-
 .setlocation {
   &.start-button-text {
     width: 98px;
     height: 50px;
-
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
     line-height: 50px;
     text-align: center;
-
     color: #FFFFFF;
-
-
     /* Inside auto layout */
     flex: none;
     order: 0;
     flex-grow: 0;
   }
-
   &.color-field {
     box-sizing: border-box;
-
     /* Auto layout */
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px;
     gap: 10px;
-
     position: absolute;
     width: 484px;
     height: 70px;
     left: 900px;
     top: 500px;
-
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
   }
-
   &.color-input {
     height: 70px;
     width: 483px;
@@ -65,48 +55,39 @@
     font-size: 30px;
     line-height: 50px;
   }
-
   &.color-label {
     position: absolute;
     width: 1139px;
     height: 75px;
     left: -330px;
     top: -100px;
-
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
     line-height: 75px;
     text-align: center;
-
     color: #FFFFFF;
-
   }
-
   &.object-field {
     box-sizing: border-box;
-
     /* Auto layout */
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px;
     gap: 10px;
-
     position: absolute;
     width: 484px;
     height: 70px;
     left: 900px;
     top: 300px;
-
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
   }
-
   &.object-input {
     height: 70px;
     width: 483px;
@@ -129,25 +110,20 @@
     font-size: 30px;
     line-height: 50px;
   }
-
   &.object-label {
     position: absolute;
     width: 1139px;
     height: 75px;
     left: -330px;
     top: -100px;
-
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
     line-height: 75px;
     text-align: center;
-
     color: #FFFFFF;
-
   }
-
   &.role-container {
     display: flex;
     flex-direction: row;
@@ -155,22 +131,17 @@
     align-items: center;
     padding: 10px;
     gap: 10px;
-
     position: absolute;
     width: 218px;
     height: 58px;
     left: 950px;
     top: 34px;
-
     background: rgba(255, 255, 255, 0.3);
     border-radius: 40px;
   }
-
   &.role-text {
-
     width: 198px;
     height: 38px;
-
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 500;
@@ -178,23 +149,18 @@
     line-height: 38px;
     /* identical to box height */
     text-align: center;
-
     color: #FFFFFF;
-
-
     /* Inside auto layout */
     flex: none;
     order: 0;
     flex-grow: 0;
   }
-
   &.rounds {
     position: absolute;
     width: 151px;
     height: 38px;
     left: 1254px;
     top: 42px;
-
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 500;
@@ -237,6 +203,7 @@
   border-radius: 40px;
   left: 150px;
   width: 600px;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -249,7 +216,6 @@
     height: 38px;
     left: 100px;
     top: 80px;
-
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
@@ -257,7 +223,6 @@
     line-height: 38px;
     /* identical to box height */
     text-align: center;
-
     color: #FFFFFF;
 
   }
