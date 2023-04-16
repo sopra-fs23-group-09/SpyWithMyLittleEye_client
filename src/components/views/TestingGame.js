@@ -12,6 +12,8 @@ const TestingGame = props => {
   const [lobbyId, setLobbyId] = useState(1);
   const [guess, setGuess] = useState(null);
   const [hint, setHint] = useState(null);
+  const [currentRound, setCurrentRound] = useState(null);
+  const [totalRounds, setTotalRounds] = useState(null);
   const [spierId, setSpierId] = useState(null);
   const [hintFromServer, setHintFromServer] = useState(null);
   const [keyword, setKeyword] = useState(null);
@@ -22,39 +24,49 @@ const TestingGame = props => {
   const [guesses, setGuesses] = useState([]);
   const { userId } = useParams();
 
-  const handshake_address = "http://localhost:8080/ws";
-  const channel_guesses = '/game/'+ lobbyId +  '/guesses';
-  const channel_spiedObject = '/game/'+ lobbyId +  '/spiedObject';
-  const channel_hints = '/game/'+ lobbyId +  '/hints';
-  const channel_roles = '/game/'+ lobbyId +  '/round/1/spierId';
-
   const connect = async () => {
-    var socket = new SockJS(handshake_address);
+    var socket = new SockJS("http://localhost:8080/ws");
     const client = Stomp.over(socket);
     setStompClient(client);
     setConnectionStatus("connected");
 
     client.connect({}, function () {
+      //subscribe to start game: so that a game instance is saved
+      client.subscribe('/games/lobbies/'+ lobbyId, function (receivedJSON) {
+        //nothing is returned
+      });
+      //subscribe to start game: so that a game instance is saved
+      client.subscribe('/games/'+ lobbyId, function (receivedJSON) {
+        //nothing is returned
+      });
       //subscribe to spiedObject
-      client.subscribe(channel_spiedObject, function (receivedSpiedObjectJSON) {
-        const colorFromServer = JSON.parse(receivedSpiedObjectJSON.body).color;
+      client.subscribe('/game/'+ lobbyId + '/spiedObject', function (receivedJSON) {
+        const colorFromServer = JSON.parse(receivedJSON.body).color;
         setColorFromServer(colorFromServer);
       });
       //subscribe to guesses
-      client.subscribe(channel_guesses, function (receivedGuessJSON) {
-         const { username, guess } = JSON.parse(receivedGuessJSON.body);
+      client.subscribe('/game/'+ lobbyId + '/guesses', function (receivedJSON) {
+         const { username, guess } = JSON.parse(receivedJSON.body);
          showGuesses({ username, guess });
       });
       //subscribe to hints
-      client.subscribe(channel_hints, function (receivedSpiedObjectJSON) {
-        const hintFromServer = JSON.parse(receivedSpiedObjectJSON.body).hint;
+      client.subscribe('/game/'+ lobbyId + '/hints', function (receivedJSON) {
+        const hintFromServer = JSON.parse(receivedJSON.body).hint;
         setHintFromServer(hintFromServer);
       });
       //subscribe to roles
-      client.subscribe(channel_roles, function (receivedSpiedObjectJSON) {
-        const spierId = JSON.parse(receivedSpiedObjectJSON.body).userId;
+      client.subscribe('/game/'+ lobbyId + '/round/1/spierId', function (receivedJSON) {
+        const spierId = JSON.parse(receivedJSON.body).userId;
         setSpierId(spierId);
       });
+      //subscribe to roundNr
+      client.subscribe('/game/'+ lobbyId + '/roundnr', function (receivedJSON) {
+        const currentRound = JSON.parse(receivedJSON.body).currentRound;
+        setCurrentRound(currentRound);
+        const totalRounds = JSON.parse(receivedJSON.body).totalRounds;
+        setTotalRounds(totalRounds);
+      });
+
 
     }, function(error) {
       console.log(error);
@@ -71,10 +83,12 @@ const TestingGame = props => {
 
   const sendspiedObject = async () => {
       stompClient.send("/app/game/"+ lobbyId+ "/spiedObject", {}, JSON.stringify({ "keyword" : keyword, "color": color }));
+      setKeyword("");
+      setColor("");
   };
 
   const sendGuess = async () => {
-      stompClient.send("/app/game/"+ lobbyId+ "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("id"), "guess": guess }));
+      stompClient.send("/app/game/"+ lobbyId + "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("id"), "guess": guess }));
   };
 
   const sendHint = async () => {
@@ -85,6 +99,10 @@ const TestingGame = props => {
       stompClient.send("/app/game/"+ lobbyId+ "/round/1/spierId", {}, {});
   };
 
+  const requestRounds = async () => {
+      stompClient.send("/app/game/"+ lobbyId+ "/roundnr", {}, {});
+  };
+
   const showGuesses = async (guess) => {
     setGuesses(prevGuesses => [...prevGuesses, guess]);
   };
@@ -92,7 +110,7 @@ const TestingGame = props => {
   return (
     <BaseContainer>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <p style={{ marginRight: "10px" }}>connect and subscribe to {handshake_address}, channels: {channel_guesses}, {channel_spiedObject}</p>
+        <p style={{ marginRight: "10px" }}>connect and subscribe </p>
         <button onClick={() => connect()} style={{ marginRight: "10px" }}>connect</button>
         <button onClick={() => disconnect()}>disconnect</button>
         <p> => {connectionStatus}</p>
@@ -133,6 +151,9 @@ const TestingGame = props => {
       <p>Hint: {hintFromServer}</p>
       <button onClick={() => requestSpierId()}>get spier id</button>
       <p>Spier id: {spierId}</p>
+      <button onClick={() => requestRounds()}>get round nr</button>
+      <p>Current Round: {currentRound}</p>
+      <p>Total Rounds: {totalRounds}</p>
     </BaseContainer>
   );
 };
