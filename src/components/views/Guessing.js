@@ -77,7 +77,8 @@ const Guessing = () => {
 
 
     const handleSubmit = () => {
-        setHint(input);
+        console.log("Input: " + input);
+        //setHint(input);
         console.log("Hint: " + hint);
         console.log('form submitted ✅');
         //setdGuess(setGuess(guess));
@@ -92,6 +93,7 @@ const Guessing = () => {
 
             if (event.key === 'Enter') {
                 event.preventDefault();
+                setHint(event.target.value)
 
                 // 👇️ call submit function here
                 handleSubmit();
@@ -112,7 +114,7 @@ const Guessing = () => {
         } else {
             connect(subscribeToHintInformation)
         }
-    }, []);
+    }, [hint]);
 
     /*function subscribeToGameInformation() {
         subscribe("/games/" + gameId,(response) => {
@@ -180,7 +182,7 @@ const Guessing = () => {
                             <FormField
                                 placeholder="Enter your hint..."
                                 value={input}
-                                onChange={g => setInput(g)}
+                                onChange={i => setInput(i)}
                                 onSubmit={handleSubmit}
                             />
                         )
