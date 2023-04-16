@@ -5,11 +5,11 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import Round from "../../models/Round";
 import {useParams} from 'react-router-dom';
 import { Loader } from "@googlemaps/js-api-loader"
-import Round from "../../models/Round";
 
-let map :  google.maps.Map;
+let map: google.maps.Map;
 const FormFieldObject = props => {
     return (
         <div className="setlocation object-field">
@@ -20,12 +20,12 @@ const FormFieldObject = props => {
                 className="setlocation object-input"
                 placeholder={props.placeholder}
                 value={props.value}
+                onChange={props.onChange}
                 type = {props.type}
             />
         </div>
     );
 };
-
 const FormFieldColor= props => {
     return (
         <div className="setlocation color-field">
@@ -36,6 +36,7 @@ const FormFieldColor= props => {
                 className="setlocation color-input"
                 placeholder={props.placeholder}
                 value={props.value}
+                onChange={props.onChange}
                 type = {props.type}
             />
         </div>
@@ -48,7 +49,6 @@ FormFieldObject.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string
 };
-
 FormFieldColor.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
@@ -64,7 +64,7 @@ const SetLocation = (props) => {
   const [hint, setHint] = useState("");
   const [map, setMap] = useState(null);
   const loader = new Loader({
-    apiKey: process.env.YOUR_API_KEY,
+    apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
     version: 'weekly',
   });
 
@@ -75,35 +75,33 @@ const SetLocation = (props) => {
         zoom: 8,
       });
       setMap(map);
-      // Add a click listener to the map to get the latitude and longitude of the clicked location
             google.maps.event.addListener(map, 'click', function(event) {
               setlocation({lat: event.latLng.lat(), lng: event.latLng.lng()});
             });
     });
   }, []);
-    const handleColorChange = (event) => {
-      setColor(event.target.value);
-    };
+      const handleColorChange = (event) => {
+        setColor(event.target.value);
+      };
 
-    const handleHintChange = (event) => {
-      setHint(event.target.value);
-    };
-
+      const handleHintChange = (event) => {
+        setHint(event.target.value);
+      };
   const startGame = async () => {
-    try {
-      const requestBody = JSON.stringify({location, color, hint});
-      const response = await api.post('/games/${gameId}/rounds', requestBody);
+      try {
+        const requestBody = JSON.stringify({location, color, hint});
+        const response = await api.post('/games/${gameId}/rounds', requestBody);
 
-      // Get the returned round
-      const round = new Round(response.data);
-      localStorage.setItem("roundId", round.id);
+        // Get the returned round
+        const round = new Round(response.data);
+        localStorage.setItem("roundId", round.id);
 
-      history.push(`/games/${gameId}/round/${round.id}/guesses`);
-    } catch (error) {
-      alert(`Something went wrong during the starting process: \n${handleError(error)}`);
-    }
-  };
 
+        history.push(`/games/${gameId}/round/${round.id}/guesses`);
+      } catch (error) {
+        alert(`Something went wrong during the starting process: \n${handleError(error)}`);
+      }
+    };
 
     return (
         <BaseContainer>
@@ -119,7 +117,7 @@ const SetLocation = (props) => {
                 Choose a location by dragging the figurine into it
             </div>
             <div className="setlocation container">
-                    <div id="map"></div>
+                    <div id="map"style={{ height: '100%', width: '100%' }}></div>
             </div>
             <div className="setlocation role-container">
                 <div className="setlocation role-text">
@@ -154,7 +152,6 @@ const SetLocation = (props) => {
                 </div>
             </Button>
         </BaseContainer>
-
     );
 };
 
