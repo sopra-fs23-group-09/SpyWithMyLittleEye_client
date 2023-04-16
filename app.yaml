@@ -1,5 +1,7 @@
 # https://cloud.google.com/appengine/docs/flexible/reference/app-yaml?tab=node.js#top
 runtime: nodejs18
+env_variables:
+  YOUR_API_KEY: $YOUR_API_KEY
 
 handlers:
   - url: /static/js/(.*)

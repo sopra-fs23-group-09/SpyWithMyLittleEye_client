@@ -1,10 +1,45 @@
-import 'styles/views/Guessing.scss';
-import {useHistory} from "react-router-dom";
-import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
-import React from "react";
+import React, {useEffect, useState} from 'react';
+import {api, handleError} from 'helpers/api';
+import {Spinner} from 'components/ui/Spinner';
+import {Button} from 'components/ui/Button';
+import {useHistory, useParams} from 'react-router-dom';
+import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import {Button} from "../ui/Button";
+import "styles/views/Guessing.scss";
+import Game from 'models/Game.js';
+import {connect, getConnection, notifyHint, notifyLobbyJoined, notifyRole, subscribe} from "../../helpers/stompClient";
+import Lobby from "../../models/Lobby";
+import Round from "../../models/Round";
+
+/*{(() => {
+    if (dguess !== null){
+        return (
+            <div className="guessers wrong-container">
+                <div className="guessers name">
+                    users.username
+                </div>
+                <div className="guessers wrong-guess">
+                    {dguess}
+                </div>
+            </div>
+        )
+    }
+})()}*/
+
+/*{(() => {
+    if (dguess !== null){
+        return (
+            <div className="guessers correct-container">
+                <div className="guessers name">
+                    users.username
+                </div>
+                <div className="guessers correct-guess">
+                    GUESSED RIGHT
+                </div>
+            </div>
+        )
+    }
+})()}*/
 
 const FormField = props => {
     return (
@@ -13,7 +48,7 @@ const FormField = props => {
                 className="guessing input"
                 placeholder={props.placeholder}
                 value={props.value}
-                //onChange={e => props.onChange(e.target.value)}
+                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -26,6 +61,88 @@ FormField.propTypes = {
 
 const Guessing = () => {
     const history = useHistory();
+    const [users, setUsers] = useState(null);
+    let playerId = localStorage.getItem("userId");
+    let lobbyId = localStorage.getItem("lobbyId");
+    console.log("Lobby ID: " + lobbyId)
+    let [game, setGame] = useState(null);
+    let [round, setRound] = useState(null);
+    //let [guess, setGuess] = useState(null);
+    //let [dguess, setdGuess] = useState(null);
+
+    let [hint, setHint] = useState("");
+    const [role, setRole] = useState("spier");
+
+    let [input, setInput] = useState("");
+
+
+    const handleSubmit = () => {
+        console.log("Input: " + input);
+        //setHint(input);
+        console.log("Hint: " + hint);
+        console.log('form submitted ✅');
+        //setdGuess(setGuess(guess));
+        //setGuess("");
+        //setGuess(null);
+        setInput("");
+    }
+
+    useEffect(() => {
+        const keyDownHandler = event => {
+            console.log('User pressed: ', event.key);
+
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                setHint(event.target.value)
+
+                // 👇️ call submit function here
+                handleSubmit();
+            }
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, []);
+
+
+    useEffect(() => {
+        if (getConnection()) {
+            subscribeToHintInformation();
+        } else {
+            connect(subscribeToHintInformation)
+        }
+    }, [hint]);
+
+    /*function subscribeToGameInformation() {
+        subscribe("/games/" + gameId,(response) => {
+            setGame(new Game(response.data));
+            console.log(response.data);
+            setRound(game.currentRound);
+            setUsers(game.currentRound);
+            subscribeToRoundInformation();
+        });
+    }*/
+    /*function subscribeToRoleInformation() {
+        subscribe("/game/" + "1" + "/round/" + "1",(response) => {
+            //setRound(new Round(response.data));
+            const role = response
+            setRole(role);
+            console.log(role);
+        });
+        notifyRole(lobbyId, playerId);
+    }*/
+
+    function subscribeToHintInformation() {
+        subscribe("/game/" + "2" + "/hints",(response) => {
+            const hint = response["hint"]
+            setHint(hint);
+        });
+        notifyHint(lobbyId, hint)
+    }
+
 
     return (
         <BaseContainer>
@@ -38,14 +155,14 @@ const Guessing = () => {
             <div className="base-container ellipse4">
             </div>
             <div className="guessing rounds">
-                Round: ?/?
+                Round: round.currentRound/round.amountOfRounds
             </div>
             <div className="guessing time-left">
                 Time-left
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
-                    You're a: ?
+                    You're a: {role}
                 </div>
             </div>
             <div className="guessing container">
@@ -55,30 +172,30 @@ const Guessing = () => {
                     </div>
                     <div className="guessing hint-container">
                         <div className="guessing hint-text">
-                            Hint: The object is ?
-                        </div>
-                    </div>
-                    <div className="guessers wrong-container">
-                        <div className="guessers name">
-                            Name
-                        </div>
-                        <div className="guessers wrong-guess">
-                            Guess
-                        </div>
-                    </div>
-                    <div className="guessers correct-container">
-                        <div className="guessers name">
-                            Name
-                        </div>
-                        <div className="guessers correct-guess">
-                            GUESSED RIGHT
+                            Hint: {hint}
                         </div>
                     </div>
                 </div>
-                <FormField
-                    placeholder="Enter your guess..."
-                    type = "text"
-                />
+                {(() => {
+                    if (role === "spier"){
+                        return (
+                            <FormField
+                                placeholder="Enter your hint..."
+                                value={input}
+                                onChange={i => setInput(i)}
+                                onSubmit={handleSubmit}
+                            />
+                        )
+                    }
+                    return (
+                        <FormField
+                            placeholder="Enter your guess..."
+                            value={input}
+                            onChange={g => setInput(g)}
+                            onSubmit={handleSubmit}
+                        />
+                    )
+                })()}
             </div>
         </BaseContainer>
     );

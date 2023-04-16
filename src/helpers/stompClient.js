@@ -1,35 +1,42 @@
-//import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
-//import {useHistory, useParams} from "react-router-dom";
-//import BaseContainer from "components/ui/BaseContainer";
-//import {LogoEye} from "components/ui/LogoEye";
-//import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getDomain} from "./getDomain";
+import {over} from "stompjs";
+import SockJS from "sockjs-client";
 
 
-const Stomp = require('@stomp/stompjs');
+
+//const Stomp = require('@stomp/stompjs');
 var ws = null;
+var socket = null;
 var connection = false;
 const baseURL = getDomain();
 
-export const connect = (callback) => {
-    var socket = new WebSocket(baseURL + "/ws");
-    ws = Stomp.overSocket(socket);
-    ws.connect({}, function() {
-        console.log("Socket was connected.")
+export var connect = (callback) => {
+    socket = new SockJS(baseURL+"/ws");
+    ws = over(socket);
+    ws.connect({}, () => {
+        ws.subscribe('/topic/greetings', function (greeting) {
+            console.log(JSON.parse(greeting.body).content);
+            console.log("Socket was connected.")
+        });
         connection = true;
         callback();
-        ws.subscribe("/queue/errors", function(message) {
+       /* ws.subscribe("/queue/errors", function(message) {
             console.log("Error " + message.body);
-        }); // Subscribe to error messages through this
+        }); // Subscribe to error messages through this*/
     });
     ws.onclose = reason => {
         connection = false;
         console.log("Socket was closed, Reason: " + reason);
     }
 }
-export let subscribe = (mapping, callback) => {
-    ws.subscribe(mapping, data => callback(data));
+export const subscribe = (mapping, callback) => {
+    ws.subscribe(mapping, function (data) {
+       // console.log("Inside subscribe")
+        //console.log(JSON.parse(data.body));
+        callback(JSON.parse(data.body));
+    });
 }
 export let getConnection = () => connection;
 
@@ -41,5 +48,18 @@ function disconnect() {
 
 export const startGame = (lobbyId) => {
     const requestBody = JSON.stringify({lobbyId});
-    ws.send("/POST/games", {}, requestBody);
+    ws.send("/app/POST/games", {}, requestBody);
+}
+
+export const notifyLobbyJoined = (lobbyId) => {
+    ws.send("/app/lobbies/"+lobbyId+"/joined", {});
+}
+
+export const notifyRole = (lobbyId, playerId) => {
+    ws.send("/app/game/"+"1"+"/round/"+"1", {});
+}
+
+export const notifyHint = (lobbyId, hint) => {
+    const requestBody = JSON.stringify({hint});
+    ws.send("/app/game/"+"2"+"/hints", {}, requestBody);
 }

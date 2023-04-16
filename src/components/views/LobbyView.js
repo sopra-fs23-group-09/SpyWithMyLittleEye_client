@@ -3,21 +3,24 @@ import 'styles/views/LobbyView.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
+import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
-import {connect, getConnection, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, subscribe, startGame, notifyLobbyJoined} from "../../helpers/stompClient";
 import User from "../../models/User";
 
-
 const LobbyView = () => {
-    let userId = localStorage.getItem("id");
+    let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
+    var rounds = 0;
     var [host, setHost] = useState(null);
-    var [users, setUsers] = useState(null);
+    var [users, setUsers] = useState([]);
     let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
 
+
     useEffect(() => {
+        console.log("Connected: " + getConnection())
         if (getConnection()) {
             subscribeToLobbyInformation();
         } else {
@@ -25,25 +28,29 @@ const LobbyView = () => {
         }
     },[]);
 
-    function startGame() {
-        startGame(lobbyId);
+    function startGameButtonClick() {
+        startGame(lobbyId); // from stompClient
         // TODO get gameId
-        //localStorage.setItem("gameId", gameId)
+        var gameId = "0";
+        localStorage.setItem("gameId", gameId);
         history.push(`/game/` + 1);
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/lobbies/" + lobbyId,(response) => {
-            setLobby(new Lobby(response.data));
-            setHost(lobby.host);
-            setUsers(lobby.users);
-            console.log(response.data);
+        subscribe("/game/lobbies/"+lobbyId,response => {
+            //console.log("Inside callback");
+            console.log(response["accessCode"]);
+            setLobby(response);
+            lobby = new Lobby(response);
+            // TODO set Users, set Rounds
+            // TODO set Host
         });
+        notifyLobbyJoined(lobbyId);
     }
 
     let button_startGame = (<div></div>);
     if((host) && (host.id === userId) && (users.length >= 2)) {
-        button_startGame = (<Button className="primary-button" onClick = {() => startGame()}
+        button_startGame = (<Button className="primary-button" onClick = {() => startGameButtonClick()}
         >
             <div className="lobby button-text">
                 Start game
@@ -51,17 +58,10 @@ const LobbyView = () => {
         </Button>)
     }
 
-
-        return (
-        <BaseContainer>
-            <div className="base-container ellipse1">
-            </div>
-            <div className="base-container ellipse2">
-            </div>
-            <div className="base-container ellipse3">
-            </div>
-            <div className="base-container ellipse4">
-            </div>
+    let content = <Spinner/>;
+    if (lobby) {
+        content = (
+            <div>
             <div className="lobby lobby-code">
                 <div className="lobby lobby-code-text">
                     Code: {lobby.accessCode}
@@ -74,23 +74,27 @@ const LobbyView = () => {
             </div>
             <div className="lobby player-amount-container">
                 <div className="lobby player-amount-text">
-                    {lobby.users.length}/10
+                    {users.length}/10
                 </div>
             </div>
+            </div>
+        );
+    }
+
+        return (
+        <BaseContainer>
+            <div className="base-container ellipse1">
+            </div>
+            <div className="base-container ellipse2">
+            </div>
+            <div className="base-container ellipse3">
+            </div>
+            <div className="base-container ellipse4">
+            </div>
+            {content}
             <div className="lobby lobby-text">
                 LOBBY
             </div>
-            <ul className="game user-list">
-                {users.map(user => (
-                    <div className="lobby player">
-                        <div className="lobby profile-picture">
-                        </div>
-                        <div className="lobby player-name">
-                        user.username
-                        </div>
-                    </div>
-                ))}
-            </ul>
             {button_startGame}
         </BaseContainer>
     );
