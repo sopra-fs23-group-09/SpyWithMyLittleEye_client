@@ -6,7 +6,7 @@ import {LogoEye} from "../ui/LogoEye";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
-import {connect, getConnection, subscribe, startGame, notifyLobbyJoined} from "../../helpers/stompClient";
+import {connect, getConnection, subscribe, startGame, notifyLobbyJoined, notifyHint} from "../../helpers/stompClient";
 import User from "../../models/User";
 
 const LobbyView = () => {
@@ -33,11 +33,16 @@ const LobbyView = () => {
         // TODO get gameId
         var gameId = "0";
         localStorage.setItem("gameId", gameId);
-        history.push(`/game/` + 1);
+        history.push(`/game/` + lobbyId);
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/game/lobbies/"+lobbyId,response => {
+        subscribe("/topic/lobbies/"+lobbyId,response => {
+            /*let type = response(type)
+            switch(type):
+                type = lobby joined
+                 hdjdjdjjdjd
+                type = hint*/
             //console.log("Inside callback");
             console.log(response["accessCode"]);
             setLobby(response);
