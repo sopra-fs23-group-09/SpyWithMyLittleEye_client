@@ -6,7 +6,15 @@ import {LogoEye} from "../ui/LogoEye";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
-import {connect, getConnection, subscribe, startGame, notifyLobbyJoined, notifyHint} from "../../helpers/stompClient";
+import {
+    connect,
+    getConnection,
+    subscribe,
+    startGame,
+    notifyLobbyJoined,
+    notifyHint,
+    subscribeGame
+} from "../../helpers/stompClient";
 import User from "../../models/User";
 
 const LobbyView = () => {
@@ -37,20 +45,17 @@ const LobbyView = () => {
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/topic/lobbies/"+lobbyId,response => {
-            /*let type = response(type)
-            switch(type):
-                type = lobby joined
-                 hdjdjdjjdjd
-                type = hint*/
-            //console.log("Inside callback");
-            console.log(response["accessCode"]);
-            setLobby(response);
-            lobby = new Lobby(response);
-            // TODO set Users, set Rounds
-            // TODO set Host
-        });
+        subscribeGame(lobbyId); // StompClient
         notifyLobbyJoined(lobbyId);
+    }
+
+    export const lobbyViewCallback= (response) => {
+        //console.log("Inside callback");
+        console.log(response["accessCode"]);
+        setLobby(response);
+        lobby = new Lobby(response);
+        // TODO set Users, set Rounds
+        // TODO set Host
     }
 
     let button_startGame = (<div></div>);
