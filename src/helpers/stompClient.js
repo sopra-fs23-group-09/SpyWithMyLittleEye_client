@@ -48,7 +48,7 @@ function disconnect() {
 
 export const startGame = (lobbyId) => {
     const requestBody = JSON.stringify({lobbyId});
-    ws.send("/app/POST/games", {}, requestBody);
+    ws.send("/app/games/" + lobbyId, {}, requestBody);
 }
 
 export const notifyLobbyJoined = (lobbyId) => {
@@ -61,10 +61,10 @@ export const notifyRole = (lobbyId, playerId) => {
 
 export const notifyHint = (lobbyId, hint) => {
     const requestBody = JSON.stringify({hint});
-    ws.send("/app/game/"+lobbyId+"/hints", {}, requestBody);
+    ws.send("/app/games/"+lobbyId+"/hints", {}, requestBody);
 }
 
 export const notifyGuess = (lobbyId, playerId, guess) => {
     const requestBody = JSON.stringify({playerId, guess});
-    ws.send("/app/game/"+lobbyId+"/guesses", {}, requestBody);
+    ws.send("/app/games/"+lobbyId+"/guesses", {}, requestBody);
 }

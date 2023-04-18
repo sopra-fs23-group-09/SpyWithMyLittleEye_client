@@ -69,14 +69,9 @@ FormField.propTypes = {
 
 const Guessing = () => {
     const history = useHistory();
-    const [users, setUsers] = useState(null);
     let playerId = localStorage.getItem("userId");
     let lobbyId = localStorage.getItem("lobbyId");
     console.log("Lobby ID: " + lobbyId)
-    let [game, setGame] = useState(null);
-    let [round, setRound] = useState(null);
-    //let [guess, setGuess] = useState(null);
-    //let [dguess, setdGuess] = useState(null);
 
     const [input, setInput] = useState("");
     const [hint, setHint] = useState("");
@@ -86,18 +81,12 @@ const Guessing = () => {
 
     const handleHintSubmit = () => {
         console.log('hint submitted ✅');
-        //setdGuess(setGuess(guess));
-        //setGuess("");
-        //setGuess(null);
         setInput("");
     }
 
     const handleGuessSubmit = () => {
         console.log("Guess: " + guess);
         console.log('guess submitted ✅');
-        //setdGuess(setGuess(guess));
-        //setGuess("");
-        //setGuess(null);
         setInput("");
     }
 
@@ -149,22 +138,6 @@ const Guessing = () => {
         }
     }, [hint]);
 
-    /*useEffect(() => {
-        if (getConnection()) {
-            subscribeToGuessInformation();
-        } else {
-            connect(subscribeToGuessInformation)
-        }
-    }, [guess]);*/
-
-    /*useEffect(() => {
-        if (getConnection()) {
-            subscribeToGameInformation();
-        } else {
-            connect(subscribeToGameInformation)
-        }
-    }, []);*/
-
     /*function subscribeToGameInformation() {
         subscribe("/games/" + gameId,(response) => {
             setGame(new Game(response.data));
@@ -174,6 +147,7 @@ const Guessing = () => {
             subscribeToRoundInformation();
         });
     }*/
+
     /*function subscribeToRoleInformation() {
         subscribe("/game/" + "1" + "/round/" + "1",(response) => {
             //setRound(new Round(response.data));
@@ -184,29 +158,30 @@ const Guessing = () => {
         notifyRole(lobbyId, playerId);
     }*/
 
-    function subscribeToGameInformation() {
+    /*function subscribeToGameInformation() {
         subscribe("/games/" + lobbyId,(response) => {
             startGame(lobbyId);
             subscribeToGuessInformation();
         });
-    }
+    }*/
 
     function subscribeToHintInformation() {
         subscribe("/game/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
             setHint(hint);
         });
+
         notifyHint(lobbyId, hint);
     }
 
-    function subscribeToGuessInformation() {
+    /*function subscribeToGuessInformation() {
         subscribe("/game/" + lobbyId + "/guesses",(response) => {
             const guess = response["guess"];
             setGuess(guess);
             console.log(guess);
         });
         notifyGuess(lobbyId, playerId, guess);
-    }
+    }*/
 
 
     return (

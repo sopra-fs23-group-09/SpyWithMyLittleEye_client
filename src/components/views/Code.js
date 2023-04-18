@@ -35,7 +35,7 @@ const Code = () => {
     const joinLobby = async () => {
         try {
             const requestBody = JSON.stringify({accessCode});
-            const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
+            const response = await api.put('/lobbies/' + userId, requestBody, {headers: {Token: token}});
             console.log(response);
             const accessCode = response.data["accessCode"]
             const lobbyId = response.data["lobbyId"]
