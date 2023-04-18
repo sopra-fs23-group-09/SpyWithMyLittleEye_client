@@ -11,6 +11,7 @@ const FormField = props => {
     return (
         <div className="code field">
             <input
+                type={props.accessCode}
                 className="code input"
                 placeholder={props.placeholder}
                 value={props.value}
@@ -23,21 +24,23 @@ const FormField = props => {
 FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    accessCode : PropTypes.string
 };
 
 const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    const [accessCode, setAccessCode] = useState(null);
+    let [accessCode, setAccessCode] = useState(null);
 
 
     const joinLobby = async () => {
         try {
+            console.log(accessCode)
             const requestBody = JSON.stringify({accessCode});
-            const response = await api.put('/lobbies/' + userId, requestBody, {headers: {Token: token}});
+            console.log(requestBody)
+            const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
             console.log(response);
-            const accessCode = response.data["accessCode"]
             const lobbyId = response.data["lobbyId"]
             localStorage.setItem('lobbyId', lobbyId);
 
@@ -46,7 +49,7 @@ const Code = () => {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
 
-    }
+    };
 
     return (
         <BaseContainer>
@@ -62,14 +65,14 @@ const Code = () => {
                 Code:
             </div>
             <FormField
+                password = "accessCode"
                 placeholder = "Enter your code..."
                 value={accessCode}
                 onChange={ac => setAccessCode(ac)}
             />
             <Button className="ok-button"
                     disabled={!accessCode}
-                    onClick={() => joinLobby()}
-
+                    onClick={() => {joinLobby()}}
             >
                 <div className="rounds ok-button-text">
                     OK

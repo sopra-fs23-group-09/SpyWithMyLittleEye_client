@@ -45,11 +45,18 @@ const LobbyView = () => {
     }
 
     function subscribeToLobbyInformation() {
-        subscribeGame(lobbyId); // StompClient
+        subscribe("/game/lobbies/" + lobbyId, response => {
+            //console.log("Inside callback");
+            console.log(response["accessCode"]);
+            setLobby(response);
+            lobby = new Lobby(response);
+            // TODO set Users, set Rounds
+            // TODO set Host
+        });
         notifyLobbyJoined(lobbyId);
     }
 
-    export const lobbyViewCallback= (response) => {
+     function lobbyViewCallback(response) {
         //console.log("Inside callback");
         console.log(response["accessCode"]);
         setLobby(response);
@@ -112,3 +119,4 @@ const LobbyView = () => {
 };
 
 export default LobbyView;
+
