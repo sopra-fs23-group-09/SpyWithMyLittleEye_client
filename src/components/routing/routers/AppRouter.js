@@ -12,6 +12,7 @@ import Lobby from "components/views/LobbyView";
 import Code from "components/views/Code";
 import SetRounds from "components/views/SetRounds";
 import SetLocation from "components/views/SetLocation";
+import Waitingroom from "components/views/Waitingroom";
 import Guessing from "components/views/Guessing";
 import RoundOver from "components/views/RoundOver";
 import GameOver from "components/views/GameOver";
@@ -80,6 +81,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/game/:gameId/location">
             <SetLocation/>
+        </Route>
+        <Route exact path="/game/waitingroom">
+            <Waitingroom/>
         </Route>
         <Route exact path="/game/:lobbyId">
             <Guessing/>

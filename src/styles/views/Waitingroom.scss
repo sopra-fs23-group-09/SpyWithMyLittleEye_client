@@ -1,0 +1,20 @@
+
+.waitingroom {
+  &.header {
+    position: absolute;
+    width: 292px;
+    height: 126px;
+    left: 450px;
+    top: 300px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 126px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+}
