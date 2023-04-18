@@ -3,8 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {getDomain} from "./getDomain";
 import {over} from "stompjs";
 import SockJS from "sockjs-client";
-import Lobby from "../models/Lobby";
-import {lobbyViewCallback} from "../components/views/LobbyView";
 
 
 
@@ -46,18 +44,6 @@ function disconnect() {
     if (ws != null) ws.disconnect();
     connection = "Disconnected"
     console.log("Disconnected websocket.");
-}
-
-export const subscribeGame = (lobbyId) => {
-    subscribe("/topic/lobbies/"+lobbyId,response => {
-        let type = response["type"]
-        switch(type) {
-            case "userJoined":
-                lobbyViewCallback();
-            default:
-                console.log("Type not specified!!!!")
-        }
-    });
 }
 
 export const startGame = (lobbyId) => {
