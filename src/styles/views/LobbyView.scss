@@ -69,23 +69,6 @@
     top: 0px;
   }
 
-  &.player-name {
-    position: absolute;
-    width: 72px;
-    height: 38px;
-    left: 400px;
-    top: 400px;
-
-    font-family: 'Mulish';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 38px;
-    /* identical to box height */
-    text-align: center;
-
-    color: #000000;
-  }
 
   &.profile-picture {
     position: absolute;
@@ -169,6 +152,30 @@
     background: rgba(255, 255, 255, 0.46);
   }
 
+  &.player-container {
+  }
+
+  &.player-name {
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+  }
+
+  &.player-list {
+    list-style: none;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+  }
+
   &.player-amount-text {
     position: absolute;
     width: 84px;
@@ -188,4 +195,8 @@
   }
 
 
+}
+img {
+  border-radius: 50%;
+  height: 100px;
 }

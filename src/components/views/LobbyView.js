@@ -32,18 +32,18 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
-        // TODO get gameId
-        var gameId = "0";
+        let gameId = lobbyId;
         localStorage.setItem("gameId", gameId);
         history.push(`/game/` + lobbyId + "/waitingroom");
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/topic/lobbies/" + lobbyId, response => {
+        subscribe("/topic/lobbies/" + lobbyId, data => {
             console.log("Inside callback");
+            let event = data["event"];
             //console.log(response)
-            setLobby(response);
-            lobby = new Lobby(response);
+            setLobby(data);
+            lobby = new Lobby(data);
             console.log(lobby);
         });
         notifyLobbyJoined(lobbyId);
@@ -79,12 +79,17 @@ const LobbyView = () => {
                         {lobby.playerNames.length}/10
                     </div>
                 </div>
-                <ul className="lobby">
-                    {lobby.playerNames.map(name => (
-                        <div className="lobby player-name">
-                            {name}
-                        </div>
-                    ))}
+                <ul className="lobby player-list">
+                    <div className="lobby player-container">
+                        {lobby.playerNames.map(name => (
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282" alt="Avatar"></img>
+                                <div className="lobby player-name">
+                                    {name}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </ul>
                 {button_startGame}
             </div>
