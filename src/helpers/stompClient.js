@@ -55,10 +55,6 @@ export const notifyLobbyJoined = (lobbyId) => {
     ws.send("/app/lobbies/"+lobbyId+"/joined", {});
 }
 
-export const notifyRole = (lobbyId, playerId) => {
-    ws.send("/app/game/"+"1"+"/round/"+"1", {});
-}
-
 export const notifyHint = (lobbyId, hint) => {
     const requestBody = JSON.stringify({hint});
     ws.send("/app/games/"+lobbyId+"/hints", {}, requestBody);
@@ -66,5 +62,5 @@ export const notifyHint = (lobbyId, hint) => {
 
 export const notifyGuess = (lobbyId, playerId, guess) => {
     const requestBody = JSON.stringify({playerId, guess});
-    ws.send("/app/games/"+lobbyId+"/guesses", {}, requestBody);
+    ws.send("/app/game/"+lobbyId+"/guesses", {}, requestBody);
 }

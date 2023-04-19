@@ -12,8 +12,6 @@ import {
     getConnection,
     notifyGuess,
     notifyHint,
-    notifyLobbyJoined,
-    notifyRole, startGame,
     subscribe
 } from "../../helpers/stompClient";
 import Lobby from "../../models/Lobby";
@@ -28,21 +26,6 @@ import Round from "../../models/Round";
                 </div>
                 <div className="guessers wrong-guess">
                     {dguess}
-                </div>
-            </div>
-        )
-    }
-})()}*/
-
-/*{(() => {
-    if (dguess !== null){
-        return (
-            <div className="guessers correct-container">
-                <div className="guessers name">
-                    users.username
-                </div>
-                <div className="guessers correct-guess">
-                    GUESSED RIGHT
                 </div>
             </div>
         )
@@ -71,13 +54,33 @@ const Guessing = () => {
     const history = useHistory();
     let playerId = localStorage.getItem("userId");
     let lobbyId = localStorage.getItem("lobbyId");
-    console.log("Lobby ID: " + lobbyId)
+    const token = localStorage.getItem("token");
+    let amountOfRounds = localStorage.getItem("amountOfRounds");
+    console.log("Lobby ID: " + lobbyId);
+    console.log("Player ID: " + playerId);
+    console.log("Token: " + token);
 
     const [input, setInput] = useState("");
     const [hint, setHint] = useState("");
     const [guess, setGuess] = useState("");
 
     const [role, setRole] = useState("spier");
+
+    const [username, setUsername] = useState("");
+
+    const distributeRole = async () => {
+        try {
+            const requestBody = JSON.stringify({playerId});
+            const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
+            const playerIdForRole = response.data
+            localStorage.setItem('userId', playerIdForRole);
+            setRole(playerIdForRole);
+
+        }  catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
+
+    };
 
     const handleHintSubmit = () => {
         console.log('hint submitted ✅');
@@ -133,55 +136,31 @@ const Guessing = () => {
     useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
+
         } else {
             connect(subscribeToHintInformation)
         }
     }, [hint]);
 
-    /*function subscribeToGameInformation() {
-        subscribe("/games/" + gameId,(response) => {
-            setGame(new Game(response.data));
-            console.log(response.data);
-            setRound(game.currentRound);
-            setUsers(game.currentRound);
-            subscribeToRoundInformation();
-        });
-    }*/
-
-    /*function subscribeToRoleInformation() {
-        subscribe("/game/" + "1" + "/round/" + "1",(response) => {
-            //setRound(new Round(response.data));
-            const role = response
-            setRole(role);
-            console.log(role);
-        });
-        notifyRole(lobbyId, playerId);
-    }*/
-
-    /*function subscribeToGameInformation() {
-        subscribe("/games/" + lobbyId,(response) => {
-            startGame(lobbyId);
-            subscribeToGuessInformation();
-        });
-    }*/
-
     function subscribeToHintInformation() {
         subscribe("/game/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
+            const username = response["username"];
             setHint(hint);
+            setUsername(username);
         });
 
         notifyHint(lobbyId, hint);
     }
 
-    /*function subscribeToGuessInformation() {
+    function subscribeToGuessInformation() {
         subscribe("/game/" + lobbyId + "/guesses",(response) => {
             const guess = response["guess"];
             setGuess(guess);
             console.log(guess);
         });
         notifyGuess(lobbyId, playerId, guess);
-    }*/
+    }
 
 
     return (
@@ -195,13 +174,14 @@ const Guessing = () => {
             <div className="base-container ellipse4">
             </div>
             <div className="guessing rounds">
-                Round: round.currentRound/round.amountOfRounds
+                Round: round.currentRound/{amountOfRounds}
             </div>
             <div className="guessing time-left">
                 Time-left
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
+                    {(() => {distributeRole()})()}
                     You're a: {role}
                 </div>
             </div>
@@ -220,7 +200,7 @@ const Guessing = () => {
                             return (
                                 <div className="guessers correct-container">
                                     <div className="guessers name">
-                                        users.username
+                                        {username}
                                     </div>
                                     <div className="guessers correct-guess">
                                         GUESSED RIGHT
@@ -228,6 +208,19 @@ const Guessing = () => {
                                 </div>
                             )
                         }
+                        else if (guess !== "") {
+                            return (
+                                <div className="guessers wrong-container">
+                                    <div className="guessers name">
+                                        {username}
+                                    </div>
+                                    <div className="guessers wrong-guess">
+                                        {guess}
+                                    </div>
+                                </div>
+                            )
+                        }
+
                     })()}
                 </div>
                 {(() => {
