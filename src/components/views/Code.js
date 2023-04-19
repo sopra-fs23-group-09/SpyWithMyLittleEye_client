@@ -36,12 +36,10 @@ const Code = () => {
 
     const joinLobby = async () => {
         try {
-            console.log(accessCode)
             const requestBody = JSON.stringify({accessCode});
-            console.log(requestBody)
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
             console.log(response);
-            const lobbyId = response.data["lobbyId"]
+            const lobbyId = response.data["id"]
             localStorage.setItem('lobbyId', lobbyId);
 
             history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId

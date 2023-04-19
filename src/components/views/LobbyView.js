@@ -11,18 +11,12 @@ import {
     getConnection,
     subscribe,
     startGame,
-    notifyLobbyJoined,
-    notifyHint,
-    subscribeGame
+    notifyLobbyJoined
 } from "../../helpers/stompClient";
-import User from "../../models/User";
 
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
-    var rounds = 0;
-    var [host, setHost] = useState(null);
-    var [users, setUsers] = useState([]);
     let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
 
@@ -34,40 +28,48 @@ const LobbyView = () => {
         } else {
             connect(subscribeToLobbyInformation)
         }
-    },[]);
+    }, []);
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
-        // TODO get gameId
-        var gameId = "0";
+        redirectToGame();
+    }
+
+    function redirectToGame() {
+        let gameId = lobbyId;
         localStorage.setItem("gameId", gameId);
-        history.push(`/game/` + lobbyId);
+        history.push(`/game/` + lobbyId + "/waitingroom");
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/game/lobbies/" + lobbyId, response => {
-            //console.log("Inside callback");
-            console.log(response["accessCode"]);
-            setLobby(response);
-            lobby = new Lobby(response);
-            // TODO set Users, set Rounds
-            // TODO set Host
+        subscribe("/topic/lobbies/" + lobbyId, data => {
+            console.log("Inside callback");
+            let event = data["event"];
+            console.log(data);
+            if (event) {
+                if (event == "joined") {
+                    console.log("JOINED")
+                    setLobby(data);
+                    lobby = new Lobby(data);
+                    console.log(lobby);
+                } else if (event == "started") {
+                        console.log("STARTED");
+                        redirectToGame();
+                }
+            } else {
+                setLobby(data);
+                lobby = new Lobby(data);
+                console.log(lobby);
+            }
+
         });
         notifyLobbyJoined(lobbyId);
     }
 
-     function lobbyViewCallback(response) {
-        //console.log("Inside callback");
-        console.log(response["accessCode"]);
-        setLobby(response);
-        lobby = new Lobby(response);
-        // TODO set Users, set Rounds
-        // TODO set Host
-    }
 
     let button_startGame = (<div></div>);
-    if((host) && (host.id === userId) && (users.length >= 2)) {
-        button_startGame = (<Button className="primary-button" onClick = {() => startGameButtonClick()}
+    if ((lobby) && (lobby.hostId == userId) && (lobby.playerNames.length >= 2)) {
+        button_startGame = (<Button className="primary-button" onClick={() => startGameButtonClick()}
         >
             <div className="lobby button-text">
                 Start game
@@ -79,26 +81,39 @@ const LobbyView = () => {
     if (lobby) {
         content = (
             <div>
-            <div className="lobby lobby-code">
-                <div className="lobby lobby-code-text">
-                    Code: {lobby.accessCode}
+                <div className="lobby lobby-code">
+                    <div className="lobby lobby-code-text">
+                        Code: {lobby.accessCode}
+                    </div>
                 </div>
-            </div>
-            <div className="lobby rounds-box">
-                <div className="lobby rounds-text">
-                    Rounds: {lobby.rounds}
+                <div className="lobby rounds-box">
+                    <div className="lobby rounds-text">
+                        Rounds: {lobby.amountRounds}
+                    </div>
                 </div>
-            </div>
-            <div className="lobby player-amount-container">
-                <div className="lobby player-amount-text">
-                    {users.length}/10
+                <div className="lobby player-amount-container">
+                    <div className="lobby player-amount-text">
+                        {lobby.playerNames.length}/10
+                    </div>
                 </div>
-            </div>
+                <ul className="lobby player-list">
+                    <div className="lobby player-container">
+                        {lobby.playerNames.map(name => (
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282" alt="Avatar"></img>
+                                <div className="lobby player-name">
+                                    {name}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </ul>
+                {button_startGame}
             </div>
         );
     }
 
-        return (
+    return (
         <BaseContainer>
             <div className="base-container ellipse1">
             </div>
