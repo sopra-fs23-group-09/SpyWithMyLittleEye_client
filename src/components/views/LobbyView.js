@@ -45,7 +45,7 @@ const LobbyView = () => {
     }
 
     function subscribeToLobbyInformation() {
-        subscribe("/game/lobbies/" + lobbyId, response => {
+        subscribe("/topic/lobbies/" + lobbyId, response => {
             //console.log("Inside callback");
             console.log(response["accessCode"]);
             setLobby(response);
