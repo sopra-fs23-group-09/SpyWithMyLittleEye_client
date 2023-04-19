@@ -126,8 +126,8 @@ const SetLocation = (props) => {
       };
   function startGame() {
     notifySpiedObject(lobbyId, location, color, object);
-    history.push(`game/ + lobbyId`);
-    };
+    history.push("/game/" + lobbyId);
+    }
 
     return (
         <BaseContainer>
