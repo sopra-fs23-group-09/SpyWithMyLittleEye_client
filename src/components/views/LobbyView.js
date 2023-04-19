@@ -34,7 +34,7 @@ const LobbyView = () => {
         } else {
             connect(subscribeToLobbyInformation)
         }
-    },[]);
+    }, []);
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
@@ -46,17 +46,18 @@ const LobbyView = () => {
 
     function subscribeToLobbyInformation() {
         subscribe("/topic/lobbies/" + lobbyId, response => {
-            //console.log("Inside callback");
-            console.log(response["accessCode"]);
+            console.log("Inside callback");
+            //console.log(response)
             setLobby(response);
             lobby = new Lobby(response);
+            console.log(lobby)
             // TODO set Users, set Rounds
             // TODO set Host
         });
         notifyLobbyJoined(lobbyId);
     }
 
-     function lobbyViewCallback(response) {
+    function lobbyViewCallback(response) {
         //console.log("Inside callback");
         console.log(response["accessCode"]);
         setLobby(response);
@@ -66,8 +67,8 @@ const LobbyView = () => {
     }
 
     let button_startGame = (<div></div>);
-    if((host) && (host.id === userId) && (users.length >= 2)) {
-        button_startGame = (<Button className="primary-button" onClick = {() => startGameButtonClick()}
+    if ((host) && (host.id === userId) && (users.length >= 2)) {
+        button_startGame = (<Button className="primary-button" onClick={() => startGameButtonClick()}
         >
             <div className="lobby button-text">
                 Start game
@@ -79,26 +80,34 @@ const LobbyView = () => {
     if (lobby) {
         content = (
             <div>
-            <div className="lobby lobby-code">
-                <div className="lobby lobby-code-text">
-                    Code: {lobby.accessCode}
+                <div className="lobby lobby-code">
+                    <div className="lobby lobby-code-text">
+                        Code: {lobby.accessCode}
+                    </div>
                 </div>
-            </div>
-            <div className="lobby rounds-box">
-                <div className="lobby rounds-text">
-                    Rounds: {lobby.rounds}
+                <div className="lobby rounds-box">
+                    <div className="lobby rounds-text">
+                        Rounds: {lobby.amountRounds}
+                    </div>
                 </div>
-            </div>
-            <div className="lobby player-amount-container">
-                <div className="lobby player-amount-text">
-                    {users.length}/10
+                <div className="lobby player-amount-container">
+                    <div className="lobby player-amount-text">
+                        {lobby.playerNames.length}/10
+                    </div>
                 </div>
-            </div>
+                <ul className="lobby">
+                    {lobby.playerNames.map(name => (
+                        <div className="lobby player-name">
+                            {name}
+                        </div>
+                    ))}
+                </ul>
+
             </div>
         );
     }
 
-        return (
+    return (
         <BaseContainer>
             <div className="base-container ellipse1">
             </div>
