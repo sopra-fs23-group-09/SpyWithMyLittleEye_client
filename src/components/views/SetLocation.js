@@ -170,7 +170,9 @@ const SetLocation = (props) => {
             <div className= "setlocation readytext">
             Ready?
             </div>
-            <Button className="start-button" onClick={startGame()}
+            <Button className="start-button"
+            disabled={!color || !object}
+            onClick={()=>startGame()}
 
             >
                 <div className="setlocation start-button-text">
