@@ -32,6 +32,10 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
+        redirectToGame();
+    }
+
+    function redirectToGame() {
         let gameId = lobbyId;
         localStorage.setItem("gameId", gameId);
         history.push(`/game/` + lobbyId + "/waitingroom");
@@ -41,10 +45,23 @@ const LobbyView = () => {
         subscribe("/topic/lobbies/" + lobbyId, data => {
             console.log("Inside callback");
             let event = data["event"];
-            //console.log(response)
-            setLobby(data);
-            lobby = new Lobby(data);
-            console.log(lobby);
+            console.log(data);
+            if (event) {
+                if (event == "joined") {
+                    console.log("JOINED")
+                    setLobby(data);
+                    lobby = new Lobby(data);
+                    console.log(lobby);
+                } else if (event == "started") {
+                        console.log("STARTED");
+                        redirectToGame();
+                }
+            } else {
+                setLobby(data);
+                lobby = new Lobby(data);
+                console.log(lobby);
+            }
+
         });
         notifyLobbyJoined(lobbyId);
     }
