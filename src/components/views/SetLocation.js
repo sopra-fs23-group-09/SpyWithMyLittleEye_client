@@ -68,7 +68,7 @@ const SetLocation = (props) => {
   const [object, setObject] = useState("");
   const [map, setMap] = useState(null);
   const loader = new Loader({
-    apiKey: 'AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ', // Replace with your Google Maps API key
+    apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
     version: 'weekly',
   });
   useEffect(() => {
