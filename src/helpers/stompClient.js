@@ -54,6 +54,10 @@ export const startGame = (lobbyId) => {
 export const notifyLobbyJoined = (lobbyId) => {
     ws.send("/app/lobbies/"+lobbyId+"/joined", {});
 }
+export const notifySpiedObject = (lobbyId, location, color, object) =>{
+    const requestBody = JSON.stringify({location, color, object});
+    ws.send("/app/games/" +lobbyId+"/spiedObject", {}, requestBody);
+}
 
 export const notifyHint = (lobbyId, hint) => {
     const requestBody = JSON.stringify({hint});
