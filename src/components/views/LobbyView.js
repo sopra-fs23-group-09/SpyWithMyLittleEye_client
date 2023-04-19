@@ -11,18 +11,12 @@ import {
     getConnection,
     subscribe,
     startGame,
-    notifyLobbyJoined,
-    notifyHint,
-    subscribeGame
+    notifyLobbyJoined
 } from "../../helpers/stompClient";
-import User from "../../models/User";
 
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
-    var rounds = 0;
-    var [host, setHost] = useState(null);
-    var [users, setUsers] = useState([]);
     let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
 
@@ -41,7 +35,7 @@ const LobbyView = () => {
         // TODO get gameId
         var gameId = "0";
         localStorage.setItem("gameId", gameId);
-        history.push(`/game/` + lobbyId);
+        history.push(`/game/` + lobbyId + "/waitingroom");
     }
 
     function subscribeToLobbyInformation() {
@@ -50,24 +44,14 @@ const LobbyView = () => {
             //console.log(response)
             setLobby(response);
             lobby = new Lobby(response);
-            console.log(lobby)
-            // TODO set Users, set Rounds
-            // TODO set Host
+            console.log(lobby);
         });
         notifyLobbyJoined(lobbyId);
     }
 
-    function lobbyViewCallback(response) {
-        //console.log("Inside callback");
-        console.log(response["accessCode"]);
-        setLobby(response);
-        lobby = new Lobby(response);
-        // TODO set Users, set Rounds
-        // TODO set Host
-    }
 
     let button_startGame = (<div></div>);
-    if ((host) && (host.id === userId) && (users.length >= 2)) {
+    if ((lobby) && (lobby.hostId == userId) && (lobby.playerNames.length >= 2)) {
         button_startGame = (<Button className="primary-button" onClick={() => startGameButtonClick()}
         >
             <div className="lobby button-text">
@@ -102,7 +86,7 @@ const LobbyView = () => {
                         </div>
                     ))}
                 </ul>
-
+                {button_startGame}
             </div>
         );
     }
