@@ -6,8 +6,11 @@ import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import Round from "../../models/Round";
+import Lobby from 'models/Lobby.js';
+import {notifySpiedObject,connect,getConnection,subscribe} from "../../helpers/stompClient";
 import {useParams} from 'react-router-dom';
 import { Loader } from "@googlemaps/js-api-loader"
+
 
 let map: google.maps.Map;
 const FormFieldObject = props => {
@@ -58,49 +61,72 @@ FormFieldColor.propTypes = {
 };
 const SetLocation = (props) => {
   const history = useHistory();
+  let lobbyId = localStorage.getItem("lobbyId");
   let gameId = localStorage.getItem("gameId");
   const [location, setlocation] = useState("");
   const [color, setColor] = useState("");
-  const [hint, setHint] = useState("");
+  const [object, setObject] = useState("");
   const [map, setMap] = useState(null);
   const loader = new Loader({
-    apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
+    apiKey: 'AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ', // Replace with your Google Maps API key
     version: 'weekly',
   });
-
   useEffect(() => {
     loader.load().then(() => {
       const map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 47.36667, lng: 8.55 },
         zoom: 8,
       });
+      const streetView = map.getStreetView();
       setMap(map);
-            google.maps.event.addListener(map, 'click', function(event) {
-              setlocation({lat: event.latLng.lat(), lng: event.latLng.lng()});
+
+          // Add event listener for the click event on the map
+          map.addListener('click', (event) => {
+            const newLocation = {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng()
+            };
+            setlocation(newLocation);
+            console.log("Location set to:", newLocation);
+          });
+
+          // Add event listener for the position_changed event on the street view object
+          streetView.addListener('position_changed', () => {
+            const newPosition = streetView.getPosition();
+            setlocation({
+             lat: newPosition.lat(),
+             lng: newPosition.lng()
             });
+            console.log("Street view position changed to:", {
+              lat: newPosition.lat(),
+              lng: newPosition.lng()
+            });
+          });
     });
   }, []);
+
+    function subscribeToSetLocationInformation() {
+    }
+  useEffect(() => {
+        console.log("Connected: " + getConnection())
+        if (getConnection()) {
+            subscribeToSetLocationInformation();
+        } else {
+            connect(subscribeToSetLocationInformation)
+        }
+    },[]);
       const handleColorChange = (event) => {
         setColor(event.target.value);
+        console.log("Color set to:", event.target.value);
       };
 
-      const handleHintChange = (event) => {
-        setHint(event.target.value);
+      const handleObjectChange = (event) => {
+        setObject(event.target.value);
+        console.log("Hint set to:", event.target.value);
       };
-  const startGame = async () => {
-      try {
-        const requestBody = JSON.stringify({location, color, hint});
-        const response = await api.post('/games/${gameId}/rounds', requestBody);
-
-        // Get the returned round
-        const round = new Round(response.data);
-        localStorage.setItem("roundId", round.id);
-
-
-        history.push(`/games/${gameId}/round/${round.id}/guesses`);
-      } catch (error) {
-        alert(`Something went wrong during the starting process: \n${handleError(error)}`);
-      }
+  function startGame() {
+    notifySpiedObject(lobbyId, location, color, object);
+    history.push(`game/ + lobbyId`);
     };
 
     return (
@@ -137,14 +163,16 @@ const SetLocation = (props) => {
             <FormFieldObject
                 label="Enter your object:"
                 placeholder="Your object..."
-                value={hint}
-                onChange={handleHintChange}
+                value={object}
+                onChange={handleObjectChange}
                 type = "text"
             />
             <div className= "setlocation readytext">
             Ready?
             </div>
-            <Button className="start-button" onClick={startGame}
+            <Button className="start-button"
+            disabled={!color || !object}
+            onClick={()=>startGame()}
 
             >
                 <div className="setlocation start-button-text">
