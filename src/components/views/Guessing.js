@@ -52,10 +52,10 @@ FormField.propTypes = {
 
 const Guessing = () => {
     const history = useHistory();
-    let playerId = localStorage.getItem("userId");
-    let lobbyId = localStorage.getItem("lobbyId");
+    const playerId = localStorage.getItem("userId");
+    const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
-    let amountOfRounds = localStorage.getItem("amountOfRounds");
+    const amountOfRounds = localStorage.getItem("amountOfRounds");
     console.log("Lobby ID: " + lobbyId);
     console.log("Player ID: " + playerId);
     console.log("Token: " + token);
@@ -64,18 +64,30 @@ const Guessing = () => {
     const [hint, setHint] = useState("");
     const [guess, setGuess] = useState("");
 
-    const [role, setRole] = useState("spier");
+    const [role, setRole] = useState("");
 
     const [username, setUsername] = useState("");
+
+    const [currentRound, setCurrentRound] = useState(null);
 
     const distributeRole = async () => {
         try {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
-            const playerIdForRole = response.data
-            localStorage.setItem('userId', playerIdForRole);
-            setRole(playerIdForRole);
+            const role = response.data
+            localStorage.setItem('userId', role);
+            setRole(role);
+        }  catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
 
+    };
+
+    const displayCurrentRound = async () => {
+        try {
+            const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
+            const currentRound = response.data["currentRound"];
+            setCurrentRound(currentRound);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -142,6 +154,11 @@ const Guessing = () => {
         }
     }, [hint]);
 
+    useEffect(() => {
+        distributeRole();
+        displayCurrentRound();
+    }, []);
+
     function subscribeToHintInformation() {
         subscribe("/game/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
@@ -162,7 +179,6 @@ const Guessing = () => {
         notifyGuess(lobbyId, playerId, guess);
     }
 
-
     return (
         <BaseContainer>
             <div className="base-container ellipse1">
@@ -174,14 +190,13 @@ const Guessing = () => {
             <div className="base-container ellipse4">
             </div>
             <div className="guessing rounds">
-                Round: round.currentRound/{amountOfRounds}
+                Round: {currentRound}/{amountOfRounds}
             </div>
             <div className="guessing time-left">
                 Time-left
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
-                    {(() => {distributeRole()})()}
                     You're a: {role}
                 </div>
             </div>
@@ -224,7 +239,7 @@ const Guessing = () => {
                     })()}
                 </div>
                 {(() => {
-                    if (role === "spier"){
+                    if (role === "SPIER"){
                         return (
                             <FormField
                                 placeholder="Enter your hint..."
