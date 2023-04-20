@@ -9,20 +9,29 @@ import Stomp from 'stompjs';
 
 const TestingGame = props => {
   const history = useHistory();
-  const [lobbyId, setLobbyId] = useState(1);
-  const [guess, setGuess] = useState(null);
-  const [hint, setHint] = useState(null);
+  const [gameId, setGameId] = useState(1);
+  const [guess, setGuess] = useState("house");
+  const [hint, setHint] = useState("quite big");
   const [currentRound, setCurrentRound] = useState(null);
   const [totalRounds, setTotalRounds] = useState(null);
   const [spierId, setSpierId] = useState(null);
   const [hintFromServer, setHintFromServer] = useState(null);
-  const [keyword, setKeyword] = useState(null);
-  const [color, setColor] = useState(null);
+  const [keyword, setKeyword] = useState("mouse");
+  const [color, setColor] = useState("grey");
   const [colorFromServer, setColorFromServer] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [lat, setLat] = useState(47.377718);
+  const [lng, setLng] = useState(8.540829);
+  const [latFromServer, setLatFromServer] = useState(null);
+  const [lngFromServer, setLngFromServer] = useState(null);
+  const [locationFromServer, setLocationFromServer] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState("disconnected");
   const [stompClient, setStompClient] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const { userId } = useParams();
+
+  const urlClient2Server = "/app/games/"+ gameId;
+  const urlServer2Client = '/topic/games/'+ gameId;
 
   const connect = async () => {
     var socket = new SockJS("http://localhost:8080/ws");
@@ -32,33 +41,33 @@ const TestingGame = props => {
 
     client.connect({}, function () {
       //subscribe to spiedObject
-      client.subscribe('/topic/games/'+ lobbyId + '/spiedObject', function (receivedJSON) {
-        const colorFromServer = JSON.parse(receivedJSON.body).color;
-        setColorFromServer(colorFromServer);
+      client.subscribe( urlServer2Client + '/spiedObject', function (receivedJSON) {
+        setColorFromServer(JSON.parse(receivedJSON.body).color);
+        setLatFromServer(JSON.parse(receivedJSON.body).location.lat);
+        setLngFromServer(JSON.parse(receivedJSON.body).location.lng);
       });
       //subscribe to guesses
-      client.subscribe('/topic/games/'+ lobbyId + '/guesses', function (receivedJSON) {
+      client.subscribe(urlServer2Client + '/guesses', function (receivedJSON) {
          const { username, guess } = JSON.parse(receivedJSON.body);
          showGuesses({ username, guess });
       });
       //subscribe to hints
-      client.subscribe('/topic/games/'+ lobbyId + '/hints', function (receivedJSON) {
+      client.subscribe(urlServer2Client + '/hints', function (receivedJSON) {
         const hintFromServer = JSON.parse(receivedJSON.body).hint;
         setHintFromServer(hintFromServer);
       });
       //subscribe to roles
-      client.subscribe('/topic/games/'+ lobbyId + '/round/1/spierId', function (receivedJSON) {
+      client.subscribe(urlServer2Client + '/round/1/spierId', function (receivedJSON) {
         const spierId = JSON.parse(receivedJSON.body).userId;
         setSpierId(spierId);
       });
       //subscribe to roundNr
-      client.subscribe('/topic/games/'+ lobbyId + '/roundnr', function (receivedJSON) {
+      client.subscribe(urlServer2Client + '/roundnr', function (receivedJSON) {
         const currentRound = JSON.parse(receivedJSON.body).currentRound;
         setCurrentRound(currentRound);
         const totalRounds = JSON.parse(receivedJSON.body).totalRounds;
         setTotalRounds(totalRounds);
       });
-
 
     }, function(error) {
       console.log(error);
@@ -74,25 +83,29 @@ const TestingGame = props => {
   };
 
   const sendspiedObject = async () => {
-      stompClient.send("/app/games/"+ lobbyId+ "/spiedObject", {}, JSON.stringify({ "keyword" : keyword, "color": color }));
+      stompClient.send(urlClient2Server + "/spiedObject", {}, JSON.stringify({ "location":{"lat": lat, "lng": lng}, "object" : keyword, "color": color }));
       setKeyword("");
       setColor("");
+      setLng("");
+      setLat("");
   };
 
   const sendGuess = async () => {
-      stompClient.send("/app/games/"+ lobbyId + "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("userId"), "guess": guess }));
+      stompClient.send(urlClient2Server + "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("userId"), "guess": guess }));
+      setGuess("");
   };
 
   const sendHint = async () => {
-      stompClient.send("/app/games/"+ lobbyId+ "/hints", {}, JSON.stringify({ "hint": hint }));
+      stompClient.send(urlClient2Server + "/hints", {}, JSON.stringify({ "hint": hint }));
+      setHint("");
   };
 
   const requestSpierId = async () => {
-      stompClient.send("/app/games/"+ lobbyId+ "/round/1/spierId", {}, {});
+      stompClient.send(urlClient2Server + "/round/1/spierId", {}, {});
   };
 
   const requestRounds = async () => {
-      stompClient.send("/app/games/"+ lobbyId+ "/roundnr", {}, {});
+      stompClient.send(urlClient2Server + "/roundnr", {}, {});
   };
 
   const showGuesses = async (guess) => {
@@ -108,10 +121,18 @@ const TestingGame = props => {
         <p> => {connectionStatus}</p>
       </div>
       <label>
-        lobbyId:
-        <input type="text" value={lobbyId} onChange={event => setLobbyId(event.target.value)} />
+        gameId:
+        <input type="text" value={gameId} onChange={event => setGameId(event.target.value)} />
       </label>
       <p></p>
+      <label>
+        Lat:
+        <input type="text" value={lat} onChange={event => setLat(event.target.value)} />
+      </label>
+      <label>
+        Lng:
+        <input type="text" value={lng} onChange={event => setLng(event.target.value)} />
+      </label>
       <label>
         Keyword:
         <input type="text" value={keyword} onChange={event => setKeyword(event.target.value)} />
@@ -121,6 +142,7 @@ const TestingGame = props => {
         <input type="text" value={color} onChange={event => setColor(event.target.value)} />
       </label>
       <button onClick={() => sendspiedObject()}>send info spied object</button>
+      <p>Lat: {latFromServer}, lng: {lngFromServer}</p>
       <p>Color: {colorFromServer}</p>
       <label>
         Guess:
