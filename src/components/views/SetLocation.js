@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {api, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import Round from "../../models/Round";
-import Lobby from 'models/Lobby.js';
-import {notifySpiedObject,connect,getConnection,subscribe} from "../../helpers/stompClient";
-import {useParams} from 'react-router-dom';
+import {notifySpiedObject,connect,getConnection} from "../../helpers/stompClient";
 import { Loader } from "@googlemaps/js-api-loader"
 
 
