@@ -58,7 +58,7 @@ const Guessing = () => {
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
             //localStorage.setItem('userId', role);
-            setRole(role);
+            setRole("GUESSER");
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -92,8 +92,8 @@ const Guessing = () => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
 
-            if (event.key === 'Shift' && role === "GUESSER") {
-                console.log("THIS SHOULDNT GET DISPLAYED");
+            if (event.key === 'Enter' && role === "GUESSER") {
+                //console.log("THIS SHOULDNT GET DISPLAYED");
                 event.preventDefault();
                 setGuess(event.target.value);
 
@@ -129,14 +129,14 @@ const Guessing = () => {
         };
     }, [inputHint]);
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
 
         } else {
             connect(subscribeToHintInformation);
         }
-    }, [hint]);*/
+    }, [hint]);
 
     useEffect(() => {
         if (getConnection()) {
@@ -226,7 +226,6 @@ const Guessing = () => {
                                 </div>
                             )
                         }
-
                     })()}
                 </div>
                 {(() => {
@@ -241,14 +240,16 @@ const Guessing = () => {
                             />
                         )
                     }
-                    return (
-                        <FormField
-                            placeholder="Enter your guess..."
-                            value={inputGuess}
-                            onChange={g => setInputGuess(g)}
-                            onSubmit={handleGuessSubmit}
-                        />
-                    )
+                    else if (role === "GUESSER"  && guess !== "CORRECT") {
+                        return (
+                            <FormField
+                                placeholder="Enter your guess..."
+                                value={inputGuess}
+                                onChange={g => setInputGuess(g)}
+                                onSubmit={handleGuessSubmit}
+                            />
+                        )
+                    }
                 })()}
             </div>
         </BaseContainer>
