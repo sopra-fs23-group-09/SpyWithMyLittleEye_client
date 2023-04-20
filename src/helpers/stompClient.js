@@ -1,5 +1,4 @@
 import 'styles/views/LobbyView.scss';
-import React, {useEffect, useState} from 'react';
 import {getDomain} from "./getDomain";
 import {over} from "stompjs";
 import SockJS from "sockjs-client";
