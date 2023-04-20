@@ -11,10 +11,11 @@ const FormField = props => {
     return (
         <div className="code field">
             <input
+                type={props.accessCode}
                 className="code input"
                 placeholder={props.placeholder}
                 value={props.value}
-                //onChange={e => props.onChange(e.target.value)}
+                onChange={e => props.onChange(e.target.value)}
             />
         </div>
     );
@@ -23,29 +24,30 @@ const FormField = props => {
 FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    accessCode : PropTypes.string
 };
 
 const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    const [accessCode, setAccessCode] = useState(null);
+    let [accessCode, setAccessCode] = useState(null);
 
 
-    async function joinLobby() {
+    const joinLobby = async () => {
         try {
             const requestBody = JSON.stringify({accessCode});
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
             console.log(response);
-            const accessCode = response.data["accessCode"]
-            const lobbyId = response.data["lobbyId"]
+            const lobbyId = response.data["id"]
             localStorage.setItem('lobbyId', lobbyId);
+
             history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
         }  catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
 
-    }
+    };
 
     return (
         <BaseContainer>
@@ -61,11 +63,15 @@ const Code = () => {
                 Code:
             </div>
             <FormField
+                password = "accessCode"
                 placeholder = "Enter your code..."
                 value={accessCode}
                 onChange={ac => setAccessCode(ac)}
             />
-            <Button className="ok-button" onClick={() => joinLobby()}>
+            <Button className="ok-button"
+                    disabled={!accessCode}
+                    onClick={() => {joinLobby()}}
+            >
                 <div className="rounds ok-button-text">
                     OK
                 </div>

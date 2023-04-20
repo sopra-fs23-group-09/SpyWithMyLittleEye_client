@@ -8,10 +8,11 @@ import HomePage from "components/views/HomePage";
 import Leaderboard from "components/views/Leaderboard";
 import UserPage from "components/views/UserPage";
 import EditPage from "components/views/EditPage";
-import Lobby from "components/views/LobbyView";
+import LobbyView from "components/views/LobbyView";
 import Code from "components/views/Code";
 import SetRounds from "components/views/SetRounds";
 import SetLocation from "components/views/SetLocation";
+import Waitingroom from "components/views/Waitingroom";
 import Guessing from "components/views/Guessing";
 import RoundOver from "components/views/RoundOver";
 import GameOver from "components/views/GameOver";
@@ -67,12 +68,15 @@ const AppRouter = () => {
             </GameGuard>
         </Route>
         <Route exact path ="/lobby/:lobbyId">
-            <Lobby/>
+            <LobbyView/>
         </Route>
         <Route exact path="/game/:gameId/location">
             <SetLocation/>
         </Route>
-        <Route exact path="/game/:gameId/round/:roundId/guesses">
+        <Route exact path="/game/:lobbyId/waitingroom">
+            <Waitingroom/>
+        </Route>
+        <Route exact path="/game/:lobbyId">
             <Guessing/>
         </Route>
         <Route exact path ="/game/:gameId/rounds/score">
