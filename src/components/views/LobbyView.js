@@ -97,16 +97,15 @@ const LobbyView = () => {
                     </div>
                 </div>
                 <ul className="lobby player-list">
-                    <div className="lobby player-container">
                         {lobby.playerNames.map(name => (
-                            <div>
-                                <img src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282" alt="Avatar"></img>
+                            <li className = "lobby player-container">
+                                <img src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"></img>
                                 <div className="lobby player-name">
                                     {name}
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            </li>
+                        ))
+                        }
                 </ul>
                 {button_startGame}
             </div>
