@@ -64,7 +64,7 @@ export const notifyHint = (lobbyId, hint) => {
     ws.send("/app/games/"+lobbyId+"/hints", {}, requestBody);
 }
 
-export const notifyGuess = (lobbyId, playerId, guess) => {
-    const requestBody = JSON.stringify({playerId, guess});
+export const notifyGuess = (lobbyId, id, guess) => {
+    const requestBody = JSON.stringify({id, guess});
     ws.send("/app/games/"+lobbyId+"/guesses", {}, requestBody);
 }

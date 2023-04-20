@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
-import Game from 'models/Game.js';
 import {
     connect,
     getConnection,
@@ -14,23 +11,6 @@ import {
     notifyHint,
     subscribe
 } from "../../helpers/stompClient";
-import Lobby from "../../models/Lobby";
-import Round from "../../models/Round";
-
-/*{(() => {
-    if (dguess !== null){
-        return (
-            <div className="guessers wrong-container">
-                <div className="guessers name">
-                    users.username
-                </div>
-                <div className="guessers wrong-guess">
-                    {dguess}
-                </div>
-            </div>
-        )
-    }
-})()}*/
 
 const FormField = props => {
     return (
@@ -55,12 +35,13 @@ const Guessing = () => {
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
-    const amountOfRounds = localStorage.getItem("amountOfRounds");
-    console.log("Lobby ID: " + lobbyId);
-    console.log("Player ID: " + playerId);
-    console.log("Token: " + token);
 
-    const [input, setInput] = useState("");
+    //console.log("Lobby ID: " + lobbyId);
+    //console.log("Player ID: " + playerId);
+    //console.log("Token: " + token);
+
+    const [inputHint, setInputHint] = useState("");
+    const [inputGuess, setInputGuess] = useState("");
     const [hint, setHint] = useState("");
     const [guess, setGuess] = useState("");
 
@@ -69,13 +50,14 @@ const Guessing = () => {
     const [username, setUsername] = useState("");
 
     const [currentRound, setCurrentRound] = useState(null);
+    const [amountOfRounds, setAmountOfRounds] = useState(null);
 
     const distributeRole = async () => {
         try {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            localStorage.setItem('userId', role);
+            //localStorage.setItem('userId', role);
             setRole(role);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -87,7 +69,9 @@ const Guessing = () => {
         try {
             const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
             const currentRound = response.data["currentRound"];
+            const amountOfRounds = response.data["totalRounds"];
             setCurrentRound(currentRound);
+            setAmountOfRounds(amountOfRounds);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -95,21 +79,21 @@ const Guessing = () => {
     };
 
     const handleHintSubmit = () => {
-        console.log('hint submitted ✅');
-        setInput("");
+        //console.log('hint submitted ✅');
+        setInputHint("");
     }
 
     const handleGuessSubmit = () => {
-        console.log("Guess: " + guess);
         console.log('guess submitted ✅');
-        setInput("");
+        setInputGuess("");
     }
 
     useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
 
-            if (event.key === 'Shift') {
+            if (event.key === 'Shift' && role === "GUESSER") {
+                console.log("THIS SHOULDNT GET DISPLAYED");
                 event.preventDefault();
                 setGuess(event.target.value);
 
@@ -123,13 +107,13 @@ const Guessing = () => {
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, []);
+    }, [inputGuess]);
 
     useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
 
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' && role === "SPIER") {
                 event.preventDefault();
                 setHint(event.target.value);
 
@@ -143,16 +127,25 @@ const Guessing = () => {
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, []);
+    }, [inputHint]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
 
         } else {
-            connect(subscribeToHintInformation)
+            connect(subscribeToHintInformation);
         }
-    }, [hint]);
+    }, [hint]);*/
+
+    useEffect(() => {
+        if (getConnection()) {
+            subscribeToGuessInformation();
+
+        } else {
+            connect(subscribeToGuessInformation);
+        }
+    }, [guess]);
 
     useEffect(() => {
         distributeRole();
@@ -160,21 +153,19 @@ const Guessing = () => {
     }, []);
 
     function subscribeToHintInformation() {
-        subscribe("/game/" + lobbyId + "/hints",(response) => {
+        subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
-            const username = response["username"];
             setHint(hint);
-            setUsername(username);
         });
-
         notifyHint(lobbyId, hint);
     }
 
     function subscribeToGuessInformation() {
-        subscribe("/game/" + lobbyId + "/guesses",(response) => {
+        subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
             const guess = response["guess"];
+            const username = response["username"];
+            setUsername(username);
             setGuess(guess);
-            console.log(guess);
         });
         notifyGuess(lobbyId, playerId, guess);
     }
@@ -240,11 +231,12 @@ const Guessing = () => {
                 </div>
                 {(() => {
                     if (role === "SPIER"){
+
                         return (
                             <FormField
                                 placeholder="Enter your hint..."
-                                value={input}
-                                onChange={i => setInput(i)}
+                                value={inputHint}
+                                onChange={i => setInputHint(i)}
                                 onSubmit={handleHintSubmit}
                             />
                         )
@@ -252,8 +244,8 @@ const Guessing = () => {
                     return (
                         <FormField
                             placeholder="Enter your guess..."
-                            value={input}
-                            onChange={g => setInput(g)}
+                            value={inputGuess}
+                            onChange={g => setInputGuess(g)}
                             onSubmit={handleGuessSubmit}
                         />
                     )
