@@ -31,36 +31,28 @@ const TestingGame = props => {
     setConnectionStatus("connected");
 
     client.connect({}, function () {
-      //subscribe to start game: so that a game instance is saved
-      client.subscribe('/games/lobbies/'+ lobbyId, function (receivedJSON) {
-        //nothing is returned
-      });
-      //subscribe to start game: so that a game instance is saved
-      client.subscribe('/games/'+ lobbyId, function (receivedJSON) {
-        //nothing is returned
-      });
       //subscribe to spiedObject
-      client.subscribe('/game/'+ lobbyId + '/spiedObject', function (receivedJSON) {
+      client.subscribe('/topic/games/'+ lobbyId + '/spiedObject', function (receivedJSON) {
         const colorFromServer = JSON.parse(receivedJSON.body).color;
         setColorFromServer(colorFromServer);
       });
       //subscribe to guesses
-      client.subscribe('/game/'+ lobbyId + '/guesses', function (receivedJSON) {
+      client.subscribe('/topic/games/'+ lobbyId + '/guesses', function (receivedJSON) {
          const { username, guess } = JSON.parse(receivedJSON.body);
          showGuesses({ username, guess });
       });
       //subscribe to hints
-      client.subscribe('/game/'+ lobbyId + '/hints', function (receivedJSON) {
+      client.subscribe('/topic/games/'+ lobbyId + '/hints', function (receivedJSON) {
         const hintFromServer = JSON.parse(receivedJSON.body).hint;
         setHintFromServer(hintFromServer);
       });
       //subscribe to roles
-      client.subscribe('/game/'+ lobbyId + '/round/1/spierId', function (receivedJSON) {
+      client.subscribe('/topic/games/'+ lobbyId + '/round/1/spierId', function (receivedJSON) {
         const spierId = JSON.parse(receivedJSON.body).userId;
         setSpierId(spierId);
       });
       //subscribe to roundNr
-      client.subscribe('/game/'+ lobbyId + '/roundnr', function (receivedJSON) {
+      client.subscribe('/topic/games/'+ lobbyId + '/roundnr', function (receivedJSON) {
         const currentRound = JSON.parse(receivedJSON.body).currentRound;
         setCurrentRound(currentRound);
         const totalRounds = JSON.parse(receivedJSON.body).totalRounds;
@@ -82,25 +74,25 @@ const TestingGame = props => {
   };
 
   const sendspiedObject = async () => {
-      stompClient.send("/app/game/"+ lobbyId+ "/spiedObject", {}, JSON.stringify({ "keyword" : keyword, "color": color }));
+      stompClient.send("/app/games/"+ lobbyId+ "/spiedObject", {}, JSON.stringify({ "keyword" : keyword, "color": color }));
       setKeyword("");
       setColor("");
   };
 
   const sendGuess = async () => {
-      stompClient.send("/app/game/"+ lobbyId + "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("id"), "guess": guess }));
+      stompClient.send("/app/games/"+ lobbyId + "/guesses", {}, JSON.stringify({ "id" : localStorage.getItem("userId"), "guess": guess }));
   };
 
   const sendHint = async () => {
-      stompClient.send("/app/game/"+ lobbyId+ "/hints", {}, JSON.stringify({ "hint": hint }));
+      stompClient.send("/app/games/"+ lobbyId+ "/hints", {}, JSON.stringify({ "hint": hint }));
   };
 
   const requestSpierId = async () => {
-      stompClient.send("/app/game/"+ lobbyId+ "/round/1/spierId", {}, {});
+      stompClient.send("/app/games/"+ lobbyId+ "/round/1/spierId", {}, {});
   };
 
   const requestRounds = async () => {
-      stompClient.send("/app/game/"+ lobbyId+ "/roundnr", {}, {});
+      stompClient.send("/app/games/"+ lobbyId+ "/roundnr", {}, {});
   };
 
   const showGuesses = async (guess) => {

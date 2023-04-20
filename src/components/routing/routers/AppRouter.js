@@ -45,7 +45,7 @@ const AppRouter = () => {
             <Register/>
         </Route>
         <Route exact path="/">
-          <Redirect to="/testinggame"/>
+          <Redirect to="/start"/>
         </Route>
         <Route exact path ="/home">
             <GameGuard>
