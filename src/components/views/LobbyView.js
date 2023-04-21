@@ -47,19 +47,17 @@ const LobbyView = () => {
             let event = data["event"];
             console.log(data);
             if (event) {
-                if (event == "joined") {
+                if (event == "joined") { // TODO change to ===
                     console.log("JOINED")
                     setLobby(data);
                     lobby = new Lobby(data);
                     console.log(lobby);
-                } else if (event == "started") {
+                } else if (event == "started") { // TODO change to ===
                         console.log("STARTED");
                         redirectToGame();
                 }
             } else {
-                setLobby(data);
-                lobby = new Lobby(data);
-                console.log(lobby);
+                console.log("NO EVENT DEFINED!");
             }
 
         });
