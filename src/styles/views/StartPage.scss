@@ -1,27 +1,36 @@
 @import 'styles/theme';
 body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+}
+#home {
+  position: relative;
+  height: 1250px;
+  width: 1500px;
+  min-height: 900px;
   background-image: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  opacity: 5;
   background-color: rgba(255, 192, 203, 0.5);
+  }
 
-}
-body::before {
+#home::before {
   content: "";
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(255, 192, 203, 0.5); /* pink with opacity */
-  z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: pink;
+    opacity: 0.5;
 }
 
 .start-page {
+
   &.background{
     backgroundImage: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
     background-size: cover;
