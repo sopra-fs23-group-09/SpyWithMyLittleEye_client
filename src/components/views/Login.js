@@ -5,6 +5,9 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
 
 /*
 It is possible to add multiple components inside a single file,
@@ -58,6 +61,9 @@ const Login = props => {
 
   return (
         <BaseContainer>
+                    <div class="code left-field">
+                      <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                    </div>
                                 <div className="base-container ellipse1">
                                 </div>
                                 <div className="base-container ellipse2">
