@@ -3,13 +3,7 @@
 .header {
   &.container {
     @include center;
-    background-color: pink;
-    background-position: center;
-    alignItems: center;
-    display: flex;
-    flex: 1;
-    z-index: 40;
-    justifyContent: flex-start;
+
   }
 
 }

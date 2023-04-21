@@ -11,6 +11,7 @@ const StartPage = () => {
     const history = useHistory();
 
     return (
+    <body id="home">
         <BaseContainer>
             <div className="start-page game-title">
                 I spy with my little eye
@@ -51,8 +52,8 @@ const StartPage = () => {
                 </div>
 
             </div>
-
         </BaseContainer>
+        </body>
     );
 
 };
