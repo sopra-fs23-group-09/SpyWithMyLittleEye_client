@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
@@ -31,7 +31,6 @@ FormField.propTypes = {
 };
 
 const Guessing = () => {
-    const history = useHistory();
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
@@ -57,7 +56,6 @@ const Guessing = () => {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            //localStorage.setItem('userId', role);
             setRole(role);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
