@@ -6,6 +6,10 @@ import {LogoEye} from "../ui/LogoEye";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
+
 import {
     connect,
     getConnection,
@@ -114,6 +118,9 @@ const LobbyView = () => {
 
     return (
         <BaseContainer>
+           <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

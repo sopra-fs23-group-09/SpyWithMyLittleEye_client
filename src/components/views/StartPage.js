@@ -3,12 +3,19 @@ import 'styles/views/StartPage.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
 
 const StartPage = () => {
     const history = useHistory();
 
     return (
         <BaseContainer>
+            <div className="start-page background">
+            <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
@@ -56,6 +63,7 @@ const StartPage = () => {
                 </div>
 
             </div>
+        </div>
         </BaseContainer>
     );
 
