@@ -8,6 +8,9 @@ import PropTypes from "prop-types";
 import {api} from "../../helpers/api";
 import Lobby from "../../models/Lobby";
 import user from "../../models/User";
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
 
 
 const FormField = props => {
@@ -49,6 +52,9 @@ const SetRounds = () => {
 
     return (
         <BaseContainer>
+           <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

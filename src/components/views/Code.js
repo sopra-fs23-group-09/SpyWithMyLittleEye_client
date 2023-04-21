@@ -6,6 +6,11 @@ import {LogoEye} from "../ui/LogoEye";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {api, handleError} from "../../helpers/api";
+import { Icon } from '@iconify/react';
+
+
+
+
 
 const FormField = props => {
     return (
@@ -51,6 +56,9 @@ const Code = () => {
 
     return (
         <BaseContainer>
+            <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
