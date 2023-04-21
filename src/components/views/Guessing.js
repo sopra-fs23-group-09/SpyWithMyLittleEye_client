@@ -58,7 +58,7 @@ const Guessing = () => {
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
             //localStorage.setItem('userId', role);
-            setRole("GUESSER");
+            setRole(role);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -129,6 +129,7 @@ const Guessing = () => {
         };
     }, [inputHint]);
 
+    //TODO better solution?
     useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
