@@ -139,6 +139,7 @@ const Guessing = () => {
         }
     }, [hint]);
 
+    //TODO better solution?
     useEffect(() => {
         if (getConnection()) {
             subscribeToGuessInformation();
