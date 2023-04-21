@@ -9,14 +9,6 @@ const StartPage = () => {
 
     return (
         <BaseContainer>
-            <div className="base-container ellipse1">
-            </div>
-            <div className="base-container ellipse2">
-            </div>
-            <div className="base-container ellipse3">
-            </div>
-            <div className="base-container ellipse4">
-            </div>
             <div className="start-page game-title">
                 I spy with my little eye
             </div>
@@ -56,6 +48,7 @@ const StartPage = () => {
                 </div>
 
             </div>
+
         </BaseContainer>
     );
 

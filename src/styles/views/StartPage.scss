@@ -1,4 +1,25 @@
 @import 'styles/theme';
+body {
+  background-image: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 5;
+  background-color: rgba(255, 192, 203, 0.5);
+
+}
+body::before {
+  content: "";
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 192, 203, 0.5); /* pink with opacity */
+  z-index: -1;
+}
 
 .start-page {
   &.nose {
@@ -16,6 +37,13 @@
     text-align: center;
 
     color: #FFFFFF;
+  }
+  &.image{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    z-index:20;
+
   }
 
   &.game-title {
