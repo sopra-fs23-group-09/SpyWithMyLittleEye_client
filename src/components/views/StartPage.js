@@ -12,18 +12,6 @@ const StartPage = () => {
 
     return (
         <BaseContainer>
-            <div className="start-page background">
-            <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
-            </div>
-            <div className="base-container ellipse1">
-            </div>
-            <div className="base-container ellipse2">
-            </div>
-            <div className="base-container ellipse3">
-            </div>
-            <div className="base-container ellipse4">
-            </div>
             <div className="start-page game-title">
                 I spy with my little eye
             </div>
@@ -63,7 +51,7 @@ const StartPage = () => {
                 </div>
 
             </div>
-        </div>
+
         </BaseContainer>
     );
 
