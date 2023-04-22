@@ -32,6 +32,8 @@ const TestingGame = props => {
   const [guessList, setGuessList] = useState(null);
   const [startGameStatus, setStartGameStatus] = useState(null);
   const [endGameStatus, setEndGameStatus] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+  const [duration, setDuration] = useState(null);
 
   const urlClient2Server = "/app/games/"+ gameId;
   const urlServer2Client = '/topic/games/'+ gameId;
@@ -51,24 +53,21 @@ const TestingGame = props => {
       });
       //subscribe to guesses
       client.subscribe(urlServer2Client + '/guesses', function (receivedJSON) {
-        const guessList = JSON.parse(receivedJSON.body);
-        setGuesses(guessList);
+        setGuesses(JSON.parse(receivedJSON.body));
       });
       //subscribe to hints
       client.subscribe(urlServer2Client + '/hints', function (receivedJSON) {
-        const hintFromServer = JSON.parse(receivedJSON.body).hint;
-        setHintFromServer(hintFromServer);
+        setHintFromServer(JSON.parse(receivedJSON.body).hint);
       });
       //subscribe to startGame
       client.subscribe(urlServer2Client + '/startRound', function (receivedJSON) {
-        setStartGameStatus(JSON.parse(receivedJSON.body));
+        setStartTime(JSON.parse(receivedJSON.body).startTime);
+        setDuration(JSON.parse(receivedJSON.body).duration);
       });
       //subscribe to endGame
       client.subscribe(urlServer2Client + '/endRound', function (receivedJSON) {
-        setEndGameStatus(JSON.parse(receivedJSON.body));
+        setEndGameStatus(JSON.parse(receivedJSON.body).endRoundMessage);
       });
-
-
     }, function(error) {
       console.log(error);
       setConnectionStatus("error");
@@ -156,7 +155,7 @@ const TestingGame = props => {
       <p>Hint: {hintFromServer}</p>
 
       <button onClick={() => startGame()}>start game</button>
-      <p>Response start round: {startGameStatus}</p>
+      <p>Response start time: {startTime}, duration: {duration}</p>
       <p>Response end round: {endGameStatus}</p>
     </BaseContainer>
   );
