@@ -8,7 +8,7 @@ body {
 #home {
   position: relative;
   height: 1250px;
-  width: 1500px;
+  width: 1600px;
   min-height: 900px;
   background-image: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
   background-size: cover;
@@ -42,12 +42,12 @@ body {
     position: absolute;
     width: 41.12px;
     height: 93.59px;
-    left: 700.72px;
+    left: 850px;
     top: 221.09px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     text-align: center;
@@ -66,12 +66,12 @@ body {
     position: absolute;
     width: 647.4px;
     height: 93.59px;
-    left: 397.8px;
+    left: 550px;
     top: 164.5px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     text-align: center;
@@ -84,7 +84,7 @@ body {
     position: absolute;
     width: 1384px;
     height: 650px;
-    left: 50px;
+    left: 175px;
     top: 550px;
 
     background: rgba(255, 255, 255, 0.46);
@@ -98,7 +98,7 @@ body {
     left: 110px;
     top: 70px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -117,9 +117,9 @@ body {
     left: 625px;
     top: 350px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
     line-height: 38px;
     /* identical to box height */
@@ -136,7 +136,7 @@ body {
     left: 40px;
     top: 400px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -151,9 +151,9 @@ body {
     width: 146px;
     height: 63px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     /* identical to box height */
@@ -172,9 +172,9 @@ body {
     width: 182px;
     height: 63px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     /* identical to box height */
@@ -187,5 +187,19 @@ body {
     flex: none;
     order: 0;
     flex-grow: 0;
+  }
+
+  &.eye-left {
+    position: absolute;
+    left: 710px;
+    top: 215px;
+
+  }
+
+  &.eye-right {
+    position: absolute;
+    left: 950px;
+    top: 215px;
+
   }
 }

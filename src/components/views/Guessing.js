@@ -104,7 +104,7 @@ const Guessing = () => {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            setRole("GUESSER");
+            setRole(role);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -139,7 +139,7 @@ const Guessing = () => {
         displayCurrentRound();
     }, []);
 
-    useEffect(() => {
+    /*useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
 
@@ -148,7 +148,7 @@ const Guessing = () => {
                 event.preventDefault();
                 /*if (inputGuess.trim() === "") {
                     return;
-                }*/
+                }
                 setGuess(event.target.value);
                 console.log("SETTED GUESS: " + guess);
 
@@ -162,7 +162,7 @@ const Guessing = () => {
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, [role]);
+    }, [role]);*/
 
     useEffect(() => {
         const keyDownHandler = event => {
@@ -188,10 +188,6 @@ const Guessing = () => {
 
     }, [role]);
 
-    /*const sendHint = () => {
-        console.log("DOES THIS WORK?")
-        notifyHint(lobbyId, hint);
-    }*/
     function subscribeToHintInformation() {
         subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
@@ -218,19 +214,19 @@ const Guessing = () => {
         notifyStartTime(lobbyId);
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         connect(subscribeToHintInformation)
-    }, [hint]);*/
+    }, [hint]);
 
     /*useEffect(() => {
         connect(subscribeToGuessInformation);
 
     }, [guess]);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         connect(subscribeToTimeInformation);
 
-    }, []);
+    }, []);*/
 
 
     return (
