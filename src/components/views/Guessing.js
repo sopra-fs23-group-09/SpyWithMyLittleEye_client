@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 import {
     connect,
@@ -14,6 +12,9 @@ import {
     notifyHint,
     subscribe
 } from "../../helpers/stompClient";
+
+
+
 
 const FormField = props => {
     return (
@@ -34,7 +35,6 @@ FormField.propTypes = {
 };
 
 const Guessing = () => {
-    const history = useHistory();
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
@@ -60,8 +60,7 @@ const Guessing = () => {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            //localStorage.setItem('userId', role);
-            setRole(role);
+            setRole("GUESSER");
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -82,7 +81,7 @@ const Guessing = () => {
     };
 
     const handleHintSubmit = () => {
-        //console.log('hint submitted ✅');
+        console.log('hint submitted ✅');
         setInputHint("");
     }
 
@@ -115,7 +114,6 @@ const Guessing = () => {
     useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
-
             if (event.key === 'Enter' && role === "SPIER") {
                 event.preventDefault();
                 setHint(event.target.value);
@@ -132,21 +130,17 @@ const Guessing = () => {
         };
     }, [inputHint]);
 
-    //TODO better solution?
     useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
-
         } else {
             connect(subscribeToHintInformation);
         }
     }, [hint]);
 
-    //TODO better solution?
     useEffect(() => {
         if (getConnection()) {
             subscribeToGuessInformation();
-
         } else {
             connect(subscribeToGuessInformation);
         }
@@ -162,6 +156,7 @@ const Guessing = () => {
             const hint = response["hint"];
             setHint(hint);
         });
+        console.log("SENT HINT: " + hint);
         notifyHint(lobbyId, hint);
     }
 
