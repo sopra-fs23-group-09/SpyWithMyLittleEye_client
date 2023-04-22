@@ -11,7 +11,7 @@ import {
     connect,
     getConnection,
     notifyGuess,
-    notifyHint,
+    notifyHint, notifyStartTime,
     subscribe
 } from "../../helpers/stompClient";
 
@@ -97,12 +97,14 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
 
+    const [timeLeft, setTimeLeft] = useState("");
+
     const distributeRole = async () => {
         try {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            setRole(role);
+            setRole("GUESSER");
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -137,16 +139,16 @@ const Guessing = () => {
         displayCurrentRound();
     }, []);
 
-    /*useEffect(() => {
+    useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
 
             if (event.key === 'Enter' && role === "GUESSER") {
                 //console.log("THIS SHOULDNT GET DISPLAYED");
                 event.preventDefault();
-                if (inputGuess.trim() === "") {
+                /*if (inputGuess.trim() === "") {
                     return;
-                }
+                }*/
                 setGuess(event.target.value);
                 console.log("SETTED GUESS: " + guess);
 
@@ -160,7 +162,7 @@ const Guessing = () => {
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, [inputGuess]);*/
+    }, [role]);
 
     useEffect(() => {
         const keyDownHandler = event => {
@@ -186,8 +188,6 @@ const Guessing = () => {
 
     }, [role]);
 
-
-
     /*const sendHint = () => {
         console.log("DOES THIS WORK?")
         notifyHint(lobbyId, hint);
@@ -199,33 +199,44 @@ const Guessing = () => {
         });
         notifyHint(lobbyId, hint);
     }
-    /*function subscribeToGuessInformation() {
+    function subscribeToGuessInformation() {
         subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
-            const received_guess = response["guess"];
-            const received_username = response["username"];
-            setUsername(received_username);
-            setGuess(received_guess);
+            const guess = response["guess"];
+            const username = response["username"];
+            setUsername(username);
+            setGuess(guess);
         });
         notifyGuess(lobbyId, playerId, guess);
-    }*/
-    useEffect(() => {
-        connect(subscribeToHintInformation)
-    }, [hint]);
+    }
+
+    function subscribeToTimeInformation() {
+        subscribe("/topic/games/" + lobbyId + "/startRound",(response) => {
+            const timeLeft = response["duration"];
+            setTimeLeft(timeLeft);
+            console.log("START TIME: " + timeLeft);
+        });
+        notifyStartTime(lobbyId);
+    }
 
     /*useEffect(() => {
-        if (getConnection()) {
-            subscribeToGuessInformation();
-        }
-        else {
-            connect(subscribeToGuessInformation);
-        }
+        connect(subscribeToHintInformation)
+    }, [hint]);*/
+
+    /*useEffect(() => {
+        connect(subscribeToGuessInformation);
+
     }, [guess]);*/
+
+    useEffect(() => {
+        connect(subscribeToTimeInformation);
+
+    }, []);
 
 
     return (
         <BaseContainer>
-           <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+           <div className="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -242,7 +253,7 @@ const Guessing = () => {
                 Round: {currentRound}/{amountOfRounds}
             </div>
             <div className="guessing time-left">
-                Time-left
+                {timeLeft}
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
@@ -302,9 +313,8 @@ const Guessing = () => {
                             <FormField
                                 placeholder="Enter your guess..."
                                 value={inputGuess}
-                                onChange={g => setInputGuess(g)}
-                                onSubmit={handleGuessSubmit}
-
+                                onChange={inputGuess => setInputGuess(inputGuess)}
+                                //onSubmit={handleGuessSubmit}
                             />
                         )
                     }

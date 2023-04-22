@@ -67,3 +67,7 @@ export const notifyGuess = (lobbyId, id, guess) => {
     const requestBody = JSON.stringify({id, guess});
     ws.send("/app/games/"+lobbyId+"/guesses", {}, requestBody);
 }
+
+export const notifyStartTime = (lobbyId) => {
+    ws.send("/app/games/"+lobbyId+"/startRound", {});
+}
