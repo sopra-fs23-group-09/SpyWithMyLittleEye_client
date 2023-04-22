@@ -216,9 +216,6 @@ const Guessing = () => {
 
     return (
         <BaseContainer>
-        <div className="setlocation container">
-            <StreetView />
-        </div>
            <div class="code left-field">
               <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
             </div>
@@ -229,6 +226,9 @@ const Guessing = () => {
             <div className="base-container ellipse3">
             </div>
             <div className="base-container ellipse4">
+            </div>
+            <div className="setlocation container">
+                <StreetView />
             </div>
             <div className="guessing rounds">
                 Round: {currentRound}/{amountOfRounds}

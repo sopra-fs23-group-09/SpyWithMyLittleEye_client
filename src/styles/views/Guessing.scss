@@ -1,8 +1,9 @@
-#street-view {
-  height: 100%;
-  z-index:20;
-}
+
 .guessing {
+  #street-view {
+    height: 100%;
+    z-index:20;
+  }
   &.rounds {
     position: absolute;
     width: 151px;
