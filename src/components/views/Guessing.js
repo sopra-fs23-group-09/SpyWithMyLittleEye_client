@@ -97,8 +97,6 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
 
-    const inputHintRef = useRef(null);
-
     const distributeRole = async () => {
         try {
             const requestBody = JSON.stringify({playerId});
@@ -134,7 +132,7 @@ const Guessing = () => {
         setInputGuess("");
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
 
@@ -145,6 +143,7 @@ const Guessing = () => {
                     return;
                 }
                 setGuess(event.target.value);
+                console.log("SETTED GUESS: " + guess);
 
                 // 👇️ call submit function here
                 handleGuessSubmit();
@@ -156,7 +155,7 @@ const Guessing = () => {
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, [inputGuess]);
+    }, [inputGuess]);*/
 
     useEffect(() => {
         const keyDownHandler = event => {
@@ -167,6 +166,7 @@ const Guessing = () => {
                     return;
                 }
                 setHint(event.target.value);
+                console.log("HINT: " + hint);
 
                 // 👇️ call submit function here
                 handleHintSubmit();
@@ -179,25 +179,28 @@ const Guessing = () => {
         };
     }, [inputHint]);
 
+
+
+    const sendHint = () => {
+        console.log("DOES THIS WORK?")
+        notifyHint(lobbyId, hint);
+    }
     function subscribeToHintInformation() {
         subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
             setHint(hint);
         });
-        console.log("SENT HINT: " + hint);
         notifyHint(lobbyId, hint);
     }
-
-    function subscribeToGuessInformation() {
+    /*function subscribeToGuessInformation() {
         subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
-            const guess = response["guess"];
-            const username = response["username"];
-            setUsername(username);
-            setGuess(guess);
+            const received_guess = response["guess"];
+            const received_username = response["username"];
+            setUsername(received_username);
+            setGuess(received_guess);
         });
         notifyGuess(lobbyId, playerId, guess);
-    }
-
+    }*/
     useEffect(() => {
         if (getConnection()) {
             subscribeToHintInformation();
@@ -206,14 +209,14 @@ const Guessing = () => {
         }
     }, [hint]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (getConnection()) {
             subscribeToGuessInformation();
         }
         else {
             connect(subscribeToGuessInformation);
         }
-    }, [guess]);
+    }, [guess]);*/
 
     useEffect(() => {
         distributeRole();
@@ -290,8 +293,7 @@ const Guessing = () => {
                             <FormField
                                 placeholder="Enter your hint..."
                                 value={inputHint}
-                                onChange={i => setInputHint(i)}
-                                onSubmit={handleHintSubmit}
+                                onChange={inputHint => setInputHint(inputHint)}
                             />
                         )
                     }
@@ -302,6 +304,7 @@ const Guessing = () => {
                                 value={inputGuess}
                                 onChange={g => setInputGuess(g)}
                                 onSubmit={handleGuessSubmit}
+
                             />
                         )
                     }
