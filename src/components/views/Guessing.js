@@ -141,6 +141,9 @@ const Guessing = () => {
             if (event.key === 'Enter' && role === "GUESSER") {
                 //console.log("THIS SHOULDNT GET DISPLAYED");
                 event.preventDefault();
+                if (inputGuess.trim() === "") {
+                    return;
+                }
                 setGuess(event.target.value);
 
                 // 👇️ call submit function here
@@ -160,6 +163,9 @@ const Guessing = () => {
             console.log('User pressed: ', event.key);
             if (event.key === 'Enter' && role === "SPIER") {
                 event.preventDefault();
+                if (inputHint.trim() === "") {
+                    return;
+                }
                 setHint(event.target.value);
 
                 // 👇️ call submit function here
