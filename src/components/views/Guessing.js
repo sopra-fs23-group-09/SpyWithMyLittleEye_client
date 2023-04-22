@@ -4,6 +4,8 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
 import { Icon } from '@iconify/react';
+import 'styles/views/SetLocation.scss';
+import { Loader } from '@googlemaps/js-api-loader';
 import 'styles/views/Code.scss';
 import {
     connect,
@@ -13,8 +15,48 @@ import {
     subscribe
 } from "../../helpers/stompClient";
 
+const StreetView = () => {
+  const mapRef = useRef(null);
 
+  useEffect(() => {
+    const loader = new Loader({
+      apiKey: process.env.YOUR_API_KEY,
+      version: 'weekly',
+    });
 
+    loader.load().then(() => {
+      const map = new window.google.maps.Map(mapRef.current, {
+        center: {lat: 47.373944, lng: 8.537667 },
+        zoom: 18,
+        streetViewControl: true,
+        fullscreenControl: false,
+      });
+
+      const streetView = map.getStreetView();
+      streetView.setPosition({ lat: 47.373944, lng: 8.537667 });
+      streetView.setVisible(true);
+      streetView.setOptions({
+          motionTracking: false,
+          clickToGo: false,
+          motionTrackingControl: false,
+          disableDefaultUI: true,
+          zoomControl: true,
+          gestureHandling: 'none',
+          addressControl: false,
+          linksControl: false,
+          panControl: false,
+          enableCloseButton: false,
+      });
+    });
+  }, []);
+
+  return (
+    <div
+      ref={mapRef}
+      style={{ height: '100%', width: '100%' }}
+    />
+  );
+};
 
 const FormField = props => {
     return (
@@ -174,6 +216,9 @@ const Guessing = () => {
 
     return (
         <BaseContainer>
+        <div className="setlocation container">
+            <StreetView />
+        </div>
            <div class="code left-field">
               <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
             </div>

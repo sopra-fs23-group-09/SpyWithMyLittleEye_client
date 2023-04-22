@@ -38,6 +38,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@iconify/react": "^4.1.0"
+    "@iconify/react": "^4.1.0",
+    "@types/googlemaps": "^3.43.3"
   }
 }

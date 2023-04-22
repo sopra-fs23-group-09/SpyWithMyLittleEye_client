@@ -72,7 +72,7 @@ const SetLocation = (props) => {
   const [amountOfRounds, setAmountOfRounds] = useState(null);
   const [map, setMap] = useState(null);
   const loader = new Loader({
-    apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ", // Replace with your Google Maps API key
+    apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
     version: 'weekly',
   });
   const displayCurrentRound = async () => {
@@ -147,6 +147,8 @@ const SetLocation = (props) => {
     notifySpiedObject(lobbyId, location, color, object);
     history.push("/game/" + lobbyId);
     }
+  const streetViewUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+
 
     return (
         <BaseContainer>
