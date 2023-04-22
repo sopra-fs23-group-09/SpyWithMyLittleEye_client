@@ -1,4 +1,7 @@
-
+#street-view {
+  height: 100%;
+  z-index:20;
+}
 .guessing {
   &.rounds {
     position: absolute;
