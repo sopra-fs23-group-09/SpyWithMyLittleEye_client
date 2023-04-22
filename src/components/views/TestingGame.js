@@ -29,6 +29,9 @@ const TestingGame = props => {
   const [stompClient, setStompClient] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const { userId } = useParams();
+  const [guessList, setGuessList] = useState(null);
+  const [startGameStatus, setStartGameStatus] = useState(null);
+  const [endGameStatus, setEndGameStatus] = useState(null);
 
   const urlClient2Server = "/app/games/"+ gameId;
   const urlServer2Client = '/topic/games/'+ gameId;
@@ -48,26 +51,23 @@ const TestingGame = props => {
       });
       //subscribe to guesses
       client.subscribe(urlServer2Client + '/guesses', function (receivedJSON) {
-         const { username, guess } = JSON.parse(receivedJSON.body);
-         showGuesses({ username, guess });
+        const guessList = JSON.parse(receivedJSON.body);
+        setGuesses(guessList);
       });
       //subscribe to hints
       client.subscribe(urlServer2Client + '/hints', function (receivedJSON) {
         const hintFromServer = JSON.parse(receivedJSON.body).hint;
         setHintFromServer(hintFromServer);
       });
-      //subscribe to roles
-      client.subscribe(urlServer2Client + '/round/1/spierId', function (receivedJSON) {
-        const spierId = JSON.parse(receivedJSON.body).userId;
-        setSpierId(spierId);
+      //subscribe to startGame
+      client.subscribe(urlServer2Client + '/startRound', function (receivedJSON) {
+        setStartGameStatus(JSON.parse(receivedJSON.body));
       });
-      //subscribe to roundNr
-      client.subscribe(urlServer2Client + '/roundnr', function (receivedJSON) {
-        const currentRound = JSON.parse(receivedJSON.body).currentRound;
-        setCurrentRound(currentRound);
-        const totalRounds = JSON.parse(receivedJSON.body).totalRounds;
-        setTotalRounds(totalRounds);
+      //subscribe to endGame
+      client.subscribe(urlServer2Client + '/endRound', function (receivedJSON) {
+        setEndGameStatus(JSON.parse(receivedJSON.body));
       });
+
 
     }, function(error) {
       console.log(error);
@@ -100,17 +100,10 @@ const TestingGame = props => {
       setHint("");
   };
 
-  const requestSpierId = async () => {
-      stompClient.send(urlClient2Server + "/round/1/spierId", {}, {});
+  const startGame = async () => {
+      stompClient.send(urlClient2Server + "/startRound", {}, {});
   };
 
-  const requestRounds = async () => {
-      stompClient.send(urlClient2Server + "/roundnr", {}, {});
-  };
-
-  const showGuesses = async (guess) => {
-    setGuesses(prevGuesses => [...prevGuesses, guess]);
-  };
 
   return (
     <BaseContainer>
@@ -150,24 +143,21 @@ const TestingGame = props => {
       </label>
       <button onClick={() => sendGuess()}>send Guess</button>
       <h4> guesses </h4>
-      <p>
+      <ul>
         {guesses.map((guess, index) => (
-          <span key={index}>
-            <b>{guess.username}</b> guessed {guess.guess} <br />
-          </span>
+          <li key={index}>{guess.guesserName} guessed {guess.guess}</li>
         ))}
-      </p>
+      </ul>
       <label>
         Hint:
         <input type="text" value={hint} onChange={event => setHint(event.target.value)} />
       </label>
       <button onClick={() => sendHint()}>send hint</button>
       <p>Hint: {hintFromServer}</p>
-      <button onClick={() => requestSpierId()}>get spier id</button>
-      <p>Spier id: {spierId}</p>
-      <button onClick={() => requestRounds()}>get round nr</button>
-      <p>Current Round: {currentRound}</p>
-      <p>Total Rounds: {totalRounds}</p>
+
+      <button onClick={() => startGame()}>start game</button>
+      <p>Response start round: {startGameStatus}</p>
+      <p>Response end round: {endGameStatus}</p>
     </BaseContainer>
   );
 };
