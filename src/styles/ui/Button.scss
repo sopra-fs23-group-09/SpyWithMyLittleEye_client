@@ -157,6 +157,10 @@
 .login-button-start-page {
   box-sizing: border-box;
 
+  &:hover {
+    transform: translateY(-4px);
+  }
+
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -179,6 +183,18 @@
   border: none;
 }
 .login-button-loginpage{
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.1;
+    &:hover {
+      transform: none;
+    }
+  }
  font-family: "Mulish";
  background-color: transparent;
  font-style: normal;
@@ -193,6 +209,13 @@
 
 }
 .register-button-registerpage{
+  &.disabled {
+    cursor: default;
+    opacity: 0.4;
+    &:hover {
+      transform: none;
+    }
+  }
  font-family: "Mulish";
  background-color: transparent;
  font-style: normal;
@@ -209,6 +232,10 @@
 
 .signup-button-start-page {
   box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 
   /* Auto layout */
   display: flex;
