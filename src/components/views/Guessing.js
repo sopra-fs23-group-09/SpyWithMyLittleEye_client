@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -55,12 +55,14 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
 
+    const inputHintRef = useRef(null);
+
     const distributeRole = async () => {
         try {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            setRole("GUESSER");
+            setRole(role);
         }  catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -122,34 +124,12 @@ const Guessing = () => {
                 handleHintSubmit();
             }
         };
-
         document.addEventListener('keydown', keyDownHandler);
 
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
     }, [inputHint]);
-
-    useEffect(() => {
-        if (getConnection()) {
-            subscribeToHintInformation();
-        } else {
-            connect(subscribeToHintInformation);
-        }
-    }, [hint]);
-
-    useEffect(() => {
-        if (getConnection()) {
-            subscribeToGuessInformation();
-        } else {
-            connect(subscribeToGuessInformation);
-        }
-    }, [guess]);
-
-    useEffect(() => {
-        distributeRole();
-        displayCurrentRound();
-    }, []);
 
     function subscribeToHintInformation() {
         subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
@@ -169,6 +149,28 @@ const Guessing = () => {
         });
         notifyGuess(lobbyId, playerId, guess);
     }
+
+    useEffect(() => {
+        if (getConnection()) {
+            subscribeToHintInformation();
+        } else {
+            connect(subscribeToHintInformation);
+        }
+    }, [hint]);
+
+    useEffect(() => {
+        if (getConnection()) {
+            subscribeToGuessInformation();
+        }
+        else {
+            connect(subscribeToGuessInformation);
+        }
+    }, [guess]);
+
+    useEffect(() => {
+        distributeRole();
+        displayCurrentRound();
+    }, []);
 
     return (
         <BaseContainer>
@@ -233,7 +235,6 @@ const Guessing = () => {
                 </div>
                 {(() => {
                     if (role === "SPIER"){
-
                         return (
                             <FormField
                                 placeholder="Enter your hint..."
