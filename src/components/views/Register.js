@@ -60,8 +60,8 @@ const Register = props => {
 
   return (
     <BaseContainer>
-                <div class="code left-field">
-                  <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                <div className="code left-field">
+                  <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
                 </div>
                                     <div className="base-container ellipse1">
                                     </div>
@@ -90,7 +90,7 @@ const Register = props => {
                                 onChange={n => setPassword(n)}
                               />
                               <div className="login button-container">
-                                <Button className="button login-button-loginpage"
+                                <Button className="login-button-loginpage"
                                   style={{marginRight: "2px"}}
                                   disabled={!username || !password}
                                   width="50%"

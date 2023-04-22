@@ -18,8 +18,9 @@
     width: 60%;
     max-width: 50em;
     height: 30em;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Gill Sans";
     padding-left: 37px;
     padding-right: 37px;
     border-radius: 40px;
@@ -31,14 +32,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
   }
 
   &.login-title{
   width: 100px;
   height: 30px;
-  font-family: 'Mulish';
+  font-family: 'Gill Sans';
   font-style: normal;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 40px;
   line-height: 20px;
   padding-left: 20px;
@@ -54,7 +56,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 15px;
     margin-left: 10px;
     border: none;
     margin-bottom: 20px;
@@ -66,8 +68,8 @@
     border-radius: 40px;
   }
   &.login input::placeholder {
-    font-size: 18px;
-    padding-left: 10px
+    font-size: 25px;
+    padding-left: 0px
   }
   &.label {
     width: 71px;
@@ -91,7 +93,7 @@
   }
   &.login-line{
       position: absolute;
-      width: 43em;
+      width: 46em;
       height: 0px;
       left: 0px;
       top: calc(100% + 20px);
@@ -130,9 +132,9 @@
       color: #000000;
     }
   &.login-text{
-font-family: 'Mulish';
+font-family: 'Gill Sans';
 font-style: normal;
-font-weight: 700;
+font-weight: 600;
 font-size: 30px;
 line-height: 40px;
 /* identical to box height */
