@@ -132,6 +132,11 @@ const Guessing = () => {
         setInputGuess("");
     }
 
+    useEffect(() => {
+        distributeRole()
+        displayCurrentRound();
+    }, []);
+
     /*useEffect(() => {
         const keyDownHandler = event => {
             console.log('User pressed: ', event.key);
@@ -159,15 +164,16 @@ const Guessing = () => {
 
     useEffect(() => {
         const keyDownHandler = event => {
-            console.log('User pressed: ', event.key);
+            //console.log("WTF")
+            //console.log('User pressed: ', event.key);
+            console.log("ROLE: " + role);
             if (event.key === 'Enter' && role === "SPIER") {
                 event.preventDefault();
-                if (inputHint.trim() === "") {
+                /*if (inputHint.trim() === "") {
                     return;
-                }
+                }*/
                 setHint(event.target.value);
                 console.log("HINT: " + hint);
-
                 // 👇️ call submit function here
                 handleHintSubmit();
             }
@@ -177,14 +183,15 @@ const Guessing = () => {
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, [inputHint]);
+
+    }, [role]);
 
 
 
-    const sendHint = () => {
+    /*const sendHint = () => {
         console.log("DOES THIS WORK?")
         notifyHint(lobbyId, hint);
-    }
+    }*/
     function subscribeToHintInformation() {
         subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
             const hint = response["hint"];
@@ -202,11 +209,7 @@ const Guessing = () => {
         notifyGuess(lobbyId, playerId, guess);
     }*/
     useEffect(() => {
-        if (getConnection()) {
-            subscribeToHintInformation();
-        } else {
-            connect(subscribeToHintInformation);
-        }
+        connect(subscribeToHintInformation)
     }, [hint]);
 
     /*useEffect(() => {
@@ -218,10 +221,6 @@ const Guessing = () => {
         }
     }, [guess]);*/
 
-    useEffect(() => {
-        distributeRole();
-        displayCurrentRound();
-    }, []);
 
     return (
         <BaseContainer>
@@ -294,6 +293,7 @@ const Guessing = () => {
                                 placeholder="Enter your hint..."
                                 value={inputHint}
                                 onChange={inputHint => setInputHint(inputHint)}
+
                             />
                         )
                     }
