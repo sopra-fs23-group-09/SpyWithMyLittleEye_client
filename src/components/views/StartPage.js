@@ -6,6 +6,7 @@ import {LogoEye} from "../ui/LogoEye";
 import { Icon } from '@iconify/react';
 import Code from "components/views/Code";
 import 'styles/views/Code.scss';
+import React from "react";
 
 const StartPage = () => {
     const history = useHistory();
@@ -15,6 +16,12 @@ const StartPage = () => {
         <BaseContainer>
             <div className="start-page game-title">
                 I spy with my little eye
+            </div>
+            <div className="start-page eye-left">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '5rem'}}/>
+            </div>
+            <div className="start-page eye-right">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '5rem'}}/>
             </div>
             <div className="start-page nose">
                 Y
