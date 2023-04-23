@@ -80,6 +80,9 @@ const Guessing = () => {
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
+    const color = localStorage.getItem("color");
+    const location = localStorage.getItem("location");
+
 
     //console.log("Lobby ID: " + lobbyId);
     //console.log("Player ID: " + playerId);
@@ -135,6 +138,8 @@ const Guessing = () => {
     }
 
     useEffect(() => {
+        console.log(color)
+        console.log(location)
         distributeRole()
         displayCurrentRound();
     }, []);
