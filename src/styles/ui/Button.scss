@@ -442,5 +442,34 @@
   border: none;
 }
 
+.game-send-button {
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  left: 340px;
+  top: 775px;
+
+  background: #97E1D4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 40px;
+  border: none;
+}
+
 
 
