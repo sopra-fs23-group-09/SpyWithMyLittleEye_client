@@ -34,7 +34,7 @@ export const subscribe = (mapping, callback) => {
     ws.subscribe(mapping, function (data) {
        // console.log("Inside subscribe")
         //console.log(JSON.parse(data.body));
-        callback(JSON.parse(data.body));
+        callback(JSON.parse(data.body)); // This is already the body!!!
     });
 }
 export let getConnection = () => connection;
