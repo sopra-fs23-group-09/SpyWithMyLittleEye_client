@@ -228,7 +228,33 @@
     order: 0;
     flex-grow: 0;
   }
+
+  &.color-text {
+    width: 331px;
+    height: 38px;
+
+    position: absolute;
+    top: 825px;
+    left: 275px;
+    font-family: 'Gill Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: black;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
 }
+
+
 
 .guessers {
   &.wrong-container {
