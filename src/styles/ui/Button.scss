@@ -157,6 +157,10 @@
 .login-button-start-page {
   box-sizing: border-box;
 
+  &:hover {
+    transform: translateY(-4px);
+  }
+
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -168,17 +172,29 @@
   position: absolute;
   width: 430px;
   height: 112px;
-  left: 169px;
+  left: 315px;
   top: 362px;
 
   background: #97E1D4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
 }
 .login-button-loginpage{
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.1;
+    &:hover {
+      transform: none;
+    }
+  }
  font-family: "Mulish";
  background-color: transparent;
  font-style: normal;
@@ -193,6 +209,13 @@
 
 }
 .register-button-registerpage{
+  &.disabled {
+    cursor: default;
+    opacity: 0.4;
+    &:hover {
+      transform: none;
+    }
+  }
  font-family: "Mulish";
  background-color: transparent;
  font-style: normal;
@@ -210,6 +233,10 @@
 .signup-button-start-page {
   box-sizing: border-box;
 
+  &:hover {
+    transform: translateY(-4px);
+  }
+
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -221,11 +248,11 @@
   position: absolute;
   width: 430px;
   height: 112px;
-  left: 830px;
+  left: 1000px;
   top: 360px;
 
   background: #97E1D4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;

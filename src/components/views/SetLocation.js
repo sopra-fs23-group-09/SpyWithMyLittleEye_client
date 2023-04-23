@@ -4,8 +4,13 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import {api, handleError} from 'helpers/api';
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
 import {notifySpiedObject,connect,getConnection} from "../../helpers/stompClient";
 import { Loader } from "@googlemaps/js-api-loader"
+
 
 
 let map: google.maps.Map;
@@ -59,14 +64,29 @@ const SetLocation = (props) => {
   const history = useHistory();
   let lobbyId = localStorage.getItem("lobbyId");
   let gameId = localStorage.getItem("gameId");
+  const token = localStorage.getItem("token");
   const [location, setlocation] = useState("");
   const [color, setColor] = useState("");
   const [object, setObject] = useState("");
+  const [currentRound, setCurrentRound] = useState(null);
+  const [amountOfRounds, setAmountOfRounds] = useState(null);
   const [map, setMap] = useState(null);
   const loader = new Loader({
     apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
     version: 'weekly',
   });
+  const displayCurrentRound = async () => {
+        try {
+            const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
+            const currentRound = response.data["currentRound"];
+            const amountOfRounds = response.data["totalRounds"];
+            setCurrentRound(currentRound);
+            setAmountOfRounds(amountOfRounds);
+        }  catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
+
+    };
   useEffect(() => {
     loader.load().then(() => {
       const map = new google.maps.Map(document.getElementById('map'), {
@@ -120,13 +140,21 @@ const SetLocation = (props) => {
         setObject(event.target.value);
         console.log("Hint set to:", event.target.value);
       };
+  useEffect(() => {
+          displayCurrentRound();
+      }, []);
   function startGame() {
     notifySpiedObject(lobbyId, location, color, object);
     history.push("/game/" + lobbyId);
     }
+  const streetViewUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+
 
     return (
         <BaseContainer>
+           <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
@@ -147,7 +175,7 @@ const SetLocation = (props) => {
                 </div>
             </div>
             <div className="setlocation rounds">
-                Round: ?/?
+                Round: {currentRound}/{amountOfRounds}
             </div>
             <FormFieldColor
                 label="Enter color of the object:"

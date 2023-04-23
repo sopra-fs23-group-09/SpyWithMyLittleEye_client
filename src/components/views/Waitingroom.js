@@ -7,7 +7,9 @@ import PropTypes from "prop-types";
 import {api, handleError} from "../../helpers/api";
 import {Button} from "../ui/Button";
 import {connect, getConnection, subscribe} from "../../helpers/stompClient";
-import Lobby from "../../models/Lobby";
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
 
 const Waitingroom = () => {
     const history = useHistory();
@@ -60,6 +62,9 @@ const Waitingroom = () => {
 
     return (
         <BaseContainer>
+           <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

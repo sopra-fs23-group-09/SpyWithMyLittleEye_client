@@ -68,6 +68,6 @@ export const notifyGuess = (lobbyId, id, guess) => {
     ws.send("/app/games/"+lobbyId+"/guesses", {}, requestBody);
 }
 
-export const requestRoundInformation = (lobbyId) => {
-    ws.send(); // TODO
+export const notifyStartTime = (lobbyId) => {
+    ws.send("/app/games/"+lobbyId+"/startRound", {});
 }

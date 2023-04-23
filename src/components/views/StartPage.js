@@ -3,22 +3,25 @@ import 'styles/views/StartPage.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {LogoEye} from "../ui/LogoEye";
+import { Icon } from '@iconify/react';
+import Code from "components/views/Code";
+import 'styles/views/Code.scss';
+import React from "react";
 
 const StartPage = () => {
     const history = useHistory();
 
     return (
+    <body id="home">
         <BaseContainer>
-            <div className="base-container ellipse1">
-            </div>
-            <div className="base-container ellipse2">
-            </div>
-            <div className="base-container ellipse3">
-            </div>
-            <div className="base-container ellipse4">
-            </div>
             <div className="start-page game-title">
                 I spy with my little eye
+            </div>
+            <div className="start-page eye-left">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '5rem'}}/>
+            </div>
+            <div className="start-page eye-right">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '5rem'}}/>
             </div>
             <div className="start-page nose">
                 Y
@@ -57,6 +60,7 @@ const StartPage = () => {
 
             </div>
         </BaseContainer>
+        </body>
     );
 
 };

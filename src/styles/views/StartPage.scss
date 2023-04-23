@@ -1,33 +1,77 @@
 @import 'styles/theme';
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+}
+#home {
+  position: relative;
+  height: 1250px;
+  width: 1600px;
+  min-height: 900px;
+  background-image: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: rgba(255, 192, 203, 0.5);
+  }
+
+#home::before {
+  content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: pink;
+    opacity: 0.5;
+}
 
 .start-page {
+
+  &.background{
+    backgroundImage: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index:20;
+
+  }
   &.nose {
     position: absolute;
     width: 41.12px;
     height: 93.59px;
-    left: 700.72px;
+    left: 850px;
     top: 221.09px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     text-align: center;
 
     color: #FFFFFF;
   }
+  &.image{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    z-index:20;
+
+  }
 
   &.game-title {
     position: absolute;
     width: 647.4px;
     height: 93.59px;
-    left: 397.8px;
+    left: 550px;
     top: 164.5px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     text-align: center;
@@ -40,7 +84,7 @@
     position: absolute;
     width: 1384px;
     height: 650px;
-    left: 50px;
+    left: 175px;
     top: 550px;
 
     background: rgba(255, 255, 255, 0.46);
@@ -54,7 +98,7 @@
     left: 110px;
     top: 70px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -73,9 +117,9 @@
     left: 625px;
     top: 350px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
     line-height: 38px;
     /* identical to box height */
@@ -92,7 +136,7 @@
     left: 40px;
     top: 400px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -107,9 +151,9 @@
     width: 146px;
     height: 63px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     /* identical to box height */
@@ -128,9 +172,9 @@
     width: 182px;
     height: 63px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 50px;
     line-height: 63px;
     /* identical to box height */
@@ -143,5 +187,19 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+  }
+
+  &.eye-left {
+    position: absolute;
+    left: 710px;
+    top: 215px;
+
+  }
+
+  &.eye-right {
+    position: absolute;
+    left: 950px;
+    top: 215px;
+
   }
 }

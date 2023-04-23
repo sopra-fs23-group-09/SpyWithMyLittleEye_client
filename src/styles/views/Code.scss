@@ -1,6 +1,14 @@
 @import 'styles/theme';
 
 .code {
+  &.left-field{
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      border-radius: 50%;
+      z-index:10;
+  }
   &.field {
     box-sizing: border-box;
 
