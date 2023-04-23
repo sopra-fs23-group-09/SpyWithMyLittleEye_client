@@ -8,16 +8,24 @@ import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 import {api} from "../../helpers/api";
 import {Spinner} from "../ui/Spinner";
+import {Button} from "../ui/Button";
+import {connect, getConnection, notifyNextRoundButtonClicked, subscribe} from "../../helpers/stompClient";
+import game from "../../models/Game";
 
 const RoundOver = () => {
+    // TODO subscribe  people that arent the host
+    // TODO add fourth place
+    // TODO set profile picture
     const history = useHistory();
     const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-    // TODO empty local storage
+
     let [keyword, setKeyword] = useState(null);
-    let [roundOverStatus, setRoundOverStatus] = useState(null);
-    let [role, setRole] = useState(null)
+    //let [roundOverStatus, setRoundOverStatus] = useState(null);
+    //let [role, setRole] = useState(null)
+    let [hostId, setHostId] = useState(null)
+    let [currentRoundNr, setCurrentRoundNr] = useState(null)
 
     let [first, setFirst] = useState({username: "", points: ""})
     let [second, setSecond] = useState({username: "", points: ""})
@@ -25,12 +33,11 @@ const RoundOver = () => {
 
 
     useEffect(async () => {
-        let response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
-        setRole(response["data"]);
-
-        response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
-        setRoundOverStatus(response.data["roundOverStatus"]);
+        let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
+        //setRoundOverStatus(response.data["roundOverStatus"]); // TODO do we need this
         setKeyword(response.data["keyword"]);
+        setHostId(response.data["hostId"])
+        setCurrentRoundNr(response.data["currentRoundNr"])
         let playerPoints = response.data["playerPoints"];
 
         playerPoints.push({username: "winner", points: 100})
@@ -44,14 +51,52 @@ const RoundOver = () => {
         if (playerPoints.length > 2) {
             setThird(playerPoints[2]);
         }
+
+        //
+        if (getConnection()) {
+            subscribeToContinueToNextRound() // TODO this name is not good hehe
+        } else {
+            connect(subscribeToContinueToNextRound)
+        }
+
+        //let response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
+        //setRole(response["data"]);
         }, []);
 
-    // TODO add fourth
-    // TODO set profile picture
+    function subscribeToContinueToNextRound() {
+        subscribe("/topic/games/" + gameId + "/nextRound", data => {
+            console.log("Inside callback");
+            localStorage.removeItem("location");
+            localStorage.removeItem("color");
+            history.push(`/game/` + gameId + "/waitingroom");
+        });
+    }
+
+
+    function startNewRound() {
+        // empty local storage
+        //localStorage.removeItem("location");
+        //localStorage.removeItem("color");
+        notifyNextRoundButtonClicked(gameId);
+        //history.push(`/game/` + gameId + "/waitingroom");
+    }
+
+    let button_newRound = (<div></div>);
+
+
+    if (hostId == userId) { // has to be == for it to work
+        button_newRound = (
+            <Button className="roundover primary-button" onClick={() => startNewRound()}
+        >
+            <div className="roundover button-text">
+                Continue
+            </div>
+            </Button>)
+    }
 
     return (
         <BaseContainer>
-            <div class="code left-field">
+            <div className="code left-field">
                 <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
             </div>
             <div className="base-container ellipse1">
@@ -64,13 +109,10 @@ const RoundOver = () => {
             </div>
             <div className="roundover container">
                 <div className="roundover header">
-                    ROUND ? IS OVER
+                    ROUND {currentRoundNr} IS OVER
                 </div>
                 <div className="roundover solution">
                     The object was "{keyword}"
-                </div>
-                <div className="roundover time-left">
-                    ?
                 </div>
                 <div className="roundover leaderboard-text">
                     Leaderboard
@@ -96,6 +138,7 @@ const RoundOver = () => {
                     </div>
                 </div>
             </div>
+            {button_newRound}
 
         </BaseContainer>
     );

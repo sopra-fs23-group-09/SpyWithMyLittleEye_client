@@ -14,6 +14,7 @@ import {
     notifyHint, notifyStartTime,
     subscribe
 } from "../../helpers/stompClient";
+import {useHistory} from "react-router-dom";
 
 const StreetView = () => {
   const mapRef = useRef(null);
@@ -77,8 +78,10 @@ FormField.propTypes = {
 };
 
 const Guessing = () => {
+    const history = useHistory();
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
+    const gameId = localStorage.getItem("gameId"); // same as lobbyId
     const token = localStorage.getItem("token");
     const color = localStorage.getItem("color");
     const location = localStorage.getItem("location");
@@ -114,6 +117,14 @@ const Guessing = () => {
 
     };
 
+    function redirectToOverview() {
+        if (currentRound == amountOfRounds) {
+            history.push("/game/" + gameId + "/score");
+        } else {
+            history.push("/game/" + gameId + "/rounds/score");
+        }
+    }
+
     const displayCurrentRound = async () => {
         try {
             const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
@@ -122,7 +133,7 @@ const Guessing = () => {
             setCurrentRound(currentRound);
             setAmountOfRounds(amountOfRounds);
         }  catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            alert(`Something went wrong during the request: \n${handleError(error)}`);
         }
 
     };

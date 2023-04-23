@@ -71,3 +71,7 @@ export const notifyGuess = (lobbyId, id, guess) => {
 export const notifyStartTime = (lobbyId) => {
     ws.send("/app/games/"+lobbyId+"/startRound", {});
 }
+
+export const notifyNextRoundButtonClicked = (gameId) => {
+    ws.send("/app/games/"+gameId+"/nextRound", {});
+}
