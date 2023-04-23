@@ -50,6 +50,8 @@ const TestingGame = props => {
         setColorFromServer(JSON.parse(receivedJSON.body).color);
         setLatFromServer(JSON.parse(receivedJSON.body).location.lat);
         setLngFromServer(JSON.parse(receivedJSON.body).location.lng);
+        setStartTime(JSON.parse(receivedJSON.body).startTime);
+        setDuration(JSON.parse(receivedJSON.body).duration);
       });
       //subscribe to guesses
       client.subscribe(urlServer2Client + '/guesses', function (receivedJSON) {
@@ -58,11 +60,6 @@ const TestingGame = props => {
       //subscribe to hints
       client.subscribe(urlServer2Client + '/hints', function (receivedJSON) {
         setHintFromServer(JSON.parse(receivedJSON.body).hint);
-      });
-      //subscribe to startGame
-      client.subscribe(urlServer2Client + '/startRound', function (receivedJSON) {
-        setStartTime(JSON.parse(receivedJSON.body).startTime);
-        setDuration(JSON.parse(receivedJSON.body).duration);
       });
       //subscribe to endGame
       client.subscribe(urlServer2Client + '/endRound', function (receivedJSON) {
@@ -99,11 +96,6 @@ const TestingGame = props => {
       setHint("");
   };
 
-  const startGame = async () => {
-      stompClient.send(urlClient2Server + "/startRound", {}, {});
-  };
-
-
   return (
     <BaseContainer>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -136,6 +128,8 @@ const TestingGame = props => {
       <button onClick={() => sendspiedObject()}>send info spied object</button>
       <p>Lat: {latFromServer}, lng: {lngFromServer}</p>
       <p>Color: {colorFromServer}</p>
+      <p>Response start time: {startTime}, duration: {duration}</p>
+      <p>Response end round: {endGameStatus}</p>
       <label>
         Guess:
         <input type="text" value={guess} onChange={event => setGuess(event.target.value)} />
@@ -153,10 +147,6 @@ const TestingGame = props => {
       </label>
       <button onClick={() => sendHint()}>send hint</button>
       <p>Hint: {hintFromServer}</p>
-
-      <button onClick={() => startGame()}>start game</button>
-      <p>Response start time: {startTime}, duration: {duration}</p>
-      <p>Response end round: {endGameStatus}</p>
     </BaseContainer>
   );
 };
