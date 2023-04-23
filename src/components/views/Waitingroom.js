@@ -6,56 +6,51 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {api, handleError} from "../../helpers/api";
 import {Button} from "../ui/Button";
-import {connect, getConnection, requestRoundInformation, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, subscribe} from "../../helpers/stompClient";
 import Lobby from "../../models/Lobby";
 
 const Waitingroom = () => {
     const history = useHistory();
     const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
     const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     let guesser = false;
 
 
-    useEffect(() => {
+    useEffect(async () => {
         // TODO REST request
-        console.log("Connected: " + getConnection())
-        if (getConnection()) {
-            subscribeToWaitingRoomInformation()
+        const response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
+        const role = response["data"];
+        if (role === "SPIER") {
+            console.log("You're a spier this round.")
+            history.push("/game/" + gameId + "/location")
+        } else if (role === "GUESSER"){
+            console.log("You're a guesser this round.")
+            guesser = true;
+            console.log("Connected: " + getConnection())
+            if (getConnection()) {
+                subscribeToSpiedObjectInformation()
+            } else {
+                connect(subscribeToSpiedObjectInformation)
+            }
         } else {
-            connect(subscribeToWaitingRoomInformation())
+            console.log("WARNING: Your role is not defined.")
         }
     }, []);
 
-    function subscribeToWaitingRoomInformation() {
-        // TODO TO something else
-        subscribe("/topic/games/" + gameId + "/round", data => {
+    function subscribeToSpiedObjectInformation() {
+        subscribe("/topic/games/" + gameId + "/spiedObject", data => {
             console.log("Inside callback");
-            let event = data["event"];
-            console.log(data);
-            if (event) {
-                if (event === "roleDistribution") {
-                    console.log("INFORMATION ON ROLE DISTRIBUTION")
-                    let roles = data["roles"]
-                    let role = roles[userId]
-                    if (role === "SPIER") {
-                        history.push("/game/" + gameId + "/location")
-                    } else {
-                        guesser = true;
-                    }
-                } else if (event === "startedRound") {
-                    console.log("STARTED ROUND");
-                    redirectToRound();
-                }
-            } else {
-                console.log("NO EVENT DEFINED!");
-            }
-
+            console.log(data["location"]);
+            console.log(data["color"]);
+            localStorage.setItem("location", JSON.stringify(data["location"]));
+            localStorage.setItem("color", JSON.stringify(data["color"]))
+            redirectToRound();
         });
-        requestRoundInformation(gameId);
     }
 
     function redirectToRound() {
-        history.push("/game/" + gameId); // TODO is this right
+        history.push("/game/" + gameId);
     }
 
     let messageForGuessers = (<div></div>)
