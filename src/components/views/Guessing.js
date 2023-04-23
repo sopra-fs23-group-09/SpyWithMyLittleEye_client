@@ -19,6 +19,9 @@ import {Button} from "../ui/Button";
 
 const StreetView = () => {
     const mapRef = useRef(null);
+    const location = JSON.parse(localStorage.getItem("location"));
+    console.log(location["lat"]);
+    //console.log(location["lng"]);
 
     useEffect(() => {
         const loader = new Loader({
@@ -28,14 +31,14 @@ const StreetView = () => {
 
         loader.load().then(() => {
             const map = new window.google.maps.Map(mapRef.current, {
-                center: {lat: 47.373944, lng: 8.537667 },
+                center: {lat: location["lat"], lng: location["lng"]},
                 zoom: 18,
                 streetViewControl: true,
                 fullscreenControl: false,
             });
 
             const streetView = map.getStreetView();
-            streetView.setPosition({ lat: 47.373944, lng: 8.537667 });
+            streetView.setPosition({ lat: location["lat"], lng: location["lng"]});
             streetView.setVisible(true);
             streetView.setOptions({
                 motionTracking: false,
@@ -87,23 +90,25 @@ const Guessing = () => {
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
+    const color = localStorage.getItem("color");
 
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
     const [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    const [username, setUsername] = useState("");
+    //const [username, setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft, setTimeLeft] = useState("");
+    //const [color, setColor] = useState("");
 
     const distributeRole = async () => {
         try {
             const requestBody = JSON.stringify({playerId});
             const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
             const role = response.data
-            setRole("GUESSER");
+            setRole(role);
         }  catch (error) {
             console.log("Couldn't fetch role\n" + handleError(error));
         }
@@ -113,6 +118,7 @@ const Guessing = () => {
     const makeSubscription = ()  => {
         subscribeToHintInformation();
         subscribeToGuessInformation();
+        //subscribeToSpiedObjectInformation();
     }
 
     useEffect(() => {
@@ -167,11 +173,16 @@ const Guessing = () => {
     function subscribeToGuessInformation() {
         subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
             console.log("Response: " + response);
-            /*const g = response[0]["guess"];
-            console.log("guesses received: " + g );
-            const u = response[0]["guesserName"];
-            setUsername(u);
-            setGuess(g);*/
+            const length = response.length;
+            if (length > 0) {
+                const lastEntry = response[length - 1];
+                const gc = lastEntry["guess"];
+                console.log("guesses received: " + gc );
+                setGuess(gc);
+            }
+            //const u = response[0]["guesserName"];
+            //setUsername(u);
+
 
             response.forEach(item => {
                 const g = item["guess"];
@@ -181,14 +192,23 @@ const Guessing = () => {
         });
     }
 
-    useEffect(() => {
+    /*function subscribeToSpiedObjectInformation() {
+        subscribe("/topic/games/" + lobbyId + "/spiedObject",(response) => {
+            const c = response["color"];
+            console.log("color received " + c );
+            setColor(c);
+        });
+    }*/
+
+
+    /*useEffect(() => {
        listGuesses();
 
-    }, [guesses]);
+    }, [guesses]);*/
 
-    const listGuesses = () => {
+    /*const listGuesses = () => {
         console.log("LIST WITH GUESSES: " + guesses);
-    }
+    }*/
 
     return (
         <BaseContainer>
@@ -217,6 +237,9 @@ const Guessing = () => {
                     You're a: {role}
                 </div>
             </div>
+            <div className="guessing color-text">
+                I spy with my little eye something that is...{color}
+            </div>
             <div className="guessing container">
                 <div className="guessing header-container">
                     <div className="guessing header">
@@ -228,7 +251,7 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            disabled={!playerInput}
+                            disabled={playerInput === "" && guess === "CORRECT"}
                             onClick={() => submitInput()}
 
                     >
