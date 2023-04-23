@@ -144,6 +144,8 @@ const SetLocation = (props) => {
           displayCurrentRound();
       }, []);
   function startGame() {
+    localStorage.setItem("location", JSON.stringify(location));
+    localStorage.setItem("color", JSON.stringify(color));
     notifySpiedObject(lobbyId, location, color, object);
     history.push("/game/" + lobbyId);
     }
