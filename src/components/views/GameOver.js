@@ -9,6 +9,7 @@ import 'styles/views/Code.scss';
 
 const GameOver = () => {
     const history = useHistory();
+    // TODO empty local storage
 
     return (
         <BaseContainer>
