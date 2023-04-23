@@ -20,7 +20,6 @@ const Waitingroom = () => {
 
 
     useEffect(async () => {
-        // TODO REST request
         const response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
         const role = response["data"];
         if (role === "SPIER") {
