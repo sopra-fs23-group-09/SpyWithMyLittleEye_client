@@ -171,7 +171,7 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
+    width: 290px;
     height: 60px;
     left: 35px;
     top: 775px;
@@ -185,7 +185,7 @@
 
   &.input {
     height: 60px;
-    width: 400px;
+    width: 290px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -206,6 +206,27 @@
     line-height: 50px;
 
     font-family: 'Gill Sans';
+  }
+
+  &.send-button-text {
+    width: 73px;
+    height: 63px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
   }
 }
 
@@ -308,4 +329,5 @@
     order: 0;
     flex-grow: 0;
   }
+
 }
