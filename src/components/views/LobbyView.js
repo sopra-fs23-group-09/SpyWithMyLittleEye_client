@@ -101,7 +101,15 @@ const LobbyView = () => {
                 <ul className="lobby player-list">
                         {lobby.playerNames.map(name => (
                             <li className = "lobby player-container">
-                                <img src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"></img>
+                                <img
+                                  src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                  style={{
+                                    borderRadius: '50%',
+                                    height: '7em',
+                                    width: '7em',
+                                    objectFit: 'cover',
+                                  }}
+                                />
                                 <div className="lobby player-name">
                                     {name}
                                 </div>
