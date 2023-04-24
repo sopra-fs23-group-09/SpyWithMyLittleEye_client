@@ -17,11 +17,38 @@ import {
 import {Button} from "../ui/Button";
 
 
+/*{guesses.map(gs => {
+    if (gs[1] === "CORRECT"){
+        return (
+            <div className="guessers correct-container">
+                <div className="guessers name">
+                    {gs[0]}
+                </div>
+
+                <div className="guessers correct-guess">
+                    GUESSED RIGHT
+                </div>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="guessers wrong-container">
+                <div className="guessers name">
+                    {gs[0]}
+                </div>
+
+                <div className="guessers wrong-guess">
+                    {gs[1]}
+                </div>
+            </div>
+        )
+    }
+})}*/
+
 const StreetView = () => {
     const mapRef = useRef(null);
     const location = JSON.parse(localStorage.getItem("location"));
-    console.log(location["lat"]);
-    //console.log(location["lng"]);
 
     useEffect(() => {
         const loader = new Loader({
@@ -97,7 +124,7 @@ const Guessing = () => {
     const [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    //const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft, setTimeLeft] = useState("");
@@ -173,22 +200,18 @@ const Guessing = () => {
     function subscribeToGuessInformation() {
         subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
             console.log("Response: " + response);
-            const length = response.length;
-            if (length > 0) {
-                const lastEntry = response[length - 1];
-                const gc = lastEntry["guess"];
-                console.log("guesses received: " + gc );
-                setGuess(gc);
-            }
-            //const u = response[0]["guesserName"];
-            //setUsername(u);
-
-
-            response.forEach(item => {
+            const lastUsername = response[response.length -1]["guesserName"]
+            const lastGuess = response[response.length - 1]["guess"]
+            setUsername(lastUsername)
+            setGuess(lastGuess);
+            /*response.forEach(item => {
                 const g = item["guess"];
                 const u = item["guesserName"];
                 setGuesses(prevGuesses => [...prevGuesses, [u, g]]);
-            });
+            });*/
+            setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
+
+
         });
     }
 
@@ -201,14 +224,14 @@ const Guessing = () => {
     }*/
 
 
-    /*useEffect(() => {
+    useEffect(() => {
        listGuesses();
 
-    }, [guesses]);*/
+    }, [guesses]);
 
-    /*const listGuesses = () => {
+    const listGuesses = () => {
         console.log("LIST WITH GUESSES: " + guesses);
-    }*/
+    }
 
     return (
         <BaseContainer>
@@ -241,6 +264,36 @@ const Guessing = () => {
                 I spy with my little eye something that is...{color}
             </div>
             <div className="guessing container">
+                <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto" }}>
+                    {guesses.map(gs => {
+                        if (gs[1] === "CORRECT"){
+                            return (
+                                <div className="guessers correct-container">
+                                    <div className="guessers name">
+                                        {gs[0]}
+                                    </div>
+
+                                    <div className="guessers correct-guess">
+                                        GUESSED RIGHT
+                                    </div>
+                                </div>
+                            )
+                        }
+                        else {
+                            return (
+                                <div className="guessers wrong-container">
+                                    <div className="guessers name">
+                                        {gs[0]}
+                                    </div>
+
+                                    <div className="guessers wrong-guess">
+                                        {gs[1]}
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })}
+                </div>
                 <div className="guessing header-container">
                     <div className="guessing header">
                         Guesses
@@ -251,7 +304,7 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            disabled={playerInput === "" && guess === "CORRECT"}
+                            disabled={playerInput === "" || guess === "CORRECT"}
                             onClick={() => submitInput()}
 
                     >
@@ -259,38 +312,6 @@ const Guessing = () => {
                             Send
                         </div>
                     </Button>
-                    {(() =>
-                        <div>
-                            {guesses.map((gs, index) => {
-                                if (gs[1] === "CORRECT"){
-                                    return (
-                                        <div key={index} className="guessers correct-container">
-                                            <div className="guessers name">
-                                                {gs[0]}
-                                            </div>
-
-                                            <div className="guessers correct-guess">
-                                                GUESSED RIGHT
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                                else {
-                                    return (
-                                        <div key={index} className="guessers wrong-container">
-                                            <div className="guessers name">
-                                                {gs[0]}
-                                            </div>
-
-                                            <div className="guessers wrong-guess">
-                                                {gs[1]}
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                            })}
-                        </div>
-                    )}
                 </div>
                 {(() => {
                     let pl ="" ;
