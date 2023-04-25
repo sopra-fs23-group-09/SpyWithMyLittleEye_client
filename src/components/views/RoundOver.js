@@ -6,7 +6,8 @@ import React, {useEffect, useState} from 'react';
 import 'styles/views/Code.scss';
 import {api} from "../../helpers/api";
 import {Button} from "../ui/Button";
-import {connect, getConnection, notifyNextRoundButtonClicked, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, notifyNextRoundButtonClicked, subscribe, unsubscribe} from "../../helpers/stompClient";
+import game from "../../models/Game";
 
 const RoundOver = () => {
     // TODO add fourth place
@@ -63,6 +64,7 @@ const RoundOver = () => {
             localStorage.removeItem("color");
             history.push(`/game/` + gameId + "/waitingroom");
         });
+        unsubscribe("/topic/games/" + gameId + "/nextRound");
     }
 
 

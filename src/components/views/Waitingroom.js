@@ -1,9 +1,9 @@
 import 'styles/views/Waitingroom.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
+import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import React, {useEffect} from "react";
 import {api} from "../../helpers/api";
-import {connect, getConnection, subscribe} from "../../helpers/stompClient";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 
@@ -44,6 +44,7 @@ const Waitingroom = () => {
             localStorage.setItem("color", JSON.stringify(data["color"]))
             redirectToRound();
         });
+        unsubscribe("/topic/games/" + gameId + "/spiedObject");
     }
 
     function redirectToRound() {

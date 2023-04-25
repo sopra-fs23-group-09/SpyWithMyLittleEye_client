@@ -37,6 +37,14 @@ export const subscribe = (mapping, callback) => {
         callback(JSON.parse(data.body)); // This is already the body!!!
     });
 }
+
+export const unsubscribe = (mapping) => {
+    ws.unsubscribe(mapping, function (data) {
+        // console.log("Inside subscribe")
+        //console.log(JSON.parse(data.body));
+        //callback(JSON.parse(data.body)); // This is already the body!!!
+    });
+}
 export let getConnection = () => connection;
 
 function disconnect() {

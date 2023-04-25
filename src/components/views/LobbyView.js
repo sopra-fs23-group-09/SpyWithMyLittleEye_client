@@ -13,7 +13,7 @@ import {
     getConnection,
     subscribe,
     startGame,
-    notifyLobbyJoined
+    notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
 
 const LobbyView = () => {
@@ -64,6 +64,7 @@ const LobbyView = () => {
 
         });
         notifyLobbyJoined(lobbyId);
+        unsubscribe("/topic/lobbies/" + lobbyId);
     }
 
 
