@@ -6,7 +6,6 @@ import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 /*
@@ -104,7 +103,7 @@ const Login = props => {
                             <div className= "login login-line">
                             </div>
                         <div className="login register-text">
-                          Don’t have an account yet? <a href="#" onClick={() => window.location.href = '/Register'}>Sign up</a>
+                          Don’t have an account yet? <a href="/Register">Sign up</a>
                         </div>
           </div>
         </div>
