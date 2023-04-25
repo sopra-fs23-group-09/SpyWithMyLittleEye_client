@@ -11,7 +11,7 @@ import {
     connect,
     getConnection,
     notifyGuess,
-    notifyHint, notifyStartTime,
+    notifyHint,
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
@@ -96,11 +96,11 @@ const Guessing = () => {
     const [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    const [username, setUsername] = useState("");
+    const [setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
-    const [timeLeft, setTimeLeft] = useState("");
-    const [response, setResponse] = useState("");
+    const [timeLeft] = useState("");
+    const [setResponse] = useState("");
 
     const distributeRole = async () => {
         try {
