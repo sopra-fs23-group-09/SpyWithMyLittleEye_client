@@ -2,9 +2,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/StartPage.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 import React from "react";
 
