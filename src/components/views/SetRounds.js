@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {api} from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 
@@ -36,13 +36,16 @@ const SetRounds = () => {
     async function createLobby() {
         let token = localStorage.getItem("token");
         const requestBody = JSON.stringify({amountRounds});
-        const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
-        console.log(response.data)
-        const lobbyId = response.data["id"]
-        localStorage.setItem('lobbyId', lobbyId);
-        const accessCode = response.data["accessCode"]
-        // localStorage.setItem('accessCode', accessCode);
-        history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
+        try {
+            const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
+            console.log(response.data)
+            const lobbyId = response.data["id"]
+            localStorage.setItem('lobbyId', lobbyId);
+            const accessCode = response.data["accessCode"]
+            history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
+        } catch (error) {
+            alert(`Something went wrong: \n${handleError(error)}`);
+        }
     }
 
 

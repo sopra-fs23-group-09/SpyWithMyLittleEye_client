@@ -49,7 +49,6 @@ const Code = () => {
             history.push("/lobby/" + accessCode);
         } catch (error) {
             alert(`Something went wrong: \n${handleError(error)}`);
-
         }
     };
 

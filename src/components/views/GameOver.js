@@ -40,7 +40,6 @@ const GameOver = () => {
         setCurrentRoundNr(response.data["currentRoundNr"])
         let playerPoints = response.data["playerPoints"];
 
-        playerPoints.push({username: "winner", points: 100}) // TODO remove
         playerPoints.sort((a, b) => { // TODO comes sorted already
             return b.points - a.points;
         });
