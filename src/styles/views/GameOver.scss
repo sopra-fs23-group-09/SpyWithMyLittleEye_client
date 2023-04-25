@@ -30,12 +30,49 @@
     color: #97E1D4;
   }
 
+  &.rounds {
+    position: absolute;
+    width: 700px;
+    height: 88px;
+    left: 150px;
+    top: 130px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 88px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #97E1D4;
+  }
+
+  &.solution {
+    position: absolute;
+    width: 630px;
+    height: 63px;
+    left: 150px;
+    top: 220px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #97E1D4;
+
+  }
+
   &.leaderboard-text {
     position: absolute;
     width: 184px;
     height: 38px;
     left: 400px;
-    top: 225px;
+    top: 300px;
 
     font-family: 'Mulish';
     font-style: normal;

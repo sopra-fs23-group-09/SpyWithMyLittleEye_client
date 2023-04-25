@@ -8,7 +8,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import 'styles/views/Login.scss';
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 const FormField = props => {
@@ -103,7 +102,7 @@ const Register = props => {
                                 <div className= "login login-line">
                                 </div>
                             <div className="login register-text">
-                              Already have an account? <a href="#" onClick={() => window.location.href = '/login'}>Log in</a>
+                              Already have an account? <a href="/login">Log in</a>
                             </div>
               </div>
             </div>
