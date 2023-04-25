@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {api} from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 
 
@@ -40,13 +40,17 @@ const Code = () => {
 
     const joinLobby = async () => {
         const requestBody = JSON.stringify({accessCode});
-        const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
-        console.log(response);
-        const lobbyId = response.data["id"]
-        localStorage.setItem('lobbyId', lobbyId);
+        try {
+            const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
+            console.log(response);
+            const lobbyId = response.data["id"]
+            localStorage.setItem('lobbyId', lobbyId);
 
-        history.push("/lobby/" + accessCode)
-        // TODO check access code
+            history.push("/lobby/" + accessCode);
+        } catch (error) {
+            alert(`Something went wrong: \n${handleError(error)}`);
+
+        }
     };
 
     return (
