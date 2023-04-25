@@ -100,7 +100,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
-    const [response, setResponse] = useState("");
+    //const [response, setResponse] = useState("");
 
     const distributeRole = async () => {
         try {
