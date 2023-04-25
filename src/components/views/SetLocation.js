@@ -67,54 +67,43 @@ const SetLocation = (props) => {
   const [object, setObject] = useState("");
   const [currentRound, setCurrentRound] = useState(null);
   const [amountOfRounds, setAmountOfRounds] = useState(null);
-  const loader = new Loader({
-    apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
-    version: 'weekly',
-  });
-  const displayCurrentRound = async () => {
-        try {
-            const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
-            const currentRound = response.data["currentRound"];
-            const amountOfRounds = response.data["totalRounds"];
-            setCurrentRound(currentRound);
-            setAmountOfRounds(amountOfRounds);
-        }  catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
 
-    };
-  useEffect(() => {
-    loader.load().then(() => {
-      const map = new window.google.maps.Map(document.getElementById('map'), {
-        center: { lat: 47.36667, lng: 8.55 },
-        zoom: 8,
-      });
-      const streetView = map.getStreetView();
+ useEffect(() => {
+   const loader = new Loader({
+     apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
+     version: 'weekly',
+   });
+   loader.load().then(() => {
+     const map = new window.google.maps.Map(document.getElementById('map'), {
+       center: { lat: 47.36667, lng: 8.55 },
+       zoom: 8,
+     });
+     const streetView = map.getStreetView();
 
-          // Add event listener for the click event on the map
-          map.addListener('click', (event) => {
-            const newLocation = {
-              lat: event.latLng.lat(),
-              lng: event.latLng.lng()
-            };
-            setlocation(newLocation);
-            console.log("Location set to:", newLocation);
-          });
+     // Add event listener for the click event on the map
+     map.addListener('click', (event) => {
+       const newLocation = {
+         lat: event.latLng.lat(),
+         lng: event.latLng.lng()
+       };
+       setlocation(newLocation);
+       console.log("Location set to:", newLocation);
+     });
 
-          // Add event listener for the position_changed event on the street view object
-          streetView.addListener('position_changed', () => {
-            const newPosition = streetView.getPosition();
-            setlocation({
-             lat: newPosition.lat(),
-             lng: newPosition.lng()
-            });
-            console.log("Street view position changed to:", {
-              lat: newPosition.lat(),
-              lng: newPosition.lng()
-            });
-          });
-    });
-  }, [loader]);
+     // Add event listener for the position_changed event on the street view object
+     streetView.addListener('position_changed', () => {
+       const newPosition = streetView.getPosition();
+       setlocation({
+         lat: newPosition.lat(),
+         lng: newPosition.lng()
+       });
+       console.log("Street view position changed to:", {
+         lat: newPosition.lat(),
+         lng: newPosition.lng()
+       });
+     });
+   });
+ }, []);
 
     function subscribeToSetLocationInformation() {
     }
@@ -136,8 +125,20 @@ const SetLocation = (props) => {
         console.log("Hint set to:", event.target.value);
       };
   useEffect(() => {
-          displayCurrentRound();
-      }, [displayCurrentRound]);
+    const displayCurrentRound = async () => {
+      try {
+        const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
+        const currentRound = response.data["currentRound"];
+        const amountOfRounds = response.data["totalRounds"];
+        setCurrentRound(currentRound);
+        setAmountOfRounds(amountOfRounds);
+      }  catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
+    };
+
+    displayCurrentRound();
+  }, []);
   function startGame() {
     localStorage.setItem("location", JSON.stringify(location));
     localStorage.setItem("color", JSON.stringify(color));
