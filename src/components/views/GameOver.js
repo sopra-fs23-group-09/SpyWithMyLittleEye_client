@@ -33,9 +33,10 @@ const GameOver = () => {
 
     useEffect(async () => {
         let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
-        //setKeyword(response.data["keyword"]);
+        console.log(response)
+        setKeyword(response.data["keyword"]);
         setHostId(response.data["hostId"])
-       // setCurrentRoundNr(response.data["currentRoundNr"])
+        setCurrentRoundNr(response.data["currentRoundNr"])
         let playerPoints = response.data["playerPoints"];
 
         playerPoints.push({username: "winner", points: 100}) // TODO remove
@@ -62,7 +63,11 @@ const GameOver = () => {
     function subscribeToEndGame() {
         subscribe("/topic/games/" + gameId + "/gameOver", data => {
             console.log("Inside callback");
-            // TODO empty local storage
+            // empty local storage
+            localStorage.removeItem("location");
+            localStorage.removeItem("color");
+            localStorage.removeItem("lobbyId");
+            localStorage.removeItem("gameId");
             history.push("/home/");
         });
     }
