@@ -93,14 +93,14 @@ const Guessing = () => {
     const history = useHistory();
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
-    const [guess, setGuess] = useState("");
+    let [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    const [username ,setUsername] = useState("");
+    let [username ,setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
-    const [response, setResponse] = useState("");
+    //const [response, setResponse] = useState("");
 
     const distributeRole = async () => {
         try {
@@ -175,6 +175,7 @@ const Guessing = () => {
             console.log("Response: " + response);
             const lastUsername = response[response.length -1]["guesserName"]
             const lastGuess = response[response.length - 1]["guess"]
+            username = lastUsername;
             setUsername(lastUsername)
             setGuess(lastGuess);
             setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
@@ -184,10 +185,10 @@ const Guessing = () => {
 
     function subscribeToEndRoundInformation() {
         subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
-            console.log(response);
+            /*console.log(response);
             const m = response["endRoundMessage"];
             console.log("message received" + m);
-            setResponse(m);
+            setResponse(m);*/
             const cr = response["currentRound"];
             const ar = response["amountOfRounds"];
             console.log("CURRENT ROUND: " + cr);
