@@ -65,7 +65,7 @@ FormFieldPassword.propTypes = {
   type: PropTypes.string
 };
 
-const EditPage = props => {
+const EditPage = () => {
   const history = useHistory();
   const [birthday] = useState(null);
   const [username, setUsername] = useState(null);
@@ -86,8 +86,8 @@ const EditPage = props => {
   }
   return (
     <BaseContainer>
-                    <div class="code left-field">
-                      <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                    <div className="code left-field">
+                      <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
                     </div>
       <div className="base-container ellipse1">
       </div>

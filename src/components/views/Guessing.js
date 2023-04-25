@@ -96,11 +96,11 @@ const Guessing = () => {
     const [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    const [username, setUsername] = useState("");
+    const [username ,setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
-    const [setResponse] = useState("");
+    const [response, setResponse] = useState("");
 
     const distributeRole = async () => {
         try {

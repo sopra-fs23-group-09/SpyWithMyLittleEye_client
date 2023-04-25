@@ -39,7 +39,7 @@ FormField.propTypes = {
   password: PropTypes.string
 };
 
-const Login = props => {
+const Login = () => {
   const history = useHistory();
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
@@ -60,8 +60,8 @@ const Login = props => {
 
   return (
         <BaseContainer>
-                    <div class="code left-field">
-                      <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                    <div className="code left-field">
+                      <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
                     </div>
                                 <div className="base-container ellipse1">
                                 </div>
