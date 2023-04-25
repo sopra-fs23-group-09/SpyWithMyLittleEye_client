@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import {api, handleError} from 'helpers/api';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
-import {notifySpiedObject, connect, getConnection, subscribe, unsubscribe, disconnect} from "../../helpers/stompClient";
+import {notifySpiedObject, connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import {Loader} from "@googlemaps/js-api-loader"
 
 
@@ -105,9 +105,6 @@ const SetLocation = (props) => {
 
     }, []);
 
-    function subscribeToSetLocationInformation() {
-        subscribe("/topic/games/" + gameId + "/spiedObject", data => {});
-    }
 
     useEffect(() => {
         console.log("Connected: " + getConnection())
@@ -116,7 +113,11 @@ const SetLocation = (props) => {
         } else {
             connect(subscribeToSetLocationInformation)
         }
-    }, []);
+
+        function subscribeToSetLocationInformation() {
+            subscribe("/topic/games/" + gameId + "/spiedObject", data => {});
+        }
+    }, [gameId]);
 
     const handleColorChange = (event) => {
         setColor(event.target.value);
