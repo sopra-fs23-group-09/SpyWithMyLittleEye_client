@@ -2,7 +2,6 @@ import 'styles/views/Waitingroom.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useEffect} from "react";
-//import PropTypes from "prop-types";
 import {api} from "../../helpers/api";
 import {connect, getConnection, subscribe} from "../../helpers/stompClient";
 import { Icon } from '@iconify/react';

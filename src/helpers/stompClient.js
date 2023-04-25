@@ -75,3 +75,7 @@ export const notifyStartTime = (lobbyId) => {
 export const notifyNextRoundButtonClicked = (gameId) => {
     ws.send("/app/games/"+gameId+"/nextRound", {});
 }
+
+export const notifyGameEndedButtonClicked = (gameId) => {
+    ws.send("/app/games/"+gameId+"/gameOver", {});
+}
