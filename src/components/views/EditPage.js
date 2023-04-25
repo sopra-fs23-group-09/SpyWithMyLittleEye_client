@@ -67,7 +67,7 @@ FormFieldPassword.propTypes = {
 
 const EditPage = props => {
   const history = useHistory();
-  const [birthday, setBirthday] = useState(null);
+  const [birthday] = useState(null);
   const [username, setUsername] = useState(null);
   const {userId} = useParams();
 
