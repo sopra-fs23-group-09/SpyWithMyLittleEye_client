@@ -7,10 +7,9 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
-// <FormField
+//        <FormField
 //             label="Birthday"
 //             value={birthday}
 //             type = "date"

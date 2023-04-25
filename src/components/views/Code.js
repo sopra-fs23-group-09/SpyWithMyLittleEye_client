@@ -2,7 +2,6 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Code.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {api, handleError} from "../../helpers/api";
