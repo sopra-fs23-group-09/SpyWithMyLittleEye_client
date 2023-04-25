@@ -198,8 +198,6 @@ const Guessing = () => {
         setPlayerInput("");
 
     };
-
-
     return (
         <BaseContainer>
             <div className="code left-field">
