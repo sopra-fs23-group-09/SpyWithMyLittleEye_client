@@ -42,7 +42,6 @@ const SetRounds = () => {
             const lobbyId = response.data["id"]
             localStorage.setItem('lobbyId', lobbyId);
             const accessCode = response.data["accessCode"]
-            // localStorage.setItem('accessCode', accessCode);
             history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
         } catch (error) {
             alert(`Something went wrong: \n${handleError(error)}`);

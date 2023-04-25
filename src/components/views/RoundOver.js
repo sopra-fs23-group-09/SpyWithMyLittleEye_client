@@ -28,13 +28,11 @@ const RoundOver = () => {
 
     useEffect(async () => {
         let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
-        //setRoundOverStatus(response.data["roundOverStatus"]); // TODO do we need this
         setKeyword(response.data["keyword"]);
         setHostId(response.data["hostId"])
         setCurrentRoundNr(response.data["currentRoundNr"])
         let playerPoints = response.data["playerPoints"];
 
-        playerPoints.push({username: "winner", points: 100}) // TODO remove
         playerPoints.sort((a, b) => { // TODO comes sorted already
             return b.points - a.points;
         });
@@ -52,9 +50,6 @@ const RoundOver = () => {
         } else {
             connect(subscribeToContinueToNextRound)
         }
-
-        //let response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
-        //setRole(response["data"]);
         }, []);
 
     function subscribeToContinueToNextRound() {
