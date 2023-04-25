@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {api, handleError} from "../../helpers/api";
 import {Button} from "../ui/Button";
-import {connect, getConnection, subscribe} from "../../helpers/stompClient";
+import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import { Icon } from '@iconify/react';
 import Code from "components/views/Code";
 import 'styles/views/Code.scss';
@@ -48,6 +48,7 @@ const Waitingroom = () => {
             localStorage.setItem("color", JSON.stringify(data["color"]))
             redirectToRound();
         });
+        unsubscribe("/topic/games/" + gameId + "/spiedObject");
     }
 
     function redirectToRound() {

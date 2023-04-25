@@ -12,7 +12,7 @@ import {
     getConnection,
     notifyGuess,
     notifyHint, notifyStartTime,
-    subscribe
+    subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
@@ -164,8 +164,9 @@ const Guessing = () => {
             const h = response["hint"];
             console.log("hint received: " + h );
             setHint(h);
-        });
 
+        });
+        unsubscribe("/topic/games/" + lobbyId + "/hints");
     }
 
 
@@ -177,9 +178,8 @@ const Guessing = () => {
             setUsername(lastUsername)
             setGuess(lastGuess);
             setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
-
-
         });
+        unsubscribe("/topic/games/" + lobbyId + "/guesses");
     }
 
     function subscribeToEndRoundInformation() {
@@ -201,6 +201,7 @@ const Guessing = () => {
                 history.push("/game/"+lobbyId+"/score");
             }
         });
+        unsubscribe("/topic/games/" + lobbyId + "/endRound");
     }
 
     return (
