@@ -60,8 +60,6 @@ FormFieldColor.propTypes = {
 };
 const SetLocation = (props) => {
   const history = useHistory();
-  let lobbyId = localStorage.getItem("lobbyId");
-  const token = localStorage.getItem("token");
   const [location, setlocation] = useState("");
   const [color, setColor] = useState("");
   const [object, setObject] = useState("");
@@ -103,6 +101,7 @@ const SetLocation = (props) => {
        });
      });
    });
+
  }, []);
 
     function subscribeToSetLocationInformation() {
@@ -125,7 +124,11 @@ const SetLocation = (props) => {
         console.log("Hint set to:", event.target.value);
       };
   useEffect(() => {
+    const lobbyId = localStorage.getItem("lobbyId");
+    const token = localStorage.getItem("token");
+
     const displayCurrentRound = async () => {
+
       try {
         const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
         const currentRound = response.data["currentRound"];
@@ -140,6 +143,7 @@ const SetLocation = (props) => {
     displayCurrentRound();
   }, []);
   function startGame() {
+    const lobbyId = localStorage.getItem("lobbyId");
     localStorage.setItem("location", JSON.stringify(location));
     localStorage.setItem("color", JSON.stringify(color));
     notifySpiedObject(lobbyId, location, color, object);
