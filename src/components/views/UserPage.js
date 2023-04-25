@@ -53,8 +53,8 @@ const UserPage = () => {
   //}
   return (
       <BaseContainer>
-                    <div class="code left-field">
-                      <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                    <div className="code left-field">
+                      <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
                     </div>
           <div className="base-container ellipse1">
           </div>
