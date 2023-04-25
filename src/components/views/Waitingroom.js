@@ -2,7 +2,7 @@ import 'styles/views/Waitingroom.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {api} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
@@ -12,47 +12,55 @@ const Waitingroom = () => {
     const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-    let guesser = false;
+
+    let [role, setRole] = useState(null)
 
 
-    useEffect(async () => {
-        const response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
-        const role = response["data"];
-        if (role.toString() === ("SPIER").toString()) {
-            console.log("You're a spier this round.")
-            history.push("/game/" + gameId + "/location")
-        } else if (role.toString() === ("GUESSER").toString()){
-            console.log("You're a guesser this round.")
-            guesser = true;
-            console.log("Connected: " + getConnection())
-            if (getConnection()) {
-                subscribeToSpiedObjectInformation()
+
+    useEffect( () => {
+        async function fetchData() {
+            const response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
+            const role = response["data"];
+            setRole(response["data"]);
+            if (role.toString() === ("SPIER").toString()) {
+                console.log("You're a spier this round.")
+                history.push("/game/" + gameId + "/location")
+            } else if (role.toString() === ("GUESSER").toString()){
+                console.log("You're a guesser this round.")
             } else {
-                connect(subscribeToSpiedObjectInformation)
+                console.log("WARNING: Your role is not defined.")
             }
-        } else {
-            console.log("WARNING: Your role is not defined.")
         }
-    }, []);
+        fetchData();
+    }, [gameId, history, token, userId]);
 
-    function subscribeToSpiedObjectInformation() {
-        subscribe("/topic/games/" + gameId + "/spiedObject", data => {
-            console.log("Inside callback");
-            console.log(data["location"]);
-            console.log(data["color"]);
-            localStorage.setItem("location", JSON.stringify(data["location"]));
-            localStorage.setItem("color", JSON.stringify(data["color"]))
-            redirectToRound();
-        });
-    }
+    useEffect(() => {
+        console.log("Connected: " + getConnection())
+        if (getConnection()) {
+            subscribeToSpiedObjectInformation()
+        } else {
+            connect(subscribeToSpiedObjectInformation)
+        }
 
-    function redirectToRound() {
-        unsubscribe("/topic/games/" + gameId + "/spiedObject");
-        history.push("/game/" + gameId);
-    }
+        function subscribeToSpiedObjectInformation() {
+            subscribe("/topic/games/" + gameId + "/spiedObject", data => {
+                console.log("Inside callback");
+                console.log(data["location"]);
+                console.log(data["color"]);
+                localStorage.setItem("location", JSON.stringify(data["location"]));
+                localStorage.setItem("color", JSON.stringify(data["color"]))
+                redirectToRound();
+            });
+        }
+
+        function redirectToRound() {
+            unsubscribe("/topic/games/" + gameId + "/spiedObject");
+            history.push("/game/" + gameId);
+        }
+    }, [gameId, history]);
 
     let messageForGuessers = (<div></div>)
-    if (guesser) {
+    if ((role) && (role.toString() === ("GUESSER"))) {
         messageForGuessers = (<div></div>)
     }
 

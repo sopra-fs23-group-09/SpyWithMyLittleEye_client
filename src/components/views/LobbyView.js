@@ -4,8 +4,7 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
-import Lobby from 'models/Lobby.js';
-import { Icon } from '@iconify/react';
+import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
 
 import {
@@ -30,42 +29,42 @@ const LobbyView = () => {
         } else {
             connect(subscribeToLobbyInformation)
         }
-    }, []);
+
+        function subscribeToLobbyInformation() {
+            subscribe("/topic/lobbies/" + lobbyId, data => {
+                console.log("Inside callback");
+                let event = data["event"];
+                console.log(data);
+                if (event) {
+                    if (event.toString() === ("joined").toString()) {
+                        console.log("JOINED")
+                        setLobby(data);
+                    } else if (event.toString() === ("started").toString()) {
+                        console.log("STARTED");
+                        redirectToGame();
+                    }
+                } else {
+                    console.log("NO EVENT DEFINED!");
+                }
+
+            });
+            notifyLobbyJoined(lobbyId);
+        }
+
+        function redirectToGame() {
+            let gameId = lobbyId;
+            unsubscribe("/topic/lobbies/" + lobbyId);
+            localStorage.setItem("gameId", gameId);
+            history.push(`/game/` + lobbyId + "/waitingroom");
+        }
+    }, [lobbyId, history]);
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
-        redirectToGame();
-    }
-
-    function redirectToGame() {
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
         localStorage.setItem("gameId", gameId);
-        history.push(`/game/` + lobbyId + "/waitingroom");
-    }
-
-    function subscribeToLobbyInformation() {
-        subscribe("/topic/lobbies/" + lobbyId, data => {
-            console.log("Inside callback");
-            let event = data["event"];
-            console.log(data);
-            if (event) {
-                if (event.toString() === ("joined").toString()) {
-                    console.log("JOINED")
-                    setLobby(data);
-                    lobby = new Lobby(data);
-                    console.log(lobby);
-                } else if (event.toString() === ("started").toString()) {
-                        console.log("STARTED");
-                        redirectToGame();
-                }
-            } else {
-                console.log("NO EVENT DEFINED!");
-            }
-
-        });
-        notifyLobbyJoined(lobbyId);
-    }
+        history.push(`/game/` + lobbyId + "/waitingroom");    }
 
 
     let button_startGame = (<div></div>);
@@ -98,24 +97,24 @@ const LobbyView = () => {
                     </div>
                 </div>
                 <ul className="lobby player-list">
-                        {lobby.playerNames.map(name => (
-                            <li className = "lobby player-container">
-                                <img
-                                  src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
-                                  style={{
+                    {lobby.playerNames.map(name => (
+                        <li className="lobby player-container">
+                            <img
+                                src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                style={{
                                     borderRadius: '50%',
                                     height: '7em',
                                     width: '7em',
                                     objectFit: 'cover',
-                                  }}
-                                  alt="profile pic"
-                                />
-                                <div className="lobby player-name">
-                                    {name}
-                                </div>
-                            </li>
-                        ))
-                        }
+                                }}
+                                alt="profile pic"
+                            />
+                            <div className="lobby player-name">
+                                {name}
+                            </div>
+                        </li>
+                    ))
+                    }
                 </ul>
                 {button_startGame}
             </div>
@@ -124,8 +123,8 @@ const LobbyView = () => {
 
     return (
         <BaseContainer>
-           <div className="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
+            <div className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>

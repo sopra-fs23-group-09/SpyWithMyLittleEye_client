@@ -31,7 +31,8 @@ const GameOver = () => {
     let [second, setSecond] = useState({username: "", points: ""})
     let [third, setThird] = useState({username: "", points: ""})
 
-    useEffect(async () => {
+    useEffect( () => {
+        async function fetchData() {
             let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
             console.log(response)
             setKeyword(response.data["keyword"]);
@@ -49,27 +50,32 @@ const GameOver = () => {
             if (playerPoints.length > 2) {
                 setThird(playerPoints[2]);
             }
+        }
+        fetchData();
 
-            if (getConnection()) {
-                subscribeToEndGame()
-            } else {
-                connect(subscribeToEndGame)
-            }
+    }, [gameId, token]);
 
-    }, []);
+    useEffect(()=> {
+        if (getConnection()) {
+            subscribeToEndGame()
+        } else {
+            connect(subscribeToEndGame)
+        }
 
-    function subscribeToEndGame() {
-        subscribe("/topic/games/" + gameId + "/gameOver", data => {
-            console.log("Inside callback");
-            // empty local storage
-            localStorage.removeItem("location");
-            localStorage.removeItem("color");
-            localStorage.removeItem("lobbyId");
-            localStorage.removeItem("gameId");
-            unsubscribe("/topic/games/" + gameId + "/gameOver");
-            history.push("/home/");
-        });
-    }
+        function subscribeToEndGame() {
+            subscribe("/topic/games/" + gameId + "/gameOver", data => {
+                console.log("Inside callback");
+                // empty local storage
+                localStorage.removeItem("location");
+                localStorage.removeItem("color");
+                localStorage.removeItem("lobbyId");
+                localStorage.removeItem("gameId");
+                unsubscribe("/topic/games/" + gameId + "/gameOver");
+                history.push("/home/");
+            });
+        }
+    }, [gameId, history]);
+
 
 
     function endGame() {
