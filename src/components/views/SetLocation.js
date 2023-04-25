@@ -148,8 +148,8 @@ const SetLocation = (props) => {
 
     return (
         <BaseContainer>
-           <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+           <div className="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -163,7 +163,7 @@ const SetLocation = (props) => {
                 Choose a location by dragging the figurine into it
             </div>
             <div className="setlocation container">
-                    <div id="map"style={{ height: '100%', width: '100%' }}></div>
+                    <div id="map" style={{ height: '100%', width: '100%' }}></div>
             </div>
             <div className="setlocation role-container">
                 <div className="setlocation role-text">

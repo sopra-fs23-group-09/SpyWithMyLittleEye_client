@@ -34,7 +34,7 @@ FormField.propTypes = {
   password: PropTypes.string
 };
 
-const Register = props => {
+const Register = () => {
   const history = useHistory();
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
