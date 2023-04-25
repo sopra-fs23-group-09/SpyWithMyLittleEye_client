@@ -19,9 +19,10 @@ import {useHistory} from "react-router-dom";
 
 const StreetView = () => {
     const mapRef = useRef(null);
-    const location = JSON.parse(localStorage.getItem("location"));
+
 
     useEffect(() => {
+        const location = JSON.parse(localStorage.getItem("location"));
         const loader = new Loader({
             apiKey: process.env.YOUR_API_KEY,
             version: 'weekly',
@@ -51,7 +52,7 @@ const StreetView = () => {
                 enableCloseButton: false,
             });
         });
-    });
+    },[]);
 
     return (
         <div
@@ -85,42 +86,96 @@ FormField.propTypes = {
 ////////////////////////////////////////////////////////////////////////////////////////
 
 const Guessing = () => {
+    const color = localStorage.getItem("color");
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
-    const token = localStorage.getItem("token");
-    const color = localStorage.getItem("color");
-
     const history = useHistory();
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
-    const [guess, setGuess] = useState("");
+    let [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    const [username ,setUsername] = useState("");
+    //let [username ,setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
     //const [response, setResponse] = useState("");
 
-    const distributeRole = async () => {
-        try {
-            const requestBody = JSON.stringify({playerId});
-            const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
-            const role = response.data
-            setRole(role);
-        }  catch (error) {
-            console.log("Couldn't fetch role\n" + handleError(error));
+    useEffect(() => {
+        const playerId = localStorage.getItem("userId");
+        const lobbyId = localStorage.getItem("lobbyId");
+        const token = localStorage.getItem("token");
+        const distributeRole = async () => {
+            try {
+                const requestBody = JSON.stringify({playerId});
+                const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
+                const role = response.data
+                setRole(role);
+            }  catch (error) {
+                console.log("Couldn't fetch role\n" + handleError(error));
+            }
+
+        };
+        const displayCurrentRound = async () => {
+            try {
+                const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
+                const currentRound = response.data["currentRound"];
+                const amountOfRounds = response.data["totalRounds"];
+                setCurrentRound(currentRound);
+                setAmountOfRounds(amountOfRounds);
+            }  catch (error) {
+                console.log("Couldn't fetch round\n" + handleError(error));
+            }
+        };
+        function subscribeToHintInformation() {
+            subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
+                const h = response["hint"];
+                console.log("hint received: " + h );
+                setHint(h);
+
+            });
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
         }
 
-    };
 
-    const makeSubscription = ()  => {
-        subscribeToHintInformation();
-        subscribeToGuessInformation();
-        subscribeToEndRoundInformation();
-    }
+        function subscribeToGuessInformation() {
+            subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
+                console.log("Response: " + response);
+                const lastUsername = response[response.length -1]["guesserName"]
+                const lastGuess = response[response.length - 1]["guess"]
+                //setUsername(lastUsername)
+                setGuess(lastGuess);
+                setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
+            });
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+        }
 
-    useEffect(() => {
+        function subscribeToEndRoundInformation() {
+            subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
+                /*console.log(response);
+                const m = response["endRoundMessage"];
+                console.log("message received" + m);
+                setResponse(m);*/
+                const cr = response["currentRound"];
+                const ar = response["amountOfRounds"];
+                console.log("CURRENT ROUND: " + cr);
+                console.log("TOTAL AMOUNT OF ROUNDS : " + ar);
+                if (cr < ar) {
+                    console.log("ENTER HERE WHEN TIME IS UP OR ALL GUESSED CORRECTLY");
+                    history.push("/game/"+lobbyId+"/rounds/score");
+                }
+                else if(cr === ar) {
+                    console.log("ENTER HERE WHEN GAME IS OVER");
+                    history.push("/game/"+lobbyId+"/score");
+                }
+            });
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+        }
+        const makeSubscription = ()  => {
+            subscribeToHintInformation();
+            subscribeToGuessInformation();
+            subscribeToEndRoundInformation();
+        }
         distributeRole();
         displayCurrentRound();
         if (!getConnection()) {
@@ -130,21 +185,7 @@ const Guessing = () => {
             makeSubscription();
         }
 
-    });
-
-    const displayCurrentRound = async () => {
-        try {
-            const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
-            const currentRound = response.data["currentRound"];
-            const amountOfRounds = response.data["totalRounds"];
-            setCurrentRound(currentRound);
-            setAmountOfRounds(amountOfRounds);
-        }  catch (error) {
-            console.log("Couldn't fetch round\n" + handleError(error));
-        }
-
-    };
-
+    }, [history]);
 
     const submitInput = () => {
         if (role === "SPIER") {
@@ -157,58 +198,6 @@ const Guessing = () => {
         setPlayerInput("");
 
     };
-
-
-    function subscribeToHintInformation() {
-        subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
-            const h = response["hint"];
-            console.log("hint received: " + h );
-            setHint(h);
-
-        });
-    }
-
-
-    function subscribeToGuessInformation() {
-        subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
-            console.log("Response: " + response);
-            const lastUsername = response[response.length -1]["guesserName"]
-            const lastGuess = response[response.length - 1]["guess"]
-            setUsername(lastUsername)
-            setGuess(lastGuess);
-            setGuesses(prevGuesses => [...prevGuesses, [username, guess]]);
-        });
-    }
-
-    function subscribeToEndRoundInformation() {
-        subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
-            /*console.log(response);
-            const m = response["endRoundMessage"];
-            console.log("message received" + m);
-            setResponse(m);*/
-            const cr = response["currentRound"];
-            const ar = response["amountOfRounds"];
-            console.log("CURRENT ROUND: " + cr);
-            console.log("TOTAL AMOUNT OF ROUNDS : " + ar);
-            if (cr < ar) {
-                console.log("ENTER HERE WHEN TIME IS UP OR ALL GUESSED CORRECTLY");
-                unsubscribe("/topic/games/" + lobbyId + "/hints");
-                unsubscribe("/topic/games/" + lobbyId + "/endRound");
-                unsubscribe("/topic/games/" + lobbyId + "/hints");
-                unsubscribe("/topic/games/" + lobbyId + "/guesses");
-                history.push("/game/"+lobbyId+"/rounds/score");
-            }
-            else if(cr === ar) {
-                console.log("ENTER HERE WHEN GAME IS OVER");
-                unsubscribe("/topic/games/" + lobbyId + "/hints");
-                unsubscribe("/topic/games/" + lobbyId + "/endRound");
-                unsubscribe("/topic/games/" + lobbyId + "/hints");
-                unsubscribe("/topic/games/" + lobbyId + "/guesses");
-                history.push("/game/"+lobbyId+"/score");
-            }
-        });
-    }
-
     return (
         <BaseContainer>
             <div className="code left-field">
