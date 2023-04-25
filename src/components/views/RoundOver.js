@@ -44,22 +44,24 @@ const RoundOver = () => {
             setThird(playerPoints[2]);
         }
 
-        //
+        }, []);
+
+    useEffect(() => {
         if (getConnection()) {
             subscribeToContinueToNextRound() // TODO this name is not good hehe
         } else {
             connect(subscribeToContinueToNextRound)
         }
-        }, []);
+    }, []);
 
     function subscribeToContinueToNextRound() {
         subscribe("/topic/games/" + gameId + "/nextRound", data => {
             console.log("Inside callback");
             localStorage.removeItem("location");
             localStorage.removeItem("color");
+            unsubscribe("/topic/games/" + gameId + "/nextRound");
             history.push(`/game/` + gameId + "/waitingroom");
         });
-        unsubscribe("/topic/games/" + gameId + "/nextRound");
     }
 
 

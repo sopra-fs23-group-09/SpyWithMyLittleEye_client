@@ -44,10 +44,10 @@ const Waitingroom = () => {
             localStorage.setItem("color", JSON.stringify(data["color"]))
             redirectToRound();
         });
-        unsubscribe("/topic/games/" + gameId + "/spiedObject");
     }
 
     function redirectToRound() {
+        unsubscribe("/topic/games/" + gameId + "/spiedObject");
         history.push("/game/" + gameId);
     }
 

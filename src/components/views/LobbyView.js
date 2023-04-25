@@ -34,6 +34,7 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
+        unsubscribe("/topic/lobbies/" + lobbyId);
         redirectToGame();
     }
 
@@ -64,7 +65,6 @@ const LobbyView = () => {
 
         });
         notifyLobbyJoined(lobbyId);
-        unsubscribe("/topic/lobbies/" + lobbyId);
     }
 
 
