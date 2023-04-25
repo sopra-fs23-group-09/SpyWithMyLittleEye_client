@@ -12,6 +12,7 @@ import {
     subscribe
 } from "../../helpers/stompClient";
 
+
 const GameOver = () => {
     // TODO add fourth place
     // TODO set profile picture

@@ -1,14 +1,12 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/Leaderboard.scss';
-import {useHistory} from "react-router-dom";
+//import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 const Leaderboard = () => {
-    const history = useHistory();
+    //const history = useHistory();
 
     return (
         <BaseContainer>

@@ -15,36 +15,7 @@ import {
     subscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
-
-
-/*{guesses.map(gs => {
-    if (gs[1] === "CORRECT"){
-        return (
-            <div className="guessers correct-container">
-                <div className="guessers name">
-                    {gs[0]}
-                </div>
-
-                <div className="guessers correct-guess">
-                    GUESSED RIGHT
-                </div>
-            </div>
-        )
-    }
-    else {
-        return (
-            <div className="guessers wrong-container">
-                <div className="guessers name">
-                    {gs[0]}
-                </div>
-
-                <div className="guessers wrong-guess">
-                    {gs[1]}
-                </div>
-            </div>
-        )
-    }
-})}*/
+import {useHistory} from "react-router-dom";
 
 const StreetView = () => {
     const mapRef = useRef(null);
@@ -119,6 +90,7 @@ const Guessing = () => {
     const token = localStorage.getItem("token");
     const color = localStorage.getItem("color");
 
+    const history = useHistory();
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
     const [guess, setGuess] = useState("");
@@ -128,7 +100,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft, setTimeLeft] = useState("");
-    //const [color, setColor] = useState("");
+    const [response, setResponse] = useState("");
 
     const distributeRole = async () => {
         try {
@@ -145,7 +117,7 @@ const Guessing = () => {
     const makeSubscription = ()  => {
         subscribeToHintInformation();
         subscribeToGuessInformation();
-        //subscribeToSpiedObjectInformation();
+        subscribeToEndRoundInformation();
     }
 
     useEffect(() => {
@@ -204,33 +176,31 @@ const Guessing = () => {
             const lastGuess = response[response.length - 1]["guess"]
             setUsername(lastUsername)
             setGuess(lastGuess);
-            /*response.forEach(item => {
-                const g = item["guess"];
-                const u = item["guesserName"];
-                setGuesses(prevGuesses => [...prevGuesses, [u, g]]);
-            });*/
             setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
 
 
         });
     }
 
-    /*function subscribeToSpiedObjectInformation() {
-        subscribe("/topic/games/" + lobbyId + "/spiedObject",(response) => {
-            const c = response["color"];
-            console.log("color received " + c );
-            setColor(c);
+    function subscribeToEndRoundInformation() {
+        subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
+            console.log(response);
+            const m = response["endRoundMessage"];
+            console.log("message received" + m);
+            setResponse(m);
+            const cr = response["currentRound"];
+            const ar = response["amountOfRounds"];
+            console.log("CURRENT ROUND: " + cr);
+            console.log("TOTAL AMOUNT OF ROUNDS : " + ar);
+            if (cr < ar) {
+                console.log("ENTER HERE WHEN TIME IS UP OR ALL GUESSED CORRECTLY");
+                history.push("/game/"+lobbyId+"/rounds/score");
+            }
+            else if(cr === ar) {
+                console.log("ENTER HERE WHEN GAME IS OVER");
+                history.push("/game/"+lobbyId+"/score");
+            }
         });
-    }*/
-
-
-    useEffect(() => {
-       listGuesses();
-
-    }, [guesses]);
-
-    const listGuesses = () => {
-        console.log("LIST WITH GUESSES: " + guesses);
     }
 
     return (
