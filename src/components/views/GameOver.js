@@ -3,7 +3,6 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';
-import 'styles/views/Code.scss';
 import {api} from "../../helpers/api";
 import {Button} from "../ui/Button";
 import {
@@ -33,14 +32,14 @@ const GameOver = () => {
 
 
     useEffect(async () => {
-        let response = await api.get("/games/" + gameId + "/results", {headers: {Token: token}}); // TODO
+        let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
         //setKeyword(response.data["keyword"]);
         setHostId(response.data["hostId"])
        // setCurrentRoundNr(response.data["currentRoundNr"])
         let playerPoints = response.data["playerPoints"];
 
         playerPoints.push({username: "winner", points: 100}) // TODO remove
-        playerPoints.sort((a, b) => {
+        playerPoints.sort((a, b) => { // TODO comes sorted already
             return b.points - a.points;
         });
 
@@ -53,30 +52,24 @@ const GameOver = () => {
 
         //
         if (getConnection()) {
-            subscribeToEndGame() // TODO this name is not good hehe
+            subscribeToEndGame()
         } else {
             connect(subscribeToEndGame)
         }
 
-        //let response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
-        //setRole(response["data"]);
     }, []);
 
     function subscribeToEndGame() {
-        subscribe("/topic/games/" + gameId + "/over", data => {
+        subscribe("/topic/games/" + gameId + "/gameOver", data => {
             console.log("Inside callback");
             // TODO empty local storage
-            history.push(`/home/`);
+            history.push("/home/");
         });
     }
 
 
     function endGame() {
-        // empty local storage
-        //localStorage.removeItem("location");
-        //localStorage.removeItem("color");
         notifyGameEndedButtonClicked(gameId);
-        //history.push(`/game/` + gameId + "/waitingroom");
     }
 
     let button_gameEnded = (<div></div>);
@@ -109,32 +102,32 @@ const GameOver = () => {
                 <div className="gameover header">
                     THE GAME IS OVER
                 </div>
-                <div className="gameover header">
-                    ROUND {currentRoundNr} IS OVER
+                <div className="gameover rounds">
+                    You played {currentRoundNr} Rounds.
                 </div>
                 <div className="gameover solution">
-                    The object was "{keyword}"
+                    The object of last round was "{keyword}"
                 </div>
                 <div className="gameover leaderboard-text">
                     Leaderboard
                 </div>
                 <div>
-                    <div className="score name-1st">
+                    <div className="finalscore name-1st">
                         {first.username}
                     </div>
-                    <div className="score points-1st">
+                    <div className="finalscore points-1st">
                         {first.points}
                     </div>
-                    <div className="score name-2nd">
+                    <div className="finalscore name-2nd">
                         {second.username}
                     </div>
-                    <div className="score points-2nd">
+                    <div className="finalscore points-2nd">
                         {second.points}
                     </div>
-                    <div className="score name-3rd">
+                    <div className="finalscore name-3rd">
                         {third.username}
                     </div>
-                    <div className="score points-3rd">
+                    <div className="finalscore points-3rd">
                         {third.points}
                     </div>
                 </div>

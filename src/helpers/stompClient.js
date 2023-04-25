@@ -77,5 +77,5 @@ export const notifyNextRoundButtonClicked = (gameId) => {
 }
 
 export const notifyGameEndedButtonClicked = (gameId) => {
-    ws.send("/app/games/"+gameId+"/over", {});
+    ws.send("/app/games/"+gameId+"/gameOver", {});
 }
