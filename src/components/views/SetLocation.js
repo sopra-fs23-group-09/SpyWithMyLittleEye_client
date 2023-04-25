@@ -12,7 +12,6 @@ import { Loader } from "@googlemaps/js-api-loader"
 
 
 
-let map: google.maps.Map;
 const FormFieldObject = props => {
     return (
         <div className="setlocation object-field">
@@ -86,7 +85,7 @@ const SetLocation = (props) => {
     };
   useEffect(() => {
     loader.load().then(() => {
-      const map = new google.maps.Map(document.getElementById('map'), {
+      const map = new window.google.maps.Map(document.getElementById('map'), {
         center: { lat: 47.36667, lng: 8.55 },
         zoom: 8,
       });
@@ -115,7 +114,7 @@ const SetLocation = (props) => {
             });
           });
     });
-  }, []);
+  }, [loader]);
 
     function subscribeToSetLocationInformation() {
     }
@@ -138,7 +137,7 @@ const SetLocation = (props) => {
       };
   useEffect(() => {
           displayCurrentRound();
-      }, []);
+      }, [displayCurrentRound]);
   function startGame() {
     localStorage.setItem("location", JSON.stringify(location));
     localStorage.setItem("color", JSON.stringify(color));
