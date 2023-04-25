@@ -6,7 +6,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {api, handleError} from 'helpers/api';
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 import {notifySpiedObject,connect,getConnection} from "../../helpers/stompClient";
 import { Loader } from "@googlemaps/js-api-loader"
@@ -63,16 +62,14 @@ FormFieldColor.propTypes = {
 const SetLocation = (props) => {
   const history = useHistory();
   let lobbyId = localStorage.getItem("lobbyId");
-  let gameId = localStorage.getItem("gameId");
   const token = localStorage.getItem("token");
   const [location, setlocation] = useState("");
   const [color, setColor] = useState("");
   const [object, setObject] = useState("");
   const [currentRound, setCurrentRound] = useState(null);
   const [amountOfRounds, setAmountOfRounds] = useState(null);
-  const [map, setMap] = useState(null);
   const loader = new Loader({
-    apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
+    apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ", // Replace with your Google Maps API key
     version: 'weekly',
   });
   const displayCurrentRound = async () => {
@@ -94,7 +91,6 @@ const SetLocation = (props) => {
         zoom: 8,
       });
       const streetView = map.getStreetView();
-      setMap(map);
 
           // Add event listener for the click event on the map
           map.addListener('click', (event) => {
@@ -149,8 +145,6 @@ const SetLocation = (props) => {
     notifySpiedObject(lobbyId, location, color, object);
     history.push("/game/" + lobbyId);
     }
-  const streetViewUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
-
 
     return (
         <BaseContainer>

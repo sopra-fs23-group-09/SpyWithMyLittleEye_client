@@ -2,12 +2,8 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/HomePage.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
-import {api, handleError} from 'helpers/api';
-import User from "../../models/User";
-import Lobby from "../../models/Lobby";
+import {api} from 'helpers/api';
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 const HomePage = () => {
