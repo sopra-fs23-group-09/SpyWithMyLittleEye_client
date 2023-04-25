@@ -51,7 +51,7 @@ const StreetView = () => {
                 enableCloseButton: false,
             });
         });
-    });
+    },[]);
 
     return (
         <div
@@ -100,7 +100,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
-    //const [response, setResponse] = useState("");
+    const [response, setResponse] = useState("");
 
     const distributeRole = async () => {
         try {
@@ -130,7 +130,7 @@ const Guessing = () => {
             makeSubscription();
         }
 
-    });
+    }, []);
 
     const displayCurrentRound = async () => {
         try {
@@ -177,17 +177,17 @@ const Guessing = () => {
             const lastGuess = response[response.length - 1]["guess"]
             setUsername(lastUsername)
             setGuess(lastGuess);
-            setGuesses(prevGuesses => [...prevGuesses, [username, guess]]);
+            setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
         });
         unsubscribe("/topic/games/" + lobbyId + "/guesses");
     }
 
     function subscribeToEndRoundInformation() {
         subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
-            /*console.log(response);
+            console.log(response);
             const m = response["endRoundMessage"];
             console.log("message received" + m);
-            setResponse(m);*/
+            setResponse(m);
             const cr = response["currentRound"];
             const ar = response["amountOfRounds"];
             console.log("CURRENT ROUND: " + cr);
