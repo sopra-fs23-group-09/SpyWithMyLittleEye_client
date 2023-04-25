@@ -47,7 +47,7 @@ const RoundOver = () => {
         }
         fetchData();
 
-        }, []);
+        }, [gameId, token]);
 
     useEffect(() => {
         if (getConnection()) {
@@ -55,17 +55,19 @@ const RoundOver = () => {
         } else {
             connect(subscribeToContinueToNextRound)
         }
-    }, []);
 
-    function subscribeToContinueToNextRound() {
-        subscribe("/topic/games/" + gameId + "/nextRound", data => {
-            console.log("Inside callback");
-            localStorage.removeItem("location");
-            localStorage.removeItem("color");
-            unsubscribe("/topic/games/" + gameId + "/nextRound");
-            history.push(`/game/` + gameId + "/waitingroom");
-        });
-    }
+        function subscribeToContinueToNextRound() {
+            subscribe("/topic/games/" + gameId + "/nextRound", data => {
+                console.log("Inside callback");
+                localStorage.removeItem("location");
+                localStorage.removeItem("color");
+                unsubscribe("/topic/games/" + gameId + "/nextRound");
+                history.push(`/game/` + gameId + "/waitingroom");
+            });
+        }
+    }, [gameId, history]);
+
+
 
 
     function startNewRound() {
