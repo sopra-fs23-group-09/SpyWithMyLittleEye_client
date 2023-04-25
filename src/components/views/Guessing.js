@@ -217,7 +217,7 @@ const Guessing = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
-            <div className="setlocation container">
+            <div className="guessing streetview-container">
                 <StreetView />
             </div>
             <div className="guessing rounds">
@@ -233,6 +233,9 @@ const Guessing = () => {
             </div>
             <div className="guessing color-text">
                 I spy with my little eye something that is...{color}
+            </div>
+            <div className="guessing time-text">
+                1 Minute!
             </div>
             <div className="guessing container">
                 <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto" }}>
