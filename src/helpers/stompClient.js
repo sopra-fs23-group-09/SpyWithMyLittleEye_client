@@ -47,7 +47,7 @@ export const unsubscribe = (mapping) => {
 }
 export let getConnection = () => connection;
 
-function disconnect() {
+export const disconnect = () => {
     if (ws != null) ws.disconnect();
     connection = "Disconnected"
     console.log("Disconnected websocket.");

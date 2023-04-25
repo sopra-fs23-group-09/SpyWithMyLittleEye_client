@@ -9,7 +9,7 @@ import 'styles/views/Code.scss';
 
 const Waitingroom = () => {
     const history = useHistory();
-    const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
+    const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
     let guesser = false;
@@ -18,10 +18,10 @@ const Waitingroom = () => {
     useEffect(async () => {
         const response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
         const role = response["data"];
-        if (role === "SPIER") {
+        if (role.toString() === ("SPIER").toString()) {
             console.log("You're a spier this round.")
             history.push("/game/" + gameId + "/location")
-        } else if (role === "GUESSER"){
+        } else if (role.toString() === ("GUESSER").toString()){
             console.log("You're a guesser this round.")
             guesser = true;
             console.log("Connected: " + getConnection())

@@ -31,32 +31,30 @@ const GameOver = () => {
     let [second, setSecond] = useState({username: "", points: ""})
     let [third, setThird] = useState({username: "", points: ""})
 
-
     useEffect(async () => {
-        let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
-        console.log(response)
-        setKeyword(response.data["keyword"]);
-        setHostId(response.data["hostId"])
-        setCurrentRoundNr(response.data["currentRoundNr"])
-        let playerPoints = response.data["playerPoints"];
+            let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
+            console.log(response)
+            setKeyword(response.data["keyword"]);
+            setHostId(response.data["hostId"])
+            setCurrentRoundNr(response.data["currentRoundNr"])
+            let playerPoints = response.data["playerPoints"];
 
-        playerPoints.sort((a, b) => { // TODO comes sorted already
-            return b.points - a.points;
-        });
+            playerPoints.sort((a, b) => { // TODO comes sorted already
+                return b.points - a.points;
+            });
 
-        setFirst(playerPoints[0]);
-        setSecond(playerPoints[1]);
+            setFirst(playerPoints[0]);
+            setSecond(playerPoints[1]);
 
-        if (playerPoints.length > 2) {
-            setThird(playerPoints[2]);
-        }
+            if (playerPoints.length > 2) {
+                setThird(playerPoints[2]);
+            }
 
-        //
-        if (getConnection()) {
-            subscribeToEndGame()
-        } else {
-            connect(subscribeToEndGame)
-        }
+            if (getConnection()) {
+                subscribeToEndGame()
+            } else {
+                connect(subscribeToEndGame)
+            }
 
     }, []);
 
@@ -80,7 +78,7 @@ const GameOver = () => {
     let button_gameEnded = (<div></div>);
 
 
-    if (hostId == userId) { // has to be == for it to work
+    if ((hostId) && (userId) && (hostId.toString() === userId.toString())) { // has to be == for it to work
         button_gameEnded = (
             <Button className="roundover primary-button" onClick={() => endGame()}
             >
