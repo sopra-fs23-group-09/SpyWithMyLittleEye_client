@@ -13,7 +13,7 @@ const FormField = props => {
     return (
         <div className="rounds field">
             <input
-                type="number"         // TODO: Ensure amountRounds is an int
+                type="number"
                 className="rounds input"
                 placeholder={props.placeholder}
                 value={props.value}
@@ -42,7 +42,7 @@ const SetRounds = () => {
             const lobbyId = response.data["id"]
             localStorage.setItem('lobbyId', lobbyId);
             const accessCode = response.data["accessCode"]
-            history.push("/lobby/" + accessCode) // TODO "/lobby/"+lobbyId
+            history.push("/lobby/" + accessCode)
         } catch (error) {
             alert(`Something went wrong: \n${handleError(error)}`);
         }

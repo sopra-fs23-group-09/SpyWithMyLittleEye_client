@@ -49,12 +49,12 @@ const LobbyView = () => {
             let event = data["event"];
             console.log(data);
             if (event) {
-                if (event == "joined") { // TODO change to ===
+                if (event.toString() === ("joined").toString()) {
                     console.log("JOINED")
                     setLobby(data);
                     lobby = new Lobby(data);
                     console.log(lobby);
-                } else if (event == "started") { // TODO change to ===
+                } else if (event.toString() === ("started").toString()) {
                         console.log("STARTED");
                         redirectToGame();
                 }

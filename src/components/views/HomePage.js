@@ -5,6 +5,7 @@ import BaseContainer from "../ui/BaseContainer";
 import {api} from 'helpers/api';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
+import {disconnect} from "../../helpers/stompClient";
 
 const HomePage = () => {
     const history = useHistory();
@@ -16,6 +17,8 @@ const HomePage = () => {
         const title = {title: 'logout request'};
         const response = await api.put('/users/logout', title,{headers: {Token: localStorage.getItem("token")}});
         console.log(response);
+
+        disconnect(); // TODO shall we do this?
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         history.push('/login');
