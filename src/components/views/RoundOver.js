@@ -1,19 +1,14 @@
 import 'styles/views/RoundOver.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 import {api} from "../../helpers/api";
-import {Spinner} from "../ui/Spinner";
 import {Button} from "../ui/Button";
 import {connect, getConnection, notifyNextRoundButtonClicked, subscribe} from "../../helpers/stompClient";
-import game from "../../models/Game";
 
 const RoundOver = () => {
-    // TODO subscribe  people that arent the host
     // TODO add fourth place
     // TODO set profile picture
     const history = useHistory();
@@ -22,8 +17,6 @@ const RoundOver = () => {
     const token = localStorage.getItem("token");
 
     let [keyword, setKeyword] = useState(null);
-    //let [roundOverStatus, setRoundOverStatus] = useState(null);
-    //let [role, setRole] = useState(null)
     let [hostId, setHostId] = useState(null)
     let [currentRoundNr, setCurrentRoundNr] = useState(null)
 
@@ -40,7 +33,7 @@ const RoundOver = () => {
         setCurrentRoundNr(response.data["currentRoundNr"])
         let playerPoints = response.data["playerPoints"];
 
-        playerPoints.push({username: "winner", points: 100})
+        playerPoints.push({username: "winner", points: 100}) // TODO remove
         playerPoints.sort((a, b) => {
             return b.points - a.points;
         });
@@ -74,11 +67,7 @@ const RoundOver = () => {
 
 
     function startNewRound() {
-        // empty local storage
-        //localStorage.removeItem("location");
-        //localStorage.removeItem("color");
         notifyNextRoundButtonClicked(gameId);
-        //history.push(`/game/` + gameId + "/waitingroom");
     }
 
     let button_newRound = (<div></div>);

@@ -1,14 +1,10 @@
 import 'styles/views/Waitingroom.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
-import React, {useEffect, useState} from "react";
-import PropTypes from "prop-types";
-import {api, handleError} from "../../helpers/api";
-import {Button} from "../ui/Button";
+import React, {useEffect} from "react";
+import {api} from "../../helpers/api";
 import {connect, getConnection, subscribe} from "../../helpers/stompClient";
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 const Waitingroom = () => {
