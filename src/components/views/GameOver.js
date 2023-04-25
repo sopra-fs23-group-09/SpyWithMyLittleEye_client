@@ -9,7 +9,7 @@ import {
     connect,
     getConnection,
     notifyGameEndedButtonClicked,
-    subscribe
+    subscribe, unsubscribe
 } from "../../helpers/stompClient";
 
 
@@ -66,6 +66,7 @@ const GameOver = () => {
             localStorage.removeItem("color");
             localStorage.removeItem("lobbyId");
             localStorage.removeItem("gameId");
+            unsubscribe("/topic/games/" + gameId + "/gameOver");
             history.push("/home/");
         });
     }

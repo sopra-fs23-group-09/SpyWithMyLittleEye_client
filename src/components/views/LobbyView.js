@@ -34,12 +34,12 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         startGame(lobbyId); // from stompClient
-        unsubscribe("/topic/lobbies/" + lobbyId);
         redirectToGame();
     }
 
     function redirectToGame() {
         let gameId = lobbyId;
+        unsubscribe("/topic/lobbies/" + lobbyId);
         localStorage.setItem("gameId", gameId);
         history.push(`/game/` + lobbyId + "/waitingroom");
     }

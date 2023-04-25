@@ -166,7 +166,6 @@ const Guessing = () => {
             setHint(h);
 
         });
-        unsubscribe("/topic/games/" + lobbyId + "/hints");
     }
 
 
@@ -179,7 +178,6 @@ const Guessing = () => {
             setGuess(lastGuess);
             setGuesses(prevGuesses => [...prevGuesses, [username, guess]]);
         });
-        unsubscribe("/topic/games/" + lobbyId + "/guesses");
     }
 
     function subscribeToEndRoundInformation() {
@@ -194,14 +192,21 @@ const Guessing = () => {
             console.log("TOTAL AMOUNT OF ROUNDS : " + ar);
             if (cr < ar) {
                 console.log("ENTER HERE WHEN TIME IS UP OR ALL GUESSED CORRECTLY");
+                unsubscribe("/topic/games/" + lobbyId + "/hints");
+                unsubscribe("/topic/games/" + lobbyId + "/endRound");
+                unsubscribe("/topic/games/" + lobbyId + "/hints");
+                unsubscribe("/topic/games/" + lobbyId + "/guesses");
                 history.push("/game/"+lobbyId+"/rounds/score");
             }
             else if(cr === ar) {
                 console.log("ENTER HERE WHEN GAME IS OVER");
+                unsubscribe("/topic/games/" + lobbyId + "/hints");
+                unsubscribe("/topic/games/" + lobbyId + "/endRound");
+                unsubscribe("/topic/games/" + lobbyId + "/hints");
+                unsubscribe("/topic/games/" + lobbyId + "/guesses");
                 history.push("/game/"+lobbyId+"/score");
             }
         });
-        unsubscribe("/topic/games/" + lobbyId + "/endRound");
     }
 
     return (
