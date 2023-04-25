@@ -2,14 +2,10 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Rounds.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {api} from "../../helpers/api";
-import Lobby from "../../models/Lobby";
-import user from "../../models/User";
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 

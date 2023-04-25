@@ -2,12 +2,10 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {LogoEye} from "../ui/LogoEye";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
 import Lobby from 'models/Lobby.js';
 import { Icon } from '@iconify/react';
-import Code from "components/views/Code";
 import 'styles/views/Code.scss';
 
 import {
@@ -110,6 +108,7 @@ const LobbyView = () => {
                                     width: '7em',
                                     objectFit: 'cover',
                                   }}
+                                  alt="profile pic"
                                 />
                                 <div className="lobby player-name">
                                     {name}
