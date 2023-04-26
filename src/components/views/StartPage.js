@@ -4,10 +4,22 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
-import React from "react";
+import React, {useEffect} from "react";
+import {disconnect} from "../../helpers/stompClient";
 
 const StartPage = () => {
     const history = useHistory();
+
+    useEffect(() => {
+        // clear local storage
+        disconnect();
+        localStorage.removeItem("location");
+        localStorage.removeItem("color");
+        localStorage.removeItem("lobbyId");
+        localStorage.removeItem("gameId");
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+    }, []);
 
     return (
     <body id="home">
