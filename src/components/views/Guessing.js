@@ -24,7 +24,7 @@ const StreetView = () => {
     useEffect(() => {
         const location = JSON.parse(localStorage.getItem("location"));
         const loader = new Loader({
-            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+            apiKey: process.env.YOUR_API_KEY,
             version: 'weekly',
         });
 
@@ -100,6 +100,7 @@ const Guessing = () => {
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
     //const [response, setResponse] = useState("");
+    const [correctGuess, setCorrectGuess] = useState(false);
 
     useEffect(() => {
         const playerId = localStorage.getItem("userId");
@@ -191,13 +192,17 @@ const Guessing = () => {
         if (role === "SPIER") {
             notifyHint(lobbyId, playerInput);
             console.log("Hint: " + playerInput);
-        }else if( role === "GUESSER"){
+        }else if( role === "GUESSER") {
             notifyGuess(lobbyId, playerId, playerInput);
             console.log("Guess: " + playerInput);
+            if (playerInput === "CORRECT") {
+                setCorrectGuess(true);
+            }
+            setPlayerInput("");
         }
-        setPlayerInput("");
+    }
 
-    };
+
     return (
         <BaseContainer>
             <div className="code left-field">
@@ -272,7 +277,8 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            disabled={playerInput === "" || guess === "CORRECT"}
+                            //disabled={playerInput === "" || guess === "CORRECT"}
+                            disabled={correctGuess || playerInput === ""}
                             onClick={() => submitInput()}
 
                     >
