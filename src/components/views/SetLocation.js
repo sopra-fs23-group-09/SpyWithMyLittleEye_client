@@ -69,7 +69,7 @@ const SetLocation = (props) => {
 
     useEffect(() => {
         const loader = new Loader({
-            apiKey: process.env.YOUR_API_KEY, // Replace with your Google Maps API key
+            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your Google Maps API key
             version: 'weekly',
         });
         loader.load().then(() => {
