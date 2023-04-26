@@ -44,7 +44,7 @@ export let getConnection = () => connection;
 
 export const disconnect = () => {
     if (ws != null) ws.disconnect();
-    connection = "Disconnected"
+    connection = false
     console.log("Disconnected websocket.");
 }
 
