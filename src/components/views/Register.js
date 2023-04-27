@@ -50,6 +50,7 @@ const Register = () => {
 
       localStorage.setItem('token', user.token);
       localStorage.setItem('userId', user.id);
+      localStorage.setItem("username", user.username);
 
       history.push(`/home`);
     } catch (error) {

@@ -44,6 +44,7 @@ const Login = () => {
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
 
+
   const doLogin = async () => {
     try {
       const response = await api.get('/users/login?username='+ username + '&pass='+ password);
@@ -51,6 +52,7 @@ const Login = () => {
       const id = response.headers.id;
       localStorage.setItem('token', token);
       localStorage.setItem('userId', id);
+      localStorage.setItem("username", username);
       // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/home`);
     } catch (error) {
@@ -82,6 +84,7 @@ const Login = () => {
                             placeholder = "Username"
                             value={username}
                             onChange={un => setUsername(un)}
+
                           />
                           <FormField
                             password="password"
