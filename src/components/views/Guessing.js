@@ -88,17 +88,18 @@ const Guessing = () => {
     const color = localStorage.getItem("color");
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
+    const playerUsername = localStorage.getItem("username")
 
     const history = useHistory();
 
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
-    const [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
+    const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
 
     useEffect(() => {
         const playerId = localStorage.getItem("userId");
@@ -142,8 +143,10 @@ const Guessing = () => {
                 console.log("Response: " + response);
                 const lastUsername = response[response.length -1]["guesserName"]
                 const lastGuess = response[response.length - 1]["guess"]
-                setGuess(lastGuess);
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
+                if (lastGuess === "CORRECT") {
+                    setCorrectGuessPlayer(lastUsername);
+                }
             });
             unsubscribe("/topic/games/" + lobbyId + "/guesses");
         }
@@ -187,6 +190,9 @@ const Guessing = () => {
             console.log("Hint: " + playerInput);
             setPlayerInput("");
         }else if( role === "GUESSER") {
+            if (correctGuessPlayer === playerUsername) {
+                return;
+            }
             notifyGuess(lobbyId, playerId, playerInput);
             console.log("Guess: " + playerInput);
             setPlayerInput("");
@@ -268,7 +274,6 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            disabled={playerInput === ""}
                             onClick={() => submitInput()}
 
                     >
@@ -282,7 +287,7 @@ const Guessing = () => {
                     if (role === "SPIER"){
                         pl = "Enter your hint..."
                     }
-                    else if (role === "GUESSER"  && guess !== "CORRECT") {
+                    else if (role === "GUESSER"  && correctGuessPlayer !== playerUsername) {
                         pl = "Enter your guess..."
                     }
                     return (
