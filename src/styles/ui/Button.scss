@@ -12,9 +12,9 @@
   gap: 10px;
 
   position: absolute;
-  width: 1000px;
+  width: 500px;
   height: 100px;
-  left: 221px;
+  left: 615px;
   top: 803px;
 
   background: #97E1D4;
@@ -464,6 +464,12 @@
   border: none;
 }
 
+.game-end-button {
+  width: 30%;
+  position: absolute;
+  left: 600px;
+  top: 700px;
+}
 .game-send-button {
   box-sizing: border-box;
 

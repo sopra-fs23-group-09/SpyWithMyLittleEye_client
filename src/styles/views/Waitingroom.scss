@@ -4,12 +4,12 @@
     position: absolute;
     width: 292px;
     height: 126px;
-    left: 450px;
+    left: 625px;
     top: 300px;
 
-    font-family: 'Mulish';
+    font-family: 'Gill Sans';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 100px;
     line-height: 126px;
     /* identical to box height */
@@ -17,4 +17,22 @@
 
     color: #FFFFFF;
   }
+
+  &.information {
+    position: absolute;
+    left: 200px;
+    top: 500px;
+
+    font-family: 'Gill Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+
+    /* identical to box height */
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+
+
 }

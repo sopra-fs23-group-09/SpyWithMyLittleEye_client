@@ -6,7 +6,6 @@ import "styles/views/Guessing.scss";
 import { Icon } from '@iconify/react';
 import 'styles/views/SetLocation.scss';
 import { Loader } from '@googlemaps/js-api-loader';
-import 'styles/views/Code.scss';
 import {
     connect,
     getConnection,
@@ -89,18 +88,17 @@ const Guessing = () => {
     const color = localStorage.getItem("color");
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
+
     const history = useHistory();
+
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
-    let [guess, setGuess] = useState("");
+    const [guess, setGuess] = useState("");
     const [guesses, setGuesses] = useState([]);
     const [role, setRole] = useState(null);
-    //let [username ,setUsername] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
-    //const [response, setResponse] = useState("");
-    const [correctGuess, setCorrectGuess] = useState(false);
 
     useEffect(() => {
         const playerId = localStorage.getItem("userId");
@@ -144,7 +142,6 @@ const Guessing = () => {
                 console.log("Response: " + response);
                 const lastUsername = response[response.length -1]["guesserName"]
                 const lastGuess = response[response.length - 1]["guess"]
-                //setUsername(lastUsername)
                 setGuess(lastGuess);
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
             });
@@ -153,10 +150,6 @@ const Guessing = () => {
 
         function subscribeToEndRoundInformation() {
             subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
-                /*console.log(response);
-                const m = response["endRoundMessage"];
-                console.log("message received" + m);
-                setResponse(m);*/
                 const cr = response["currentRound"];
                 const ar = response["amountOfRounds"];
                 console.log("CURRENT ROUND: " + cr);
@@ -192,12 +185,10 @@ const Guessing = () => {
         if (role === "SPIER") {
             notifyHint(lobbyId, playerInput);
             console.log("Hint: " + playerInput);
+            setPlayerInput("");
         }else if( role === "GUESSER") {
             notifyGuess(lobbyId, playerId, playerInput);
             console.log("Guess: " + playerInput);
-            if (playerInput === "CORRECT") {
-                setCorrectGuess(true);
-            }
             setPlayerInput("");
         }
     }
@@ -277,8 +268,7 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            //disabled={playerInput === "" || guess === "CORRECT"}
-                            disabled={correctGuess || playerInput === ""}
+                            disabled={playerInput === ""}
                             onClick={() => submitInput()}
 
                     >

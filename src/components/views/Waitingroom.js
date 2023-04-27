@@ -81,7 +81,7 @@ const Waitingroom = () => {
                 WAITING...
             </div>
             {messageForGuessers}
-            <div className="start-page rules-text">
+            <div className="waitingroom information">
                 You are a GUESSER this round!
                 As soon as the SPIER has picked their object, you will be redirected to the game page.
             </div>
