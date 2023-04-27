@@ -99,7 +99,6 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [timeLeft] = useState("");
-    const [correctGuess, setCorrectGuess] = useState(false);
 
     useEffect(() => {
         const playerId = localStorage.getItem("userId");
@@ -269,8 +268,7 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            //disabled={playerInput === "" || guess === "CORRECT"}
-                            disabled={correctGuess || playerInput === ""}
+                            disabled={playerInput === ""}
                             onClick={() => submitInput()}
 
                     >
