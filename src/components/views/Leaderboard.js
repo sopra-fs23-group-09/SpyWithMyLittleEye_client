@@ -82,11 +82,14 @@ const Leaderboard = () => {
                 <div className="leaderboard header">
                     Leaderboard
                 </div>
-                <div className="leaderboard container-players"   style={{maxHeight: "50%", overflowY: "auto" }}>
+                <div className="leaderboard container-players"   style={{maxHeight: "50%", overflowY: "auto", overflowX: "hidden" }}>
                     {users.map(user => {
-                        if (false) { // You're the leader
+                        if (counter === 1) { // You're the leader
                             return (
                             <div className="leader container">
+                                <div className="leader ranking">
+                                    {counter++}
+                                </div>
                                 <div className="leader name">
                                     {user.username}
                                 </div>

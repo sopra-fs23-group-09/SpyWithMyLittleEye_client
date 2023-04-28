@@ -217,23 +217,35 @@
 }
 
 .leader {
+  &.ranking{
+    position: relative;
+    top: 32%;
+    left: -42%;
+    font-family: 'Gill Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 180%;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+  }
   &.container {
-    position: absolute;
+    margin-bottom: 3%; /* Add margin-bottom to create gap between containers */
+
+    position: relative;
     width: 675px;
     height: 100px;
-    left: 38px;
-    top: 200px;
+    left: 5%;
 
     background: linear-gradient(180deg, rgba(5, 57, 48, 0.2) 0%, rgba(0, 0, 0, 0) 100%), #A8F3E5;
     border-radius: 50px;
   }
 
   &.name {
-    position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 25px;
-    top: 50px;
+    position: relative;
+    top: 0%;
+    left: -10%;
 
     font-family: 'Gill Sans';
     font-style: normal;
@@ -248,11 +260,9 @@
   }
 
   &.points {
-    position: absolute;
-    width: 126px;
-    height: 88px;
-    left: 475px;
-    top: -35px;
+    position: relative;
+    top: -80%;
+    left: 30%;
 
     font-family: 'Gill Sans';
     font-style: italic;
@@ -268,11 +278,9 @@
   }
 
   &.points-text {
-    position: absolute;
-    width: 112px;
-    height: 38px;
-    left: 475px;
-    top: 35px;
+    position: relative;
+    top: -100%;
+    left: 31%;
 
     font-family: 'Gill Sans';
     font-style: normal;
