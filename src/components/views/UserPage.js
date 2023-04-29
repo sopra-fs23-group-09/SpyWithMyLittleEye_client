@@ -7,7 +7,6 @@ import {useHistory, useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 
-
 const UserPage = () => {
 
 
@@ -15,7 +14,6 @@ const UserPage = () => {
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  console.log("Token: " + token);
 
   const [user, setUser] = useState(null);
 
@@ -24,7 +22,7 @@ const UserPage = () => {
           try {
               const response = await api.get('/users/'+userId, {headers: {Token: token}});
               setUser(response.data);
-              console.log("Username: " + response.data["username"]);
+              console.log(user.id);
           } catch (error) {
               console.log("Couldn't fetch user information\n" + handleError(error));
           }
@@ -76,7 +74,8 @@ const UserPage = () => {
                    </div>
                </Button>
                <Button className="edit-button"
-                       onClick={() => history.push("/users/"+userId+"/edit")}
+                       disabled={userId !== String(user?.id)}
+                       onClick={() => history.push("/users/" + userId + "/edit")}
                >
                    <div className="userPage edit-button-text">
                        Edit
