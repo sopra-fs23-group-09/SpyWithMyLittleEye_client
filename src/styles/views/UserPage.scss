@@ -5,11 +5,11 @@
     position: absolute;
     width: 800px;
     height: 600px;
-    left: 300px;
-    top: 150px;
-
     background: #FFFFFF;
     border-radius: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   /*&.form {
     display: flex;
@@ -101,6 +101,34 @@
     flex-grow: 0;
   }
 
+  &.profile-picture-background {
+    position: absolute;
+    width: 800px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+
+    background: url(https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282);
+    border-radius: 40px 40px 0px 0px;
+    background-size: cover;
+    background-position-y: 450px;
+    opacity: 0.75;
+  }
+
+  &.profile-picture {
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    filter: drop-shadow(0 0 8px #FF72B6FF);
+    background: url(https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 340px;
+    top: 80px;
+  }
+
   &.username-container {
     box-sizing: border-box;
 
@@ -113,10 +141,10 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
-    top: 175px;
+    top: 220px;
 
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -158,10 +186,10 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
-    top: 250px;
+    top: 280px;
 
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -203,10 +231,10 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
-    top: 325px;
+    top: 340px;
 
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -248,8 +276,8 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
     top: 400px;
 

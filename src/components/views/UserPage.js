@@ -46,6 +46,10 @@ const UserPage = () => {
           <div className="base-container ellipse4">
           </div>
            <div className="userPage container">
+               <div className="userPage profile-picture-background">
+               </div>
+               <div className="userPage profile-picture">
+               </div>
                <div className="userPage username-container">
                    <div className="userPage username-text">
                        Username: {user?.username}
