@@ -86,7 +86,7 @@ const Leaderboard = () => {
                     {users.map(user => {
                         if (counter === 1) { // You're the leader
                             return (
-                            <div className="leader container">
+                            <div className="leader container" onClick={() => history.push(`/users/${user.id}`)}>
                                 <div className="leader ranking">
                                     {counter++}
                                 </div>
@@ -102,7 +102,7 @@ const Leaderboard = () => {
                             </div>
                             )
                         } else { // You're just a player
-                            return (<div className="player container">
+                            return (<div className="player container" onClick={() => history.push(`/users/${user.id}`)}>
                                 <div className="player ranking">
                                     {counter++}
                                 </div>
