@@ -2,11 +2,11 @@
 
 .userPage {
   &.container {
-    position: absolute;
     width: 800px;
     height: 600px;
     background: #FFFFFF;
     border-radius: 40px;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -62,7 +62,7 @@
     width: 56px;
     height: 38px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -77,6 +77,11 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
   }
 
   &.back-button-text {
@@ -84,7 +89,7 @@
     width: 118px;
     height: 38px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -130,11 +135,11 @@
   }
 
   &.username-container {
-    box-sizing: border-box;
+    //box-sizing: border-box;
 
     /* Auto layout */
     display: flex;
-    flex-direction: row;
+    //flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -157,10 +162,10 @@
     width: 224px;
     height: 38px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -202,10 +207,10 @@
     width: 147px;
     height: 38px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -247,10 +252,10 @@
     width: 251px;
     height: 38px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -293,10 +298,10 @@
     width: 200px;
     height: 38px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
