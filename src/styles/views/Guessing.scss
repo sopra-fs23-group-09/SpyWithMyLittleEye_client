@@ -20,6 +20,22 @@
 
   }
 
+  &.last-10-seconds {
+    animation: blink 1s infinite;
+
+    @keyframes blink {
+      0% {
+        color: #fff;
+      }
+      50% {
+        color: #ef0808;
+      }
+      100% {
+        color: #fff;
+      }
+    }
+  }
+
   &.role-container {
     display: flex;
     flex-direction: row;

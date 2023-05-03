@@ -1,56 +1,37 @@
-import React, {useEffect} from 'react';
-import { handleError} from 'helpers/api';
-//import {useHistory} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {api, handleError} from 'helpers/api';
 import {Button} from 'components/ui/Button';
 import 'styles/views/UserPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
-import {useParams} from 'react-router-dom';
-//import {Spinner} from 'components/ui/Spinner';
+import {useHistory, useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 
-
 const UserPage = () => {
-  //const [user, setUser] = useState(null);
 
-  //const history = useHistory();
-  const {userId} = useParams();
+
+  const history = useHistory();
+
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-        try {
-            //const response = await api.get('/users/'+ userId, {headers: {Token: localStorage.getItem("token")}});
-            //await new Promise(resolve => setTimeout(resolve, 500));
-            //setUser(response.data);
-        } catch (error) {
-            alert(`Something went wrong during showing the user page: \n${handleError(error)}`);
-        }
-    }
-    fetchData();
-  },[userId]);
+      const retrieveUserData = async () => {
+          try {
+              const response = await api.get('/users/'+userId, {headers: {Token: token}});
+              setUser(response.data);
+              console.log(user.id);
+          } catch (error) {
+              console.log("Couldn't fetch user information\n" + handleError(error));
+          }
+      };
+      retrieveUserData();
+  }, [])
 
 
-  //let content = <Spinner/>;
-  //let birthday = <div> BIRTHDAY: undefined </div>;
-  //let buttons = (<div className = "userPage button-container">
-                   //<Button width="100%" style={{marginRight: "2px"}} onClick={() => history.goBack()}> back </Button>
-                //</div>);
 
-  //if(user){
-    //if(user.birthday){birthday = (<div> BIRTHDAY: {user.birthday} </div>);}
-    //content = (
-    //<div>
-        //<div>
-            //<div className= "userPage attribute"> USERNAME: {user.username} </div>
-            //<div className= "userPage attribute"> ONLINE STATUS: {user.status} </div>
-            //<div className= "userPage attribute"> CREATION DATE: {user.creationDate} </div>
-            //{birthday}
-        //</div>
-        //{buttons}
-
-     //</div>
-    //);
-  //}
   return (
       <BaseContainer>
                     <div className="code left-field">
@@ -64,42 +45,47 @@ const UserPage = () => {
           </div>
           <div className="base-container ellipse4">
           </div>
-       <div className="userPage container">
-           <div className="userPage username-container">
-               <div className="userPage username-text">
-                   Username: ?
+           <div className="userPage container">
+               <div className="userPage profile-picture-background">
                </div>
+               <div className="userPage profile-picture">
+               </div>
+               <div className="userPage username-container">
+                   <div className="userPage username-text">
+                       Username: {user?.username}
+                   </div>
+               </div>
+               <div className="userPage score-container">
+                   <div className="userPage score">
+                        Score: {user?.highScore}
+                   </div>
+               </div>
+               <div className="userPage games-played-container">
+                   <div className="userPage games-played-text">
+                       Games played: {user?.gamesPlayed}
+                   </div>
+               </div>
+               <div className="userPage games-won-container">
+                   <div className="userPage games-won-text">
+                       Games won: {user?.gamesWon}
+                   </div>
+               </div>
+               <Button className="userPage-back-button"
+                       onClick={() => history.push("/home")}
+               >
+                   <div className="userPage back-button-text">
+                       Back
+                   </div>
+               </Button>
+               <Button className="edit-button"
+                       disabled={userId !== String(user?.id)}
+                       onClick={() => history.push("/users/" + userId + "/edit")}
+               >
+                   <div className="userPage edit-button-text">
+                       Edit
+                   </div>
+               </Button>
            </div>
-           <div className="userPage score-container">
-               <div className="userPage score">
-                    Score: ?
-               </div>
-           </div>
-           <div className="userPage games-played-container">
-               <div className="userPage games-played-text">
-                   Games played: ?
-               </div>
-           </div>
-           <div className="userPage games-won-container">
-               <div className="userPage games-won-text">
-                   Games won: ?
-               </div>
-           </div>
-           <Button className="userPage-back-button"
-
-           >
-               <div className="userPage back-button-text">
-                   Back
-               </div>
-           </Button>
-           <Button className="edit-button"
-
-           >
-               <div className="userPage edit-button-text">
-                   Edit
-               </div>
-           </Button>
-       </div>
       </BaseContainer>
     );
 };

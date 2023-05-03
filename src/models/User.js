@@ -9,6 +9,9 @@ class User {
     this.status = null;
     this.birthday = null;
     this.creationDate = null;
+    this.highScore = null;
+    this.gamesPlayed = null;
+    this.gamesWon = null;
     Object.assign(this, data);
   }
 }

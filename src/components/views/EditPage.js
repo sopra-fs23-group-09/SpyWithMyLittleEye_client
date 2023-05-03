@@ -69,11 +69,12 @@ const EditPage = () => {
   const history = useHistory();
   const [birthday] = useState(null);
   const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const {userId} = useParams();
 
   const doUpdate = async () => {
     try {
-      const requestBody = JSON.stringify({username, birthday});
+      const requestBody = JSON.stringify({username, password, birthday});
       await api.put('/users/'+ userId, requestBody, {headers: {Token: localStorage.getItem("token")}});
       history.push(`/users/${userId}`);
     } catch (error) {
@@ -108,13 +109,12 @@ const EditPage = () => {
           <FormFieldPassword
               label="Enter your new password:"
               placeholder="New password..."
-              value={username}
+              value={password}
               type = "text"
-              onChange={un => setUsername(un)}
+              onChange={pw => setPassword(pw)}
           />
           <Button className="edit-page-back-button"
               style={{marginRight: "2px"}}
-              width="30%"
               onClick={() => history.goBack()}
             >
             <div className="user-edit-page back-button-text">
@@ -123,8 +123,7 @@ const EditPage = () => {
           </Button>
           <Button className="edit-page-save-button"
               style={{marginLeft: "2px"}}
-              disabled={!username && !birthday}
-              width="30%"
+              disabled={!username && !password}
               onClick={() => doUpdate()}
           >
             <div className="user-edit-page save-button-text">
