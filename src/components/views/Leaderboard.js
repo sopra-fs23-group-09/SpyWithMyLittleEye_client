@@ -186,7 +186,7 @@ const Leaderboard = () => {
         history.push(`/users/${userId}`);
     };
 
-    const logout = async () => { // TODO: duplicate functions?
+    const logout = async () => { // TODO: duplicate functions into util?
         const title = {title: 'logout request'};
         const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
         console.log(response);
