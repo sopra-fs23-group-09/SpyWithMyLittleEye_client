@@ -9,7 +9,7 @@ import "styles/views/Guessing.scss";
 
 import React, {useEffect, useState} from "react";
 
-// TODO new server request, change font, profile pic
+// TODO new server request, profile pic, remove foo profiles
 const Leaderboard = () => {
     const history = useHistory();
     const userId = localStorage.getItem('userId');
@@ -232,7 +232,7 @@ const Leaderboard = () => {
                 </Button>
             </div>
             <div className="leaderboard-page header">
-                Leaderboard
+                Ranking
             </div>
             <div className="leaderboards">
                 <div className="leaderboard-highscore container">
