@@ -298,10 +298,18 @@ const Leaderboard = () => {
                 </div>
                 <div className="leaderboard-gamesWon container">
                     <div className="leaderboard-highscore header">
-                        Games Won
+                        TOP USERS BY GAMES WON
+                    </div>
+                    <div className="ranking-header-row container">
+                        <div className="ranking-header-row username">
+                            USERNAME
+                        </div>
+                        <div className="ranking-header-row text">
+                            GAMES WON
+                        </div>
                     </div>
                     <div className="leaderboard-highscore container-players"
-                         style={{maxHeight: "50%", overflowY: "auto", overflowX: "hidden"}}>
+                         style={{maxHeight: "77%", overflowY: "auto", overflowX: "hidden"}}>
                         {usersByGamesWon.map(user => {
                             if (counter_gamesWon === 1) { // You're the leader
                                 return (
@@ -309,6 +317,14 @@ const Leaderboard = () => {
                                         <div className="leader ranking">
                                             {counter_gamesWon++}
                                         </div>
+                                        <img
+                                            className="leader profile-picture"
+                                            src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                            alt="profile pic"
+                                            style={{
+                                                objectFit: 'cover',
+                                            }}
+                                        />
                                         <div className="leader name">
                                             {user.username}
                                         </div>
@@ -323,6 +339,14 @@ const Leaderboard = () => {
                                         <div className="player ranking">
                                             {counter_gamesWon++}
                                         </div>
+                                        <img
+                                            className="player profile-picture"
+                                            src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                            alt="profile pic"
+                                            style={{
+                                                objectFit: 'cover',
+                                            }}
+                                        />
                                         <div className="player name">
                                             {user.username}
                                         </div>
