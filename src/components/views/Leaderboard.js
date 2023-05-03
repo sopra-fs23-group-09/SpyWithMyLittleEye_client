@@ -9,6 +9,7 @@ import "styles/views/Guessing.scss";
 
 import React, {useEffect, useState} from "react";
 
+// TODO new server request, change font, profile pic
 const Leaderboard = () => {
     const history = useHistory();
     const userId = localStorage.getItem('userId');
@@ -165,7 +166,6 @@ const Leaderboard = () => {
                     "username": "thereza"
                 })
                 setUsers(response["data"])
-                // TODO profile pic
 
                 // TODO maybe new REST request? Talk to nina!!
                 let helper = [...response["data"]];
@@ -237,7 +237,7 @@ const Leaderboard = () => {
             <div className="leaderboards">
                 <div className="leaderboard-highscore container">
                     <div className="leaderboard-highscore header">
-                        TOP USERS BY POINTS EARNED
+                        TOP USERS BY <span style={{color: "#DAA3EF"}}>POINTS EARNED</span>
                     </div>
                     <div className="ranking-header-row container">
                         <div className="ranking-header-row username">
@@ -298,7 +298,7 @@ const Leaderboard = () => {
                 </div>
                 <div className="leaderboard-gamesWon container">
                     <div className="leaderboard-highscore header">
-                        TOP USERS BY GAMES WON
+                        TOP USERS BY <span style={{color: "#DAA3EF"}}>GAMES WON</span>
                     </div>
                     <div className="ranking-header-row container">
                         <div className="ranking-header-row username">
