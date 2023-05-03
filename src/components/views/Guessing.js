@@ -281,7 +281,6 @@ const Guessing = () => {
                                     <div className="guessers name">
                                         {gs[0]}
                                     </div>
-
                                     <div className="guessers correct-guess">
                                         GUESSED RIGHT
                                     </div>

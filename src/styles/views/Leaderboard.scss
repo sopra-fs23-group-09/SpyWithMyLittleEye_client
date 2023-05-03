@@ -1,12 +1,159 @@
 @import 'styles/theme';
 
-.leaderboard {
-  &.container {
+.leaderboards {
+
+}
+
+.leaderboard-page {
+
+  &.header {
     position: absolute;
-    width: 750px;
-    height: 800px;
-    left: 325px;
-    top: 91.37px;
+    left: 40%;
+    top: 7%;
+
+    width: 375px;
+    height: 75px;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    line-height: 75px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &.navigation-bar {
+    position: absolute;
+    width: 100%;
+    height: 95px;
+    left: 0px;
+    top: 0px;
+
+    background: linear-gradient(180deg, #97E1D4 0%, rgba(151, 225, 212, 0.27) 100%);
+  }
+
+  &.ranking-text {
+
+    width: 78px;
+    height: 25px;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.profile-text {
+    width: 60px;
+    height: 25px;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  &.logout-text {
+    width: 71px;
+    height: 25px;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+}
+
+.leaderboard-highscore {
+  &.container {
+    box-sizing: border-box;
+
+    width: 40%;
+    height: 80%;
+
+    position: absolute;
+    left: 27%;
+    top: 57%;
+    transform: translate(-50%, -50%);
+
+
+    background: #FFFFFF;
+    border-radius: 40px;
+  }
+
+  &.header {
+    position: relative;
+    top: 2%;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2em;
+    line-height: 75px;
+    text-align: center;
+
+    color: #A7AEF9;
+
+
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  }
+
+  &.container-players {
+    position: relative;
+    top: 2%;
+  }
+}
+
+.leaderboard-gamesWon {
+  &.container {
+    box-sizing: border-box;
+
+    width: 40%;
+    height: 80%;
+
+    position: absolute;
+    left: 72%;
+    top: 57%;
+    transform: translate(-50%, -50%);
+
 
     background: #FFFFFF;
     border-radius: 40px;
@@ -19,10 +166,10 @@
     left: 190px;
     top: 75px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 800;
-    font-size: 60px;
+    font-weight: 600;
+    font-size: 3em;
     line-height: 75px;
     text-align: center;
 
@@ -31,68 +178,145 @@
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
-  &.back-button-text {
-    width: 157px;
-    height: 50px;
-
-    font-family: 'Mulish';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 50px;
-    text-align: center;
-
-    color: #000000;
-
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+  &.container-players {
+    position: relative;
+    top: 22%;
   }
 }
 
 .player {
   &.container {
-    position: absolute;
-    width: 675px;
-    height: 90px;
-    left: 38px;
-    top: 300px;
+    margin-bottom: 1%; /* Add margin-bottom to create gap between containers */
+
+    position: relative;
+    width: 88%;
+    height: 3.5em;
+    left: 5%;
 
     background: rgba(151, 225, 212, 0.35);
     border-radius: 40px;
+
+
+  }
+
+  &.ranking {
+    position: relative;
+    top: 20%;
+    left: -42%;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 160%;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
   }
 
   &.name {
-    position: absolute;
-    width: 108px;
-    height: 38px;
-    left: 100px;
-    top: 25px;
+    position: relative;
+    top: -125%;
+    left: 37%;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.8em;
     line-height: 38px;
     /* identical to box height */
-    text-align: center;
+    text-align: left;
 
     color: #000000;
 
   }
 
   &.points {
-    position: absolute;
-    width: 63px;
-    height: 47.16px;
-    left: 500px;
-    top: 10px;
+    position: relative;
+    top: -190%;
+    left: 30%;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: italic;
     font-weight: 500;
+    font-size: 1.8em;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+  }
+
+  &.profile-picture {
+    position: relative;
+    border-radius: 50%;
+    top: -43%;
+    left: 24%;
+    height: 2.8em;
+    width: 2.8em;
+  }
+}
+
+.leader {
+  &.ranking {
+    position: relative;
+    top: 25%;
+    left: -42%;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 180%;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+  }
+
+  &.container {
+    margin-bottom: 1%; /* Add margin-bottom to create gap between containers */
+
+    position: relative;
+    width: 88%;
+    height: 4em;
+    left: 5%;
+
+    background: linear-gradient(180deg, rgba(5, 57, 48, 0.2) 0%, rgba(0, 0, 0, 0) 100%), #A8F3E5;
+    border-radius: 50px;
+  }
+
+  &.name {
+    position: relative;
+    top: -125%;
+    left: 37%;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    /* identical to box height */
+    text-align: left;
+
+    color: #000000;
+  }
+
+  &.profile-picture {
+    position: relative;
+    top: -45%;
+    left: 23%;
+    height: 3.5em;
+    width: 3.5em;
+
+    border-radius: 50%;
+  }
+
+  &.points {
+    position: relative;
+    top: -190%;
+    left: 30%;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: italic;
+    font-weight: 600;
     font-size: 35px;
     line-height: 44px;
     text-align: center;
@@ -100,91 +324,54 @@
     color: #000000;
   }
 
-  &.points-text {
-    position: absolute;
-    width: 92px;
-    height: 33.23px;
-    left: 485px;
-    top: 50px;
-
-    font-family: 'Mulish';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 31px;
-    text-align: center;
-
-    color: #000000;
-
-  }
 }
 
-.leader {
+.ranking-header-row {
   &.container {
-    position: absolute;
-    width: 675px;
-    height: 100px;
-    left: 38px;
-    top: 200px;
+    margin-bottom: 1%; /* Add margin-bottom to create gap between containers */
 
-    background: linear-gradient(180deg, rgba(5, 57, 48, 0.2) 0%, rgba(0, 0, 0, 0) 100%), #A8F3E5;
-    border-radius: 50px;
+    position: relative;
+    width: 88%;
+    height: 2.5em;
+    left: 5%;
+    top: 2%;
+
+    background: rgba(151, 225, 212, 0.35);
+    border-radius: 40px;
+
   }
 
-  &.name {
-    position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 25px;
-    top: 50px;
+  &.username {
+    position: relative;
+    top: 8%;
+    left: -9%;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.2em;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
 
-    color: #000000;
+    color: #8cd3c5;
 
   }
 
-  &.points {
-    position: absolute;
-    width: 126px;
-    height: 88px;
-    left: 475px;
-    top: -35px;
+  &.text {
+    position: relative;
+    top: -90%;
+    left: 30%;
 
-    font-family: 'Mulish';
-    font-style: italic;
-    font-weight: 700;
-    font-size: 70px;
-    line-height: 88px;
-    /* identical to box height */
-    text-align: center;
-
-    color: #000000;
-
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-
-  &.points-text {
-    position: absolute;
-    width: 112px;
-    height: 38px;
-    left: 475px;
-    top: 35px;
-
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 700;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 1.2em;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
 
-    color: #000000;
+    color: #8cd3c5;
+
   }
 }
