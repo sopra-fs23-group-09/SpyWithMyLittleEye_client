@@ -1,33 +1,41 @@
 @import 'styles/theme';
+
+::-webkit-scrollbar {
+  z-index: 1;
+}
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
+
 #home {
   position: relative;
-  height: 1250px;
-  width: 1600px;
-  min-height: 900px;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
   background-image: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: rgba(255, 192, 203, 0.5);
   }
-
 #home::before {
   content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index:0;
     background-color: pink;
     opacity: 0.5;
 }
+
 
 .start-page {
 
@@ -38,42 +46,40 @@ body {
     z-index:20;
 
   }
+
+
   &.nose {
     position: absolute;
-    width: 41.12px;
-    height: 93.59px;
-    left: 850px;
-    top: 221.09px;
+    width: 2%;
+    height: 100%;
+    left: 48%;
+    top: 35%;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
-    line-height: 63px;
+    font-size: 3.1em;
+    line-height: 1.2em;
     text-align: center;
+    z-index:101;
 
     color: #FFFFFF;
   }
-  &.image{
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: 10px;
-    z-index:20;
 
-  }
 
   &.game-title {
     position: absolute;
-    width: 647.4px;
-    height: 93.59px;
-    left: 550px;
-    top: 164.5px;
+        z-index:101;
+    width: 50%;
+    height: 100%;
+    left: 24%;
+    top: 20%;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
-    line-height: 63px;
+    font-size: 3.1em;
+    line-height: 1.2em;
     text-align: center;
 
     color: #FFFFFF;
@@ -82,27 +88,26 @@ body {
 
   &.instructions-container {
     position: absolute;
-    width: 1384px;
-    height: 650px;
-    left: 175px;
-    top: 550px;
-
+    width: 90%;
+    height: 127%;
+    left: 5%;
+    top: 80%;
     background: rgba(255, 255, 255, 0.46);
-    border-radius: 40px;
+    border-radius: 4em;
   }
 
   &.introduction-text {
     position: absolute;
-    width: 1158px;
-    height: 268px;
-    left: 110px;
-    top: 70px;
+    width: 80%;
+    height: 30%;
+    left: 10%;
+    top: 10%;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.5em;
+    line-height: 2em;
     text-align: center;
 
     color: #000000;
@@ -112,16 +117,16 @@ body {
   &.header-rules {
 
     position: absolute;
-    width: 97px;
-    height: 38px;
-    left: 625px;
-    top: 350px;
+    width: 1em;
+    height: 2em;
+    left: 45%;
+    top: 54%;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 2em;
+    line-height: 1em;
     /* identical to box height */
     text-align: center;
 
@@ -131,19 +136,20 @@ body {
 
   &.rules-text {
     position: absolute;
-    width: 1296px;
-    height: 288px;
-    left: 40px;
-    top: 400px;
+    width: 80%;
+    height: 30%;
+    left: 10%;
+    top: 63%;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.5em;
+    line-height: 2em;
     text-align: center;
 
     color: #000000;
+
 
   }
 
@@ -191,15 +197,17 @@ body {
 
   &.eye-left {
     position: absolute;
-    left: 710px;
-    top: 215px;
+    left: 38%;
+    top: 33%;
+        z-index:101;
 
   }
 
   &.eye-right {
     position: absolute;
-    left: 950px;
-    top: 215px;
+    left: 55%;
+    top: 33%;
+        z-index:101;
 
   }
 }
