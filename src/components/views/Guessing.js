@@ -98,8 +98,13 @@ const Guessing = () => {
     const [role, setRole] = useState(null);
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
-    const [timeLeft] = useState("");
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
+    const [timeLeft, setTimeLeft] = useState(60);
+    const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
+    const seconds = (timeLeft % 60).toString().padStart(2, '0');
+    const isLast10Seconds = timeLeft <= 10;
+
+
 
     useEffect(() => {
         const playerId = localStorage.getItem("userId");
@@ -168,11 +173,21 @@ const Guessing = () => {
             });
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
         }
+
+        /*function subscribeToTimeInformation() {
+            subscribe("/topic/games/" + lobbyId + "/spiedObject",(response) => {
+
+            });
+            unsubscribe("/topic/games/" + lobbyId + "/spiedObject");
+        }*/
+
         const makeSubscription = ()  => {
             subscribeToHintInformation();
             subscribeToGuessInformation();
             subscribeToEndRoundInformation();
+            //subscribeToTimeInformation();
         }
+
         distributeRole();
         displayCurrentRound();
         if (!getConnection()) {
@@ -199,6 +214,29 @@ const Guessing = () => {
         }
     }
 
+    //Implementation to display timer in seconds
+    /*useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft((time) => time - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);*/
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [timeLeft]);
+
+    /*const formatTime = (time) => {
+        return `${Math.floor(time / 60)
+            .toString()
+            .padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
+    }*/
+
 
     return (
         <BaseContainer>
@@ -220,7 +258,6 @@ const Guessing = () => {
                 Round: {currentRound}/{amountOfRounds}
             </div>
             <div className="guessing time-left">
-                {timeLeft}
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
@@ -231,7 +268,9 @@ const Guessing = () => {
                 I spy with my little eye something that is...{color}
             </div>
             <div className="guessing time-text">
-                1 Minute!
+                <span className={`time ${isLast10Seconds ? 'guessing last-10-seconds' : ''}`}>
+                    {minutes}:{seconds}
+                 </span>
             </div>
             <div className="guessing container">
                 <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto" }}>
