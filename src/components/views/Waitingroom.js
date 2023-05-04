@@ -94,11 +94,11 @@ const Waitingroom = () => {
                 You are a GUESSER this round.
                 Enjoy this calming music and this adorable cat until the spier is ready to start!
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', position: 'relative', zIndex: '1' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'relative', zIndex: '1' }}>
               <img
                 src="https://media.tenor.com/4MsBgyiY65YAAAAi/cat-peach.gif"
                 alt="Cat Peach Sticker - Cat Peach Tap Stickers"
-                style={{ height: '15em', width: '15em', position: 'absolute', top: '23em', left: '33em' }}
+                style={{ height: '15em', width: '15em', position: 'absolute', top:"22em" }}
               />
             </div>
         </BaseContainer>

@@ -9,7 +9,7 @@ import "styles/views/Guessing.scss";
 
 import React, {useEffect, useState} from "react";
 
-// TODO new server request, profile pic, remove foo profiles
+// TODO profile pic, remove foo profiles
 const Leaderboard = () => {
     const history = useHistory();
     const userId = localStorage.getItem('userId');
@@ -22,10 +22,11 @@ const Leaderboard = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await api.get('/users/ranking', {headers: {Token: localStorage.getItem("token")}});
-                console.log(response["data"]);
+                // RANKING BY HIGHSCORE
+                const response1 = await api.get('/users/ranking', {headers: {Token: localStorage.getItem("token")}});
+                console.log(response1["data"]);
                 // TODO take out
-                response["data"].push({
+                /**response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -35,7 +36,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "xena"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -45,7 +46,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "nina"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -55,7 +56,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "claudia"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -65,7 +66,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "thereza"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -75,7 +76,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "loubna"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -85,7 +86,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "xena"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -95,7 +96,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "nina"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -105,7 +106,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "claudia"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -115,7 +116,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "thereza"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -125,7 +126,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "loubna"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -135,7 +136,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "xena"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -145,7 +146,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "nina"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -155,7 +156,7 @@ const Leaderboard = () => {
                     "status": "ONLINE",
                     "username": "claudia"
                 })
-                response["data"].push({
+                response1["data"].push({
                     "birthday": null,
                     "creationDate": "2023-05-01",
                     "gamesPlayed": 0,
@@ -164,18 +165,16 @@ const Leaderboard = () => {
                     "id": 1,
                     "status": "ONLINE",
                     "username": "thereza"
-                })
-                setUsers(response["data"])
+                })**/
+                setUsers(response1["data"])
 
-                // TODO maybe new REST request? Talk to nina!!
-                let helper = [...response["data"]];
-                helper.sort((a, b) => {
-                    return b.gamesWon - a.gamesWon;
-                });
-                setUsersByGamesWon(helper)
+                // RANKING BY GAMES WON
+                const response2 = await api.get('/users/rankingGamesWon', {headers: {Token: localStorage.getItem("token")}});
+                console.log(response2["data"]);
+                setUsersByGamesWon(response2["data"])
 
             } catch (error) {
-                alert(`Something went wrong during showing the user page: \n${handleError(error)}`);
+                alert(`Something went wrong fetching the ranking: \n${handleError(error)}`);
             }
         }
 

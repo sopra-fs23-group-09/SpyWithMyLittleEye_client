@@ -93,7 +93,7 @@ const Register = () => {
                                 <Button className="login-button-loginpage"
                                   style={{marginRight: "2px"}}
                                   disabled={!username || !password}
-                                  width="50%"
+                                  width="100%"
                                   onClick={() => doRegistration()}
                                 >
                             <div className="login login-text">
