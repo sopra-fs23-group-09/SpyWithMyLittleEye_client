@@ -96,7 +96,7 @@ const Login = () => {
                             <Button className="button login-button-loginpage"
                               style={{marginRight: "2px"}}
                               disabled={!username || !password}
-                              width="50%"
+                              width="100%"
                               onClick={() => doLogin()}
                             >
                         <div className="login login-text">

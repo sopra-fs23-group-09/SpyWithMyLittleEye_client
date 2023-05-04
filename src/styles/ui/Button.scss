@@ -200,6 +200,7 @@
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
+  z-index:999;
 
 }
 .login-button-loginpage{
@@ -222,10 +223,10 @@
   font-size: 50px;
   line-height: 63px;
   text-align: center;
-  flex: none;
-  order: 0;
-  flex-grow:0;
+  flex-grow: 0;
   border: none;
+  align-self: stretch;
+
 
 }
 .register-button-registerpage{
@@ -277,6 +278,7 @@
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
+  z-index:999;
 }
 
 .ok-button {

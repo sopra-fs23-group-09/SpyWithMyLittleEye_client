@@ -6,6 +6,8 @@
     min-height: 100%;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
+    max-width: 1800px; /* set a maximum width that looks good on most screens */
+    width: 100%;
     flex-direction: column;
   }
 
