@@ -39,6 +39,15 @@ body {
 
 .start-page {
 
+  &.container{
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &.background{
     backgroundImage: url("https://i.ibb.co/0qhKtGp/4248613.jpg");
     background-size: cover;
@@ -54,46 +63,50 @@ body {
     height: 100%;
     left: 48%;
     top: 35%;
-
-    font-family: 'Quicksand', sans-serif;
+    font-family: "Quicksand", sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 3.1em;
+    font-size: 3.1vw;
     line-height: 1.2em;
     text-align: center;
-    z-index:101;
-
-    color: #FFFFFF;
+    z-index: 101;
+    color: #ffffff;
   }
 
 
   &.game-title {
-    position: absolute;
-        z-index:101;
-    width: 50%;
-    height: 100%;
-    left: 24%;
-    top: 20%;
+  position: absolute;
+  z-index:101;
+  width: 50%;
+  height: 100%;
+  left: 24%;
+  top: 20%;
 
-    font-family: 'Quicksand', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 3.1em;
-    line-height: 1.2em;
-    text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 3.1em;
+  line-height: 1.2em;
+  text-align: center;
 
-    color: #FFFFFF;
+  color: #FFFFFF;
 
   }
 
   &.instructions-container {
-    position: absolute;
-    width: 90%;
-    height: 127%;
-    left: 5%;
-    top: 80%;
-    background: rgba(255, 255, 255, 0.46);
-    border-radius: 4em;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 127%;
+  left: 0;
+  right: 0;
+  margin: 0 5%;
+  top: 80%;
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.46);
+  border-radius: 4em;
   }
 
   &.introduction-text {
@@ -107,7 +120,7 @@ body {
     font-style: normal;
     font-weight: 500;
     font-size: 1.5em;
-    line-height: 2em;
+    line-height: 1.5em;
     text-align: center;
 
     color: #000000;
@@ -115,21 +128,16 @@ body {
   }
 
   &.header-rules {
-
     position: absolute;
-    width: 1em;
-    height: 2em;
-    left: 45%;
-    top: 54%;
-
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 2em;
-    line-height: 1em;
-    /* identical to box height */
-    text-align: center;
-
+    margin-bottom: 1em;
     color: #000000;
 
   }
@@ -196,18 +204,18 @@ body {
   }
 
   &.eye-left {
-    position: absolute;
-    left: 38%;
-    top: 33%;
-        z-index:101;
+  position: absolute;
+  left: 38%;
+  top: 33%;
+  z-index: 101;
 
   }
 
   &.eye-right {
-    position: absolute;
-    left: 55%;
-    top: 33%;
-        z-index:101;
+  position: absolute;
+  left: 55%;
+  top: 33%;
+  z-index: 101;
 
   }
 }

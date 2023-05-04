@@ -24,6 +24,7 @@ const StartPage = () => {
     return (
     <body id="home">
         <BaseContainer>
+        <div className="start-page container">
             <div className="start-page game-title">
                 I spy with my little eye
             </div>
@@ -35,6 +36,7 @@ const StartPage = () => {
             </div>
             <div className="start-page nose">
                 Y
+            </div>
             </div>
             <Button className="login-button-start-page" onClick={() => history.push('/login')}>
                 <div className="start-page login-button-text">
