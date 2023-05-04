@@ -191,12 +191,13 @@
   position: absolute;
   width: 28em;
   height: 7em;
-  left: 5%;
-  top: 23em;
+  left: 20%;
+  top: 50%;
 
   background: #97E1D4;
   box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2em);
+  //transform: translate(-50%, -50%);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
@@ -269,8 +270,8 @@
   position: absolute;
   width: 28em;
   height: 7em;
-  left: 59%;
-  top: 23em;
+  left: 52%;
+  top: 50%;
 
   background: #97E1D4;
   box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.25);
