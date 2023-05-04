@@ -82,9 +82,10 @@ const EditPage = () => {
     }
   };
 
-  if (localStorage.getItem("id") !== userId) {
+  /*if (localStorage.getItem("id") !== userId) {
     history.push("/home");
-  }
+  }*/
+
   return (
     <BaseContainer>
                     <div className="code left-field">
