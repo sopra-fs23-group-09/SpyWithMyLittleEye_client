@@ -89,6 +89,7 @@ const Guessing = () => {
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
     const playerUsername = localStorage.getItem("username")
+    const token = localStorage.getItem("token");
 
     const history = useHistory();
 
@@ -201,14 +202,14 @@ const Guessing = () => {
 
     const submitInput = () => {
         if (role === "SPIER") {
-            notifyHint(lobbyId, playerInput);
+            notifyHint(lobbyId, playerInput, token);
             console.log("Hint: " + playerInput);
             setPlayerInput("");
         }else if( role === "GUESSER") {
             if (correctGuessPlayer === playerUsername) {
                 return;
             }
-            notifyGuess(lobbyId, playerId, playerInput);
+            notifyGuess(lobbyId, playerId, playerInput, token);
             console.log("Guess: " + playerInput);
             setPlayerInput("");
         }

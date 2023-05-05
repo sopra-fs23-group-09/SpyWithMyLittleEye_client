@@ -71,7 +71,7 @@ const RoundOver = () => {
 
 
     function startNewRound() {
-        notifyNextRoundButtonClicked(gameId);
+        notifyNextRoundButtonClicked(gameId, token);
     }
 
     let button_newRound = (<div></div>);

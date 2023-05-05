@@ -79,7 +79,7 @@ const GameOver = () => {
 
 
     function endGame() {
-        notifyGameEndedButtonClicked(gameId);
+        notifyGameEndedButtonClicked(gameId, token);
     }
 
     let button_gameEnded = (<div></div>);
