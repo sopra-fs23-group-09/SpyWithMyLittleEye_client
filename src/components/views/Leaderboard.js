@@ -2,7 +2,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Leaderboard.scss';
 import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
 import {disconnect} from "../../helpers/stompClient";
 import "styles/views/Guessing.scss";
@@ -198,9 +198,9 @@ const Leaderboard = () => {
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

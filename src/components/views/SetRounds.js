@@ -1,6 +1,6 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/Rounds.scss';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
@@ -51,9 +51,9 @@ const SetRounds = () => {
 
     return (
         <BaseContainer>
-           <div className="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
