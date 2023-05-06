@@ -1,6 +1,31 @@
 @import 'styles/theme';
 
 .rounds {
+
+  &.minutesfield{
+      box-sizing: border-box;
+
+      /* Auto layout */
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px;
+      gap: 10px;
+
+      position: absolute;
+      width: 484px;
+      height: 105px;
+      left: 610px;
+      top: 478px;
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(30px);
+      /* Note: backdrop-filter has minimal browser support */
+      border-radius: 40px;
+      top: 50%;
+
+
+  }
   &.field {
     box-sizing: border-box;
 

@@ -38,8 +38,11 @@ const Register = () => {
   const history = useHistory();
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
+  const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
 
   const doRegistration = async () => {
+  audio.play();
     try {
       const requestBody = JSON.stringify({username, password});
       const response = await api.post('/users', requestBody);

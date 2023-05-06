@@ -23,6 +23,7 @@ const FormField = props => {
     );
 };
 
+
 FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
@@ -31,9 +32,11 @@ FormField.propTypes = {
 const SetRounds = () => {
     const history = useHistory();
     const [amountRounds, setAmountRounds] = useState(null);
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
 
     async function createLobby() {
+        audio.play();
         let token = localStorage.getItem("token");
         const requestBody = JSON.stringify({amountRounds});
         try {
@@ -47,6 +50,7 @@ const SetRounds = () => {
             alert(`Something went wrong: \n${handleError(error)}`);
         }
     }
+
 
 
     return (
@@ -69,6 +73,7 @@ const SetRounds = () => {
                 placeholder="Enter your number..."
                 value={amountRounds}
                 onChange={r => setAmountRounds(r)}
+            />
             />
             <Button className="ok-button" onClick={() => createLobby()}>
                 <div className="rounds ok-button-text">

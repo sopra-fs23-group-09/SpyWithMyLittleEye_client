@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 
 const UserPage = () => {
-
+  const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
   const history = useHistory();
 
@@ -70,17 +70,19 @@ const UserPage = () => {
                        Games won: {user?.gamesWon}
                    </div>
                </div>
-               <Button className="userPage-back-button"
-                       onClick={() => history.push("/home")}
-               >
+                    <Button className="userPage-back-button" onClick={() => {
+                        audio.play();
+                        history.push("/home");
+                    }}>
+
                    <div className="userPage back-button-text">
                        Back
                    </div>
                </Button>
-               <Button className="edit-button"
-                       disabled={userId !== String(user?.id)}
-                       onClick={() => history.push("/users/" + userId + "/edit")}
-               >
+                    <Button className="edit-button" disabled={userId !== String(user?.id)} onClick={() => {
+                        audio.play();
+                        history.push("/users/" + userId + "/edit");
+                    }}>
                    <div className="userPage edit-button-text">
                        Edit
                    </div>

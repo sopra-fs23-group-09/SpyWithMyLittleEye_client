@@ -20,6 +20,8 @@ const LobbyView = () => {
     var [lobby, setLobby] = useState(null);
     let lobbyId = localStorage.getItem("lobbyId");
     const history = useHistory();
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
 
 
     useEffect(() => {
@@ -60,6 +62,7 @@ const LobbyView = () => {
     }, [lobbyId, history]);
 
     function startGameButtonClick() {
+        audio.play();
         startGame(lobbyId); // from stompClient
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
