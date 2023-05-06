@@ -1,5 +1,5 @@
 import 'styles/views/Waitingroom.scss';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import React, {useEffect, useState} from "react";
@@ -75,9 +75,9 @@ const Waitingroom = () => {
 
     return (
         <BaseContainer>
-           <div className="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

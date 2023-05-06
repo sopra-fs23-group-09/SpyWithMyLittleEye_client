@@ -14,7 +14,7 @@ import {
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const StreetView = () => {
     const mapRef = useRef(null);
@@ -240,9 +240,9 @@ const Guessing = () => {
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
