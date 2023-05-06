@@ -35,10 +35,12 @@ const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     let [accessCode, setAccessCode] = useState(null);
 
 
     const joinLobby = async () => {
+        audio.play();
         const requestBody = JSON.stringify({accessCode});
         try {
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});

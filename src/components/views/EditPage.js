@@ -67,12 +67,14 @@ FormFieldPassword.propTypes = {
 
 const EditPage = () => {
   const history = useHistory();
+  const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
   const [birthday] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const {userId} = useParams();
 
   const doUpdate = async () => {
+  audio.play();
     try {
       const requestBody = JSON.stringify({username, password, birthday});
       await api.put('/users/'+ userId, requestBody, {headers: {Token: localStorage.getItem("token")}});
@@ -116,8 +118,10 @@ const EditPage = () => {
           />
           <Button className="edit-page-back-button"
               style={{marginRight: "2px"}}
-              onClick={() => history.goBack()}
-            >
+              onClick={() => {
+              audio.play();
+              history.goBack();
+              }}>
             <div className="user-edit-page back-button-text">
               Back
             </div>

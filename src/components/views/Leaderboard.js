@@ -12,6 +12,8 @@ import React, {useEffect, useState} from "react";
 // TODO profile pic, remove foo profiles
 const Leaderboard = () => {
     const history = useHistory();
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
     const userId = localStorage.getItem('userId');
     let [users, setUsers] = useState([]);
     let [usersByGamesWon, setUsersByGamesWon] = useState([]);
@@ -182,10 +184,12 @@ const Leaderboard = () => {
     }, []);
 
     const goToProfile = () => {
+        audio.play();
         history.push(`/users/${userId}`);
     };
 
     const logout = async () => { // TODO: duplicate functions into util?
+        audio.play();
         const title = {title: 'logout request'};
         const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
         console.log(response);
@@ -210,9 +214,10 @@ const Leaderboard = () => {
             <div className="base-container ellipse4">
             </div>
             <div className="leaderboard-page navigation-bar">
-                <Button className="ranking-button" onClick={() => history.push('/home')}
-
-                >
+                <Button className="ranking-button" onClick={() => {
+                audio.play();
+                history.push('/home');
+                }}>
                     <div className="leaderboard-page ranking-text">
                         Home
                     </div>

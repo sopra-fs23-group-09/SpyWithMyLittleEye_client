@@ -63,6 +63,7 @@ const SetLocation = (props) => {
 
     const [location, setlocation] = useState("");
     const [color, setColor] = useState("");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [object, setObject] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
@@ -149,6 +150,7 @@ const SetLocation = (props) => {
     }, []);
 
     function startGame() {
+        audio.play();
         const lobbyId = localStorage.getItem("lobbyId");
         localStorage.setItem("location", JSON.stringify(location));
         localStorage.setItem("color", JSON.stringify(color));
