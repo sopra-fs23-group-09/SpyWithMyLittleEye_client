@@ -43,7 +43,7 @@ const Register = () => {
 
     const doRegistration = async () => {
         // Set profile picture randomly
-        const profile_pictures = ["Bear.png", "Budgie.png", "Bunny.png", "Cockatoo.png", "Icebear.png", "Owl.png", "Panda.png", "Penguin.png", "RedPanda.png", "Sloth.png"];
+        const profile_pictures = ["Bear", "Budgie", "Bunny", "Cockatoo", "Icebear", "Owl", "Panda", "Penguin", "RedPanda", "Sloth"];
 
         const randomIndex = Math.floor(Math.random() * profile_pictures.length);
         const profilePicture = profile_pictures[randomIndex];
@@ -61,7 +61,7 @@ const Register = () => {
             localStorage.setItem('token', user.token);
             localStorage.setItem('userId', user.id);
             localStorage.setItem("username", user.username);
-            localStorage.setItem("profilePicture", user.profilePicture)
+            localStorage.setItem("profilePicture", user.profilePicture); // TODO remove if not necessary
 
             history.push(`/home`);
         } catch (error) {
