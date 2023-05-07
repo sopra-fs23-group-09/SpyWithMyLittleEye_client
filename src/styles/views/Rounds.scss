@@ -1,88 +1,81 @@
 @import 'styles/theme';
 
 .rounds {
+  &.container {
+  margin-top: 4em;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  }
+  &.form {
+  display: flex;
+  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 75%;
+  max-width: 100%;
+  height: 28em;
+  font-size: 1.25em;
+  font-weight: 600;
+  font-family: "Gill Sans";
+  padding-right: 2%;
+  padding-left: 2%;
+  border-radius: 1.5em;
+  }
+
   &.field {
-    box-sizing: border-box;
-
-    /* Auto layout */
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    gap: 10px;
-
-    position: absolute;
-    width: 484px;
-    height: 105px;
-    left: 610px;
-    top: 478px;
-    background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(30px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 40px;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  &.input {
-    height: 105px;
-    width: 483px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-left: 30px;
-    margin-left: 10px;
-    border: none;
-    margin-bottom: 20px;
-    color: white;
-    background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(30px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 40px;
-    position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 40px;
-    font-family: "Gill Sans";
-    line-height: 50px;
-  }
+    &.input {
+      height: 11vh; /* Adjust the height as needed */
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 2vw 4vw; /* Adjust the padding as needed */
+      margin: 1vw;
+      border: none;
+      color: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(3vw);
+      /* Note: backdrop-filter has minimal browser support */
+      border-radius: 4vw;
+      font-size: 2vw;
+      color: white;
+      font-family: "Gill Sans";/* Adjust the font size as needed */
+
+    }
 
   &.ok-button-text {
-    width: 73px;
-    height: 63px;
-
-    font-family: 'Gill Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 50px;
-    line-height: 63px;
-    /* identical to box height */
-    text-align: center;
-
-    color: #FFFFFF;
-
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+   width: 73px;
+   height: 63px;
+   font-family: 'Gill Sans';
+   font-style: normal;
+   font-weight: 600;
+   font-size: 50px;
+   line-height: 63px;
+   text-align: center;
+   color: #FFFFFF;
+   flex: none;
+   order: 0;
+   flex-grow: 0;
   }
 
   &.header {
-    position: absolute;
-    width: 1139px;
-    height: 75px;
-    left: 300px;
-    top: 274px;
-
-    font-family: 'Gill Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 60px;
-    line-height: 75px;
-    text-align: center;
-
-    color: #FFFFFF;
+  width: 100%;
+  height: auto;
+  font-family: 'Gill Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 1.2;
+  text-align: center;
+  color: #FFFFFF;
 
   }
 }

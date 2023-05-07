@@ -1,6 +1,6 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/Code.scss';
-import {useHistory} from "react-router-dom";
+import {Link,useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
@@ -35,10 +35,12 @@ const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     let [accessCode, setAccessCode] = useState(null);
 
 
     const joinLobby = async () => {
+        audio.play();
         const requestBody = JSON.stringify({accessCode});
         try {
             const response = await api.put('/lobbies/join/' + userId, requestBody, {headers: {Token: token}});
@@ -54,9 +56,9 @@ const Code = () => {
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

@@ -14,7 +14,7 @@ import {
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const StreetView = () => {
     const mapRef = useRef(null);
@@ -88,8 +88,10 @@ const Guessing = () => {
     const color = localStorage.getItem("color");
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
-    const playerUsername = localStorage.getItem("username")
-    const token = localStorage.getItem("token");
+    const playerUsername = localStorage.getItem("username");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+    const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
+
 
     const history = useHistory();
 
@@ -202,14 +204,14 @@ const Guessing = () => {
 
     const submitInput = () => {
         if (role === "SPIER") {
-            notifyHint(lobbyId, playerInput, token);
+            notifyHint(lobbyId, playerInput);
             console.log("Hint: " + playerInput);
             setPlayerInput("");
         }else if( role === "GUESSER") {
             if (correctGuessPlayer === playerUsername) {
                 return;
             }
-            notifyGuess(lobbyId, playerId, playerInput, token);
+            notifyGuess(lobbyId, playerId, playerInput);
             console.log("Guess: " + playerInput);
             setPlayerInput("");
         }
@@ -241,9 +243,9 @@ const Guessing = () => {
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

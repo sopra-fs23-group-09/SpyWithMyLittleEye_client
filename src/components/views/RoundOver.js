@@ -1,5 +1,5 @@
 import 'styles/views/RoundOver.scss';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';
@@ -16,6 +16,8 @@ const RoundOver = () => {
     const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
 
     let [keyword, setKeyword] = useState(null);
     let [hostId, setHostId] = useState(null)
@@ -71,7 +73,8 @@ const RoundOver = () => {
 
 
     function startNewRound() {
-        notifyNextRoundButtonClicked(gameId, token);
+        audio.play();
+        notifyNextRoundButtonClicked(gameId);
     }
 
     let button_newRound = (<div></div>);
@@ -89,9 +92,9 @@ const RoundOver = () => {
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
