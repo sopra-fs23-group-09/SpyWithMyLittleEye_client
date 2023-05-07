@@ -14,6 +14,17 @@ import {
     startGame,
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
+import Bear from "../../images/Bear.png";
+import Budgie from "../../images/Budgie.png";
+import Bunny from "../../images/Bunny.png";
+import Cockatoo from "../../images/Cockatoo.png";
+import Icebear from "../../images/Icebear.png";
+import Owl from "../../images/Owl.png";
+import Panda from "../../images/Panda.png";
+import Penguin from "../../images/Penguin.png";
+import RedPanda from "../../images/RedPanda.png";
+import Sloth from "../../images/Sloth.png";
+import {getProfilePic} from "../../helpers/utilFunctions";
 
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
@@ -41,6 +52,7 @@ const LobbyView = () => {
                     if (event.toString() === ("joined").toString()) {
                         console.log("JOINED")
                         setLobby(data);
+                        // TODO set profile pictures!!!!!
                     } else if (event.toString() === ("started").toString()) {
                         console.log("STARTED");
                         redirectToGame();
@@ -67,7 +79,9 @@ const LobbyView = () => {
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
         localStorage.setItem("gameId", gameId);
-        history.push(`/game/` + lobbyId + "/waitingroom");    }
+        history.push(`/game/` + lobbyId + "/waitingroom");
+    }
+
 
 
     let button_startGame = (<div></div>);
@@ -103,7 +117,7 @@ const LobbyView = () => {
                     {lobby.playerNames.map(name => (
                         <li className="lobby player-container">
                             <img
-                                src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                src= {getProfilePic(name)}
                                 style={{
                                     borderRadius: '50%',
                                     height: '7em',
@@ -126,9 +140,7 @@ const LobbyView = () => {
 
     return (
         <BaseContainer>
-            <Link to="/home" className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
-            </Link>
+            <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

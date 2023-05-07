@@ -17,6 +17,7 @@ import Panda from "../../images/Panda.png";
 import Penguin from "../../images/Penguin.png";
 import RedPanda from "../../images/RedPanda.png";
 import Sloth from "../../images/Sloth.png";
+import {getProfilePic} from "../../helpers/utilFunctions";
 
 
 
@@ -46,42 +47,7 @@ const UserPage = () => {
   }, [token, userId])
 
     if (user) {
-        let picture = "";
-        switch (user.profilePicture) {
-            case 'Bear':
-                picture = Bear;
-                break;
-            case 'Budgie':
-                picture = Budgie;
-                break;
-            case 'Bunny':
-                picture = Bunny;
-                break;
-            case 'Cockatoo':
-                picture = Cockatoo;
-                break;
-            case 'Icebear':
-                picture = Icebear;
-                break;
-            case 'Owl':
-                picture = Owl;
-                break;
-            case 'Panda':
-                picture = Panda;
-                break;
-            case 'Penguin':
-                picture = Penguin;
-                break;
-            case 'RedPanda':
-                picture = RedPanda;
-                break;
-            case 'Sloth':
-                picture = Sloth;
-                break;
-            default:
-                picture = RedPanda;
-                console.log(`Profile Picture not defined, using default.`);
-        }
+        let picture = getProfilePic(user.profilePicture);
         content = <div className="userPage container">
                 <img className="userPage profile-picture-background" src = {picture} alt = "ppBackground" style = {{objectFit: 'cover'}}>
                 </img>
