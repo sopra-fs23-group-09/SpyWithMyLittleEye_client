@@ -90,6 +90,7 @@ const Guessing = () => {
     const lobbyId = localStorage.getItem("lobbyId");
     const playerUsername = localStorage.getItem("username");
     const token = localStorage.getItem("token");
+    const duration = localStorage.getItem("duration");
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
 
@@ -103,7 +104,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
-    const [timeLeft, setTimeLeft] = useState(60);
+    const [timeLeft, setTimeLeft] = useState(duration * 60);
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
@@ -136,6 +137,7 @@ const Guessing = () => {
                 console.log("Couldn't fetch round\n" + handleError(error));
             }
         };
+
         function subscribeToHintInformation() {
             subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
                 const h = response["hint"];
@@ -180,6 +182,9 @@ const Guessing = () => {
 
         /*function subscribeToTimeInformation() {
             subscribe("/topic/games/" + lobbyId + "/spiedObject",(response) => {
+                const d = response["duration"];
+                setTimeLeft(d * 60);
+
 
             });
             unsubscribe("/topic/games/" + lobbyId + "/spiedObject");
@@ -194,6 +199,7 @@ const Guessing = () => {
 
         distributeRole();
         displayCurrentRound();
+        displayTimer();
         if (!getConnection()) {
             connect(makeSubscription);
         }
@@ -218,6 +224,14 @@ const Guessing = () => {
         }
     }
 
+    const displayTimer = () => {
+        const intervalId = setInterval(() => {
+            setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }
+
     //Implementation to display timer in seconds
     /*useEffect(() => {
         const timer = setInterval(() => {
@@ -227,13 +241,13 @@ const Guessing = () => {
         return () => clearInterval(timer);
     }, []);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         const intervalId = setInterval(() => {
             setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, [timeLeft]);
+    }, [timeLeft]);*/
 
     /*const formatTime = (time) => {
         return `${Math.floor(time / 60)
