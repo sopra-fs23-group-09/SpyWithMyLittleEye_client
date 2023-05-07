@@ -117,7 +117,10 @@ const SetLocation = (props) => {
         }
 
         function subscribeToSetLocationInformation() {
-            subscribe("/topic/games/" + gameId + "/spiedObject", data => {});
+            subscribe("/topic/games/" + gameId + "/spiedObject", data => {
+                localStorage.setItem("duration", data["duration"])
+            });
+
         }
     }, [gameId]);
 
