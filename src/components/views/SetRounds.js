@@ -8,20 +8,44 @@ import {api, handleError} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 
+const FormField = (props) => {
+  const { type, placeholder, value, onChange } = props;
 
-const FormField = props => {
+  if (type === "number") {
     return (
-        <div className="rounds field">
-            <input
-                type="number"
-                className="rounds input"
-                placeholder={props.placeholder}
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-            />
-        </div>
+      <div className="rounds field">
+        <input
+          type="number"
+          className="rounds input" // Add the "rounds" class here
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </div>
     );
+  }
+
+  if (type === "dropdown") {
+    return (
+      <div className="rounds field">
+        <select
+          className="rounds input" // Add the "rounds" class here
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          <option value="1">1 minute</option>
+          <option value="1.5">1.5 minutes</option>
+          <option value="2">2 minutes</option>
+          <option value="3">3 minutes</option>
+          <option value="4">4 minutes</option>
+        </select>
+      </div>
+    );
+  }
+
+  return null;
 };
+
 
 
 FormField.propTypes = {
@@ -31,6 +55,7 @@ FormField.propTypes = {
 
 const SetRounds = () => {
     const history = useHistory();
+    const [time, setTime] = useState(1);
     const [amountRounds, setAmountRounds] = useState(null);
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
@@ -38,7 +63,7 @@ const SetRounds = () => {
     async function createLobby() {
         audio.play();
         let token = localStorage.getItem("token");
-        const requestBody = JSON.stringify({amountRounds});
+        const requestBody = JSON.stringify({amountRounds, time});
         try {
             const response = await api.post('/lobbies', requestBody, {headers: {Token: token}});
             console.log(response.data)
@@ -66,20 +91,33 @@ const SetRounds = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
+            <div className="rounds container">
+            <div className="rounds form">
             <div className="rounds header">
                 How many rounds do you want to play?
             </div>
             <FormField
+                type= "number"
                 placeholder="Enter your number..."
                 value={amountRounds}
                 onChange={r => setAmountRounds(r)}
             />
-            />
+            <div className="rounds header">
+                How long should a round be?
+            </div>
+              <FormField
+                type= "dropdown"
+                placeholder="Enter amount of minutes..."
+                value={time}
+                onChange={t => setTime(t)}
+              />
             <Button className="ok-button" onClick={() => createLobby()}>
                 <div className="rounds ok-button-text">
                     OK
                 </div>
             </Button>
+           </div>
+           </div>
         </BaseContainer>
     );
 
