@@ -81,7 +81,7 @@ const GameOver = () => {
 
     function endGame() {
         audio.play();
-        notifyGameEndedButtonClicked(gameId);
+        notifyGameEndedButtonClicked(gameId, token);
     }
 
     let button_gameEnded = (<div></div>);

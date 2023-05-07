@@ -30,6 +30,7 @@ const LobbyView = () => {
     let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
     let lobbyId = localStorage.getItem("lobbyId");
+    let token = localStorage.getItem("token");
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
@@ -62,7 +63,7 @@ const LobbyView = () => {
                 }
 
             });
-            notifyLobbyJoined(lobbyId);
+            notifyLobbyJoined(lobbyId, token);
         }
 
         function redirectToGame() {
@@ -75,7 +76,7 @@ const LobbyView = () => {
 
     function startGameButtonClick() {
         audio.play();
-        startGame(lobbyId); // from stompClient
+        startGame(lobbyId, token); // from stompClient
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
         localStorage.setItem("gameId", gameId);

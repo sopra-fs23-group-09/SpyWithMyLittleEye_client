@@ -60,6 +60,7 @@ FormFieldColor.propTypes = {
 const SetLocation = (props) => {
     const history = useHistory();
     const gameId = localStorage.getItem("gameId");
+    const token = localStorage.getItem("token");
 
     const [location, setlocation] = useState("");
     const [color, setColor] = useState("");
@@ -154,7 +155,7 @@ const SetLocation = (props) => {
         const lobbyId = localStorage.getItem("lobbyId");
         localStorage.setItem("location", JSON.stringify(location));
         localStorage.setItem("color", JSON.stringify(color));
-        notifySpiedObject(lobbyId, location, color, object);
+        notifySpiedObject(lobbyId, location, color, object, token);
         unsubscribe("/topic/games/" + gameId + "/spiedObject");
         history.push("/game/" + lobbyId);
     }
