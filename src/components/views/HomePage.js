@@ -25,6 +25,7 @@ const HomePage = () => {
         disconnect(); // TODO shall we do this?
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('profilePicture');
         history.push('/login');
     }
 

@@ -187,8 +187,8 @@ const Leaderboard = () => {
         audio.play();
         history.push(`/users/${userId}`);
     };
-
-    const logout = async () => { // TODO: duplicate functions into util?
+// TODO: duplicate functions into util?
+    const logout = async () => {
         audio.play();
         const title = {title: 'logout request'};
         const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
@@ -196,6 +196,7 @@ const Leaderboard = () => {
 
         disconnect(); // TODO shall we do this?
         localStorage.removeItem('token');
+        localStorage.removeItem('profilePicture');
         localStorage.removeItem('userId');
         history.push('/login');
     }
