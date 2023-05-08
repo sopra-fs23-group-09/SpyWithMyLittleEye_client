@@ -23,7 +23,7 @@ const StreetView = () => {
     useEffect(() => {
         const location = JSON.parse(localStorage.getItem("location"));
         const loader = new Loader({
-            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ",
             version: 'weekly',
         });
 

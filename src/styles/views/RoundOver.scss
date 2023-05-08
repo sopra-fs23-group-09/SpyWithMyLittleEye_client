@@ -83,7 +83,7 @@
     width: 184px;
     height: 38px;
     left: 405px;
-    top: 300px;
+    top: 250px;
 
     font-family: 'Gill Sans';
     font-style: normal;
@@ -133,6 +133,9 @@
     text-align: center;
 
     color: #000000;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 3s;
+
 
 
   }
@@ -155,8 +158,90 @@
     color: #FFFFFF;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 3s;
   }
 
+  &.profile-picture-1st {
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 438px;
+    top: 325px;
+
+    //FADE-IN
+    //opacity: 0; /* start with 0 opacity */
+    //animation: fade-in-bounce 1s ease-in-out forwards;
+
+    //SPIN
+    //animation: spin 3s linear infinite; /* rotate continuously */
+
+    //BOUNCE
+    opacity: 0; /* bounce continuously */
+    animation: fade-in-bounce 1.5s ease-in-out forwards infinite alternate 3s;
+
+    //GLITCH
+    //animation: glitch 2s ease-in-out infinite; /* glitch continuously */
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0; /* start with 0 opacity */
+    }
+    to {
+      opacity: 1; /* end with full opacity */
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg); /* starting rotation */
+    }
+    100% {
+      transform: rotate(360deg); /* end rotation */
+    }
+  }
+
+  @keyframes fade-in-bounce {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes glitch {
+    0% {
+      transform: translateX(0) skew(0); /* starting position */
+    }
+    20% {
+      transform: translateX(10px) skew(5deg); /* first glitch */
+    }
+    40% {
+      transform: translateX(-10px) skew(-5deg); /* second glitch */
+    }
+    60% {
+      transform: translateX(10px) skew(5deg); /* third glitch */
+    }
+    80% {
+      transform: translateX(-10px) skew(-5deg); /* fourth glitch */
+    }
+    100% {
+      transform: translateX(0) skew(0); /* end position */
+    }
+  }
 
   &.name-2nd {
     position: absolute;
@@ -174,6 +259,8 @@
     text-align: center;
 
     color: #000000;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 2s;
 
   }
 
@@ -194,6 +281,24 @@
     color: #FFFFFF;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 2s;
+  }
+
+  &.profile-picture-2nd {
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 300px;
+    top: 350px;
+    opacity: 0; /* start with 0 opacity */
+    animation: fade-in 1s ease-in-out forwards 2s;
+
   }
 
   &.name-3rd {
@@ -212,6 +317,8 @@
     text-align: center;
 
     color: #000000;
+    animation: fade-in 1s ease-in-out forwards 1s;
+    opacity: 0;
 
   }
 
@@ -232,5 +339,22 @@
     color: #FFFFFF;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 1s;
+  }
+
+  &.profile-picture-3rd {
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 575px;
+    top: 350px;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 1s;
   }
 }
