@@ -4,9 +4,12 @@ import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';
 import 'styles/views/Code.scss';
-import {api} from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 import {Button} from "../ui/Button";
 import {connect, getConnection, notifyNextRoundButtonClicked, subscribe, unsubscribe} from "../../helpers/stompClient";
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+import {getProfilePic} from "../../helpers/utilFunctions";
 
 
 const RoundOver = () => {
@@ -18,7 +21,6 @@ const RoundOver = () => {
     const token = localStorage.getItem("token");
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
-
     let [keyword, setKeyword] = useState(null);
     let [hostId, setHostId] = useState(null)
     let [currentRoundNr, setCurrentRoundNr] = useState(null)
@@ -26,7 +28,6 @@ const RoundOver = () => {
     let [first, setFirst] = useState({username: "", points: ""})
     let [second, setSecond] = useState({username: "", points: ""})
     let [third, setThird] = useState({username: "", points: ""})
-
 
     useEffect( () => {
         async function fetchData() {
@@ -39,7 +40,6 @@ const RoundOver = () => {
             playerPoints.sort((a, b) => { // TODO comes sorted already
                 return b.points - a.points;
             });
-
             setFirst(playerPoints[0]);
             setSecond(playerPoints[1]);
 
@@ -90,6 +90,9 @@ const RoundOver = () => {
             </Button>)
     }
 
+    let picture1 = getProfilePic(first.profilePicture);
+    let picture2 = getProfilePic(second.profilePicture);
+    let picture3 = getProfilePic(third.profilePicture);
     return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
@@ -103,6 +106,12 @@ const RoundOver = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
+            <Confetti
+                width={window.innerWidth}
+                height={window.innerHeight}
+                colors={['#A7AEF9', '#DAA3EF', '#DDCCF8', '#F5C9C9', '#CEBBFA', '#A7AEF9',  '#FF72B6', '#F5C9D9',
+                    '#97E1D4', '#8359E3']}
+            />
             <div className="roundover container">
                 <div className="roundover header">
                     ROUND {currentRoundNr} IS OVER
@@ -114,18 +123,24 @@ const RoundOver = () => {
                     Leaderboard
                 </div>
                 <div>
+                    <img className="score profile-picture-1st" src = {picture1} alt ="profilePicture">
+                    </img>
                     <div className="score name-1st">
                         {first.username}
                     </div>
                     <div className="score points-1st">
                         {first.points}
                     </div>
+                    <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
+                    </img>
                     <div className="score name-2nd">
                         {second.username}
                     </div>
                     <div className="score points-2nd">
                         {second.points}
                     </div>
+                    <img className="score profile-picture-3rd" src = {picture3} alt ="profilePicture">
+                    </img>
                     <div className="score name-3rd">
                         {third.username}
                     </div>
@@ -142,3 +157,4 @@ const RoundOver = () => {
 };
 
 export default RoundOver;
+
