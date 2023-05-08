@@ -2,14 +2,14 @@
 
 .userPage {
   &.container {
-    position: absolute;
     width: 800px;
     height: 600px;
-    left: 300px;
-    top: 150px;
-
     background: #FFFFFF;
     border-radius: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   /*&.form {
     display: flex;
@@ -62,9 +62,9 @@
     width: 56px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
     line-height: 38px;
     /* identical to box height */
@@ -77,6 +77,11 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
   }
 
   &.back-button-text {
@@ -84,9 +89,9 @@
     width: 118px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
     line-height: 38px;
     /* identical to box height */
@@ -101,22 +106,50 @@
     flex-grow: 0;
   }
 
+  &.profile-picture-background {
+    position: absolute;
+    width: 800px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+
+    //background: url('./../../images/RedPanda.png');
+    border-radius: 40px 40px 0px 0px;
+    background-size: cover;
+    background-position-y: 450px;
+    opacity: 0.75;
+  }
+
+  &.profile-picture {
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    filter: drop-shadow(0 0 8px #FF72B6FF);
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 340px;
+    top: 80px;
+  }
+
   &.username-container {
-    box-sizing: border-box;
+    //box-sizing: border-box;
 
     /* Auto layout */
     display: flex;
-    flex-direction: row;
+    //flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 10px;
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
-    top: 175px;
+    top: 220px;
 
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -129,10 +162,10 @@
     width: 224px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -158,10 +191,10 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
-    top: 250px;
+    top: 280px;
 
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -174,10 +207,10 @@
     width: 147px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -203,10 +236,10 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
-    top: 325px;
+    top: 340px;
 
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -219,10 +252,10 @@
     width: 251px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -248,8 +281,8 @@
     gap: 10px;
 
     position: absolute;
-    width: 400px;
-    height: 60px;
+    width: 50%;
+    height: 8%;
     left: 195px;
     top: 400px;
 
@@ -265,10 +298,10 @@
     width: 200px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 38px;
     /* identical to box height */
     text-align: center;

@@ -4,11 +4,12 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
-import React, {useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import {disconnect} from "../../helpers/stompClient";
 
 const StartPage = () => {
     const history = useHistory();
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
     useEffect(() => {
         // clear local storage
@@ -24,6 +25,7 @@ const StartPage = () => {
     return (
     <body id="home">
         <BaseContainer>
+        <div className="start-page container">
             <div className="start-page game-title">
                 I spy with my little eye
             </div>
@@ -36,14 +38,19 @@ const StartPage = () => {
             <div className="start-page nose">
                 Y
             </div>
-            <Button className="login-button-start-page" onClick={() => history.push('/login')}>
+            </div>
+            <Button className="login-button-start-page" onClick={() => {
+            audio.play();
+            history.push('/login');
+            }}>
                 <div className="start-page login-button-text">
                     Log in
                 </div>
             </Button>
-            <Button className="signup-button-start-page" onClick={() => history.push('/register')}
-
-            >
+            <Button className="signup-button-start-page" onClick={() => {
+            audio.play();
+            history.push('/register');
+            }}>
                 <div className="start-page signup-button-text">
                     Sign up
                 </div>

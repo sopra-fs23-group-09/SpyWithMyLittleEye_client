@@ -2,19 +2,22 @@
 
 .user-edit-page {
   &.container {
-    position: absolute;
-    width: 800px;
-    height: 600px;
-    left: 300px;
-    top: 150px;
 
     background: #FFFFFF;
     border-radius: 40px;
+
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   &.username-field {
     box-sizing: border-box;
 
+    font-family: 'Quicksand', sans-serif;
     /* Auto layout */
     display: flex;
     flex-direction: row;
@@ -42,7 +45,7 @@
     left: 70px;
     top: -75px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 25px;
@@ -80,6 +83,8 @@
   &.password-field {
     box-sizing: border-box;
 
+    font-family: 'Quicksand', sans-serif;
+
     /* Auto layout */
     display: flex;
     flex-direction: row;
@@ -108,7 +113,7 @@
     left: 70px;
     top: -75px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 25px;
@@ -149,7 +154,7 @@
     width: 71px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -171,7 +176,7 @@
     width: 71px;
     height: 38px;
 
-    font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;

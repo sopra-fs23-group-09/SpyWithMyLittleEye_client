@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -60,16 +60,18 @@ FormFieldColor.propTypes = {
 const SetLocation = (props) => {
     const history = useHistory();
     const gameId = localStorage.getItem("gameId");
+    const token = localStorage.getItem("token");
 
     const [location, setlocation] = useState("");
     const [color, setColor] = useState("");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [object, setObject] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
 
     useEffect(() => {
         const loader = new Loader({
-            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your Google Maps API key
+            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ", // Replace with your Google Maps API key
             version: 'weekly',
         });
         loader.load().then(() => {
@@ -115,7 +117,10 @@ const SetLocation = (props) => {
         }
 
         function subscribeToSetLocationInformation() {
-            subscribe("/topic/games/" + gameId + "/spiedObject", data => {});
+            subscribe("/topic/games/" + gameId + "/spiedObject", data => {
+                localStorage.setItem("duration", data["duration"])
+            });
+
         }
     }, [gameId]);
 
@@ -149,19 +154,20 @@ const SetLocation = (props) => {
     }, []);
 
     function startGame() {
+        audio.play();
         const lobbyId = localStorage.getItem("lobbyId");
         localStorage.setItem("location", JSON.stringify(location));
         localStorage.setItem("color", JSON.stringify(color));
-        notifySpiedObject(lobbyId, location, color, object);
+        notifySpiedObject(lobbyId, location, color, object, token);
         unsubscribe("/topic/games/" + gameId + "/spiedObject");
         history.push("/game/" + lobbyId);
     }
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">

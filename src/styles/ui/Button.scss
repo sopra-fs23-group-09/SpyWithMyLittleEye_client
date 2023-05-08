@@ -23,6 +23,7 @@
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
+  z-index: 10;
 }
 
 .join-lobby-button {
@@ -184,21 +185,23 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  //padding: 1em;
+ // gap: 1em;
 
   position: absolute;
-  width: 430px;
-  height: 112px;
-  left: 315px;
-  top: 362px;
+  width: 26vw;
+  max-width: 26vw;
+  height: 6.5vw;
+  left: 19.5vw;
+  top: 27vw;
 
   background: #97E1D4;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(30px);
+  box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2em);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
+  z-index: 999;
 }
 .login-button-loginpage{
 
@@ -220,10 +223,10 @@
   font-size: 50px;
   line-height: 63px;
   text-align: center;
-  flex: none;
-  order: 0;
-  flex-grow:0;
+  flex-grow: 0;
   border: none;
+  align-self: stretch;
+
 
 }
 .register-button-registerpage{
@@ -260,21 +263,23 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  padding: 1em;
+  gap: 1em;
 
   position: absolute;
-  width: 430px;
-  height: 112px;
-  left: 1000px;
-  top: 360px;
+  width: 90%;
+  max-width: 28em;
+  height: 7em;
+  left: 52%;
+  top: 50%;
 
   background: #97E1D4;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(30px);
+  box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2em);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
   border: none;
+  z-index:999;
 }
 
 .ok-button {
@@ -293,10 +298,11 @@
   gap: 10px;
 
   position: absolute;
+  left: calc(50% - 150px);
+  bottom: 2em;
+
   width: 300px;
   height: 100px;
-  left: 710px;
-  top: 727px;
 
   background: #97E1D4;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
@@ -306,6 +312,8 @@
   border: none;
 }
 
+
+// TODO not being used
 .leaderboard-back-button {
   display: flex;
   flex-direction: row;
@@ -317,8 +325,8 @@
   position: absolute;
   width: 287px;
   height: 82px;
-  left: 233px;
-  top: 600px;
+  left: 42%;
+  top: 50%;
 
   background: #97E1D4;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -330,6 +338,14 @@
 }
 
 .edit-button {
+  &:disabled {
+    cursor: default;
+    opacity: 0.1;
+    &:hover {
+      transform: none;
+    }
+  }
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -382,9 +398,9 @@
   gap: 10px;
 
   position: absolute;
-  width: 199px;
-  height: 69px;
-  left: 415px;
+  width: 150px;
+  height: 50px;
+  left: 500px;
   top: 475px;
 
   background: #97E1D4;
@@ -404,9 +420,9 @@
   gap: 10px;
 
   position: absolute;
-  width: 199px;
-  height: 69px;
-  left: 145px;
+  width: 150px;
+  height: 50px;
+  left: 148px;
   top: 475px;
 
   background: #97E1D4;

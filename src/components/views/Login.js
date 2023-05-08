@@ -43,9 +43,12 @@ const Login = () => {
   const history = useHistory();
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
+  const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
 
 
   const doLogin = async () => {
+    audio.play();
     try {
       const response = await api.get('/users/login?username='+ username + '&pass='+ password);
       const token = response.headers.token;
@@ -53,7 +56,8 @@ const Login = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('userId', id);
       localStorage.setItem("username", username);
-      // Login successfully worked --> navigate to the route /game in the GameRouter
+
+        // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/home`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -96,7 +100,7 @@ const Login = () => {
                             <Button className="button login-button-loginpage"
                               style={{marginRight: "2px"}}
                               disabled={!username || !password}
-                              width="50%"
+                              width="100%"
                               onClick={() => doLogin()}
                             >
                         <div className="login login-text">

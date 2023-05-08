@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {useHistory} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/EditPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -67,13 +67,16 @@ FormFieldPassword.propTypes = {
 
 const EditPage = () => {
   const history = useHistory();
+  const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
   const [birthday] = useState(null);
   const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const {userId} = useParams();
 
   const doUpdate = async () => {
+  audio.play();
     try {
-      const requestBody = JSON.stringify({username, birthday});
+      const requestBody = JSON.stringify({username, password, birthday});
       await api.put('/users/'+ userId, requestBody, {headers: {Token: localStorage.getItem("token")}});
       history.push(`/users/${userId}`);
     } catch (error) {
@@ -81,14 +84,15 @@ const EditPage = () => {
     }
   };
 
-  if (localStorage.getItem("id") !== userId) {
+  /*if (localStorage.getItem("id") !== userId) {
     history.push("/home");
-  }
+  }*/
+
   return (
     <BaseContainer>
-                    <div className="code left-field">
-                      <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-                    </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
       <div className="base-container ellipse1">
       </div>
       <div className="base-container ellipse2">
@@ -108,23 +112,23 @@ const EditPage = () => {
           <FormFieldPassword
               label="Enter your new password:"
               placeholder="New password..."
-              value={username}
+              value={password}
               type = "text"
-              onChange={un => setUsername(un)}
+              onChange={pw => setPassword(pw)}
           />
           <Button className="edit-page-back-button"
               style={{marginRight: "2px"}}
-              width="30%"
-              onClick={() => history.goBack()}
-            >
+              onClick={() => {
+              audio.play();
+              history.goBack();
+              }}>
             <div className="user-edit-page back-button-text">
               Back
             </div>
           </Button>
           <Button className="edit-page-save-button"
               style={{marginLeft: "2px"}}
-              disabled={!username && !birthday}
-              width="30%"
+              disabled={!username && !password}
               onClick={() => doUpdate()}
           >
             <div className="user-edit-page save-button-text">

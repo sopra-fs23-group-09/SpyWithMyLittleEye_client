@@ -1,11 +1,12 @@
 import 'styles/views/Waitingroom.scss';
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import React, {useEffect, useState} from "react";
 import {api} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
+
 
 const Waitingroom = () => {
     const history = useHistory();
@@ -14,6 +15,14 @@ const Waitingroom = () => {
     const token = localStorage.getItem("token");
 
     let [role, setRole] = useState(null)
+    useEffect(() => {
+        const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3");
+        audio.loop = true;
+        audio.play();
+        return () => {
+            audio.pause();
+        }
+    }, []);
 
 
 
@@ -66,9 +75,9 @@ const Waitingroom = () => {
 
     return (
         <BaseContainer>
-           <div className="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
@@ -82,8 +91,15 @@ const Waitingroom = () => {
             </div>
             {messageForGuessers}
             <div className="waitingroom information">
-                You are a GUESSER this round!
-                As soon as the SPIER has picked their object, you will be redirected to the game page.
+                You are a GUESSER this round.
+                Enjoy this calming music and this adorable cat until the spier is ready to start!
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'relative', zIndex: '1' }}>
+              <img
+                src="https://media.tenor.com/4MsBgyiY65YAAAAi/cat-peach.gif"
+                alt="Cat Peach Sticker - Cat Peach Tap Stickers"
+                style={{ height: '15em', width: '15em', position: 'absolute', top:"22em" }}
+              />
             </div>
         </BaseContainer>
     );

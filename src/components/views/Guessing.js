@@ -14,7 +14,7 @@ import {
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const StreetView = () => {
     const mapRef = useRef(null);
@@ -23,7 +23,7 @@ const StreetView = () => {
     useEffect(() => {
         const location = JSON.parse(localStorage.getItem("location"));
         const loader = new Loader({
-            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ",
             version: 'weekly',
         });
 
@@ -88,7 +88,12 @@ const Guessing = () => {
     const color = localStorage.getItem("color");
     const playerId = localStorage.getItem("userId");
     const lobbyId = localStorage.getItem("lobbyId");
-    const playerUsername = localStorage.getItem("username")
+    const playerUsername = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    const duration = localStorage.getItem("duration");
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+    const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
+
 
     const history = useHistory();
 
@@ -98,8 +103,13 @@ const Guessing = () => {
     const [role, setRole] = useState(null);
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
-    const [timeLeft] = useState("");
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
+    const [timeLeft, setTimeLeft] = useState(duration * 60);
+    const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
+    const seconds = (timeLeft % 60).toString().padStart(2, '0');
+    const isLast10Seconds = timeLeft <= 10;
+
+
 
     useEffect(() => {
         const playerId = localStorage.getItem("userId");
@@ -127,6 +137,7 @@ const Guessing = () => {
                 console.log("Couldn't fetch round\n" + handleError(error));
             }
         };
+
         function subscribeToHintInformation() {
             subscribe("/topic/games/" + lobbyId + "/hints",(response) => {
                 const h = response["hint"];
@@ -168,13 +179,27 @@ const Guessing = () => {
             });
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
         }
+
+        /*function subscribeToTimeInformation() {
+            subscribe("/topic/games/" + lobbyId + "/spiedObject",(response) => {
+                const d = response["duration"];
+                setTimeLeft(d * 60);
+
+
+            });
+            unsubscribe("/topic/games/" + lobbyId + "/spiedObject");
+        }*/
+
         const makeSubscription = ()  => {
             subscribeToHintInformation();
             subscribeToGuessInformation();
             subscribeToEndRoundInformation();
+            //subscribeToTimeInformation();
         }
+
         distributeRole();
         displayCurrentRound();
+        displayTimer();
         if (!getConnection()) {
             connect(makeSubscription);
         }
@@ -186,25 +211,56 @@ const Guessing = () => {
 
     const submitInput = () => {
         if (role === "SPIER") {
-            notifyHint(lobbyId, playerInput);
+            notifyHint(lobbyId, playerInput, token);
             console.log("Hint: " + playerInput);
             setPlayerInput("");
         }else if( role === "GUESSER") {
             if (correctGuessPlayer === playerUsername) {
                 return;
             }
-            notifyGuess(lobbyId, playerId, playerInput);
+            notifyGuess(lobbyId, playerId, playerInput, token);
             console.log("Guess: " + playerInput);
             setPlayerInput("");
         }
     }
 
+    const displayTimer = () => {
+        const intervalId = setInterval(() => {
+            setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }
+
+    //Implementation to display timer in seconds
+    /*useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft((time) => time - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);*/
+
+    /*useEffect(() => {
+        const intervalId = setInterval(() => {
+            setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [timeLeft]);*/
+
+    /*const formatTime = (time) => {
+        return `${Math.floor(time / 60)
+            .toString()
+            .padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
+    }*/
+
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem'}}/>
-            </div>
+            <Link to="/home" className="code left-field">
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
@@ -220,7 +276,6 @@ const Guessing = () => {
                 Round: {currentRound}/{amountOfRounds}
             </div>
             <div className="guessing time-left">
-                {timeLeft}
             </div>
             <div className="guessing role-container">
                 <div className="guessing role-text">
@@ -231,7 +286,9 @@ const Guessing = () => {
                 I spy with my little eye something that is...{color}
             </div>
             <div className="guessing time-text">
-                1 Minute!
+                <span className={`time ${isLast10Seconds ? 'guessing last-10-seconds' : ''}`}>
+                    {minutes}:{seconds}
+                 </span>
             </div>
             <div className="guessing container">
                 <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto" }}>
@@ -242,7 +299,6 @@ const Guessing = () => {
                                     <div className="guessers name">
                                         {gs[0]}
                                     </div>
-
                                     <div className="guessers correct-guess">
                                         GUESSED RIGHT
                                     </div>

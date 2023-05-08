@@ -48,37 +48,65 @@ export const disconnect = () => {
     console.log("Disconnected websocket.");
 }
 
-export const startGame = (lobbyId) => {
+export const startGame = (lobbyId, token) => {
     const requestBody = JSON.stringify({lobbyId});
-    ws.send("/app/games/" + lobbyId, {}, requestBody);
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/" + lobbyId, headers, requestBody);
 }
 
-export const notifyLobbyJoined = (lobbyId) => {
-    ws.send("/app/lobbies/"+lobbyId+"/joined", {});
+export const notifyLobbyJoined = (lobbyId, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/lobbies/"+lobbyId+"/joined", headers);
 }
-export const notifySpiedObject = (lobbyId, location, color, object) =>{
+export const notifySpiedObject = (lobbyId, location, color, object, token) =>{
     const requestBody = JSON.stringify({location, color, object});
-    ws.send("/app/games/" +lobbyId+"/spiedObject", {}, requestBody);
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/" +lobbyId+"/spiedObject", headers, requestBody);
 }
 
-export const notifyHint = (lobbyId, hint) => {
+export const notifyHint = (lobbyId, hint, token) => {
     const requestBody = JSON.stringify({hint});
-    ws.send("/app/games/"+lobbyId+"/hints", {}, requestBody);
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/"+lobbyId+"/hints", headers, requestBody);
 }
 
-export const notifyGuess = (lobbyId, id, guess) => {
+export const notifyGuess = (lobbyId, id, guess, token) => {
     const requestBody = JSON.stringify({id, guess});
-    ws.send("/app/games/"+lobbyId+"/guesses", {}, requestBody);
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/"+lobbyId+"/guesses", headers, requestBody);
 }
 
 export const notifyStartTime = (lobbyId) => {
     ws.send("/app/games/"+lobbyId+"/startRound", {});
 }
 
-export const notifyNextRoundButtonClicked = (gameId) => {
-    ws.send("/app/games/"+gameId+"/nextRound", {});
+export const notifyNextRoundButtonClicked = (gameId, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/"+gameId+"/nextRound", headers);
 }
 
-export const notifyGameEndedButtonClicked = (gameId) => {
-    ws.send("/app/games/"+gameId+"/gameOver", {});
+export const notifyGameEndedButtonClicked = (gameId, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/"+gameId+"/gameOver", headers);
 }

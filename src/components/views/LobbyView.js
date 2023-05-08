@@ -1,6 +1,6 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
-import {useHistory} from "react-router-dom";
+import {Link,useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
@@ -14,12 +14,26 @@ import {
     startGame,
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
+import Bear from "../../images/Bear.png";
+import Budgie from "../../images/Budgie.png";
+import Bunny from "../../images/Bunny.png";
+import Cockatoo from "../../images/Cockatoo.png";
+import Icebear from "../../images/Icebear.png";
+import Owl from "../../images/Owl.png";
+import Panda from "../../images/Panda.png";
+import Penguin from "../../images/Penguin.png";
+import RedPanda from "../../images/RedPanda.png";
+import Sloth from "../../images/Sloth.png";
+import {getProfilePic} from "../../helpers/utilFunctions";
 
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
     let lobbyId = localStorage.getItem("lobbyId");
+    let token = localStorage.getItem("token");
     const history = useHistory();
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
 
 
     useEffect(() => {
@@ -39,6 +53,7 @@ const LobbyView = () => {
                     if (event.toString() === ("joined").toString()) {
                         console.log("JOINED")
                         setLobby(data);
+                        // TODO set profile pictures!!!!!
                     } else if (event.toString() === ("started").toString()) {
                         console.log("STARTED");
                         redirectToGame();
@@ -48,7 +63,7 @@ const LobbyView = () => {
                 }
 
             });
-            notifyLobbyJoined(lobbyId);
+            notifyLobbyJoined(lobbyId, token);
         }
 
         function redirectToGame() {
@@ -60,11 +75,14 @@ const LobbyView = () => {
     }, [lobbyId, history]);
 
     function startGameButtonClick() {
-        startGame(lobbyId); // from stompClient
+        audio.play();
+        startGame(lobbyId, token); // from stompClient
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
         localStorage.setItem("gameId", gameId);
-        history.push(`/game/` + lobbyId + "/waitingroom");    }
+        history.push(`/game/` + lobbyId + "/waitingroom");
+    }
+
 
 
     let button_startGame = (<div></div>);
@@ -100,7 +118,7 @@ const LobbyView = () => {
                     {lobby.playerNames.map(name => (
                         <li className="lobby player-container">
                             <img
-                                src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                src= {getProfilePic(name)}
                                 style={{
                                     borderRadius: '50%',
                                     height: '7em',
@@ -123,9 +141,7 @@ const LobbyView = () => {
 
     return (
         <BaseContainer>
-            <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
-            </div>
+            <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
