@@ -6,17 +6,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import {Link, useHistory} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
-// TODO this isnt ideal
-import Bear from "../../images/Bear.png";
-import Budgie from "../../images/Budgie.png";
-import Bunny from "../../images/Bunny.png";
-import Cockatoo from "../../images/Cockatoo.png";
-import Icebear from "../../images/Icebear.png";
-import Owl from "../../images/Owl.png";
-import Panda from "../../images/Panda.png";
-import Penguin from "../../images/Penguin.png";
-import RedPanda from "../../images/RedPanda.png";
-import Sloth from "../../images/Sloth.png";
 import {getProfilePic} from "../../helpers/utilFunctions";
 
 
