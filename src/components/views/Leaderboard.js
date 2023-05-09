@@ -125,7 +125,7 @@ const Leaderboard = () => {
                                         </div>
                                         <img
                                             className="leader profile-picture"
-                                            src= {getProfilePic(user.username)}
+                                            src= {getProfilePic(user.profilePicture)}
                                             alt="profile pic"
                                             style={{
                                                 objectFit: 'cover',
@@ -146,7 +146,7 @@ const Leaderboard = () => {
                         </div>
                             <img
                                 className="player profile-picture"
-                                src= {getProfilePic(user.username)}
+                                src= {getProfilePic(user.profilePicture)}
                                 alt="profile pic"
                                 style={{
                                     objectFit: 'cover',
@@ -186,7 +186,7 @@ const Leaderboard = () => {
                                         </div>
                                         <img
                                             className="leader profile-picture"
-                                            src= {getProfilePic(user.username)}
+                                            src= {getProfilePic(user.profilePicture)}
                                             alt="profile pic"
                                             style={{
                                                 objectFit: 'cover',
@@ -208,7 +208,7 @@ const Leaderboard = () => {
                                         </div>
                                         <img
                                             className="player profile-picture"
-                                            src= {getProfilePic(user.username)}
+                                            src= {getProfilePic(user.profilePicture)}
                                             alt="profile pic"
                                             style={{
                                                 objectFit: 'cover',

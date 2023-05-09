@@ -108,7 +108,7 @@ const LobbyView = () => {
                     {lobby.playerNames.map(name => (
                         <li className="lobby player-container">
                             <img
-                                src= {getProfilePic(name)}
+                                src= {getProfilePic(user.profilePicture)}
                                 style={{
                                     borderRadius: '50%',
                                     height: '7em',
