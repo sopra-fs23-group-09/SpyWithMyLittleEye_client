@@ -1,6 +1,6 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
-import {Link,useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
@@ -62,7 +62,7 @@ const LobbyView = () => {
             localStorage.setItem("gameId", gameId);
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
-    }, [lobbyId, history]);
+    }, [lobbyId, history, token]);
 
     function startGameButtonClick() {
         audio.play();
@@ -108,7 +108,7 @@ const LobbyView = () => {
                     {lobby.playerNames.map(name => (
                         <li className="lobby player-container">
                             <img
-                                src= {getProfilePic(user.profilePicture)}
+                                src= {getProfilePic(name) /**TODO change from name to profilePic**/}
                                 style={{
                                     borderRadius: '50%',
                                     height: '7em',
