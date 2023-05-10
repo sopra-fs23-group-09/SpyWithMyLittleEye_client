@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";

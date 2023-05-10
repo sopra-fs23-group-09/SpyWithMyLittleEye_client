@@ -27,11 +27,131 @@ const Leaderboard = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                // TODO get profile pics
                 // RANKING BY HIGHSCORE
                 const response1 = await api.get('/users/ranking', {headers: {Token: localStorage.getItem("token")}});
                 console.log(response1["data"]);
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 10000,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
+                response1["data"].push({
+                    "birthday": null,
+                    "creationDate": "2023-05-01",
+                    "gamesPlayed": 0,
+                    "gamesWon": 3,
+                    "highScore": 0,
+                    "id": 1,
+                    "status": "ONLINE",
+                    "username": "thereza"
+                })
                 setUsers(response1["data"])
+
 
                 // RANKING BY GAMES WON
                 const response2 = await api.get('/users/rankingGamesWon', {headers: {Token: localStorage.getItem("token")}});
@@ -118,7 +238,7 @@ const Leaderboard = () => {
                         </div>
                     </div>
                     <div className="leaderboard-highscore container-players"
-                         style={{maxHeight: "77%", overflowY: "auto", overflowX: "hidden"}}>
+                         style={{maxHeight: "60vh", overflowY: "auto", overflowX: "hidden"}}>
                         {users.map(user => {
                             if (counter_highscore === 1) { // You're the leader
                                 return (
@@ -167,7 +287,7 @@ const Leaderboard = () => {
                     </div>
                 </div>
                 <div className="leaderboard-gamesWon container">
-                    <div className="leaderboard-highscore header">
+                    <div className="leaderboard-gamesWon header">
                         TOP USERS BY <span style={{color: "#DAA3EF"}}>GAMES WON</span>
                     </div>
                     <div className="ranking-header-row container">
@@ -178,8 +298,8 @@ const Leaderboard = () => {
                             GAMES WON
                         </div>
                     </div>
-                    <div className="leaderboard-highscore container-players"
-                         style={{maxHeight: "77%", overflowY: "auto", overflowX: "hidden"}}>
+                    <div className="leaderboard-gamesWon container-players"
+                         style={{maxHeight: "60vh", overflowY: "auto", overflowX: "hidden"}}>
                         {usersByGamesWon.map(user => {
                             if (counter_gamesWon === 1) { // You're the leader
                                 return (
