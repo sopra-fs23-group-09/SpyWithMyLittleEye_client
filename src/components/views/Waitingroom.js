@@ -1,5 +1,5 @@
 import 'styles/views/Waitingroom.scss';
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import React, {useEffect, useState} from "react";

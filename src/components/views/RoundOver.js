@@ -1,13 +1,12 @@
 import 'styles/views/RoundOver.scss';
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';
 import 'styles/views/Code.scss';
-import {api, handleError} from "../../helpers/api";
+import {api} from "../../helpers/api";
 import {Button} from "../ui/Button";
 import {connect, getConnection, notifyNextRoundButtonClicked, subscribe, unsubscribe} from "../../helpers/stompClient";
-import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import {getProfilePic} from "../../helpers/utilFunctions";
 

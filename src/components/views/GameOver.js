@@ -1,5 +1,5 @@
 import 'styles/views/GameOver.scss';
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';

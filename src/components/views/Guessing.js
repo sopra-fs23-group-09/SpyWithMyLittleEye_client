@@ -14,7 +14,7 @@ import {
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const StreetView = () => {
     const mapRef = useRef(null);
