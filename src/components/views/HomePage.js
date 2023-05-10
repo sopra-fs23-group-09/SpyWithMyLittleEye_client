@@ -79,7 +79,7 @@ const HomePage = () => {
             }}
             >
                 <div className="home-page create-lobby-button-text">
-                    Create a lobby
+                Create a lobby
                 </div>
             </Button>
         </BaseContainer>
