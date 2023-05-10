@@ -2,14 +2,14 @@
 
 .home-page {
   &.join-lobby-button-text {
-    width: 393px;
-    height: 88px;
+    width: 100%;
+    height: 100%;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 55px;
-    line-height: 88px;
+    font-size: 2.5vw;
+    line-height: 11vw;
     /* identical to box height */
     text-align: center;
 
@@ -24,14 +24,14 @@
 
   &.create-lobby-button-text {
 
-    width: 487px;
-    height: 88px;
+    width: 120%;
+    height: 100%;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 55px;
-    line-height: 88px;
+    font-size: 2.5vw;
+    line-height: 11vw;
     /* identical to box height */
     text-align: center;
 
@@ -47,7 +47,7 @@
   &.navigation-bar {
     position: absolute;
     width: 100%;
-    height: 95px;
+    height: 8vw;
     left: 0px;
     top: 0px;
 
@@ -56,13 +56,13 @@
 
   &.ranking-text {
 
-    width: 78px;
-    height: 25px;
+    width: 100%;
+    height: 75%;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1.5vw;
     line-height: 25px;
     /* identical to box height */
     text-align: center;
@@ -77,13 +77,13 @@
   }
 
   &.profile-text {
-    width: 60px;
-    height: 25px;
+    width: 100%;
+    height: 75%;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1.5vw;
     line-height: 25px;
     /* identical to box height */
     text-align: center;
@@ -98,13 +98,13 @@
   }
 
   &.logout-text {
-    width: 71px;
-    height: 25px;
+    width: 100%;
+    height: 75%;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1.5vw;
     line-height: 25px;
     /* identical to box height */
     text-align: center;
