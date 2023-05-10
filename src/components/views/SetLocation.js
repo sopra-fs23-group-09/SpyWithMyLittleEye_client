@@ -71,7 +71,7 @@ const SetLocation = (props) => {
 
     useEffect(() => {
         const loader = new Loader({
-            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your Google Maps API key
+            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ", // Replace with your Google Maps API key
             version: 'weekly',
         });
         loader.load().then(() => {
@@ -165,7 +165,9 @@ const SetLocation = (props) => {
 
     return (
         <BaseContainer>
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
