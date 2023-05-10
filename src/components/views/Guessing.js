@@ -23,7 +23,7 @@ const StreetView = () => {
     useEffect(() => {
         const location = JSON.parse(localStorage.getItem("location"));
         const loader = new Loader({
-            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ",
             version: 'weekly',
         });
 
@@ -94,6 +94,8 @@ const Guessing = () => {
     const role = localStorage.getItem("role");
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
+    const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
+
 
 
     const history = useHistory();
@@ -247,7 +249,9 @@ const Guessing = () => {
 
     return (
         <BaseContainer>
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+            <div class="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            </div>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
