@@ -109,7 +109,7 @@ const SetRounds = () => {
                 type= "dropdown"
                 placeholder="Enter amount of minutes..."
                 value={time}
-                onChange={t => setTime(t)}
+                onChange={t => setTime(parseFloat(t))}
               />
             <Button className="ok-button" onClick={() => createLobby()}>
                 <div className="rounds ok-button-text">
