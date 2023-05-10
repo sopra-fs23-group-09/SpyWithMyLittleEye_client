@@ -2,10 +2,10 @@
 .roundover {
   &.container {
     position: absolute;
-    width: 1000px;
-    height: 830px;
-    left: 375px;
-    top: 50px;
+    width: 58vw;
+    height: 48vw;
+    left: 22vw;
+    top: 3vw;
 
     background: rgba(255, 255, 255, 0.5);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -13,10 +13,11 @@
   }
 
   &.primary-button {
-    width: 30%;
+    width: 20vw;
+    height: 6vw;
     position: absolute;
-    left: 610px;
-    top: 725px;
+    left: 41vw;
+    top: 41vw;
   }
 
   &.button-text {
@@ -24,10 +25,11 @@
     width: 271px;
     height: 63px;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
+    font-size: 2.75vw;
     line-height: 63px;
     /* identical to box height */
     text-align: center;
@@ -43,15 +45,15 @@
 
   &.header {
     position: absolute;
-    width: 622px;
-    height: 88px;
-    left: 185px;
-    top: 50px;
+    width: 35vw;
+    //height: 40vw;
+    left: 11vw;
+    top: 3vw;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 70px;
+    font-size: 4vw;
     line-height: 88px;
     /* identical to box height */
     text-align: center;
@@ -61,15 +63,16 @@
 
   &.solution {
     position: absolute;
-    width: 538px;
-    height: 63px;
-    left: 235px;
-    top: 145px;
+    width: 31vw;
+    //height: 63px;
+    left: 13vw;
+    top: 8vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
+    font-size: 2.5vw;
     line-height: 63px;
     /* identical to box height */
     text-align: center;
@@ -80,15 +83,16 @@
 
   &.leaderboard-text {
     position: absolute;
-    width: 184px;
-    height: 38px;
-    left: 405px;
-    top: 250px;
+    width: 10vw;
+    //height: 38px;
+    left: 23.25vw;
+    top: 14vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -119,15 +123,16 @@
 .score {
   &.name-1st {
     position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 435px;
-    top: 450px;
+    width: 6.75vw;
+    //height: 38px;
+    left: 25.2vw;
+    top: 26vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 2vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -142,15 +147,16 @@
 
   &.points-1st {
     position: absolute;
-    width: 60px;
-    height: 63px;
-    left: 465px;
-    top: 525px;
+    width: 3.5vw;
+    //height: 63px;
+    left: 27vw;
+    top: 29vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
+    font-size: 3vw;
     line-height: 63px;
     /* identical to box height */
     text-align: center;
@@ -163,16 +169,16 @@
   }
 
   &.profile-picture-1st {
-    width: 7em;
-    height: 7em;
+    width: 6.5vw;
+    height: 6.5vw;
     border-radius: 50%;
     border: 2px solid #97E1D4FF;
     //background-image: url('./../../images/RedPanda.png');
     //background-position: center;
     background-size: cover;
     position: absolute;
-    left: 438px;
-    top: 325px;
+    left: 25.25vw;
+    top: 19vw;
 
     //FADE-IN
     //opacity: 0; /* start with 0 opacity */
@@ -183,7 +189,8 @@
 
     //BOUNCE
     opacity: 0; /* bounce continuously */
-    animation: fade-in-bounce 1.5s ease-in-out forwards infinite alternate 3s;
+    //animation: fade-in-bounce 1.5s ease-in-out forwards infinite alternate 3s;
+    animation: fade-in 1s ease-in forwards 3s, bounce 1.5s ease-in-out infinite 4s;
 
     //GLITCH
     //animation: glitch 2s ease-in-out infinite; /* glitch continuously */
@@ -207,9 +214,9 @@
     }
   }
 
-  @keyframes fade-in-bounce {
+  @keyframes bounce {
     0% {
-      opacity: 0;
+      opacity: 1;
       transform: translateY(0);
     }
     50% {
@@ -245,15 +252,16 @@
 
   &.name-2nd {
     position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 300px;
-    top: 475px;
+    width: 6.5vw;
+    //height: 10vw;
+    left: 17.5vw;
+    top: 28vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -266,15 +274,16 @@
 
   &.points-2nd {
     position: absolute;
-    width: 48px;
-    height: 50px;
-    left: 333px;
-    top: 550px;
+    width: 3.25vw;
+    //height: 50px;
+    left: 19.25vw;
+    top: 31vw;
 
-    font-family: "Gill Sans";
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 2.5vw;
     line-height: 50px;
     text-align: center;
 
@@ -286,16 +295,16 @@
   }
 
   &.profile-picture-2nd {
-    width: 7em;
-    height: 7em;
+    width: 6.5vw;
+    height: 6.5vw;
     border-radius: 50%;
     border: 2px solid #97E1D4FF;
     //background-image: url('./../../images/RedPanda.png');
     //background-position: center;
     background-size: cover;
     position: absolute;
-    left: 300px;
-    top: 350px;
+    left: 17.5vw;
+    top: 20.5vw;
     opacity: 0; /* start with 0 opacity */
     animation: fade-in 1s ease-in-out forwards 2s;
 
@@ -303,15 +312,16 @@
 
   &.name-3rd {
     position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 570px;
-    top: 475px;
+    width: 6.5vw;
+    //height: 38px;
+    left: 33vw;
+    top: 28vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -324,15 +334,16 @@
 
   &.points-3rd {
     position: absolute;
-    width: 48px;
-    height: 50px;
-    left: 605px;
-    top: 550px;
+    width: 2.5vw;
+    //height: 50px;
+    left: 35.2vw;
+    top: 31vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 2.5vw;
     line-height: 50px;
     text-align: center;
 
@@ -344,16 +355,16 @@
   }
 
   &.profile-picture-3rd {
-    width: 7em;
-    height: 7em;
+    width: 6.5vw;
+    height: 6.5vw;
     border-radius: 50%;
     border: 2px solid #97E1D4FF;
     //background-image: url('./../../images/RedPanda.png');
     //background-position: center;
     background-size: cover;
     position: absolute;
-    left: 575px;
-    top: 350px;
+    left: 33vw;
+    top: 20.5vw;
     opacity: 0;
     animation: fade-in 1s ease-in-out forwards 1s;
   }

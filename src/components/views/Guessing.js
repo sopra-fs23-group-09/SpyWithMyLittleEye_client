@@ -23,7 +23,7 @@ const StreetView = () => {
     useEffect(() => {
         const location = JSON.parse(localStorage.getItem("location"));
         const loader = new Loader({
-            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ",
+            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
             version: 'weekly',
         });
 
@@ -91,6 +91,7 @@ const Guessing = () => {
     const playerUsername = localStorage.getItem("username");
     const token = localStorage.getItem("token");
     const duration = localStorage.getItem("duration");
+    const role = localStorage.getItem("role");
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
 
@@ -100,7 +101,6 @@ const Guessing = () => {
     const [playerInput, setPlayerInput] = useState(null);
     const [hint, setHint] = useState("");
     const [guesses, setGuesses] = useState([]);
-    const [role, setRole] = useState(null);
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
@@ -115,20 +115,10 @@ const Guessing = () => {
         const playerId = localStorage.getItem("userId");
         const lobbyId = localStorage.getItem("lobbyId");
         const token = localStorage.getItem("token");
-        const distributeRole = async () => {
-            try {
-                const requestBody = JSON.stringify({playerId});
-                const response = await api.get('/game/'+lobbyId+'/roleForUser/'+playerId, requestBody, {headers: {Token: token}});
-                const role = response.data
-                setRole(role);
-            }  catch (error) {
-                console.log("Couldn't fetch role\n" + handleError(error));
-            }
-
-        };
+        console.log("TOKEN: " + token);
         const displayCurrentRound = async () => {
             try {
-                const response = await api.get('/game/'+lobbyId+'/roundnr/', {headers: {Token: token}});
+                const response = await api.get('/games/'+lobbyId+'/roundnr/', {headers: {Token: token}});
                 const currentRound = response.data["currentRound"];
                 const amountOfRounds = response.data["totalRounds"];
                 setCurrentRound(currentRound);
@@ -197,7 +187,6 @@ const Guessing = () => {
             //subscribeToTimeInformation();
         }
 
-        distributeRole();
         displayCurrentRound();
         displayTimer();
         if (!getConnection()) {
