@@ -99,9 +99,7 @@ const GameOver = () => {
 
     return (
         <BaseContainer>
-            <Link to="/home" className="code left-field">
                 <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
-            </Link>
             <div className="base-container ellipse1">
             </div>
             <div className="base-container ellipse2">
