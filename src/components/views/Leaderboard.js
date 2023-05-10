@@ -22,6 +22,8 @@ const Leaderboard = () => {
     let counter_gamesWon = 1;
 
 
+
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -63,7 +65,8 @@ const Leaderboard = () => {
         history.push('/login');
     }
 
-    return (
+
+        return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
                 <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
