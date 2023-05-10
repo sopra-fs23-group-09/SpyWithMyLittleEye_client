@@ -96,7 +96,7 @@ const RoundOver = () => {
     return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw' }} />
             </Link>
             <div className="base-container ellipse1">
             </div>
@@ -139,14 +139,13 @@ const RoundOver = () => {
                     <div className="score points-2nd">
                         {second.points}
                     </div>
-                    <img className="score profile-picture-3rd" src = {picture3} alt ="profilePicture">
-                    </img>
-                    <div className="score name-3rd">
-                        {third.username}
-                    </div>
-                    <div className="score points-3rd">
-                        {third.points}
-                    </div>
+                    {third && (
+                        <>
+                            <img className="score profile-picture-3rd" src={picture3} alt="profilePicture" />
+                            <div className="score name-3rd">{third.username}</div>
+                            <div className="score points-3rd">{third.points}</div>
+                        </>
+                    )}
                 </div>
             </div>
             {button_newRound}

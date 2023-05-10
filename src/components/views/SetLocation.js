@@ -71,7 +71,7 @@ const SetLocation = (props) => {
 
     useEffect(() => {
         const loader = new Loader({
-            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ", // Replace with your Google Maps API key
+            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your Google Maps API key
             version: 'weekly',
         });
         loader.load().then(() => {
@@ -140,7 +140,7 @@ const SetLocation = (props) => {
         const displayCurrentRound = async () => {
 
             try {
-                const response = await api.get('/game/' + lobbyId + '/roundnr/', {headers: {Token: token}});
+                const response = await api.get('/games/' + lobbyId + '/roundnr/', {headers: {Token: token}});
                 const currentRound = response.data["currentRound"];
                 const amountOfRounds = response.data["totalRounds"];
                 setCurrentRound(currentRound);

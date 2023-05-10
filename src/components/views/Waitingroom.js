@@ -28,9 +28,10 @@ const Waitingroom = () => {
 
     useEffect( () => {
         async function fetchData() {
-            const response = await api.get("/game/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
+            const response = await api.get("/games/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
             const role = response["data"];
             setRole(response["data"]);
+            localStorage.setItem("role", role);
             if (role.toString() === ("SPIER").toString()) {
                 console.log("You're a spier this round.")
                 history.push("/game/" + gameId + "/location")
