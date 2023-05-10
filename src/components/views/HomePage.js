@@ -6,9 +6,14 @@ import {api} from 'helpers/api';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {disconnect} from "../../helpers/stompClient";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const HomePage = () => {
+    useEffect(()=>{
+        setInterval(async ()=>{
+            await api.put("/users/keepAlive", {}, {headers: {Token: localStorage.getItem("token")}})
+        }, 2000)
+    }, [])
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const userId = localStorage.getItem('userId');
