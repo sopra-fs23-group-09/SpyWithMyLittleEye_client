@@ -6,6 +6,7 @@ import {Link, useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
 import {disconnect} from "../../helpers/stompClient";
 import "styles/views/Guessing.scss";
+import {getProfilePic} from "../../helpers/utilFunctions";
 
 import React, {useEffect, useState} from "react";
 
@@ -21,153 +22,15 @@ const Leaderboard = () => {
     let counter_gamesWon = 1;
 
 
+
+
     useEffect(() => {
         async function fetchData() {
             try {
+                // TODO get profile pics
                 // RANKING BY HIGHSCORE
                 const response1 = await api.get('/users/ranking', {headers: {Token: localStorage.getItem("token")}});
                 console.log(response1["data"]);
-                // TODO take out
-                /**response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 5,
-                    "highScore": 230,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "xena"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 4,
-                    "highScore": 100,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "nina"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 1,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "claudia"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 3,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "thereza"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 10,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "loubna"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 5,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "xena"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 4,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "nina"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 1,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "claudia"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 3,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "thereza"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 10,
-                    "highScore": 1707,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "loubna"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 5,
-                    "highScore": 230,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "xena"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 4,
-                    "highScore": 100,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "nina"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 1,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "claudia"
-                })
-                response1["data"].push({
-                    "birthday": null,
-                    "creationDate": "2023-05-01",
-                    "gamesPlayed": 0,
-                    "gamesWon": 3,
-                    "highScore": 0,
-                    "id": 1,
-                    "status": "ONLINE",
-                    "username": "thereza"
-                })**/
                 setUsers(response1["data"])
 
                 // RANKING BY GAMES WON
@@ -187,6 +50,7 @@ const Leaderboard = () => {
         audio.play();
         history.push(`/users/${userId}`);
     };
+
 // TODO: duplicate functions into util?
     const logout = async () => {
         audio.play();
@@ -201,7 +65,8 @@ const Leaderboard = () => {
         history.push('/login');
     }
 
-    return (
+
+        return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
                 <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
@@ -263,7 +128,7 @@ const Leaderboard = () => {
                                         </div>
                                         <img
                                             className="leader profile-picture"
-                                            src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                            src= {getProfilePic(user.profilePicture)}
                                             alt="profile pic"
                                             style={{
                                                 objectFit: 'cover',
@@ -284,7 +149,7 @@ const Leaderboard = () => {
                         </div>
                             <img
                                 className="player profile-picture"
-                                src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                src= {getProfilePic(user.profilePicture)}
                                 alt="profile pic"
                                 style={{
                                     objectFit: 'cover',
@@ -324,7 +189,7 @@ const Leaderboard = () => {
                                         </div>
                                         <img
                                             className="leader profile-picture"
-                                            src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                            src= {getProfilePic(user.profilePicture)}
                                             alt="profile pic"
                                             style={{
                                                 objectFit: 'cover',
@@ -346,7 +211,7 @@ const Leaderboard = () => {
                                         </div>
                                         <img
                                             className="player profile-picture"
-                                            src="https://cdn.shopify.com/s/files/1/0535/2738/0144/articles/shutterstock_1290320698.jpg?v=1651099282"
+                                            src= {getProfilePic(user.profilePicture)}
                                             alt="profile pic"
                                             style={{
                                                 objectFit: 'cover',

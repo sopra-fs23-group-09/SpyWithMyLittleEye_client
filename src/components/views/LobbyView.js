@@ -1,6 +1,6 @@
 import {Button} from 'components/ui/Button';
 import 'styles/views/LobbyView.scss';
-import {Link,useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Spinner} from 'components/ui/Spinner';
 import React, {useEffect, useState} from 'react';
@@ -14,16 +14,6 @@ import {
     startGame,
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
-import Bear from "../../images/Bear.png";
-import Budgie from "../../images/Budgie.png";
-import Bunny from "../../images/Bunny.png";
-import Cockatoo from "../../images/Cockatoo.png";
-import Icebear from "../../images/Icebear.png";
-import Owl from "../../images/Owl.png";
-import Panda from "../../images/Panda.png";
-import Penguin from "../../images/Penguin.png";
-import RedPanda from "../../images/RedPanda.png";
-import Sloth from "../../images/Sloth.png";
 import {getProfilePic} from "../../helpers/utilFunctions";
 
 const LobbyView = () => {
@@ -72,7 +62,7 @@ const LobbyView = () => {
             localStorage.setItem("gameId", gameId);
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
-    }, [lobbyId, history]);
+    }, [lobbyId, history, token]);
 
     function startGameButtonClick() {
         audio.play();
@@ -118,7 +108,7 @@ const LobbyView = () => {
                     {lobby.playerNames.map(name => (
                         <li className="lobby player-container">
                             <img
-                                src= {getProfilePic(name)}
+                                src= {getProfilePic(name) /**TODO change from name to profilePic**/}
                                 style={{
                                     borderRadius: '50%',
                                     height: '7em',
