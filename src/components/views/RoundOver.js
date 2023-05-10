@@ -139,7 +139,7 @@ const RoundOver = () => {
                     <div className="score points-2nd">
                         {second.points}
                     </div>
-                    {third && (
+                    {third && third.username && (
                         <>
                             <img className="score profile-picture-3rd" src={picture3} alt="profilePicture" />
                             <div className="score name-3rd">{third.username}</div>
