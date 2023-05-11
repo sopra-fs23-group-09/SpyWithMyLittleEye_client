@@ -50,6 +50,7 @@ const RoundOver = () => {
     useEffect( () => {
         async function fetchData() {
             let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
+            console.log(response);
             setKeyword(response.data["keyword"]);
             setHostId(response.data["hostId"])
             setCurrentRoundNr(response.data["currentRoundNr"])
@@ -118,9 +119,9 @@ const RoundOver = () => {
             </Button>)
     }
 
-    let picture1 = getProfilePic(first.profilePicture);
-    let picture2 = getProfilePic(second.profilePicture);
-    let picture3 = getProfilePic(third.profilePicture);
+    let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture):null;
+    let picture2 = (second && second.profilePicture) ?getProfilePic(second.profilePicture):null;
+    let picture3 = (third && third.profilePicture) ?getProfilePic(third.profilePicture):null;
     return (
         <BaseContainer>
             <div class="code left-field">

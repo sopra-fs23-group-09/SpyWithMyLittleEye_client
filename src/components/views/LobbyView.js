@@ -21,11 +21,14 @@ const LobbyView = () => {
     let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
     var [players, setPlayers] = useState(null);
+    var [profilePics, setProfilePics]= useState(null);
 
     let lobbyId = localStorage.getItem("lobbyId");
     let token = localStorage.getItem("token");
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
+    let counter = -1;
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
@@ -79,6 +82,8 @@ const LobbyView = () => {
                         console.log("JOINED")
                         setLobby(data);
                         setPlayers(data.playerNames);
+                        console.log(data.profilePictures);
+                        setProfilePics(data.profilePictures);
                         // TODO set profile pictures!!!!!
                     } else if (event.toString() === ("started").toString()) {
                         console.log("STARTED");
@@ -149,7 +154,7 @@ const LobbyView = () => {
     }
 
     let content = <Spinner/>;
-    if (lobby && players) {
+    if (lobby && players && profilePics) {
         content = (
             <div>
                 <div className="lobby lobby-code">
@@ -168,10 +173,12 @@ const LobbyView = () => {
                     </div>
                 </div>
                 <ul className="lobby player-list">
-                    {players.map(name => (
-                        <li className="lobby player-container">
+                    {players.map(name =>
+                    {   counter++;
+                        console.log(profilePics[counter])
+                        return (<li className="lobby player-container">
                             <img
-                                src= {getProfilePic(name) /**TODO change from name to profilePic**/}
+                                src= {getProfilePic(profilePics[counter]) /**TODO change from name to profilePic**/}
                                 style={{
                                     borderRadius: '50%',
                                     height: '7em',
@@ -184,7 +191,7 @@ const LobbyView = () => {
                                 {name}
                             </div>
                         </li>
-                    ))
+                    )})
                     }
                 </ul>
                 {button_startGame}
