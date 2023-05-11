@@ -56,16 +56,21 @@ export const getProfilePic = (pp_name) => {
 export const logout = async () => {
     try {
         const title = {title: 'logout request'};
-        const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
-        console.log(response);
+        await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
+        console.log("Logout successful");
 
-        console.log("stop!!!" + localStorage.getItem('intervalId'))
+        console.log("I am no longer alive....")
         clearInterval(parseInt(localStorage.getItem('intervalId')));
 
         disconnect(); // TODO shall we do this?
+
+        // TODO localstorage.clear() ?
+        console.log("I am deleting from localStorage...")
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('profilePicture');
+        localStorage.removeItem('intervalId');
+
         const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
         await audio.play();
     } catch (error) {

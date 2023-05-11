@@ -2,11 +2,11 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/HomePage.scss';
 import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {api, handleError} from 'helpers/api';
+import {api} from 'helpers/api';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
-import {disconnect} from "../../helpers/stompClient";
 import React, { useState, useEffect } from 'react';
+import {logout} from "../../helpers/utilFunctions";
 
 const HomePage = () => {
 
@@ -32,31 +32,6 @@ const HomePage = () => {
         history.push(`/users/${userId}`);
         audio.play();
     };
-
-    // TODO: Duplicated code
-    const logout = async () => {
-        try {
-            const title = {title: 'logout request'};
-            const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
-            console.log(response);
-
-            disconnect(); // TODO shall we do this?
-
-            console.log("stop!!!" + localStorage.getItem('intervalId'))
-            clearInterval(parseInt(localStorage.getItem('intervalId')));
-
-            console.log("I am deleting from localStorage...")
-            localStorage.removeItem('token');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('profilePicture');
-            localStorage.removeItem('intervalId');
-            history.push('/login');
-            audio.play();
-        } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
-
-    }
 
     return (
         <BaseContainer>
