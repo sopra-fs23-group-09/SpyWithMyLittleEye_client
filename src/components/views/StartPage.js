@@ -21,6 +21,8 @@ const StartPage = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('duration');
+        localStorage.removeItem('intervalId');
+
     }, []);
 
     return (
