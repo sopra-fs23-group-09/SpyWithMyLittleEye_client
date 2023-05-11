@@ -34,6 +34,7 @@ const LobbyView = () => {
             connect(subscribeToLobbyInformation)
         }
 
+        // Get information if someone new joins, or the host starts the game
         function subscribeToLobbyInformation() {
             subscribe("/topic/lobbies/" + lobbyId, data => {
                 console.log("Inside callback");
@@ -53,12 +54,24 @@ const LobbyView = () => {
                 }
 
             });
+
             notifyLobbyJoined(lobbyId, token);
+            subscribeToUserDropOut();
+
+        }
+
+        // Be notified if someone drops out if they close the tab / browser
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
+                console.log("Someone dropped out!");
+                console.log(data);
+            });
         }
 
         function redirectToGame() {
             let gameId = lobbyId;
             unsubscribe("/topic/lobbies/" + lobbyId);
+            unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
             localStorage.setItem("gameId", gameId);
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
