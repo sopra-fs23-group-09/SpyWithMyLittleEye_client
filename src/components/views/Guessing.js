@@ -156,6 +156,16 @@ const Guessing = () => {
             unsubscribe("/topic/games/" + lobbyId + "/hints");
         }
 
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
+                alert("Someone dropped out!");
+                console.log(data);
+                // go to waiting room, abort round
+
+            });
+        }
+        subscribeToUserDropOut(); // TODO is this ok
+
 
         function subscribeToGuessInformation() {
             subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {

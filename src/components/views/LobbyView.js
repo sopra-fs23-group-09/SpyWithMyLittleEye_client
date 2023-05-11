@@ -14,7 +14,7 @@ import {
     startGame,
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
-import {getProfilePic, logout} from "../../helpers/utilFunctions";
+import {getProfilePic} from "../../helpers/utilFunctions";
 import {api} from "../../helpers/api";
 
 const LobbyView = () => {
@@ -113,9 +113,6 @@ const LobbyView = () => {
                         console.log(players)
                     }
                 }**/
-
-                // log that person out:
-                logout().then(r => history.push("/start"));
             });
         }
 

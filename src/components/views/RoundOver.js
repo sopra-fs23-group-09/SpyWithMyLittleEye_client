@@ -85,6 +85,16 @@ const RoundOver = () => {
                 history.push(`/game/` + gameId + "/waitingroom");
             });
         }
+
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
+                alert("Someone dropped out!");
+                console.log(data);
+                // refetch ur role , TODO maybe force site to reload
+
+            });
+        }
+        subscribeToUserDropOut();
     }, [gameId, history]);
 
 
