@@ -91,12 +91,11 @@ const Guessing = () => {
     const playerUsername = localStorage.getItem("username");
     const token = localStorage.getItem("token");
     const duration = localStorage.getItem("duration");
+    console.log("DURATION IS: " + duration);
     const role = localStorage.getItem("role");
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
     const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
-
-
 
     const history = useHistory();
 
@@ -107,6 +106,7 @@ const Guessing = () => {
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
     const [timeLeft, setTimeLeft] = useState(duration * 60);
+    console.log("TIME LEFT: " + timeLeft);
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;

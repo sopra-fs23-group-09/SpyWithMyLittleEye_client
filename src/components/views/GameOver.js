@@ -69,6 +69,7 @@ const GameOver = () => {
                 // empty local storage
                 localStorage.removeItem("location");
                 localStorage.removeItem("color");
+                localStorage.removeItem("duration");
                 localStorage.removeItem("lobbyId");
                 localStorage.removeItem("gameId");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
