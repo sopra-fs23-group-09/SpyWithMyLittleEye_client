@@ -14,6 +14,7 @@ const StartPage = () => {
     useEffect(() => {
         // clear local storage
         disconnect();
+        localStorage.clear();
         localStorage.removeItem("location");
         localStorage.removeItem("color");
         localStorage.removeItem("lobbyId");

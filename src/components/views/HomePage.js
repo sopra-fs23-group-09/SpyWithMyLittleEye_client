@@ -9,11 +9,15 @@ import {disconnect} from "../../helpers/stompClient";
 import React, { useState, useEffect } from 'react';
 
 const HomePage = () => {
+
+    // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
         setInterval(async ()=>{
             await api.put("/users/keepAlive", {}, {headers: {Token: localStorage.getItem("token")}})
         }, 2000)
     }, [])
+
+
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const userId = localStorage.getItem('userId');
