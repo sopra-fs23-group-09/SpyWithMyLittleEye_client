@@ -66,9 +66,13 @@ export const logout = async () => {
 
         // TODO localstorage.clear() ?
         console.log("I am deleting from localStorage...")
+        localStorage.removeItem("location");
+        localStorage.removeItem("color");
+        localStorage.removeItem("lobbyId");
+        localStorage.removeItem("gameId");
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
-        localStorage.removeItem('profilePicture');
+        localStorage.removeItem('duration');
         localStorage.removeItem('intervalId');
 
         const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');

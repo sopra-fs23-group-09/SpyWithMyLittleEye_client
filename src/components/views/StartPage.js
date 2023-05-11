@@ -14,15 +14,9 @@ const StartPage = () => {
     useEffect(() => {
         // clear local storage
         disconnect();
-        localStorage.removeItem("location");
-        localStorage.removeItem("color");
-        localStorage.removeItem("lobbyId");
-        localStorage.removeItem("gameId");
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('duration');
-        localStorage.removeItem('intervalId');
-
+        console.log("I am no longer alive....")
+        clearInterval(parseInt(localStorage.getItem('intervalId')));
+        localStorage.clear();
     }, []);
 
     return (

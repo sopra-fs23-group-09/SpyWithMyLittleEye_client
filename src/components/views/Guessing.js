@@ -111,6 +111,23 @@ const Guessing = () => {
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
 
+    // KEEP ALIVE: to tell if an user has become idle
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))) {
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async () => {
+                try {
+                    await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                    console.log("I am alive!!! " + token)
+                } catch (e) {
+                    history.push("/start");
+                }
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+        }
+    }, [history])
 
 
     useEffect(() => {
@@ -138,6 +155,16 @@ const Guessing = () => {
             });
             unsubscribe("/topic/games/" + lobbyId + "/hints");
         }
+
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
+                alert("Someone dropped out!");
+                console.log(data);
+                // go to waiting room, abort round
+
+            });
+        }
+        subscribeToUserDropOut(); // TODO is this ok
 
 
         function subscribeToGuessInformation() {

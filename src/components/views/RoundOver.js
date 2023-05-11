@@ -28,9 +28,29 @@ const RoundOver = () => {
     let [second, setSecond] = useState({username: "", points: ""})
     let [third, setThird] = useState({username: "", points: ""})
 
+    // KEEP ALIVE: to tell if an user has become idle
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))) {
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async () => {
+                try {
+                    await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                    console.log("I am alive!!! " + token)
+                } catch (e) {
+                    history.push("/start");
+                }
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+        }
+    }, [history])
+
+
     useEffect( () => {
         async function fetchData() {
             let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
+            console.log(response);
             setKeyword(response.data["keyword"]);
             setHostId(response.data["hostId"])
             setCurrentRoundNr(response.data["currentRoundNr"])
@@ -66,6 +86,16 @@ const RoundOver = () => {
                 history.push(`/game/` + gameId + "/waitingroom");
             });
         }
+
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
+                alert("Someone dropped out!");
+                console.log(data);
+                // refetch ur role , TODO maybe force site to reload
+
+            });
+        }
+        subscribeToUserDropOut();
     }, [gameId, history]);
 
 
@@ -89,9 +119,9 @@ const RoundOver = () => {
             </Button>)
     }
 
-    let picture1 = getProfilePic(first.profilePicture);
-    let picture2 = getProfilePic(second.profilePicture);
-    let picture3 = getProfilePic(third.profilePicture);
+    let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture):null;
+    let picture2 = (second && second.profilePicture) ?getProfilePic(second.profilePicture):null;
+    let picture3 = (third && third.profilePicture) ?getProfilePic(third.profilePicture):null;
     return (
         <BaseContainer>
             <div class="code left-field">

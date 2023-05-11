@@ -20,7 +20,23 @@ const Leaderboard = () => {
     let counter_highscore = 1;
     let counter_gamesWon = 1;
 
+        // KEEP ALIVE: to tell if an user has become idle
+        useEffect(()=>{
+            if (!(localStorage.getItem("intervalId"))) {
+                let token = localStorage.getItem("token");
 
+                let intervalId = setInterval(async () => {
+                    try {
+                        await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                        console.log("I am alive!!! " + token)
+                    } catch (e) {
+                        history.push("/start");
+                    }
+                }, 2000)
+                localStorage.setItem("intervalId", String(intervalId));
+                console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+            }
+        }, [history])
 
 
     useEffect(() => {
@@ -201,7 +217,8 @@ const Leaderboard = () => {
                     </div>
                 </Button>
                 <Button className="logout-button" onClick={() => {
-                    logout().then(r => history.push('/login'));
+                    logout().then(r => history.push('/start'));
+
                 }
                 }>
                     <div className="leaderboard-page logout-text">
