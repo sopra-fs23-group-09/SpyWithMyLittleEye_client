@@ -29,6 +29,7 @@ const Waitingroom = () => {
     useEffect( () => {
         async function fetchData() {
             const response = await api.get("/games/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
+            console.log(response)
             const role = response["data"];
             setRole(response["data"]);
             localStorage.setItem("role", role);

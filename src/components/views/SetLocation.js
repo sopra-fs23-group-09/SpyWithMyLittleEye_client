@@ -60,6 +60,7 @@ FormFieldColor.propTypes = {
 const SetLocation = (props) => {
     const history = useHistory();
     const gameId = localStorage.getItem("gameId");
+    const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
 
     const [location, setlocation] = useState("");
@@ -108,6 +109,7 @@ const SetLocation = (props) => {
     }, []);
 
 
+
     useEffect(() => {
         console.log("Connected: " + getConnection())
         if (getConnection()) {
@@ -119,10 +121,13 @@ const SetLocation = (props) => {
         function subscribeToSetLocationInformation() {
             subscribe("/topic/games/" + gameId + "/spiedObject", data => {
                 localStorage.setItem("duration", data["duration"])
+                unsubscribe("/topic/games/" + gameId + "/spiedObject");
+                history.push("/game/" + gameId);
             });
 
         }
-    }, [gameId]);
+    }, [gameId, history, lobbyId]);
+
 
     const handleColorChange = (event) => {
         setColor(event.target.value);
@@ -155,12 +160,9 @@ const SetLocation = (props) => {
 
     function startGame() {
         audio.play();
-        const lobbyId = localStorage.getItem("lobbyId");
         localStorage.setItem("location", JSON.stringify(location));
         localStorage.setItem("color", JSON.stringify(color));
         notifySpiedObject(lobbyId, location, color, object, token);
-        unsubscribe("/topic/games/" + gameId + "/spiedObject");
-        history.push("/game/" + lobbyId);
     }
 
     return (
