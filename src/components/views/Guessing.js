@@ -93,9 +93,9 @@ const Guessing = () => {
     const duration = localStorage.getItem("duration");
     console.log("DURATION IS: " + duration);
     const role = localStorage.getItem("role");
-    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
-    const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
-    const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
+//    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+ //   const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
+ //   const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
 
     const history = useHistory();
 
@@ -114,7 +114,6 @@ const Guessing = () => {
 
 
     useEffect(() => {
-        const playerId = localStorage.getItem("userId");
         const lobbyId = localStorage.getItem("lobbyId");
         const token = localStorage.getItem("token");
         console.log("TOKEN: " + token);
