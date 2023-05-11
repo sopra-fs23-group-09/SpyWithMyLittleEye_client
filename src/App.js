@@ -7,9 +7,14 @@ import AppRouter from "components/routing/routers/AppRouter";
  * Overhauled by Kyrill Hux
  */
 const App = () => {
-  return (
+    window.onbeforeunload = () => {localStorage.removeItem('intervalId'); alert("WHWHH")};
+
+    return (
     <div>
-      <script> localStorage.clear(); </script>
+      <script>
+          localStorage.clear();
+          window.onbeforeunload = () => localStorage.removeItem('intervalId');
+      </script>
       <Header height="100"/>
       <AppRouter/>
     </div>

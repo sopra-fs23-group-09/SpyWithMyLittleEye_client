@@ -25,6 +25,22 @@ const Waitingroom = () => {
     }, []);
 
 
+    // TODO Duplicated code
+    // make sure u're telling the server that u're alive!!
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))){
+            console.log("REANIMATED")
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async ()=>{
+                await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                console.log("I am alive!!! "+ token)
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : "+ localStorage.getItem("intervalId")+ " actual: " +intervalId);
+        }
+    }, [])
+
 
     useEffect( () => {
         async function fetchData() {
@@ -66,14 +82,17 @@ const Waitingroom = () => {
         }
 
         function redirectToRound() {
+            unsubscribe("/topic/games/" + gameId+ "/userDropOut");
             unsubscribe("/topic/games/" + gameId + "/spiedObject");
             history.push("/game/" + gameId);
         }
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
-                console.log("Someone dropped out!");
+                alert("Someone dropped out!");
                 console.log(data);
+                // refetch ur role , TODO maybe force site to reload
+
             });
         }
 

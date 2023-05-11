@@ -15,15 +15,46 @@ import {
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
 import {getProfilePic} from "../../helpers/utilFunctions";
+import {api} from "../../helpers/api";
 
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
     var [lobby, setLobby] = useState(null);
+    var [players, setPlayers] = useState(null);
+
     let lobbyId = localStorage.getItem("lobbyId");
     let token = localStorage.getItem("token");
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
+    // make sure u're telling the server that u're alive!!
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))){
+            console.log("REANIMATED")
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async ()=>{
+                await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                console.log("I am alive!!! "+ token)
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : "+ localStorage.getItem("intervalId")+ " actual: " +intervalId);
+        }
+    }, [])
+
+    useEffect( () => {
+        // ignore this for now, ill use this to remove someone from the lobby in the callback for userDropOut
+        let username = "ff";
+        if (lobby && lobby.playerNames && lobby.playerNames.includes(username)) {
+            const index = lobby.playerNames.indexOf(username) ;
+            if (index > -1) {
+                console.log("removing")
+               // lobby.playerNames = lobby.playerNames.filter(e => e !== username);
+                setPlayers(lobby.playerNames)
+                console.log(lobby.playerNames)
+            }
+        }
+    }, [lobby])
 
 
     useEffect(() => {
@@ -44,6 +75,7 @@ const LobbyView = () => {
                     if (event.toString() === ("joined").toString()) {
                         console.log("JOINED")
                         setLobby(data);
+                        setPlayers(data.playerNames);
                         // TODO set profile pictures!!!!!
                     } else if (event.toString() === ("started").toString()) {
                         console.log("STARTED");
@@ -63,8 +95,10 @@ const LobbyView = () => {
         // Be notified if someone drops out if they close the tab / browser
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
-                console.log("Someone dropped out!");
+                alert("Someone dropped out!");
                 console.log(data);
+
+                // Remove this person from the lobby
             });
         }
 
@@ -80,8 +114,10 @@ const LobbyView = () => {
     function startGameButtonClick() {
         audio.play();
         startGame(lobbyId, token); // from stompClient
+        // TODO DUplicate code
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
+        unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
         localStorage.setItem("gameId", gameId);
         history.push(`/game/` + lobbyId + "/waitingroom");
     }
@@ -99,7 +135,7 @@ const LobbyView = () => {
     }
 
     let content = <Spinner/>;
-    if (lobby) {
+    if (lobby && players) {
         content = (
             <div>
                 <div className="lobby lobby-code">
@@ -118,7 +154,7 @@ const LobbyView = () => {
                     </div>
                 </div>
                 <ul className="lobby player-list">
-                    {lobby.playerNames.map(name => (
+                    {players.map(name => (
                         <li className="lobby player-container">
                             <img
                                 src= {getProfilePic(name) /**TODO change from name to profilePic**/}
