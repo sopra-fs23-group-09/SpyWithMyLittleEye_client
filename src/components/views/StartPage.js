@@ -14,6 +14,8 @@ const StartPage = () => {
     useEffect(() => {
         // clear local storage
         disconnect();
+        console.log("I am no longer alive....")
+        clearInterval(parseInt(localStorage.getItem('intervalId')));
         localStorage.clear();
     }, []);
 

@@ -2,7 +2,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Rounds.scss';
 import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {api, handleError} from "../../helpers/api";
 import { Icon } from '@iconify/react';
@@ -10,6 +10,25 @@ import 'styles/views/Code.scss';
 
 const FormField = (props) => {
   const { type, placeholder, value, onChange } = props;
+  const history = useHistory();
+
+    // KEEP ALIVE: to tell if an user has become idle
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))) {
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async () => {
+                try {
+                    await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                    console.log("I am alive!!! " + token)
+                } catch (e) {
+                    history.push("/start");
+                }
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+        }
+    }, [history])
 
   if (type === "number") {
     return (

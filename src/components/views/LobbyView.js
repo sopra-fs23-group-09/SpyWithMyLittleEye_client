@@ -14,7 +14,7 @@ import {
     startGame,
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
-import {getProfilePic} from "../../helpers/utilFunctions";
+import {getProfilePic, logout} from "../../helpers/utilFunctions";
 import {api} from "../../helpers/api";
 
 const LobbyView = () => {
@@ -27,20 +27,23 @@ const LobbyView = () => {
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
-    // make sure u're telling the server that u're alive!!
+    // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
-        if (!(localStorage.getItem("intervalId"))){
-            console.log("REANIMATED")
+        if (!(localStorage.getItem("intervalId"))) {
             let token = localStorage.getItem("token");
 
-            let intervalId = setInterval(async ()=>{
-                await api.put("/users/keepAlive", {}, {headers: {Token: token}})
-                console.log("I am alive!!! "+ token)
+            let intervalId = setInterval(async () => {
+                try {
+                    await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                    console.log("I am alive!!! " + token)
+                } catch (e) {
+                    history.push("/start");
+                }
             }, 2000)
             localStorage.setItem("intervalId", String(intervalId));
-            console.log("Localstorage : "+ localStorage.getItem("intervalId")+ " actual: " +intervalId);
+            console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
         }
-    }, [])
+    }, [history])
 
     useEffect( () => {
         // ignore this for now, ill use this to remove someone from the lobby in the callback for userDropOut
@@ -98,7 +101,21 @@ const LobbyView = () => {
                 alert("Someone dropped out!");
                 console.log(data);
 
+                /**
                 // Remove this person from the lobby
+                let username = "ff";
+                if (players&& players.includes(username)) {
+                    const index = players.indexOf(username) ;
+                    if (index > -1) {
+                        console.log("removing")
+                        // lobby.playerNames = lobby.playerNames.filter(e => e !== username);
+                        setPlayers(players)
+                        console.log(players)
+                    }
+                }**/
+
+                // log that person out:
+                logout().then(r => history.push("/start"));
             });
         }
 

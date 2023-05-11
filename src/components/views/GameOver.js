@@ -32,6 +32,24 @@ const GameOver = () => {
     let [second, setSecond] = useState({username: "", points: ""})
     let [third, setThird] = useState({username: "", points: ""})
 
+    // KEEP ALIVE: to tell if an user has become idle
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))) {
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async () => {
+                try {
+                    await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                    console.log("I am alive!!! " + token)
+                } catch (e) {
+                    history.push("/start");
+                }
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+        }
+    }, [history])
+
     useEffect( () => {
         async function fetchData() {
             let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
