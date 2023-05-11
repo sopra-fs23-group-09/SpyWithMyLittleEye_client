@@ -2,12 +2,12 @@
 
 .login {
   &.container {
-    margin-top: 4em;
-    min-height: 100%;
+    margin-top: 7vw;
+    left: 4vh;
+    position: absolute;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
-    max-width: 1800px; /* set a maximum width that looks good on most screens */
-    width: 100%;
+    width: 180vh;
     flex-direction: column;
   }
 
@@ -17,15 +17,16 @@
     z-index: 1;
     flex-direction: column;
     justify-content: center;
-    width: 75%;
-    max-width: 100%;
-    height: 28em;
-    font-size: 1.25em;
+    width: 130vh;
+    max-width: 130vh;
+    height: 40vw;
+    top:5vw;
+    font-size: 1.5vw;
     font-weight: 600;
-    font-family: "Gill Sans";
-    padding-right: 2%;
-    padding-left: 2%;
-    border-radius: 1.5em;
+    font-family: 'Quicksand', sans-serif;
+    padding-right: 2vw;
+    padding-left: 2vw;
+    border-radius: 4vw;
     background-color: #FFFFFF;
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-shadow: $dropShadow;
@@ -38,20 +39,20 @@
   }
 
   &.login-title{
-  width: 10em;
-  height: 2em;
-  font-family: 'Gill Sans';
+  width: 10vw;
+  height: 2vw;
+    font-family: 'Quicksand', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 2em;
-  line-height: 2%;
-  padding-left: 2%;
-  padding-bottom: 3%;
-  padding-top: 3%;
+  font-size: 3vw;
+  line-height: 2vh;
+  padding-left: 2vh;
+  padding-bottom: 5vh;
+  padding-top: 3vh;
   color: #000000;
   display: flex;
   text-align: right;
-  margin-top: -10%;
+  margin-top: -10vh;
   }
 
   &.input {
@@ -59,30 +60,30 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 3%;
-    margin-left: 1%;
-    margin-right: 1%;
+    padding-left: 3vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
     border: none;
-    margin-bottom: 2%;
+    margin-bottom: 2vh;
     color: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(3em);
     /* Note: backdrop-filter has minimal browser support */
-    border-radius: 4em;
+    border-radius: 4vh;
   }
   &.login input::placeholder {
     font-size: 1em;
   }
   &.label {
-    width: 71%;
-    height: 2em;
+    width: 71vh;
+    height: 6vh;
 
-        font-family: 'Mulish';
+    font-family: 'Quicksand', sans-serif;
         font-style: normal;
         font-weight: 600;
-        font-size: 1em;
-        line-height: 2%;
+        font-size: 1vh;
+        line-height: 2vh;
         /* identical to box height */
         text-align: center;
 
@@ -96,7 +97,7 @@
   }
   &.login-line{
       position: absolute;
-      width: 100%;
+      width: 123vh;
       height: 0px;
       left: 0px;
       top: calc(100% + 20px);
@@ -104,44 +105,44 @@
   }
   &.button-container {
     display: flex;
-    height: 11%;
-    width: 100%;
+    height: 9vh;
+    width: 122vh;
     justify-content: center;
     flex-direction: row;
     align-items:center;
-    padding: 0.5em;
-    gap: 10%;
-    margin-top: 2em;
+    padding: 0.5vh;
+    gap: 10vh;
+    margin-top: 4vh;
     background: #97E1D4;
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(3em);
     /* Note: backdrop-filter has minimal browser support */
 
-    border-radius: 4em;
+    border-radius: 4vh;
   }
   &.register-text{
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 1%;
-  gap: 1%;
+  padding: 1vh;
+  gap: 1vh;
 
   position: absolute;
-  width: 40%;
-  height: 58%;
+  width: 80vh;
+  height: 20vh;
   left: 0px;
-  top: 150%;
+  top: 13vh;
   }
   &.register-text a {
       font-weight: bold;
       color: #000000;
     }
   &.login-text{
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 0.75em;
-    line-height: 1.2em;
+    font-size: 6vh;
+    line-height: 1.2vh;
     /* identical to box height */
 
     text-align: center;
