@@ -69,6 +69,15 @@ const Waitingroom = () => {
             unsubscribe("/topic/games/" + gameId + "/spiedObject");
             history.push("/game/" + gameId);
         }
+
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
+                console.log("Someone dropped out!");
+                console.log(data);
+            });
+        }
+
+        subscribeToUserDropOut();
     }, [gameId, history]);
 
     let messageForGuessers = (<div></div>)
