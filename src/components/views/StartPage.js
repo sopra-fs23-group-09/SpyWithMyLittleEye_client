@@ -14,13 +14,13 @@ const StartPage = () => {
     useEffect(() => {
         // clear local storage
         disconnect();
-        localStorage.clear();
         localStorage.removeItem("location");
         localStorage.removeItem("color");
         localStorage.removeItem("lobbyId");
         localStorage.removeItem("gameId");
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('duration');
     }, []);
 
     return (

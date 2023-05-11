@@ -2,7 +2,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/HomePage.scss';
 import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {api} from 'helpers/api';
+import {api, handleError} from 'helpers/api';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {disconnect} from "../../helpers/stompClient";
@@ -14,6 +14,7 @@ const HomePage = () => {
     useEffect(()=>{
         setInterval(async ()=>{
             await api.put("/users/keepAlive", {}, {headers: {Token: localStorage.getItem("token")}})
+            console.log("Hi")
         }, 2000)
     }, [])
 
@@ -25,17 +26,24 @@ const HomePage = () => {
         history.push(`/users/${userId}`);
         audio.play();
     };
-    const logout = async () => {
-        audio.play();
-        const title = {title: 'logout request'};
-        const response = await api.put('/users/logout', title,{headers: {Token: localStorage.getItem("token")}});
-        console.log(response);
 
-        disconnect(); // TODO shall we do this?
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('profilePicture');
-        history.push('/login');
+    // TODO: Duplicated code
+    const logout = async () => {
+        try {
+            const title = {title: 'logout request'};
+            const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
+            console.log(response);
+
+            disconnect(); // TODO shall we do this?
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('profilePicture');
+            history.push('/login');
+            audio.play();
+        } catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
+
     }
 
     return (
@@ -67,7 +75,11 @@ const HomePage = () => {
                         Profile
                     </div>
                 </Button>
-                <Button className="logout-button" onClick={() => logout()}>
+                <Button className="logout-button" onClick={() => {
+                        logout().then(r => history.push('/login'));
+                    history.push('/login');
+                }
+                }>
                     <div className="home-page logout-text">
                         Log out
                     </div>
