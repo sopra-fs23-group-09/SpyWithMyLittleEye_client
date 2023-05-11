@@ -11,12 +11,18 @@ import React, { useState, useEffect } from 'react';
 const HomePage = () => {
 
     // KEEP ALIVE: to tell if an user has become idle
-    /**useEffect(()=>{
-        setInterval(async ()=>{
-            await api.put("/users/keepAlive", {}, {headers: {Token: localStorage.getItem("token")}})
-            console.log("Hi")
-        }, 2000)
-    }, [])**/
+    useEffect(()=>{
+        if (!(localStorage.getItem("intervalId"))){
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async ()=>{
+                await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                console.log("I am alive!!! "+ token)
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : "+ localStorage.getItem("intervalId")+ " actual: " +intervalId);
+        }
+    }, [])
 
 
     const history = useHistory();
@@ -35,9 +41,15 @@ const HomePage = () => {
             console.log(response);
 
             disconnect(); // TODO shall we do this?
+
+            console.log("stop!!!" + localStorage.getItem('intervalId'))
+            clearInterval(parseInt(localStorage.getItem('intervalId')));
+
+            console.log("I am deleting from localStorage...")
             localStorage.removeItem('token');
             localStorage.removeItem('userId');
             localStorage.removeItem('profilePicture');
+            localStorage.removeItem('intervalId');
             history.push('/login');
             audio.play();
         } catch (error) {

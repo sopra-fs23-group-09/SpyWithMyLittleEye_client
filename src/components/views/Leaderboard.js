@@ -4,7 +4,6 @@ import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import {Link, useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
-import {disconnect} from "../../helpers/stompClient";
 import "styles/views/Guessing.scss";
 import {getProfilePic, logout} from "../../helpers/utilFunctions";
 

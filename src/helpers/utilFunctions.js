@@ -59,6 +59,9 @@ export const logout = async () => {
         const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
         console.log(response);
 
+        console.log("stop!!!" + localStorage.getItem('intervalId'))
+        clearInterval(parseInt(localStorage.getItem('intervalId')));
+
         disconnect(); // TODO shall we do this?
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
