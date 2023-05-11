@@ -11,12 +11,12 @@ import React, { useState, useEffect } from 'react';
 const HomePage = () => {
 
     // KEEP ALIVE: to tell if an user has become idle
-    useEffect(()=>{
+    /**useEffect(()=>{
         setInterval(async ()=>{
             await api.put("/users/keepAlive", {}, {headers: {Token: localStorage.getItem("token")}})
             console.log("Hi")
         }, 2000)
-    }, [])
+    }, [])**/
 
 
     const history = useHistory();

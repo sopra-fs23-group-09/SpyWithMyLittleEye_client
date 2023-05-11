@@ -6,7 +6,7 @@ import {Link, useHistory} from "react-router-dom";
 import {api, handleError} from "../../helpers/api";
 import {disconnect} from "../../helpers/stompClient";
 import "styles/views/Guessing.scss";
-import {getProfilePic} from "../../helpers/utilFunctions";
+import {getProfilePic, logout} from "../../helpers/utilFunctions";
 
 import React, {useEffect, useState} from "react";
 
@@ -171,20 +171,6 @@ const Leaderboard = () => {
         history.push(`/users/${userId}`);
     };
 
-// TODO: duplicate functions into util?
-    const logout = async () => {
-        audio.play();
-        const title = {title: 'logout request'};
-        const response = await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
-        console.log(response);
-
-        disconnect(); // TODO shall we do this?
-        localStorage.removeItem('token');
-        localStorage.removeItem('profilePicture');
-        localStorage.removeItem('userId');
-        history.push('/login');
-    }
-
 
         return (
         <BaseContainer>
@@ -215,7 +201,10 @@ const Leaderboard = () => {
                         Profile
                     </div>
                 </Button>
-                <Button className="logout-button" onClick={() => logout()}>
+                <Button className="logout-button" onClick={() => {
+                    logout().then(r => history.push('/login'));
+                }
+                }>
                     <div className="leaderboard-page logout-text">
                         Log out
                     </div>
