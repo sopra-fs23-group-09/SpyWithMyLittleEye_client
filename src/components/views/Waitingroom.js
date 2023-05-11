@@ -59,6 +59,7 @@ const Waitingroom = () => {
                 console.log(data["color"]);
                 localStorage.setItem("location", JSON.stringify(data["location"]));
                 localStorage.setItem("color", JSON.stringify(data["color"]))
+                localStorage.setItem("duration", data["duration"]) //TODO needed?
                 redirectToRound();
             });
         }

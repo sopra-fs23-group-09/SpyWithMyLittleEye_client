@@ -30,10 +30,10 @@ const StartPage = () => {
                 I spy with my little eye
             </div>
             <div className="start-page eye-left">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '5rem'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4.5vw'}}/>
             </div>
             <div className="start-page eye-right">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '5rem'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4.5vw'}}/>
             </div>
             <div className="start-page nose">
                 Y
