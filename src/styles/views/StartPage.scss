@@ -78,9 +78,9 @@ body {
   &.game-title {
   position: absolute;
   z-index:101;
-  width: 31vw;
+  width: 35vw;
   //height: 30vh;
-  left: 35vw;
+  left: 33vw;
   top: 20vh;
 
   font-family: 'Quicksand', sans-serif;
@@ -99,28 +99,28 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
-  height: 127%;
-  left: 0;
-  right: 0;
+  width: 85vw;
+  height: 80vh;
+  left: 3vw;
+  //right: 0;
   margin: 0 5%;
-  top: 80%;
-  padding: 2em;
+  top: 80vh;
+  //padding: 2em;
   background: rgba(255, 255, 255, 0.46);
   border-radius: 4em;
   }
 
   &.introduction-text {
     position: absolute;
-    width: 80%;
-    height: 30%;
-    left: 10%;
-    top: 10%;
+    width: 70vw;
+    //height: 30%;
+    left: 7.5vw;
+    top: 8vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 1.5em;
+    font-size: 1.5vw;
     line-height: 1.5em;
     text-align: center;
 
@@ -130,30 +130,31 @@ body {
 
   &.header-rules {
     position: absolute;
-    width: 100%;
-    top: 50%;
+    width: 100vw;
+    top: 40vh;
+    left: -7.5vw;
     transform: translateY(-50%);
     text-align: center;
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 2em;
-    margin-bottom: 1em;
+    font-size: 2vw;
+    //margin-bottom: 1em;
     color: #000000;
 
   }
 
   &.rules-text {
     position: absolute;
-    width: 80%;
-    height: 30%;
-    left: 10%;
-    top: 63%;
+    width: 70vw;
+    //height: 30vh;
+    left: 7.5vw;
+    top: 46vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 1.5em;
+    font-size: 1.5vw;
     line-height: 2em;
     text-align: center;
 
@@ -184,13 +185,13 @@ body {
   }
 
   &.signup-button-text {
-    width: 182px;
-    height: 63px;
+    width: 35vw;
+    //height: 63px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
+    font-size: 3vw;
     line-height: 63px;
     /* identical to box height */
     text-align: center;
