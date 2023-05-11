@@ -20,6 +20,7 @@ const StartPage = () => {
         localStorage.removeItem("gameId");
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('duration');
     }, []);
 
     return (

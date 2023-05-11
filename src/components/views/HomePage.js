@@ -5,15 +5,26 @@ import BaseContainer from "../ui/BaseContainer";
 import {api} from 'helpers/api';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
-import {disconnect} from "../../helpers/stompClient";
 import React, { useState, useEffect } from 'react';
+import {logout} from "../../helpers/utilFunctions";
 
 const HomePage = () => {
+
+    // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
-        setInterval(async ()=>{
-            await api.put("/users/keepAlive", {}, {headers: {Token: localStorage.getItem("token")}})
-        }, 2000)
+        if (!(localStorage.getItem("intervalId"))){
+            let token = localStorage.getItem("token");
+
+            let intervalId = setInterval(async ()=>{
+                await api.put("/users/keepAlive", {}, {headers: {Token: token}})
+                console.log("I am alive!!! "+ token)
+            }, 2000)
+            localStorage.setItem("intervalId", String(intervalId));
+            console.log("Localstorage : "+ localStorage.getItem("intervalId")+ " actual: " +intervalId);
+        }
     }, [])
+
+
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const userId = localStorage.getItem('userId');
@@ -21,18 +32,6 @@ const HomePage = () => {
         history.push(`/users/${userId}`);
         audio.play();
     };
-    const logout = async () => {
-        audio.play();
-        const title = {title: 'logout request'};
-        const response = await api.put('/users/logout', title,{headers: {Token: localStorage.getItem("token")}});
-        console.log(response);
-
-        disconnect(); // TODO shall we do this?
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('profilePicture');
-        history.push('/login');
-    }
 
     return (
         <BaseContainer>
@@ -63,7 +62,11 @@ const HomePage = () => {
                         Profile
                     </div>
                 </Button>
-                <Button className="logout-button" onClick={() => logout()}>
+                <Button className="logout-button" onClick={() => {
+                        logout().then(r => history.push('/login'));
+                    history.push('/login');
+                }
+                }>
                     <div className="home-page logout-text">
                         Log out
                     </div>
