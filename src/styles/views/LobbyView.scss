@@ -6,28 +6,28 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 333px;
-    height: 60px;
-    left: 1350px;
-    top: 18px;
+    width: 13vw;
+    height: 8vh;
+    left: 86vw;
+    top: 2vh;
 
     background: rgba(255, 255, 255, 0.37);
     border-radius: 40px;
   }
 
   &.rounds-text {
-    width: 184px;
-    height: 50px;
+    //width: 184px;
+    //height: 50px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 50px;
+    font-weight: 600;
+    font-size: 2vw;
+    //line-height: 50px;
     text-align: center;
 
     color: #FFFFFF;
@@ -41,14 +41,14 @@
 
   &.button-text {
 
-    width: 271px;
-    height: 63px;
+    //width: 271px;
+    //height: 63px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
-    line-height: 63px;
+    font-size: 3vw;
+    //line-height: 63px;
     /* identical to box height */
     text-align: center;
 
@@ -75,8 +75,8 @@
 
   &.profile-picture {
     position: absolute;
-    width: 122px;
-    height: 122px;
+    width: 7vw;
+    height: 7vw;
     left: 742px;
     top: 554px;
 
@@ -86,57 +86,55 @@
   &.lobby-text {
 
     position: absolute;
-    width: 292px;
-    height: 126px;
-    left: 710px;
-    top: 130px;
+    //width: 292px;
+    //height: 126px;
+    left: 50vw;
+    transform: translateX(-50%);
+    top: 15vh;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 100px;
-    line-height: 126px;
+    font-weight: 600;
+    font-size: 5vw;
+    //line-height: 126px;
     /* identical to box height */
-    text-align: center;
+    //text-align: center;
 
     color: #FFFFFF;
 
   }
 
   &.lobby-code {
-
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 333px;
-    height: 60px;
-    left: 700px;
-    top: 20px;
+    width: 15vw;
+    height: 8vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    top: 2vh;
 
     background: rgba(255, 255, 255, 0.37);
     border-radius: 40px;
-
-
   }
 
   &.lobby-code-text {
-    width: 269px;
-    height: 50px;
+    //width: 269px;
+    //height: 50px;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 50px;
+    font-weight: 600;
+    font-size: 2vw;
+    //line-height: 50px;
     text-align: center;
 
     color: #FFFFFF;
-
 
     /* Inside auto layout */
     flex: none;
@@ -147,10 +145,10 @@
   &.player-amount-container {
 
     position: absolute;
-    width: 122px;
-    height: 121px;
-    left: 1460px;
-    top: 195px;
+    width: 7vw;
+    height: 7vw;
+    left: 89vw;
+    top: 18vh;
     border-radius: 100px;
 
     background: rgba(255, 255, 255, 0.46);
@@ -158,10 +156,10 @@
 
 
   &.player-name {
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
+    font-weight: 600;
+    font-size: 1.75vw;
     /* identical to box height */
     text-align: center;
     color: #FFFFFF;
@@ -169,30 +167,30 @@
   }
 
   &.player-list {
-    columns: 2;
+    columns: 3;
     list-style: none;
     position: absolute;
-    top: 30%;
-    left: 30%;
+    top: 30vh;
+    left: 22vw;
   }
 
   &.player-container {
     margin-bottom: 10em;
-    margin-right: 10em;
+    margin-right: 4vw;
   }
 
   &.player-amount-text {
     position: absolute;
-    width: 84px;
-    height: 50px;
-    left: 20px;
-    top: 35px;
+    //width: 84px;
+    //height: 50px;
+    left: 1.1vw;
+    top: 3.6vh;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 40px;
-    line-height: 50px;
+    font-weight: 600;
+    font-size: 2.5vw;
+    //line-height: 50px;
     text-align: center;
 
     color: #FFFFFF;

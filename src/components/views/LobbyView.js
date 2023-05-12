@@ -181,8 +181,8 @@ const LobbyView = () => {
                                 src= {getProfilePic(profilePics[counter]) /**TODO change from name to profilePic**/}
                                 style={{
                                     borderRadius: '50%',
-                                    height: '7em',
-                                    width: '7em',
+                                    height: '6.5vw',
+                                    width: '6.5vw',
                                     objectFit: 'cover',
                                 }}
                                 alt="profile pic"
@@ -201,8 +201,8 @@ const LobbyView = () => {
 
     return (
         <BaseContainer>
-            <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            <div className="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
