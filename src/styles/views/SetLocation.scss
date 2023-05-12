@@ -1,4 +1,17 @@
 .setlocation {
+
+  &.alert-div {
+    position: absolute;
+    top: 80vh;
+    left: 35vw;
+    color: #FFFFFF;
+  }
+
+  &.alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.start-button-text {
     width: 98px;
     height: 50px;
