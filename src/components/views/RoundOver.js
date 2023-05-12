@@ -72,9 +72,14 @@ const RoundOver = () => {
 
     useEffect(() => {
         if (getConnection()) {
-            subscribeToContinueToNextRound() // TODO this name is not good hehe
+            makeSubscription()
         } else {
-            connect(subscribeToContinueToNextRound)
+            connect(makeSubscription)
+        }
+
+        function makeSubscription() {
+            subscribeToContinueToNextRound()
+            subscribeToUserDropOut()
         }
 
         function subscribeToContinueToNextRound() {
@@ -83,6 +88,7 @@ const RoundOver = () => {
                 localStorage.removeItem("location");
                 localStorage.removeItem("color");
                 unsubscribe("/topic/games/" + gameId + "/nextRound");
+                unsubscribe("/topic/games/" + gameId+ "/userDropOut");
                 history.push(`/game/` + gameId + "/waitingroom");
             });
         }
@@ -95,7 +101,6 @@ const RoundOver = () => {
 
             });
         }
-        subscribeToUserDropOut();
     }, [gameId, history]);
 
 

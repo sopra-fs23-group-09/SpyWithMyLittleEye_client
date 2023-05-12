@@ -165,8 +165,6 @@ const Guessing = () => {
 
             });
         }
-        subscribeToUserDropOut(); // TODO is this ok
-
 
         function subscribeToGuessInformation() {
             subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
@@ -183,6 +181,7 @@ const Guessing = () => {
 
         function subscribeToEndRoundInformation() {
             subscribe("/topic/games/" + lobbyId + "/endRound",(response) => {
+                unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
                 const cr = response["currentRound"];
                 const ar = response["amountOfRounds"];
                 console.log("CURRENT ROUND: " + cr);
@@ -213,6 +212,7 @@ const Guessing = () => {
             subscribeToHintInformation();
             subscribeToGuessInformation();
             subscribeToEndRoundInformation();
+            subscribeToUserDropOut();
             //subscribeToTimeInformation();
         }
 

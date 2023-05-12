@@ -77,9 +77,14 @@ const GameOver = () => {
 
     useEffect(()=> {
         if (getConnection()) {
-            subscribeToEndGame()
+            makeSubscription();
         } else {
-            connect(subscribeToEndGame)
+            connect(makeSubscription)
+        }
+
+        function makeSubscription() {
+            subscribeToEndGame();
+            subscribeToUserDropOut();
         }
 
         function subscribeToEndGame() {
@@ -91,6 +96,7 @@ const GameOver = () => {
                 localStorage.removeItem("duration");
                 localStorage.removeItem("lobbyId");
                 localStorage.removeItem("gameId");
+                unsubscribe("/topic/games/" + gameId+ "/userDropOut");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
                 history.push("/home/");
             });
@@ -104,7 +110,6 @@ const GameOver = () => {
 
             });
         }
-        subscribeToUserDropOut();
 
     }, [gameId, history]);
 

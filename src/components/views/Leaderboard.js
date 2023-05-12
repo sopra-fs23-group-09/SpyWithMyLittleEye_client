@@ -148,7 +148,7 @@ const Leaderboard = () => {
                                     </div>
                                 )
                             } else { // You're just a player
-                        return (<div className="player container" onClick={() => history.push(`/users/${user.id}`)}>
+                        return (<div className="player container" onClick={() => history.push('/users/'+user.id)}>
                         <div className="player ranking">
                     {counter_highscore++}
                         </div>
