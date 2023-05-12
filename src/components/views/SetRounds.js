@@ -100,7 +100,7 @@ const SetRounds = () => {
     return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw' }} />
             </Link>
             <div className="base-container ellipse1">
             </div>
