@@ -8,9 +8,8 @@ import Panda from "../images/Panda.png";
 import Penguin from "../images/Penguin.png";
 import RedPanda from "../images/RedPanda.png";
 import Sloth from "../images/Sloth.png";
-import {api, handleError} from "./api";
+import {api, getErrorMessage} from "./api";
 import {disconnect} from "./stompClient";
-
 
 export const getProfilePic = (pp_name) => {
     // TODO get profile picture
@@ -62,9 +61,8 @@ export const logout = async () => {
         console.log("I am no longer alive....")
         clearInterval(parseInt(localStorage.getItem('intervalId')));
 
-        disconnect(); // TODO shall we do this?
+        disconnect();
 
-        // TODO localstorage.clear() ?
         console.log("I am deleting from localStorage...")
         localStorage.removeItem("location");
         localStorage.removeItem("color");
@@ -77,7 +75,9 @@ export const logout = async () => {
 
         const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
         await audio.play();
+        return "Success";
     } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        let msg = getErrorMessage(error);
+        return msg;
     }
 }

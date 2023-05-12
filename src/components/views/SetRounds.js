@@ -4,9 +4,10 @@ import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {api, handleError} from "../../helpers/api";
+import {api, getErrorMessage, handleError} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
+import {Alert} from "@mui/material";
 
 const FormField = (props) => {
   const { type, placeholder, value, onChange } = props;
@@ -78,6 +79,8 @@ const SetRounds = () => {
     const [amountRounds, setAmountRounds] = useState(null);
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
+    let [alert_message, setAlert_Message] = useState(<div className="rounds alert-message"></div>);
+
 
     async function createLobby() {
         audio.play();
@@ -91,7 +94,9 @@ const SetRounds = () => {
             const accessCode = response.data["accessCode"]
             history.push("/lobby/" + accessCode)
         } catch (error) {
-            alert(`Something went wrong: \n${handleError(error)}`);
+            let msg = getErrorMessage(error);
+            console.log(msg);
+            setAlert_Message(<Alert className ="rounds alert-message" severity="error"><b>Something went wrong while joining the lobby:</b> {msg}</Alert>);
         }
     }
 
@@ -137,6 +142,9 @@ const SetRounds = () => {
             </Button>
            </div>
            </div>
+            <div className = "rounds alert-div">
+                {alert_message}
+            </div>
         </BaseContainer>
     );
 

@@ -1,5 +1,18 @@
 
 .waitingroom {
+
+  &.alert-div {
+    position: absolute;
+    top: 80vh;
+    left: 35vw;
+    color: #FFFFFF;
+  }
+
+  &.alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.header {
     position: absolute;
     width: 30%;

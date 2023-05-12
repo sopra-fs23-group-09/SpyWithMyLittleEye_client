@@ -3,9 +3,10 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import React, {useEffect, useState} from "react";
-import {api} from "../../helpers/api";
+import {api, getErrorMessage} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
+import {Alert} from "@mui/material";
 
 
 const Waitingroom = () => {
@@ -13,6 +14,9 @@ const Waitingroom = () => {
     const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+
+    let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
+    //let [alert_message, setAlert_Message] = useState(<Alert className ="code alert-message" severity="error"><b>Something went wrong while joining the lobby:</b> nf</Alert>);
 
     let [role, setRole] = useState(null)
     useEffect(() => {
@@ -47,19 +51,25 @@ const Waitingroom = () => {
 
     useEffect( () => {
         async function fetchData() {
-            const response = await api.get("/games/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
-            console.log(response)
-            const role = response["data"];
-            setRole(response["data"]);
-            localStorage.setItem("role", role);
-            if (role.toString() === ("SPIER").toString()) {
-                console.log("You're a spier this round.")
-                // TODO unsubscribe
-                history.push("/game/" + gameId + "/location")
-            } else if (role.toString() === ("GUESSER").toString()){
-                console.log("You're a guesser this round.")
-            } else {
-                console.log("WARNING: Your role is not defined.")
+            try {
+                const response = await api.get("/games/" + gameId + "/roleForUser/" + userId, {headers: {Token: token}});
+                console.log(response)
+                const role = response["data"];
+                setRole(response["data"]);
+                localStorage.setItem("role", role);
+                if (role.toString() === ("SPIER").toString()) {
+                    console.log("You're a spier this round.")
+                    // TODO unsubscribe
+                    history.push("/game/" + gameId + "/location")
+                } else if (role.toString() === ("GUESSER").toString()) {
+                    console.log("You're a guesser this round.")
+                } else {
+                    console.log("WARNING: Your role is not defined.")
+                }
+            } catch (e) {
+                let msg = getErrorMessage(e);
+                console.log(msg);
+                setAlert_Message(<Alert className ="code alert-message" severity="error"><b>Something went wrong while fetching the data:</b> {msg}</Alert>);
             }
         }
         fetchData();
@@ -139,6 +149,9 @@ const Waitingroom = () => {
                 alt="Cat Peach Sticker - Cat Peach Tap Stickers"
                 style={{ height: '15em', width: '15em', position: 'absolute', top:"22em" }}
               />
+            </div>
+            <div className = "waitingroom alert-div">
+                {alert_message}
             </div>
         </BaseContainer>
     );

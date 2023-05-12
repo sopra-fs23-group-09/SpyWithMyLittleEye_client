@@ -1,14 +1,26 @@
 @import 'styles/theme';
 
 .login {
+  &.alert-message {
+    margin-top: 1vw;
+    margin-bottom: -1.5vw;
+    border-radius: 4vw;
+    width: 121vh;
+    margin-left: 0.5vw;
+    //justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+
+  }
+
   &.container {
     margin-top: 7vw;
     left: 4vh;
     position: absolute;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
-    width: 180vh;
+    width: 170vh;
     flex-direction: column;
+
   }
 
 
@@ -20,7 +32,6 @@
     width: 130vh;
     max-width: 130vh;
     height: 40vw;
-    top:5vw;
     font-size: 1.5vw;
     font-weight: 600;
     font-family: 'Quicksand', sans-serif;
@@ -47,12 +58,11 @@
   font-size: 3vw;
   line-height: 2vh;
   padding-left: 2vh;
-  padding-bottom: 5vh;
-  padding-top: 3vh;
+  padding-bottom: 3vh;
   color: #000000;
   display: flex;
   text-align: right;
-  margin-top: -10vh;
+  margin-top: -12vh;
   }
 
   &.input {
@@ -98,20 +108,20 @@
   &.login-line{
       position: absolute;
       width: 123vh;
-      height: 0px;
-      left: 0px;
+      height: 0;
+      left: 0;
       top: calc(100% + 20px);
       border: 0.1em solid #97E1D4;
   }
   &.button-container {
     display: flex;
-    height: 9vh;
+    height: 7vh;
     width: 122vh;
     justify-content: center;
     flex-direction: row;
     align-items:center;
     padding: 0.5vh;
-    gap: 10vh;
+   // gap: 10vh;
     margin-top: 4vh;
     background: #97E1D4;
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
@@ -130,7 +140,7 @@
   position: absolute;
   width: 80vh;
   height: 20vh;
-  left: 0px;
+  left: 0;
   top: 13vh;
   }
   &.register-text a {
@@ -141,7 +151,7 @@
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 6vh;
+    font-size: 4vh;
     line-height: 1.2vh;
     /* identical to box height */
 

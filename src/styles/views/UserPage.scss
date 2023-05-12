@@ -1,6 +1,22 @@
 @import 'styles/theme';
 
 .userPage {
+
+  &.alert-div {
+
+    position: absolute;
+    top: -10vh;
+    left: 6vw;
+    color: #FFFFFF;
+
+  }
+
+  &.alert-message {
+
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.container {
     width: 800px;
     height: 600px;

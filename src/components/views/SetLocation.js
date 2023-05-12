@@ -4,11 +4,12 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/SetLocation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import {api, handleError} from 'helpers/api';
+import {api, getErrorMessage} from 'helpers/api';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
 import {notifySpiedObject, connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
 import {Loader} from "@googlemaps/js-api-loader"
+import {Alert} from "@mui/material";
 
 
 const FormFieldObject = props => {
@@ -69,6 +70,9 @@ const SetLocation = (props) => {
     const [object, setObject] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
+
+    let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
+    //let [alert_message, setAlert_Message] = useState(<Alert className ="setlocation alert-message" severity="error"><b>Something went wrong when starting the game:</b> ddjjd</Alert>);
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
@@ -183,8 +187,10 @@ const SetLocation = (props) => {
                 const amountOfRounds = response.data["totalRounds"];
                 setCurrentRound(currentRound);
                 setAmountOfRounds(amountOfRounds);
-            } catch (error) {
-                alert(`Something went wrong: \n${handleError(error)}`);
+            } catch (e) {
+                let msg = getErrorMessage(e);
+                console.log(msg);
+                setAlert_Message(<Alert className ="setlocation alert-message" severity="error"><b>Something went wrong when fetching the data:</b> {msg}</Alert>);
             }
         };
 
@@ -251,6 +257,9 @@ const SetLocation = (props) => {
                     Start
                 </div>
             </Button>
+            <div className = "setlocation alert-div">
+                {alert_message}
+            </div>
         </BaseContainer>
     );
 }

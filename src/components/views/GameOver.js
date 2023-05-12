@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {Icon} from '@iconify/react';
 import React, {useEffect, useState} from 'react';
-import {api} from "../../helpers/api";
+import {api, getErrorMessage} from "../../helpers/api";
 import {Button} from "../ui/Button";
 import {
     connect,
@@ -12,6 +12,7 @@ import {
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {getProfilePic} from "../../helpers/utilFunctions";
+import {Alert} from "@mui/material";
 
 
 const GameOver = () => {
@@ -33,6 +34,9 @@ const GameOver = () => {
     let [second, setSecond] = useState({username: "", points: ""})
     let [third, setThird] = useState({username: "", points: ""})
 
+    let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
+
+
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
         if (!(localStorage.getItem("intervalId"))) {
@@ -53,22 +57,28 @@ const GameOver = () => {
 
     useEffect( () => {
         async function fetchData() {
-            let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
-            console.log(response)
-            setKeyword(response.data["keyword"]);
-            setHostId(response.data["hostId"])
-            setCurrentRoundNr(response.data["currentRoundNr"])
-            let playerPoints = response.data["playerPoints"];
+            try {
+                let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
+                console.log(response)
+                setKeyword(response.data["keyword"]);
+                setHostId(response.data["hostId"])
+                setCurrentRoundNr(response.data["currentRoundNr"])
+                let playerPoints = response.data["playerPoints"];
 
-            playerPoints.sort((a, b) => { // TODO comes sorted already
-                return b.points - a.points;
-            });
+                playerPoints.sort((a, b) => { // TODO comes sorted already
+                    return b.points - a.points;
+                });
 
-            setFirst(playerPoints[0]);
-            setSecond(playerPoints[1]);
+                setFirst(playerPoints[0]);
+                setSecond(playerPoints[1]);
 
-            if (playerPoints.length > 2) {
-                setThird(playerPoints[2]);
+                if (playerPoints.length > 2) {
+                    setThird(playerPoints[2]);
+                }
+            } catch (e) {
+                let msg = getErrorMessage(e);
+                console.log(msg);
+                setAlert_Message(<Alert className ="roundover alert-message" severity="error"><b>Something went wrong when fetching the data:</b> {msg}</Alert>);
             }
         }
         fetchData();
@@ -186,6 +196,9 @@ const GameOver = () => {
                         </>
                     )}
                 </div>
+            </div>
+            <div className = "roundover alert-div">
+                {alert_message}
             </div>
             {button_gameEnded}
 

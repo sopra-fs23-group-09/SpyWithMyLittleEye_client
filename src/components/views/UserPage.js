@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {api, handleError} from 'helpers/api';
+import {api, getErrorMessage} from 'helpers/api';
 import {Button} from 'components/ui/Button';
 import 'styles/views/UserPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -7,6 +7,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {getProfilePic} from "../../helpers/utilFunctions";
+import {Alert} from "@mui/material";
 
 
 
@@ -19,6 +20,8 @@ const UserPage = () => {
   const token = localStorage.getItem("token");
 
   const [user, setUser] = useState(null);
+    let [alert_message, setAlert_Message] = useState(<div className="leaderboard alert-message"></div>);
+
 
     let content = <div></div>;
 
@@ -46,7 +49,10 @@ const UserPage = () => {
               const response = await api.get('/users/'+userId, {headers: {Token: token}});
               setUser(response.data);
           } catch (error) {
-              console.log("Couldn't fetch user information\n" + handleError(error));
+              let msg = getErrorMessage(error);
+              console.log(msg);
+              setAlert_Message(<Alert className="userPage alert-message" severity="error"><b>Something went wrong while
+                  fetching the data:</b> {msg}</Alert>);
           }
       };
       retrieveUserData();
@@ -96,6 +102,9 @@ const UserPage = () => {
                         Edit
                     </div>
                 </Button>
+            <div className = "userPage alert-div">
+                {alert_message}
+            </div>
             </div>
     }
 

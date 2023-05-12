@@ -7,13 +7,16 @@ import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import React, { useState, useEffect } from 'react';
 import {logout} from "../../helpers/utilFunctions";
+import {Alert} from "@mui/material";
 
 const HomePage = () => {
-
 
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const userId = localStorage.getItem('userId');
+
+    let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="home-page alert-message"></div>);
+    //let [logout_alert_message, setLogout_Alert_Message] = useState(<Alert className="home-page alert-message" severity="error"><b>Something went wrong during logout: </b> Uuwuwuwuwuwuuw</Alert>);
     const goToProfile = () => {
         history.push(`/users/${userId}`);
         audio.play();
@@ -36,6 +39,9 @@ const HomePage = () => {
             console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
         }
     }, [history])
+
+
+
 
     return (
         <BaseContainer>
@@ -67,14 +73,25 @@ const HomePage = () => {
                     </div>
                 </Button>
                 <Button className="logout-button" onClick={() => {
-                        logout().then(r => history.push('/start'));
-                    history.push('/start');
+                        logout().then(r => {
+                            if (r.toString() === "Success".toString()){
+                                console.log("Logout Successful!")
+                                history.push("/start")
+                            } else {
+                                setLogout_Alert_Message(<Alert className="home-page alert-message"
+                                                                           severity="error"><b>Something went wrong
+                                    during logout: </b> {r}</Alert>);
+                            }
+                        });
                 }
                 }>
                     <div className="home-page logout-text">
                         Log out
                     </div>
                 </Button>
+            </div>
+            <div className = "home-page alert-div">
+                {logout_alert_message}
             </div>
             <Button className="join-lobby-button" onClick={() => {
             audio.play();
@@ -94,6 +111,7 @@ const HomePage = () => {
                 Create a lobby
                 </div>
             </Button>
+
         </BaseContainer>
     );
 

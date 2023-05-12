@@ -1,6 +1,19 @@
 @import 'styles/theme';
 
 .rounds {
+
+  &.alert-div {
+    position: absolute;
+    top: 60vh;
+    left: 21vw;
+    color: #FFFFFF;
+  }
+
+  &.alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.container {
   margin-top: 4em;
   min-height: 100%;
