@@ -11,7 +11,6 @@ import Sloth from "../images/Sloth.png";
 import {api, getErrorMessage} from "./api";
 import {disconnect} from "./stompClient";
 
-let token = localStorage.getItem("token");
 export const getProfilePic = (pp_name) => {
     // TODO get profile picture
     let picture = "";
@@ -56,7 +55,7 @@ export const getProfilePic = (pp_name) => {
 export const logout = async () => {
     try {
         const title = {title: 'logout request'};
-        await api.put('/users/logout', title, {headers: {Token: token}});
+        await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
         console.log("Logout successful");
 
         console.log("I am no longer alive....")
