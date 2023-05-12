@@ -131,10 +131,16 @@ const SetLocation = (props) => {
     useEffect(() => {
         console.log("Connected: " + getConnection())
         if (getConnection()) {
-            subscribeToSetLocationInformation();
+            makeSubscription();
         } else {
-            connect(subscribeToSetLocationInformation)
+            connect(makeSubscription);
         }
+
+        function makeSubscription() {
+            subscribeToSetLocationInformation();
+            subscribeToUserDropOut();
+        }
+
 
         function subscribeToSetLocationInformation() {
             subscribe("/topic/games/" + gameId + "/spiedObject", data => {
@@ -143,6 +149,15 @@ const SetLocation = (props) => {
                 history.push("/game/" + gameId);
             });
 
+        }
+
+        function subscribeToUserDropOut() {
+            subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
+                alert("Someone dropped out!");
+                console.log(data);
+                // Shouldnt matter to u
+
+            });
         }
     }, [gameId, history, lobbyId]);
 

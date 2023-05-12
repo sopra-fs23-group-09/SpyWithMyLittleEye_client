@@ -54,6 +54,7 @@ const Waitingroom = () => {
             localStorage.setItem("role", role);
             if (role.toString() === ("SPIER").toString()) {
                 console.log("You're a spier this round.")
+                // TODO unsubscribe
                 history.push("/game/" + gameId + "/location")
             } else if (role.toString() === ("GUESSER").toString()){
                 console.log("You're a guesser this round.")
@@ -67,9 +68,14 @@ const Waitingroom = () => {
     useEffect(() => {
         console.log("Connected: " + getConnection())
         if (getConnection()) {
-            subscribeToSpiedObjectInformation()
+            makeSubscription();
         } else {
-            connect(subscribeToSpiedObjectInformation)
+            connect(makeSubscription)
+        }
+
+        function makeSubscription()  {
+            subscribeToSpiedObjectInformation();
+            subscribeToUserDropOut();
         }
 
         function subscribeToSpiedObjectInformation() {
@@ -84,12 +90,6 @@ const Waitingroom = () => {
             });
         }
 
-        function redirectToRound() {
-            unsubscribe("/topic/games/" + gameId+ "/userDropOut");
-            unsubscribe("/topic/games/" + gameId + "/spiedObject");
-            history.push("/game/" + gameId);
-        }
-
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
                 alert("Someone dropped out!");
@@ -99,7 +99,12 @@ const Waitingroom = () => {
             });
         }
 
-        subscribeToUserDropOut();
+        function redirectToRound() {
+            unsubscribe("/topic/games/" + gameId+ "/userDropOut");
+            unsubscribe("/topic/games/" + gameId + "/spiedObject");
+            history.push("/game/" + gameId);
+        }
+
     }, [gameId, history]);
 
     let messageForGuessers = (<div></div>)

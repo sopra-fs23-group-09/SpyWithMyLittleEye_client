@@ -77,10 +77,13 @@ const GameOver = () => {
 
     useEffect(()=> {
         if (getConnection()) {
-            subscribeToEndGame()
-            subscribeToUserDropOut();
+            makeSubscription();
         } else {
-            connect(subscribeToEndGame)
+            connect(makeSubscription)
+        }
+
+        function makeSubscription() {
+            subscribeToEndGame();
             subscribeToUserDropOut();
         }
 
@@ -93,6 +96,7 @@ const GameOver = () => {
                 localStorage.removeItem("duration");
                 localStorage.removeItem("lobbyId");
                 localStorage.removeItem("gameId");
+                unsubscribe("/topic/games/" + gameId+ "/userDropOut");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
                 history.push("/home/");
             });
