@@ -299,18 +299,19 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  //padding: 10px;
+  //gap: 10px;
 
   position: absolute;
-  left: calc(50% - 150px);
-  bottom: 2em;
+  left: 43vw;
+  top: 80vh;
 
-  width: 300px;
-  height: 100px;
+
+  width: 15vw;
+  height: 10vh;
 
   background: #97E1D4;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
