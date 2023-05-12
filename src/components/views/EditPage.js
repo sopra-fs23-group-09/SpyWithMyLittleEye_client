@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {api, handleError} from 'helpers/api';
+import {api, getErrorMessage} from 'helpers/api';
 import {Link,useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/EditPage.scss';
@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import {useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
+import {Alert} from "@mui/material";
 
 //        <FormField
 //             label="Birthday"
@@ -91,14 +92,19 @@ const EditPage = () => {
   const [password, setPassword] = useState(null);
   const {userId} = useParams();
 
-  const doUpdate = async () => {
+    let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
+
+
+    const doUpdate = async () => {
   audio.play();
     try {
       const requestBody = JSON.stringify({username, password, birthday});
       await api.put('/users/'+ userId, requestBody, {headers: {Token: localStorage.getItem("token")}});
       history.push(`/users/${userId}`);
     } catch (error) {
-      alert(`Something went wrong during the process of editing the profile: \n${handleError(error)}`);
+        let msg = getErrorMessage(error);
+        console.log(msg);
+        setAlert_Message(<Alert className ="code alert-message" severity="error"><b>Something went wrong while editing your profile:</b> {msg}</Alert>);
     }
   };
 
@@ -154,6 +160,9 @@ const EditPage = () => {
             </div>
           </Button>
       </div>
+        <div className = "code alert-div">
+            {alert_message}
+        </div>
     </BaseContainer>);
 
 };
