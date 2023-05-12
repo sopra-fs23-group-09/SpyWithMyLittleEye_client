@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {api, handleError} from 'helpers/api';
+import {api, getErrorMessage, handleError} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
+import {Alert} from "@mui/material";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -44,10 +45,9 @@ const Login = () => {
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
   const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+    let [alert_message, setAlert_Message] = useState(<div></div>);
 
-
-
-  const doLogin = async () => {
+    const doLogin = async () => {
     audio.play();
     try {
       const response = await api.get('/users/login?username='+ username + '&pass='+ password);
@@ -60,8 +60,9 @@ const Login = () => {
         // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/home`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
-    }
+        let msg = getErrorMessage(error);
+        console.log(msg);
+        setAlert_Message(<Alert className ="login alert-message" severity="error"><b>Something went wrong during login:</b> {msg}</Alert>);    }
   };
 
   return (
@@ -96,7 +97,9 @@ const Login = () => {
                             value={password}
                             onChange={n => setPassword(n)}
                           />
-                          <div className="login button-container">
+                                {alert_message}
+
+                                <div className="login button-container">
                             <Button className="button login-button-loginpage"
                               style={{marginRight: "2px"}}
                               disabled={!username || !password}

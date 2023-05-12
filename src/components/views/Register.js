@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {api, handleError} from 'helpers/api';
+import React, {useEffect, useState} from 'react';
+import {api, getErrorMessage} from 'helpers/api';
 import User from 'models/User';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import 'styles/views/Login.scss';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
+import {Alert} from "@mui/material";
 
 const FormField = props => {
     return (
@@ -39,7 +40,8 @@ const Register = () => {
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
-
+   // let [alert_message, setAlert_Message] = useState(<Alert className ="login alert-message" severity="error">Something went wrong during the registration: {msg}</Alert>);
+    let [alert_message, setAlert_Message] = useState(<div></div>);
 
     const doRegistration = async () => {
         // Set profile picture randomly
@@ -65,7 +67,10 @@ const Register = () => {
 
             history.push(`/home`);
         } catch (error) {
-            alert(`Something went wrong during the registration: \n${handleError(error)}`);
+            //alert(`Something went wrong during the registration: \n${handleError(error)}`);
+            let msg = getErrorMessage(error);
+            console.log(msg);
+            setAlert_Message(<Alert className ="login alert-message" severity="error"><b>Something went wrong during registration:</b> {msg}</Alert>);
         }
         audio.play();
 
@@ -102,6 +107,7 @@ const Register = () => {
                         value={password}
                         onChange={n => setPassword(n)}
                     />
+                    {alert_message}
                     <div className="login button-container">
                         <Button className="login-button-loginpage"
                                 style={{marginRight: "2px"}}
