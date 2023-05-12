@@ -78,8 +78,10 @@ const GameOver = () => {
     useEffect(()=> {
         if (getConnection()) {
             subscribeToEndGame()
+            subscribeToUserDropOut();
         } else {
             connect(subscribeToEndGame)
+            subscribeToUserDropOut();
         }
 
         function subscribeToEndGame() {
@@ -104,7 +106,6 @@ const GameOver = () => {
 
             });
         }
-        subscribeToUserDropOut();
 
     }, [gameId, history]);
 

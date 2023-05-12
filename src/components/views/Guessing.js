@@ -164,8 +164,11 @@ const Guessing = () => {
 
             });
         }
-        subscribeToUserDropOut(); // TODO is this ok
-
+        if (getConnection()) {
+            subscribeToUserDropOut();
+        } else {
+            connect(subscribeToUserDropOut)
+        }
 
         function subscribeToGuessInformation() {
             subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
