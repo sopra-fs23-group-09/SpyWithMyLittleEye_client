@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {api, getErrorMessage, handleError} from 'helpers/api';
+import {api, getErrorMessage} from 'helpers/api';
 import {Button} from 'components/ui/Button';
 import 'styles/views/UserPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
