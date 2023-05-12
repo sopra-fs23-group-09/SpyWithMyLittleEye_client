@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {api, handleError} from 'helpers/api';
+import {api, getErrorMessage} from 'helpers/api';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Guessing.scss";
@@ -15,6 +15,7 @@ import {
 } from "../../helpers/stompClient";
 import {Button} from "../ui/Button";
 import {useHistory} from "react-router-dom";
+import {Alert} from "@mui/material";
 
 const StreetView = () => {
     const mapRef = useRef(null);
@@ -94,6 +95,9 @@ const Guessing = () => {
     const duration = localStorage.getItem("duration");
     console.log("DURATION IS: " + duration);
     const role = localStorage.getItem("role");
+
+    let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
+
 //    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
  //   const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
  //   const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
@@ -142,8 +146,10 @@ const Guessing = () => {
                 const amountOfRounds = response.data["totalRounds"];
                 setCurrentRound(currentRound);
                 setAmountOfRounds(amountOfRounds);
-            }  catch (error) {
-                console.log("Couldn't fetch round\n" + handleError(error));
+            }  catch (e) {
+                let msg = getErrorMessage(e);
+                console.log(msg);
+                setAlert_Message(<Alert className ="setlocation alert-message" severity="error"><b>Something went wrong when fetching the data:</b> {msg}</Alert>);
             }
         };
 
@@ -372,6 +378,9 @@ const Guessing = () => {
                         />
                     )
                 })()}
+            </div>
+            <div className = "setlocation alert-div">
+                {alert_message}
             </div>
         </BaseContainer>
     );
