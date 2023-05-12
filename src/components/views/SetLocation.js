@@ -144,10 +144,9 @@ const SetLocation = (props) => {
 
         function subscribeToSetLocationInformation() {
             subscribe("/topic/games/" + gameId + "/spiedObject", data => {
-                localStorage.setItem("duration", data["duration"])
-                unsubscribe("/topic/games/" + gameId + "/spiedObject");
-                history.push("/game/" + gameId);
+                localStorage.setItem("duration", data["duration"]);
             });
+            unsubscribe("/topic/games/" + gameId + "/spiedObject");
 
         }
 
@@ -160,6 +159,7 @@ const SetLocation = (props) => {
             });
         }
     }, [gameId, history, lobbyId]);
+
 
 
     const handleColorChange = (event) => {
