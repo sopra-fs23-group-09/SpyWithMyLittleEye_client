@@ -3,7 +3,7 @@ import {api, handleError} from 'helpers/api';
 import {Button} from 'components/ui/Button';
 import 'styles/views/UserPage.scss';
 import BaseContainer from "components/ui/BaseContainer";
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {getProfilePic} from "../../helpers/utilFunctions";
@@ -15,7 +15,7 @@ const UserPage = () => {
 
   const history = useHistory();
 
-  const userId = localStorage.getItem("userId");
+  const {userId} = useParams();
   const token = localStorage.getItem("token");
 
   const [user, setUser] = useState(null);
