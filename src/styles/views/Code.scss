@@ -16,61 +16,77 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
-    position: absolute;
-    width: 484px;
-    height: 105px;
-    left: 620px;
-    top: 478px;
+    //position: absolute;
+    //width: 484px;
+    //height: 105px;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
-    border-radius: 40px;
+    //border-radius: 40px;
   }
 
   &.input {
-    height: 105px;
-    width: 483px;
+    height: 12vh;
+    width: 28vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 30px;
     margin-left: 10px;
     border: none;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     color: white;
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
     position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 40px;
-    font-family: "Gill Sans";
+    top: 45vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    font-size: 2vw;
+    font-family: "Quicksand", sans-serif;
     line-height: 50px;
   }
 
   &.header {
     position: absolute;
-    width: 1139px;
-    height: 75px;
-    left: 295px;
-    top: 274px;
+    //width: 1139px;
+    //height: 75px;
+    left: 50vw;
+    top: 30vh;
+    transform: translateX(-50%);
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 60px;
-    line-height: 75px;
+    font-size: 4vw;
+    //line-height: 75px;
     text-align: center;
+
 
     color: #FFFFFF;
 
+  }
+
+  &.ok-button-text {
+    width: 73px;
+    height: 63px;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3vw;
+    line-height: 63px;
+    text-align: center;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
   }
 }

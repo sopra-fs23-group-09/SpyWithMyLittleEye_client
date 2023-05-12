@@ -72,7 +72,7 @@ const Code = () => {
     return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw' }} />
             </Link>
             <div className="base-container ellipse1">
             </div>
@@ -95,7 +95,7 @@ const Code = () => {
                     disabled={!accessCode}
                     onClick={() => {joinLobby()}}
             >
-                <div className="rounds ok-button-text">
+                <div className="code ok-button-text">
                     OK
                 </div>
             </Button>
