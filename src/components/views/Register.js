@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {api, getErrorMessage} from 'helpers/api';
 import User from 'models/User';
 import {useHistory} from 'react-router-dom';

@@ -1,12 +1,33 @@
 @import 'styles/theme';
 
 .leaderboards {
+  &.alert-message {
+    margin:auto;
 
+  }
 }
 
 .leaderboard-page {
 
+  &.alert-div {
+    z-index:10 !important;
+
+    margin:auto;
+    position: absolute;
+    top: 80vh;
+    left: 33vw;
+    color: #FFFFFF;
+
+  }
+
+  &.alert-message {
+    margin:auto;
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.header {
+
     margin:auto;
 
     position: relative;
