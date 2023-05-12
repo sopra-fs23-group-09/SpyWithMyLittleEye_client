@@ -14,15 +14,15 @@
   z-index: 1;
   flex-direction: column;
   justify-content: center;
-  width: 75%;
-  max-width: 100%;
-  height: 28em;
-  font-size: 1.25em;
-  font-weight: 600;
-  font-family: "Gill Sans";
-  padding-right: 2%;
+  width: 60vw;
+  //max-width: 100%;
+  height: 80vh;
+  //font-size: 4vw;
+  //font-weight: 600;
+  //font-family: "Quicksand", sans-serif;
+  padding-right: 1%;
   padding-left: 2%;
-  border-radius: 1.5em;
+  //border-radius: 1.5em;
   }
 
   &.field {
@@ -32,11 +32,11 @@
   }
 
     &.input {
-      height: 11vh; /* Adjust the height as needed */
+      height: 12vh; /* Adjust the height as needed */
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding: 2vw 4vw; /* Adjust the padding as needed */
+      padding: 2vw 2vw; /* Adjust the padding as needed */
       margin: 1vw;
       border: none;
       color: rgba(0, 0, 0, 0.7);
@@ -44,38 +44,40 @@
       box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
       backdrop-filter: blur(3vw);
       /* Note: backdrop-filter has minimal browser support */
-      border-radius: 4vw;
+      border-radius: 40px;
       font-size: 2vw;
       color: white;
-      font-family: "Gill Sans";/* Adjust the font size as needed */
+      font-family: "Quicksand", sans-serif;/* Adjust the font size as needed */
 
     }
 
   &.ok-button-text {
-   width: 73px;
-   height: 63px;
-   font-family: 'Gill Sans';
+   //width: 73px;
+   //height: 63px;
+   font-family: 'Quicksand', sans-serif;
    font-style: normal;
    font-weight: 600;
-   font-size: 50px;
-   line-height: 63px;
+   font-size: 3vw;
+   //line-height: 63px;
    text-align: center;
    color: #FFFFFF;
-   flex: none;
-   order: 0;
-   flex-grow: 0;
+   //flex: none;
+   //order: 0;
+   //flex-grow: 0;
   }
 
   &.header {
-  width: 100%;
-  height: auto;
-  font-family: 'Gill Sans';
+  //width: 100%;
+  //height: auto;
+  font-family: 'Quicksand', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 2em;
-  line-height: 1.2;
+  font-size: 2.5vw;
+  //line-height: 1.2;
   text-align: center;
   color: #FFFFFF;
+  margin-bottom: 20px;
+  margin-top: 20px;
 
   }
 }
