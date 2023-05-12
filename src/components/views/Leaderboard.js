@@ -104,8 +104,16 @@ const Leaderboard = () => {
                         </div>
                     </Button>
                     <Button className="logout-button" onClick={() => {
-                        logout().then(r => history.push('/start'));
-
+                        logout().then(r => {
+                            if (r.toString() === "Success".toString()){
+                                console.log("Logout Successful!")
+                                history.push("/start")
+                            } else {
+                                setAlert_Message(<Alert className="home-page alert-message"
+                                                               severity="error"><b>Something went wrong
+                                    during logout: </b> {r}</Alert>);
+                            }
+                        });
                     }
                     }>
                         <div className="leaderboard-page logout-text">
