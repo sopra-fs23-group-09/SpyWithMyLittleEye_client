@@ -4,7 +4,7 @@ import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {api, getErrorMessage, handleError} from "../../helpers/api";
+import {api, getErrorMessage} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {Alert} from "@mui/material";
