@@ -1,6 +1,19 @@
 @import 'styles/theme';
 
 .code {
+
+  &.alert-div {
+    position: absolute;
+    top: 12vh;
+    left: 30vw;
+    color: #FFFFFF;
+  }
+
+  &.alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.left-field{
       position: absolute;
       top: 0;

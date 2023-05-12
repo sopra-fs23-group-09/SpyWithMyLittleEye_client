@@ -4,8 +4,9 @@ import {Link,useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {api, handleError} from "../../helpers/api";
+import {api, getErrorMessage} from "../../helpers/api";
 import { Icon } from '@iconify/react';
+import {Alert} from "@mui/material";
 
 
 const FormField = props => {
@@ -52,7 +53,7 @@ const Code = () => {
     const userId = localStorage.getItem("userId");
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     let [accessCode, setAccessCode] = useState(null);
-
+    let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
 
     const joinLobby = async () => {
         audio.play();
@@ -65,7 +66,9 @@ const Code = () => {
 
             history.push("/lobby/" + accessCode);
         } catch (error) {
-            alert(`Something went wrong: \n${handleError(error)}`);
+            let msg = getErrorMessage(error);
+            console.log(msg);
+            setAlert_Message(<Alert className ="code alert-message" severity="error"><b>Something went wrong while joining the lobby:</b> {msg}</Alert>);
         }
     };
 
@@ -99,6 +102,9 @@ const Code = () => {
                     OK
                 </div>
             </Button>
+            <div className = "code alert-div">
+                {alert_message}
+            </div>
         </BaseContainer>
     );
 

@@ -15,7 +15,7 @@ const HomePage = () => {
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const userId = localStorage.getItem('userId');
 
-    let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="leaderboard alert-message"></div>);
+    let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="home-page alert-message"></div>);
     //let [logout_alert_message, setLogout_Alert_Message] = useState(<Alert className="home-page alert-message" severity="error"><b>Something went wrong during logout: </b> Uuwuwuwuwuwuuw</Alert>);
     const goToProfile = () => {
         history.push(`/users/${userId}`);

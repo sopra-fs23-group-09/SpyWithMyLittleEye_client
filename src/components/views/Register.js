@@ -40,7 +40,6 @@ const Register = () => {
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
-   // let [alert_message, setAlert_Message] = useState(<Alert className ="login alert-message" severity="error">Something went wrong during the registration: {msg}</Alert>);
     let [alert_message, setAlert_Message] = useState(<div></div>);
 
     const doRegistration = async () => {
