@@ -29,7 +29,12 @@
   border: none;
   //z-index: 10;
 }
-
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
 .join-lobby-button {
   &:hover {
     transform: translateY(-4px);
