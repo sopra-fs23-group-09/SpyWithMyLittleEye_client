@@ -13,13 +13,13 @@
   }
 
   &.start-button-text {
-    width: 98px;
-    height: 50px;
-    font-family: 'Gill Sans';
+    //width: 98px;
+    //height: 50px;
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
-    line-height: 50px;
+    font-size: 2vw;
+    //line-height: 50px;
     text-align: center;
     color: #FFFFFF;
     /* Inside auto layout */
@@ -28,20 +28,19 @@
     flex-grow: 0;
   }
   &.color-field {
-    font-family: "Gill Sans";
+    font-family: "Quicksand", sans-serif;
     box-sizing: border-box;
     /* Auto layout */
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
     position: absolute;
-    width: 484px;
-    height: 70px;
-    left: 900px;
-    top: 500px;
-    color: white;
+    //width: 484px;
+    //height: 70px;
+    //left: 900px;
+    //top: 300px;
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
@@ -49,55 +48,54 @@
     border-radius: 40px;
   }
   &.color-input {
-    height: 70px;
-    width: 483px;
+    height: 8vh;
+    width: 27.5vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 30px;
     margin-left: 10px;
     border: none;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     color: white;
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
     position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 30px;
-    line-height: 50px;
+    top: -14vh;
+    left: 53.5vw;
+    font-size: 1.75vw;
+    //line-height: 50px;
   }
   &.color-label {
     position: absolute;
-    width: 1139px;
-    height: 75px;
-    left: -330px;
-    top: -100px;
-    font-family: 'Gill Sans';
+    width: 30vw;
+    left: 53vw;
+    top: -21vh;
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
-    line-height: 75px;
+    font-size: 2.25vw;
+    //line-height: 75px;
     text-align: center;
     color: #FFFFFF;
   }
   &.object-field {
-    font-family: "Gill Sans";
+    font-family: "Quicksand", sans-serif;
     box-sizing: border-box;
     /* Auto layout */
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
     position: absolute;
-    width: 484px;
-    height: 70px;
-    left: 900px;
-    top: 300px;
+    //width: 484px;
+    //height: 70px;
+    //left: 900px;
+    //top: 300px;
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
@@ -105,38 +103,37 @@
     border-radius: 40px;
   }
   &.object-input {
-    height: 70px;
-    width: 483px;
+    height: 8vh;
+    width: 27.5vw;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 30px;
     margin-left: 10px;
     border: none;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     color: white;
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
     position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 30px;
-    line-height: 50px;
+    top: -37vh;
+    left: 53.5vw;
+    font-size: 1.75vw;
+    //line-height: 50px;
   }
   &.object-label {
     position: absolute;
-    width: 1139px;
-    height: 75px;
-    left: -330px;
-    top: -100px;
-    font-family: 'Gill Sans';
+    width: 20vw;
+    left: 57.5vw;
+    top: -44vh;
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
-    line-height: 75px;
+    font-size: 2.25vw;
+    //line-height: 75px;
     text-align: center;
     color: #FFFFFF;
   }
@@ -145,24 +142,24 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
     position: absolute;
-    width: 218px;
-    height: 58px;
-    left: 1030px;
-    top: 34px;
+    width: 15vw;
+    height: 8vh;
+    left: 60vw;
+    top: 3vh;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 40px;
   }
   &.role-text {
-    width: 198px;
-    height: 38px;
-    font-family: 'Gill Sans';
+    //width: 15vw;
+    //height: 38px;
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 38px;
+    font-weight: 600;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
     color: #FFFFFF;
@@ -171,21 +168,37 @@
     order: 0;
     flex-grow: 0;
   }
-  &.rounds {
+
+  &.rounds-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    //padding: 10px;
+    //gap: 10px;
     position: absolute;
-    width: 151px;
-    height: 38px;
-    left: 1500px;
-    top: 42px;
-    font-family: 'Gill Sans';
+    width: 12vw;
+    height: 8vh;
+    left: 87vw;
+    top: 3vh;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+  }
+  &.rounds {
+    //width: 15vw;
+    //height: 38px;
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 38px;
+    font-weight: 600;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
-
     color: #FFFFFF;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
   }
   #setlocation-map{
     height: 2%;
@@ -195,16 +208,16 @@
     z-index: 20;
   }
   &.readytext{
-  font-family: 'Gill Sans';
+  font-family: 'Quicksand', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 40px;
-  line-height: 25px;
+  font-size: 2vw;
+  //line-height: 25px;
   position: absolute;
-  width: 69px;
-  height: 25px;
-  left: 1090px;
-  top: 650px;
+  //width: 69px;
+  //height: 25px;
+  left: 64vw;
+  top: 67vh;
   z-index: 20;
   /* identical to box height */
 
@@ -213,12 +226,12 @@
   color: #FFFFFF;
   }
   &.container{
-  top: 200px;
-  height: 600px;
+  top: 20vh;
+  height: 35vw;
   border: 3px solid #FFFFFF;
   border-radius: 40px;
-  left: 150px;
-  width: 600px;
+  left: 9vw;
+  width: 35vw;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -228,15 +241,15 @@
   }
   &.header {
     position: absolute;
-    width: 699px;
-    height: 38px;
-    left: 100px;
-    top: 80px;
-    font-family: 'Gill Sans';
+    //width: 699px;
+    //height: 38px;
+    left: 6.5vw;
+    top: 11vh;
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
     color: #FFFFFF;
