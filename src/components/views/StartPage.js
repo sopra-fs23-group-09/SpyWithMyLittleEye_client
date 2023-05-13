@@ -7,6 +7,39 @@ import 'styles/views/Code.scss';
 import React, {useState,useEffect} from "react";
 import {disconnect} from "../../helpers/stompClient";
 
+const MuteButton = ({ audio }) => {
+  const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
+
+  const handleMuteClick = () => {
+    if (isMuted) {
+      audio.volume = 1; // Unmute the audio
+      audio.muted = false; // Unmute the button sound
+    } else {
+      audio.volume = 0; // Mute the audio
+      audio.muted = true; // Mute the button sound
+    }
+
+    setIsMuted(!isMuted);
+    localStorage.setItem("isMuted", !isMuted); // Store the updated isMuted state in local storage
+  };
+
+  useEffect(() => {
+    // Set the initial mute state of the audio and button sound when the component mounts
+    audio.volume = isMuted ? 0 : 1;
+    audio.muted = isMuted;
+  }, [audio, isMuted]);
+    return (
+      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" , zIndex:900}}>
+        <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" , zIndex:900}}>
+                      {isMuted ? (
+                        <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh', zIndex: 900 }} />
+                      ) : (
+                        <Icon icon="ph:speaker-high-bold" color="white" style={{ fontSize: '6vh', zIndex:900 }} />
+                      )}
+        </button>
+      </div>
+    );
+  };
 const StartPage = () => {
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
@@ -22,6 +55,7 @@ const StartPage = () => {
     return (
     <body id="home">
         <BaseContainer>
+        <MuteButton audio={audio}/>
         <div className="start-page container">
             <div className="start-page game-title">
                 I spy with my little eye

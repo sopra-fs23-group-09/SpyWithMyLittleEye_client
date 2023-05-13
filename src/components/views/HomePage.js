@@ -10,10 +10,15 @@ import {logout} from "../../helpers/utilFunctions";
 import {Alert} from "@mui/material";
 
 const HomePage = () => {
-
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
     const userId = localStorage.getItem('userId');
+
+
+
+
+
 
     let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="home-page alert-message"></div>);
     //let [logout_alert_message, setLogout_Alert_Message] = useState(<Alert className="home-page alert-message" severity="error"><b>Something went wrong during logout: </b> Uuwuwuwuwuwuuw</Alert>);
@@ -40,9 +45,39 @@ const HomePage = () => {
         }
     }, [history])
 
+ const MuteButton = ({ audio }) => {
+   const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
 
+   const handleMuteClick = () => {
+     if (isMuted) {
+       audio.volume = 1; // Unmute the audio
+       audio.muted = false; // Unmute the button sound
+     } else {
+       audio.volume = 0; // Mute the audio
+       audio.muted = true; // Mute the button sound
+     }
 
+     setIsMuted(!isMuted);
+     localStorage.setItem("isMuted", !isMuted); // Store the updated isMuted state in local storage
+   };
 
+   useEffect(() => {
+     // Set the initial mute state of the audio and button sound when the component mounts
+     audio.volume = isMuted ? 0 : 1;
+     audio.muted = isMuted;
+   }, [audio, isMuted]);
+       return (
+         <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+           <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
+                         {isMuted ? (
+                           <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
+                         ) : (
+                           <Icon icon="ph:speaker-high-bold" color="white" style={{ fontSize: '6vh' }} />
+                         )}
+           </button>
+         </div>
+       );
+     };
     return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
@@ -57,6 +92,7 @@ const HomePage = () => {
             <div className="base-container ellipse4">
             </div>
             <div className="home-page navigation-bar">
+                        <MuteButton audio={audio}/>
                     <Button className="ranking-button" onClick={() => {
                         audio.play();
                         history.push('/leaderboard');

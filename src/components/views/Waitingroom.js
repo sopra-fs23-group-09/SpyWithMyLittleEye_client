@@ -2,31 +2,64 @@ import 'styles/views/Waitingroom.scss';
 import {useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
 import {connect, getConnection, subscribe, unsubscribe} from "../../helpers/stompClient";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useMemo} from "react";
 import {api, getErrorMessage} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {Alert} from "@mui/material";
 
+const MuteButton = ({ audio }) => {
+  const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
 
+  const handleMuteClick = () => {
+    if (isMuted) {
+      audio.volume = 1; // Unmute the audio
+      audio.muted = false; // Unmute the button sound
+    } else {
+      audio.volume = 0; // Mute the audio
+      audio.muted = true; // Mute the button sound
+    }
+
+    setIsMuted(!isMuted);
+    localStorage.setItem("isMuted", !isMuted); // Store the updated isMuted state in local storage
+  };
+
+  useEffect(() => {
+    // Set the initial mute state of the audio and button sound when the component mounts
+    audio.volume = isMuted ? 0 : 1;
+    audio.muted = isMuted;
+  }, [audio, isMuted]);
+    return (
+      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" , zIndex:900}}>
+        <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" , zIndex:900}}>
+                      {isMuted ? (
+                        <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh', zIndex: 900 }} />
+                      ) : (
+                        <Icon icon="ph:speaker-high-bold" color="white" style={{ fontSize: '6vh', zIndex:900 }} />
+                      )}
+        </button>
+      </div>
+    );
+  };
 const Waitingroom = () => {
     const history = useHistory();
     const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+    const audio = useMemo(() => new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3"), []);
+
 
     let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
     //let [alert_message, setAlert_Message] = useState(<Alert className ="code alert-message" severity="error"><b>Something went wrong while joining the lobby:</b> nf</Alert>);
 
-    let [role, setRole] = useState(null)
-    useEffect(() => {
-        const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3");
-        audio.loop = true;
-        audio.play();
-        return () => {
-            audio.pause();
-        }
-    }, []);
+  let [role, setRole] = useState(null)
+  useEffect(() => {
+    audio.loop = true;
+    audio.play();
+    return () => {
+      audio.pause();
+    }
+  }, [audio]);
 
 
     // TODO Duplicated code
@@ -135,6 +168,7 @@ const Waitingroom = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
+             <MuteButton audio={audio}/>
             <div className="waitingroom header">
                 WAITING...
             </div>

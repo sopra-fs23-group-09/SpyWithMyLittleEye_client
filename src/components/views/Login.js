@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {api, getErrorMessage} from 'helpers/api';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
@@ -10,6 +10,40 @@ import 'styles/views/Code.scss';
 import {Alert} from "@mui/material";
 import eyeClosedIcon from '@iconify-icons/ph/eye-closed-bold';
 import eyeOpenIcon from '@iconify-icons/ph/eye-bold';
+
+const MuteButton = ({ audio }) => {
+  const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
+
+  const handleMuteClick = () => {
+    if (isMuted) {
+      audio.volume = 1; // Unmute the audio
+      audio.muted = false; // Unmute the button sound
+    } else {
+      audio.volume = 0; // Mute the audio
+      audio.muted = true; // Mute the button sound
+    }
+
+    setIsMuted(!isMuted);
+    localStorage.setItem("isMuted", !isMuted); // Store the updated isMuted state in local storage
+  };
+
+  useEffect(() => {
+    // Set the initial mute state of the audio and button sound when the component mounts
+    audio.volume = isMuted ? 0 : 1;
+    audio.muted = isMuted;
+  }, [audio, isMuted]);
+    return (
+      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+        <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
+                      {isMuted ? (
+                        <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
+                      ) : (
+                        <Icon icon="ph:speaker-high-bold" color="white" style={{ fontSize: '6vh' }} />
+                      )}
+        </button>
+      </div>
+    );
+  };
 
 /*
 It is possible to add multiple components inside a single file,
@@ -104,7 +138,7 @@ const Login = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
-
+            <MuteButton audio={audio}/>
             <div className="login container">
                 <div className="login form">
                     <div className="login login-title">
