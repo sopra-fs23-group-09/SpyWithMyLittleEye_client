@@ -163,11 +163,13 @@
     /* identical to box height */
     text-align: center;
     color: #FFFFFF;
+    position: relative;
+
 
   }
 
   &.player-list {
-    columns: 3;
+    columns: 5;
     list-style: none;
     position: absolute;
     top: 30vh;
