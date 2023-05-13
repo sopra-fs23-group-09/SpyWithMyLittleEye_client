@@ -10,23 +10,47 @@ import 'styles/views/Login.scss';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
 import {Alert} from "@mui/material";
-
+import eyeClosedIcon from '@iconify-icons/ph/eye-closed-bold';
+import eyeOpenIcon from '@iconify-icons/ph/eye-bold';
 const FormField = props => {
-    return (
-        <div className="login field">
-            <label className="login label">
-                {props.label}
-            </label>
-            <input
-                type={props.password}
-                className="login input"
-                placeholder={props.placeholder}
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+  return (
+    <div className="login field">
+      <label className="login label">{props.label}</label>
+      {props.password ? (
+      <div className="login password-field">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            className="login input"
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+          />
+          <div className="login password-toggle" onClick={handleTogglePassword}>
+            <Icon
+              icon={showPassword ? eyeOpenIcon : eyeClosedIcon}
+              color="gray"
+              style={{ fontSize: '4vh' }}
             />
-        </div>
-    );
+          </div>
+      </div>
+      ) : (
+        <input
+          type="text"
+          className="login input"
+          placeholder={props.placeholder}
+          value={props.value}
+          onChange={e => props.onChange(e.target.value)}
+        />
+      )}
+    </div>
+  );
 };
+
 
 FormField.propTypes = {
     label: PropTypes.string,
@@ -95,16 +119,19 @@ const Register = () => {
                         Signup
                     </div>
                     <FormField
-                        password="text"
+                        type="text"
                         placeholder="Username"
                         value={username}
                         onChange={un => setUsername(un)}
+
+
                     />
                     <FormField
                         password="password"
                         placeholder="*******"
                         value={password}
                         onChange={n => setPassword(n)}
+
                     />
                     {alert_message}
                     <div className="login button-container">
