@@ -64,9 +64,21 @@
   text-align: right;
   margin-top: -12vh;
   }
+  &.password-field {
+      display: flex;
+      align-items: center;
+    }
 
+  &.password-toggle {
+      position: absolute;
+      top: 38vh;
+      right: 15vw; /* Adjust the positioning as needed */
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
   &.input {
-    height: 70%;
+    height: 8vh;
+    width: 120vh;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -74,7 +86,7 @@
     margin-left: 1vh;
     margin-right: 1vh;
     border: none;
-    margin-bottom: 2vh;
+    margin-bottom: 0vh;
     color: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
@@ -83,7 +95,7 @@
     border-radius: 4vh;
   }
   &.login input::placeholder {
-    font-size: 1em;
+    font-size: 3vh;
   }
   &.label {
     width: 71vh;
