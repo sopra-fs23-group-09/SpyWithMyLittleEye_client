@@ -7,6 +7,7 @@ import React, {useEffect, useState} from 'react';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
 
+
 import {
     connect,
     getConnection,
@@ -22,7 +23,7 @@ const LobbyView = () => {
     var [lobby, setLobby] = useState(null);
     var [players, setPlayers] = useState(null);
     var [profilePics, setProfilePics]= useState(null);
-
+    const [copySuccess, setCopySuccess] = useState(false);
     let lobbyId = localStorage.getItem("lobbyId");
     let token = localStorage.getItem("token");
     const history = useHistory();
@@ -152,15 +153,35 @@ const LobbyView = () => {
             </div>
         </Button>)
     }
+    const handleCopyClick = () => {
+      navigator.clipboard.writeText(lobby.accessCode)
+        .then(() => setCopySuccess(true))
+        .catch((error) => console.error('Failed to copy:', error));
+    };
+    useEffect(() => {
+      let timeoutId;
+      if (copySuccess) {
+        timeoutId = setTimeout(() => {
+          setCopySuccess(false);
+        }, 2000);
+      }
+
+      return () => clearTimeout(timeoutId);
+    }, [copySuccess]);
 
     let content = <Spinner/>;
     if (lobby && players && profilePics) {
         content = (
             <div>
                 <div className="lobby lobby-code">
+                <button className="icon-button" onClick={handleCopyClick}>
+                  <Icon icon="lucide:clipboard-copy" color="white" style={{ fontSize: '1.75rem' }} />
+                </button>
                     <div className="lobby lobby-code-text">
                         Code: {lobby.accessCode}
                     </div>
+                    {copySuccess && <div className="lobby success-message">Copied successfully!</div>}
+
                 </div>
                 <div className="lobby rounds-box">
                     <div className="lobby rounds-text">
