@@ -17,8 +17,12 @@ const Waitingroom = () => {
 
     let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
     //let [alert_message, setAlert_Message] = useState(<Alert className ="code alert-message" severity="error"><b>Something went wrong while joining the lobby:</b> nf</Alert>);
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
     let [role, setRole] = useState(null)
+
     useEffect(() => {
         const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3");
         audio.loop = true;
@@ -102,9 +106,10 @@ const Waitingroom = () => {
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
                 console.log(data);
-                // refetch ur role , TODO maybe force site to reload
+                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
+                    <b>친구</b> has left the game! </Alert>);
+                // TODO: refetch role
 
             });
         }
@@ -152,6 +157,9 @@ const Waitingroom = () => {
             </div>
             <div className = "waitingroom alert-div">
                 {alert_message}
+            </div>
+            <div className = "lobby drop-out-alert-div">
+                {drop_out_alert_message}
             </div>
         </BaseContainer>
     );

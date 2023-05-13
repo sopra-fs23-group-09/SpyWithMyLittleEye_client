@@ -7,7 +7,6 @@ import React, {useEffect, useState} from 'react';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
 
-
 import {
     connect,
     getConnection,
@@ -17,6 +16,7 @@ import {
 } from "../../helpers/stompClient";
 import {getProfilePic} from "../../helpers/utilFunctions";
 import {api} from "../../helpers/api";
+import {Alert} from "@mui/material";
 
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
@@ -28,6 +28,10 @@ const LobbyView = () => {
     let token = localStorage.getItem("token");
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+        //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
     let counter = -1;
 
@@ -67,9 +71,14 @@ const LobbyView = () => {
     useEffect(() => {
         console.log("Connected: " + getConnection())
         if (getConnection()) {
-            subscribeToLobbyInformation();
+            makeSubscription();
         } else {
-            connect(subscribeToLobbyInformation)
+            connect(makeSubscription);
+        }
+
+        function makeSubscription() {
+            subscribeToLobbyInformation()
+            subscribeToUserDropOut();
         }
 
         // Get information if someone new joins, or the host starts the game
@@ -97,18 +106,18 @@ const LobbyView = () => {
             });
 
             notifyLobbyJoined(lobbyId, token);
-            subscribeToUserDropOut();
 
         }
 
         // Be notified if someone drops out if they close the tab / browser
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
                 console.log(data);
+                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
+                    <b>친구</b> has left the game! </Alert>);
 
                 /**
-                // Remove this person from the lobby
+                // Remove this person from the lobby -> done atomatically when refreshed u need to refresh
                 let username = "ff";
                 if (players&& players.includes(username)) {
                     const index = players.indexOf(username) ;
@@ -238,6 +247,9 @@ const LobbyView = () => {
                 LOBBY
             </div>
             {button_startGame}
+            <div className = "lobby drop-out-alert-div">
+                {drop_out_alert_message}
+            </div>
         </BaseContainer>
     );
 

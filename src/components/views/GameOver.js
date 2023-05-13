@@ -35,6 +35,9 @@ const GameOver = () => {
     let [third, setThird] = useState({username: "", points: ""})
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
 
     // KEEP ALIVE: to tell if an user has become idle
@@ -114,9 +117,10 @@ const GameOver = () => {
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
                 console.log(data);
-                // refetch ur role , TODO maybe force site to reload
+                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
+                    <b>친구</b> has left the game! </Alert>);
+                // TODO is game over?
 
             });
         }
@@ -201,6 +205,9 @@ const GameOver = () => {
                 {alert_message}
             </div>
             {button_gameEnded}
+            <div className = "lobby drop-out-alert-div">
+                {drop_out_alert_message}
+            </div>
 
         </BaseContainer>
     );

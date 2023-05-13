@@ -97,6 +97,10 @@ const Guessing = () => {
     const role = localStorage.getItem("role");
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
+
 
 //    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
  //   const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
@@ -165,10 +169,10 @@ const Guessing = () => {
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
                 console.log(data);
-                // go to waiting room, abort round
-
+                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
+                    <b>친구</b> has left the game! </Alert>);
+                // TODO: refetch role
             });
         }
 
@@ -381,6 +385,9 @@ const Guessing = () => {
             </div>
             <div className = "setlocation alert-div">
                 {alert_message}
+            </div>
+            <div className = "lobby drop-out-alert-div">
+                {drop_out_alert_message}
             </div>
         </BaseContainer>
     );

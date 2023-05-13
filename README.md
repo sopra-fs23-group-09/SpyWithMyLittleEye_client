@@ -74,6 +74,7 @@ dependencies, including React, get installed with:
 Furthermore, one needs to install the libraries used : 
 * MUI: `npm install @mui/material @emotion/react @emotion/styled`
 * Google Maps: `npm install @googlemaps/js-api-loader`
+* Iconify: `npm install --save-dev @iconify/react`
 * TODO is there more? 
 
 ### Commands to build and run the project locally

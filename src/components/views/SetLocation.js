@@ -73,6 +73,10 @@ const SetLocation = (props) => {
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
     //let [alert_message, setAlert_Message] = useState(<Alert className ="setlocation alert-message" severity="error"><b>Something went wrong when starting the game:</b> ddjjd</Alert>);
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
+
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
@@ -151,15 +155,15 @@ const SetLocation = (props) => {
                 localStorage.setItem("duration", data["duration"]);
             });
             unsubscribe("/topic/games/" + gameId + "/spiedObject");
+            unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
 
         }
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
                 console.log(data);
-                // Shouldnt matter to u
-
+                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
+                    <b>친구</b> has left the game! </Alert>);
             });
         }
     }, [gameId, history, lobbyId]);
@@ -259,6 +263,9 @@ const SetLocation = (props) => {
             </Button>
             <div className = "setlocation alert-div">
                 {alert_message}
+            </div>
+            <div className = "lobby drop-out-alert-div">
+                {drop_out_alert_message}
             </div>
         </BaseContainer>
     );
