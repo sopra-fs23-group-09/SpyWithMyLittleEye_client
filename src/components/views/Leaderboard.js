@@ -154,9 +154,6 @@ const Leaderboard = () => {
                         </div>
                     </Button>
                 </div>
-                <div className="leaderboard-page header">
-                    Ranking
-                </div>
                 <div className = "leaderboard-page alert-div">
                     {alert_message}
                 </div>
@@ -166,6 +163,9 @@ const Leaderboard = () => {
                             TOP USERS BY <span style={{color: "#DAA3EF"}}>POINTS EARNED</span>
                         </div>
                         <div className="ranking-header-row container">
+                            <div className="ranking-header-row rank">
+                                RANK
+                            </div>
                             <div className="ranking-header-row username">
                                 USERNAME
                             </div>
@@ -228,6 +228,9 @@ const Leaderboard = () => {
                             TOP USERS BY <span style={{color: "#DAA3EF"}}>GAMES WON</span>
                         </div>
                         <div className="ranking-header-row container">
+                            <div className="ranking-header-row rank">
+                                RANK
+                            </div>
                             <div className="ranking-header-row username">
                                 USERNAME
                             </div>
