@@ -206,8 +206,8 @@ const SetLocation = (props) => {
 
     return (
         <BaseContainer>
-            <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            <div className ="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -225,11 +225,13 @@ const SetLocation = (props) => {
             </div>
             <div className="setlocation role-container">
                 <div className="setlocation role-text">
-                    You're a: Spier
+                    You're a: SPIER
                 </div>
             </div>
-            <div className="setlocation rounds">
-                Round: {currentRound}/{amountOfRounds}
+            <div className="setlocation rounds-container">
+                <div className="setlocation rounds">
+                    Round: {currentRound}/{amountOfRounds}
+                </div>
             </div>
             <FormFieldColor
                 label="Enter color of the object:"
