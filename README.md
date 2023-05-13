@@ -82,8 +82,7 @@ Start the app with: `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Notice that the page will reload if you make any edits. You will also see any lint errors in the console (use Google
-Chrome).
+**We strongly recommend to use Google Chrome *only*, no matter if you have deployed the app or are accessing it locally**.
 
 ### Tests
 
