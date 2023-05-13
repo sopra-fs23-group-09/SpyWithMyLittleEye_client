@@ -180,10 +180,11 @@
     font-weight: 600;
     font-size: 1.75vw;
     /* identical to box height */
-    text-align: center;
     color: #FFFFFF;
-    position: relative;
-
+    position: absolute;
+    text-align: center;
+    //transform: translateX(-50%);
+    width: 6.5vw;
 
 
   }
