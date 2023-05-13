@@ -14,12 +14,13 @@
 
   &.container {
     margin-top: 7vw;
-    left: 4vh;
     position: absolute;
+    left: 50vw;
+    transform: translateX(-50%);
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     width: 170vh;
-    flex-direction: column;
+    //flex-direction: column;
 
   }
 
