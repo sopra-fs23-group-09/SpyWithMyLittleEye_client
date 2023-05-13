@@ -1,33 +1,61 @@
-# SoPra FS23 - Client Template with build pack
+# I Spy With My Little Eye
+![Image](./src/components/ui/LogoEye.js)  TODO: LOGO
 
-## Getting started
+By translating the childhood-favorite to the web, I Spy With My Little Eye is an exciting game where you can explore the world with your friends online.
+Check out the back-end implementation [here](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_server).
 
-Read and go through these Tutorials. It will make your life easier:)
+## 📚 Table of Contents
+1. [✨ Introduction](#introduction)
+2. [🦋 Technologies](#technologies)
+3. [🧩 High-level Components](#high-level-components)
+4. [🚀 Launch & Development](#launch--development)
+5. [🖼️ Illustrations](#illustrations)
+6. [🚗 Roadmap](#roadmap)
+7. [👩‍💻 Authors](#authors)
+8. [🫂 Acknowledgments](#acknowledgments)
+9. [©️ License](#license)
 
-- Read the React [Docs](https://reactjs.org/docs/getting-started.html)
-- Do this React [Getting Started](https://reactjs.org/tutorial/tutorial.html) Tutorial (it doesn’t assume any existing React knowledge)
-- Get an Understanding of [CSS](https://www.w3schools.com/Css/), [SCSS](https://sass-lang.com/documentation/syntax), and [HTML](https://www.w3schools.com/html/html_intro.asp)!
 
-Next, there are two other technologies that you should look at:
+## ✨ Introduction
 
-* [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start) offers declarative routing for React. It is a collection of navigational components that fit nicely with the application. 
-* [react-hooks](https://reactrouter.com/web/api/Hooks) let you access the router's state and perform navigation from inside your components.
+I Spy With My Little Eye aims to rekindle childhood memories - Having an online version of this beloved game allows us to explore the world with our friends online in a fun and exciting way.
 
-## Prerequisites and Installation
-For your local development environment, you will need Node.js. You can download it [here](https://nodejs.org). All other dependencies, including React, get installed with:
+## 🦋 Technologies
+During the development of the front-end, we used the following technologies:
+
+* [JavaScript]() - Programming language
+* [REACT](https://reactjs.org/) - Front-end JavaScript Library used mainly for Hooks
+* [MUI](https://mui.com/material-ui/react-alert/) - React UI framework used mainly for Alert components
+* [Axios API](https://axios-http.com/docs/api_intro) - Used for REST-based communication with the server
+* [Stomp](https://stomp-js.github.io/stomp-websocket/) - Used for websocket communication with the server
+
+## 🧩 High-level Components (TODO)
+Identify your project’s 3-5 main components. What is their role?
+How are they correlated? Reference the main class, file, or function in the README text
+with a link.
+
+## 🚀 Launch & Development
+
+These are the steps a new developer joining the team would
+have to take to get started with the application.
+
+### Prerequisites
+As the application is mainly written in JavaScript, downloading [Node.js](https://nodejs.org) is needed. All other dependencies, including React, get installed with:
 
 ```npm install```
 
-Run this command before you start your application for the first time. Next, you can start the app with:
+### Commands to build and run the project locally
+
+Start the app with:
 
 ```npm run dev```
 
-Now you can open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Notice that the page will reload if you make any edits. You will also see any lint errors in the console (use Google Chrome).
 
-### Testing
-Testing is optional, and you can run the tests with `npm run test`.
+### Tests
+You can run the tests with `npm run test`.
 This launches the test runner in an interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 > For macOS user running into a 'fsevents' error: https://github.com/jest-community/vscode-jest/issues/423
@@ -36,11 +64,41 @@ This launches the test runner in an interactive watch mode. See the section abou
 Finally, `npm run build` builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance: the build is minified, and the filenames include hashes.<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### External dependencies
 
-## Learn More
+Both the client and the server have to be running for the application to behave as expected.
+### Releases
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🖼️ Illustrations (TODO: insert pictures)
+
+Below we will briefly describe and illustrate the main user flow of our interface. <br>
+A new round starts with the **Spier**  selecting a place on Google Maps and choosing a random object on the Street View of that location. <br>
+![Image](//) <br>
+Afterwards, the **Guessers** try to guess the object within the time limit. Dduring the game, where incorrect guesses are highlighted in red and correct ones in green. Correct guesses are not revealed to the other players, they just see that a fellow player guessed correctly - so everyone can try to get it right!
+<br>
+![Image](//)
 
 
-> Thanks to Lucas Pelloni and Kyrill Hux for working on the template.
+## 🚗 Roadmap
+
+* *Hard game mode*: When one person guesses correctly, the round is over
+* *More metrics*: Allow the leaderboard to be filterable by other metrics (f.ex. fasted guessed)
+* *Edit profile picture*
+
+## 👩‍💻 Authors
+
+* [Loubna Dia-Eddine](https://github.com/Loubnadia) - client
+* [Ana Thereza Schiemer](https://github.com/athzsc) - client
+* [Xena Wacker](https://github.com/xayreen) - client
+* [Nina Emmermann](https://github.com/ninanni) - server
+* [Claudia Anna Narang-Keller](https://github.com/cnaran) - server
+
+
+## 🫂 Acknowledgments
+
+We want to thank our Teaching Assistant [Sheena Lang](https://github.com/SheenaGit) for guiding us through the course. We also couldn't have made it without our ✨ceremonies✨ 🍣✨ 🍱 🫶 after each Milestone.
+## ©️ License
+
+This project is licensed under the GNU GPLv3 License. 
+
+ 
