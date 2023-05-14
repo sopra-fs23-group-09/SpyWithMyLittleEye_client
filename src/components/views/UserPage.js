@@ -6,7 +6,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import {Link, useHistory, useParams} from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
-import {getProfilePic} from "../../helpers/utilFunctions";
+import {getProfilePic, logout} from "../../helpers/utilFunctions";
 import {Alert} from "@mui/material";
 
 const MuteButton = ({ audio }) => {
@@ -31,7 +31,7 @@ const MuteButton = ({ audio }) => {
     audio.muted = isMuted;
   }, [audio, isMuted]);
     return (
-      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+      <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" }}>
         <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
                       {isMuted ? (
                         <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
@@ -54,6 +54,7 @@ const UserPage = () => {
 
   const [user, setUser] = useState(null);
     let [alert_message, setAlert_Message] = useState(<div className="leaderboard alert-message"></div>);
+    let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="home-page alert-message"></div>);
 
 
     let content = <div></div>;
@@ -91,6 +92,11 @@ const UserPage = () => {
       retrieveUserData();
   }, [token, userId])
 
+    const goToProfile = () => {
+        history.push(`/users/${userId}`);
+        audio.play();
+    };
+
     if (user) {
         let picture = getProfilePic(user.profilePicture);
         content = <div className="userPage container">
@@ -118,16 +124,7 @@ const UserPage = () => {
                         Games won: {user?.gamesWon}
                     </div>
                 </div>
-                <Button className="userPage-back-button" onClick={() => {
-                    audio.play();
-                    history.push("/home");
-                }}>
-
-                    <div className="userPage back-button-text">
-                        Back
-                    </div>
-                </Button>
-                <Button className="edit-button" disabled={userId !== String(user?.id)} onClick={() => {
+                <Button className="edit-button" disabled={userId !== String(localStorage.getItem("userId"))} onClick={() => {
                     audio.play();
                     history.push("/users/" + userId + "/edit");
                 }}>
@@ -155,6 +152,39 @@ const UserPage = () => {
           </div>
           <div className="base-container ellipse4">
           </div>
+          <Button className="ranking-button" onClick={() => {
+              audio.play();
+              history.push('/leaderboard');
+          }}>
+              <div className="home-page ranking-text">
+                  Ranking
+              </div>
+          </Button>
+          <Button className="profile-button" onClick={() => {
+              audio.play();
+              history.push('/home');
+          }}>
+              <div className="leaderboard-page ranking-text">
+                  Home
+              </div>
+          </Button>
+          <Button className="logout-button" onClick={() => {
+              logout().then(r => {
+                  if (r.toString() === "Success".toString()){
+                      console.log("Logout Successful!")
+                      history.push("/start")
+                  } else {
+                      setLogout_Alert_Message(<Alert className="home-page alert-message"
+                                                     severity="error"><b>Something went wrong
+                          during logout: </b> {r}</Alert>);
+                  }
+              });
+          }
+          }>
+              <div className="home-page logout-text">
+                  Log out
+              </div>
+          </Button>
           <MuteButton audio={audio}/>
           {content}
       </BaseContainer>
