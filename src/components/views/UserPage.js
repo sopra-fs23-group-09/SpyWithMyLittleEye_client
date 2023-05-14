@@ -92,11 +92,6 @@ const UserPage = () => {
       retrieveUserData();
   }, [token, userId])
 
-    const goToProfile = () => {
-        history.push(`/users/${userId}`);
-        audio.play();
-    };
-
     if (user) {
         let picture = getProfilePic(user.profilePicture);
         content = <div className="userPage container">
@@ -185,6 +180,9 @@ const UserPage = () => {
                   Log out
               </div>
           </Button>
+          <div className = "home-page alert-div">
+              {logout_alert_message}
+          </div>
           <MuteButton audio={audio}/>
           {content}
       </BaseContainer>
