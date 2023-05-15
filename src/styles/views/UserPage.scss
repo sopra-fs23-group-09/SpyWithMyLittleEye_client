@@ -18,13 +18,13 @@
   }
 
   &.container {
-    width: 800px;
-    height: 600px;
+    width: 46vw;
+    height: 64vh;
     background: #FFFFFF;
     border-radius: 40px;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50vh;
+    left: 50vw;
     transform: translate(-50%, -50%);
   }
   /*&.form {
@@ -75,41 +75,14 @@
 
   &.edit-button-text {
 
-    width: 56px;
-    height: 38px;
+    //width: 10vw;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
-    /* identical to box height */
-    text-align: center;
-
-    color: #000000;
-
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-
-    position: absolute;
-    top: 50%;
-    left: 48%;
-    transform: translate(-50%, -50%);
-  }
-
-  &.back-button-text {
-
-    width: 118px;
-    height: 38px;
-
-    font-family: 'Quicksand', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -124,21 +97,17 @@
 
   &.profile-picture-background {
     position: absolute;
-    width: 800px;
-    height: 150px;
-    left: 0px;
-    top: 0px;
+    width: 46vw;
+    height: 15vh;
 
     //background: url('./../../images/RedPanda.png');
     border-radius: 40px 40px 0px 0px;
-    background-size: cover;
-    background-position-y: 450px;
     opacity: 0.75;
   }
 
   &.profile-picture {
-    width: 7em;
-    height: 7em;
+    width: 6.5vw;
+    height: 6.5vw;
     border-radius: 50%;
     border: 2px solid #97E1D4FF;
     filter: drop-shadow(0 0 8px #FF72B6FF);
@@ -146,8 +115,8 @@
     //background-position: center;
     background-size: cover;
     position: absolute;
-    left: 340px;
-    top: 80px;
+    top: 8.5vh;
+    left: 19.5vw;
   }
 
   &.username-container {
@@ -158,31 +127,31 @@
     //flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 50%;
-    height: 8%;
-    left: 195px;
-    top: 220px;
+    width: 23vw;
+    height: 5.25vh;
+    left: 11.25vw;
+    top: 23.3vh;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
   }
 
   &.username-text {
-    width: 224px;
-    height: 38px;
+    //width:  20vw;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 1.5vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -203,31 +172,31 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 50%;
-    height: 8%;
-    left: 195px;
-    top: 280px;
+    width: 23vw;
+    height: 5.25vh;
+    left: 11.25vw;
+    top: 29.75vh;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
   }
 
   &.score {
-    width: 147px;
-    height: 38px;
+    //width: 147px;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 1.5vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -248,31 +217,31 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 50%;
-    height: 8%;
-    left: 195px;
-    top: 340px;
+    width: 23vw;
+    height: 5.25vh;
+    left: 11.25vw;
+    top: 36.25vh;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
   }
 
   &.games-played-text {
-    width: 251px;
-    height: 38px;
+    //width: 251px;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 1.5vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -297,13 +266,13 @@
     gap: 10px;
 
     position: absolute;
-    width: 50%;
-    height: 8%;
-    left: 195px;
-    top: 400px;
+    width: 23vw;
+    height: 5.25vh;
+    left: 11.25vw;
+    top: 42.5vh;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
@@ -311,14 +280,10 @@
 
   &.games-won-text {
 
-    width: 200px;
-    height: 38px;
-
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 1.5vw;
     /* identical to box height */
     text-align: center;
 

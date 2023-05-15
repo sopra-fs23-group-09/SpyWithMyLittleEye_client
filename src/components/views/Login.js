@@ -128,7 +128,7 @@ const Login = () => {
     return (
         <BaseContainer>
             <div className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
