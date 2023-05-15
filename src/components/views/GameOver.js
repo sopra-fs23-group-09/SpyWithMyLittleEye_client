@@ -128,9 +128,6 @@ const GameOver = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
-                                                         unsubscribe("/topic/games/" + gameId + "/gameOver");
-                                                         unsubscribe("/topic/games/" + gameId + "/userDropOut");
-                                                         history.push("/game/" + gameId + "/score");
                                                      }}>
                         <b>{data.name}</b> has left the game! The game is over.</Alert>);
                 } else if (data.host) {
@@ -149,8 +146,6 @@ const GameOver = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
-                                                         //setReload(reload+1);
-                                                         // TODO : reload needed?
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
