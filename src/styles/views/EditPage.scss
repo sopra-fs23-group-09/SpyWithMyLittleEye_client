@@ -6,11 +6,11 @@
     background: #FFFFFF;
     border-radius: 40px;
 
-    width: 800px;
-    height: 600px;
+    width: 46vw;
+    height: 64vh;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50vh;
+    left: 50vw;
     transform: translate(-50%, -50%);
   }
 
@@ -22,17 +22,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 500px;
-    height: 60px;
-    left: 150px;
-    top: 150px;
+    //width: 500px;
+    //height: 60px;
+    left: 9vw;
+    top: 18vh;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
@@ -40,16 +40,16 @@
 
   &.username-label {
     position: absolute;
-    width: 364px;
-    height: 38px;
-    left: 70px;
-    top: -75px;
+    width: 20vw;
+    //height: 38px;
+    left: 4vw;
+    top: -8vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 25px;
-    line-height: 38px;
+    font-size: 1.5vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -58,8 +58,8 @@
   }
 
   &.username-input {
-    height: 60px;
-    width: 500px;
+    height: 7vh;
+    width: 28.5vw;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -69,15 +69,15 @@
     margin-bottom: 20px;
     color: black;
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
     position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 25px;
-    line-height: 50px;
+    top: 0;
+    left: -1vw;
+    font-size: 1.5vw;
+    //line-height: 50px;
   }
 
   &.password-field {
@@ -89,17 +89,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 500px;
-    height: 60px;
-    left: 150px;
-    top: 350px;
+    //width: 500px;
+    //height: 60px;
+    left: 9vw;
+    top: 37vh;
 
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
@@ -108,16 +108,16 @@
 
   &.password-label {
     position: absolute;
-    width: 364px;
-    height: 38px;
-    left: 70px;
-    top: -75px;
+    width: 20vw;
+    //height: 38px;
+    left: 4vw;
+    top: -8vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 25px;
-    line-height: 38px;
+    font-size: 1.5vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -127,8 +127,8 @@
 
 
   &.password-input {
-    height: 60px;
-    width: 500px;
+    height: 7vh;
+    width: 28.5vw;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -138,27 +138,27 @@
     margin-bottom: 20px;
     color: black;
     background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
     position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 25px;
-    line-height: 50px;
+    top: 0;
+    left: -1vw;
+    font-size: 1.5vw;
+    //line-height: 50px;
   }
 
 
   &.back-button-text {
-    width: 71px;
-    height: 38px;
+    //width: 71px;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -173,14 +173,14 @@
 
 
   &.save-button-text {
-    width: 71px;
-    height: 38px;
+    //width: 71px;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 

@@ -410,21 +410,24 @@
 }
 
 .edit-page-back-button {
+  &:hover {
+    transform: translateY(-4px);
+  }
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  //padding: 10px;
+  //gap: 10px;
 
   position: absolute;
-  width: 150px;
-  height: 50px;
-  left: 500px;
-  top: 475px;
+  width: 8vw;
+  height: 6vh;
+  left: 29vw;
+  top: 50vh;
 
   background: #97E1D4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
@@ -432,21 +435,28 @@
 }
 
 .edit-page-save-button {
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &:enabled:hover {
+    transform: translateY(-4px);
+  }
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  //padding: 10px;
+  //gap: 10px;
 
   position: absolute;
-  width: 150px;
-  height: 50px;
-  left: 148px;
-  top: 475px;
+  width: 8vw;
+  height: 6vh;
+  left: 8.5vw;
+  top: 50vh;
 
   background: #97E1D4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(30px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;

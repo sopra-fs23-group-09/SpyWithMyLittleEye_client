@@ -31,7 +31,7 @@ const MuteButton = ({ audio }) => {
     audio.muted = isMuted;
   }, [audio, isMuted]);
     return (
-      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+      <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" }}>
         <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
                       {isMuted ? (
                         <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
@@ -147,7 +147,7 @@ const EditPage = () => {
   return (
     <BaseContainer>
             <Link to="/home" className="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4rem' }} />
+                <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw' }} />
             </Link>
       <div className="base-container ellipse1">
       </div>
