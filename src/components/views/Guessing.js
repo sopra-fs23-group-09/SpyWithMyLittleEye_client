@@ -208,7 +208,12 @@ const Guessing = () => {
                                                          unsubscribe("/topic/games/" + lobbyId + "/hints");
                                                          unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
                                                          history.push(`/game/` + lobbyId + "/waitingroom");
-                                                         // TODO : reload needed?
+                                                         if (currentRound < amountOfRounds) {
+                                                             history.push(`/game/` + lobbyId + "/waitingroom");
+                                                         }
+                                                         else if(currentRound === amountOfRounds) {
+                                                             history.push("/game/"+lobbyId+"/score");
+                                                         }
                                                      }}>
                         <b>The SPIER {data.name}</b> has left the game! </Alert>);
                 } else {
@@ -284,7 +289,7 @@ const Guessing = () => {
             makeSubscription();
         }
 
-    }, [history, reload]);
+    }, [history, reload, amountOfRounds, currentRound]);
 
     const submitInput = () => {
         if (role === "SPIER") {
