@@ -7,18 +7,22 @@ import {api, getErrorMessage} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {Alert} from "@mui/material";
+import {clearGameLocalStorage} from "../../helpers/utilFunctions";
 
 
 const Waitingroom = () => {
     const history = useHistory();
     const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
+    const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
 
-    let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
+    let [reload, setReload] = useState(0);
+
+    let [alert_message, setAlert_Message] = useState(<div className="waitingroom alert-message"></div>);
     //let [alert_message, setAlert_Message] = useState(<Alert className ="code alert-message" severity="error"><b>Something went wrong while joining the lobby:</b> nf</Alert>);
     let [drop_out_alert_message, setDrop_out_alert_message] =
-        useState(<div className="lobby drop-out-alert-message"></div>);
+        useState(<div className="waitingroom drop-out-alert-message"></div>);
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
     let [role, setRole] = useState(null)
@@ -50,6 +54,10 @@ const Waitingroom = () => {
             localStorage.setItem("intervalId", String(intervalId));
             console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
         }
+        if ((!(localStorage.getItem("token"))) || (!(localStorage.getItem("username")))) { // ure dropped out?
+            console.log("I don't have the info anymore!!!!")
+            history.push("/start");
+        }
     }, [history])
 
 
@@ -63,7 +71,10 @@ const Waitingroom = () => {
                 localStorage.setItem("role", role);
                 if (role.toString() === ("SPIER").toString()) {
                     console.log("You're a spier this round.")
-                    // TODO unsubscribe
+                   // if (getConnection()) { TODO Thereza: I need to test this properly before pushing
+                       unsubscribe("/topic/games/" + gameId + "/userDropOut");
+                       unsubscribe("/topic/games/" + gameId + "/spiedObject");
+                    //}
                     history.push("/game/" + gameId + "/location")
                 } else if (role.toString() === ("GUESSER").toString()) {
                     console.log("You're a guesser this round.")
@@ -77,7 +88,7 @@ const Waitingroom = () => {
             }
         }
         fetchData();
-    }, [gameId, history, token, userId]);
+    }, [gameId, history, token, userId, reload]);
 
     useEffect(() => {
         console.log("Connected: " + getConnection())
@@ -94,12 +105,9 @@ const Waitingroom = () => {
 
         function subscribeToSpiedObjectInformation() {
             subscribe("/topic/games/" + gameId + "/spiedObject", data => {
-                console.log("Inside callback");
-                console.log(data["location"]);
-                console.log(data["color"]);
                 localStorage.setItem("location", JSON.stringify(data["location"]));
                 localStorage.setItem("color", JSON.stringify(data["color"]))
-                localStorage.setItem("duration", data["duration"]) //TODO needed?
+                localStorage.setItem("duration", data["duration"])
                 redirectToRound();
             });
         }
@@ -107,10 +115,43 @@ const Waitingroom = () => {
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
                 console.log(data);
-                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
-                    <b>친구</b> has left the game! </Alert>);
-                // TODO: refetch role
-
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("I DROPPED OUT???")
+                    localStorage.removeItem('token');
+                    history.push("/start")
+                } else if (data.endGame) {
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         clearGameLocalStorage();
+                                                         unsubscribe("/topic/games/" + gameId + "/spiedObject");
+                                                         unsubscribe("/topic/games/" + gameId+ "/userDropOut");
+                                                         history.push("/game/"+gameId+"/score");
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
+                } else {
+                    if (data.role.toString() === "SPIER") {
+                        console.log("SPIER DROPPED OUT")
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                             setReload(reload+1);
+                                                             // TODO : reload needed?
+                                                         }}>
+                            The SPIER <b>{data.name}</b> has left the game! </Alert>);
+                    }
+                    console.log("USER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         setReload(reload+1);
+                                                         // TODO : reload needed?
+                                                     }}>
+                        <b>{data.name}</b> has left the game! </Alert>);
+                }
             });
         }
 
@@ -120,7 +161,7 @@ const Waitingroom = () => {
             history.push("/game/" + gameId);
         }
 
-    }, [gameId, history]);
+    }, [gameId, history, reload, username]);
 
     let messageForGuessers = (<div></div>)
     if ((role) && (role.toString() === ("GUESSER"))) {
@@ -158,7 +199,7 @@ const Waitingroom = () => {
             <div className = "waitingroom alert-div">
                 {alert_message}
             </div>
-            <div className = "lobby drop-out-alert-div">
+            <div className = "waitingroom drop-out-alert-div">
                 {drop_out_alert_message}
             </div>
         </BaseContainer>

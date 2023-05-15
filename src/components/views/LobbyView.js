@@ -15,7 +15,7 @@ import {
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
 import {getProfilePic} from "../../helpers/utilFunctions";
-import {api} from "../../helpers/api";
+import {api, getErrorMessage} from "../../helpers/api";
 import {Alert} from "@mui/material";
 
 const LobbyView = () => {
@@ -37,23 +37,26 @@ const LobbyView = () => {
 
     let counter = -1;
 
-    let [reload, setReload] = useState(0);
-
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(() => {
-        if (!(localStorage.getItem("intervalId"))) {
-            let token = localStorage.getItem("token");
+        let token = localStorage.getItem("token");
+        if (!(localStorage.getItem("intervalId")) && (token)) {
 
             let intervalId = setInterval(async () => {
                 try {
                     await api.put("/users/keepAlive", {}, {headers: {Token: token}})
                     console.log("I am alive!!! " + token)
                 } catch (e) {
+                    console.log(getErrorMessage(e))
                     history.push("/start");
                 }
             }, 2000)
             localStorage.setItem("intervalId", String(intervalId));
             console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+        }
+        if ((!(localStorage.getItem("token"))) || (!(localStorage.getItem("username")))) { // ure dropped out?
+            console.log("I don't have the info anymore!!!!")
+            history.push("/start");
         }
     }, [history])
 
@@ -97,6 +100,7 @@ const LobbyView = () => {
                     if (event.toString() === ("joined").toString()) {
                         console.log("JOINED")
                         setLobby(data);
+                        console.log(username)
                         setHostId(data.hostId);
                         setPlayers(data.playerNames);
                         setProfilePics(data.profilePictures);
@@ -119,27 +123,42 @@ const LobbyView = () => {
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + lobbyId + "/userDropOut", data => {
                 console.log(data);
+                console.log(data.name)
+                console.log(data.name.toString() === username.toString())
                 if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("BYEE")
+                    localStorage.removeItem('token');
                     history.push("/start")
-                }
-                if ((hostId) && data.host) {
-                    console.log("HOST DROPPED OUT")
-                    setHostId(data.newHostId);
-                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
-                                                     onClose={() => {
-                                                         setDrop_out_alert_message(<div
-                                                             className="lobby drop-out-alert-message"></div>);
-                                                     }}>
-                        <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);
+
                 } else {
-                    console.log("USER DROPPED OUT")
-                    setReload(reload+1);
-                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
-                                                     onClose={() => {
-                                                         setDrop_out_alert_message(<div
-                                                             className="lobby drop-out-alert-message"></div>);
-                                                     }}>
-                        <b>{data.name}</b> has left the game! </Alert>);
+                    if ((hostId) && data.host) {
+                        console.log("HOST DROPPED OUT")
+                        setHostId(data.newHostId);
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                         }}>
+                            <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);
+                    } else if (data.endGame) {
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                             unsubscribe("/topic/lobbies/" + lobbyId);
+                                                             unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
+                                                             history.push("/game/"+lobbyId+"/score");
+                                                         }}>
+                            <b>{data.name}</b> has left the game! The game is over.</Alert>);
+                    } else {
+                        console.log("USER DROPPED OUT")
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                         }}>
+                            <b>{data.name}</b> has left the game! </Alert>);
+                    }
                 }
             });
         }
@@ -151,7 +170,7 @@ const LobbyView = () => {
             localStorage.setItem("gameId", gameId);
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
-    }, [lobbyId, history, token, username, reload, hostId]);
+    }, [lobbyId, history, token, username, hostId]);
 
     function startGameButtonClick() {
         audio.play();

@@ -34,6 +34,8 @@ const RoundOver = () => {
         useState(<div className="lobby drop-out-alert-message"></div>);
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
+    let [reload, setReload] = useState(0);
+
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
@@ -108,12 +110,46 @@ const RoundOver = () => {
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
+                let username = localStorage.getItem("username");
                 console.log(data);
-                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
-                    <b>친구</b> has left the game! </Alert>);
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("I DROPPED OUT???")
+                    localStorage.removeItem('token');
+                    history.push("/start")
+                } else if (data.endGame) {
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         unsubscribe("/topic/games/" + gameId + "/nextRound");
+                                                         unsubscribe("/topic/games/" + gameId+ "/userDropOut");
+                                                         history.push("/game/"+gameId+"/score");
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
+                } else if (data.host) {
+                    console.log("HOST DROPPED OUT")
+                    setHostId(data.newHostId);
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setReload(reload+1);
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                     }}>
+                        <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);
+                } else {
+                    console.log("USER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         setReload(reload+1);
+                                                         // TODO : reload needed?
+                                                     }}>
+                        <b>{data.name}</b> has left the game! </Alert>);
+                }
             });
         }
-    }, [gameId, history]);
+    }, [gameId, history, hostId, reload]);
 
 
 

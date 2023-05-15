@@ -63,6 +63,9 @@ const SetLocation = (props) => {
     const gameId = localStorage.getItem("gameId");
     const lobbyId = localStorage.getItem("lobbyId");
     const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+    //let [reload,setReload] = useState(0);
+
 
     const [location, setlocation] = useState("");
     const [color, setColor] = useState("");
@@ -93,6 +96,10 @@ const SetLocation = (props) => {
             }, 2000)
             localStorage.setItem("intervalId", String(intervalId));
             console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
+        }
+        if ((!(localStorage.getItem("token"))) || (!(localStorage.getItem("username")))) { // ure dropped out?
+            console.log("I don't have the info anymore!!!!")
+            history.push("/start");
         }
     }, [history])
 
@@ -153,20 +160,56 @@ const SetLocation = (props) => {
         function subscribeToSetLocationInformation() {
             subscribe("/topic/games/" + gameId + "/spiedObject", data => {
                 localStorage.setItem("duration", data["duration"]);
+                localStorage.setItem("location", JSON.stringify(data["location"]));
+                localStorage.setItem("color", JSON.stringify(data["color"]))
+                unsubscribe("/topic/games/" + gameId + "/spiedObject");
+                unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
+                history.push("/game/" + gameId);
+                //TODO Thereza: I need to test this properly before pushing
             });
-            unsubscribe("/topic/games/" + gameId + "/spiedObject");
-            unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
 
         }
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
                 console.log(data);
-                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
-                    <b>친구</b> has left the game! </Alert>);
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("I DROPPED OUT???")
+                    localStorage.removeItem('token');
+                    history.push("/start")
+                } else if (data.endGame) {
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         unsubscribe("/topic/games/" + gameId + "/spiedObject");
+                                                         unsubscribe("/topic/games/" + gameId+ "/userDropOut");
+                                                         history.push("/game/"+lobbyId+"/score");
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
+               /** } else if ((hostId) && data.host) {
+                    console.log("HOST DROPPED OUT")
+                    setHostId(data.newHostId);
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                     }}>
+                        <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);**/
+                }else {
+                    console.log("USER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         //setReload(reload+1);
+                                                         // TODO : reload needed?
+                                                     }}>
+                        <b>{data.name}</b> has left the game! </Alert>);
+                }
             });
         }
-    }, [gameId, history, lobbyId]);
+    }, [gameId, history, lobbyId, username]);
 
 
 

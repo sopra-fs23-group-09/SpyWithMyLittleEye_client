@@ -2,7 +2,7 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/HomePage.scss';
 import {Link, useHistory} from "react-router-dom";
 import BaseContainer from "../ui/BaseContainer";
-import {api} from 'helpers/api';
+import {api, getErrorMessage} from 'helpers/api';
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import React, { useState, useEffect } from 'react';
@@ -32,6 +32,7 @@ const HomePage = () => {
                     await api.put("/users/keepAlive", {}, {headers: {Token: token}})
                     console.log("I am alive!!! " + token)
                 } catch (e) {
+                    console.log(getErrorMessage(e))
                     history.push("/start");
                 }
             }, 2000)

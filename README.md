@@ -1,6 +1,6 @@
 # I Spy With My Little Eye
 
-![Image](./src/images/LogoHeader.png) 
+![Image](./src/images/LogoHeader.png)
 
 By translating the childhood-favorite to the web, I Spy With My Little Eye is an exciting game where you can explore the
 world with your friends online.
@@ -34,6 +34,7 @@ During the development of the front-end, we used the following technologies:
 * [Stomp](https://stomp-js.github.io/stomp-websocket/) - Used for websocket communication with the server
 
 ## 🧩 High-level Components (TODO) <a id="high-level-components"></a>
+
 Find the front-ends main 3 components below. What is their role?
 How are they correlated? Reference the main class, file, or function in the README text
 with a link.
@@ -50,15 +51,24 @@ to the backend using the websocket. The **GUESSERs** in the Waiting Room are inf
 they are subscribed to, and redirected to the main part of the game: [Guessing](#-guessing).
 
 ### ⁉️ Guessing
+
 [Guessing](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Guessing.js)
-is the view in which **GUESSERs** try to guess the object the **SPIER** picked in [SetLocation](#-set-location), and 
-the **SPIER** gives the **GUESSERs** hints to help them guess the correct quicker. **GUESSERs** can see the guesses in a
+is the view in which **GUESSERs** try to guess the object the **SPIER** picked in [SetLocation](#-set-location). Thus it
+is the most important part of the game. Additionally,
+the **SPIER** gives the **GUESSERs** hints to help them guess the correct answer quicker. **GUESSERs** can see the
+guesses in a
 chat.  <br>
-The chat works through a websocket connection with the backend.
+The chat works through a websocket connection with the backend. Once the timer has elapsed or all **GUESSERs** have been
+successful, the round is over and the players are redirected to [RoundOver]() or [GameOver](), depending on the round
+one is currently in.
 
-### 🫀 Keep Alive 
-maybe?
+### 🫀 Keep Alive
 
+This feature arose due to the need of handling idle users or ones that close the tab during the game. While not a component per-se, it still is a big feature. (TODO: Take out maybe)
+
+### 🏆 Leaderboard
+
+The [Leaderboard](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Ranking.js)
 ## 🚀 Launch & Development <a id="launch--development"></a>
 
 These are the steps a new developer joining the team would
@@ -71,11 +81,12 @@ dependencies, including React, get installed with:
 
 ```npm install```
 
-Furthermore, one needs to install the libraries used : 
+Furthermore, one needs to install the libraries used :
+
 * MUI: `npm install @mui/material @emotion/react @emotion/styled`
 * Google Maps: `npm install @googlemaps/js-api-loader`
 * Iconify: `npm install --save-dev @iconify/react`
-* TODO is there more? 
+* TODO is there more?
 
 ### Commands to build and run the project locally
 
@@ -114,7 +125,6 @@ are highlighted in red and correct ones in green. Correct guesses are not reveal
 that a fellow player guessed correctly - so everyone can try to get it right!
 <br>
 ![Image](./src/images/ScreenshotGuessing.jpeg)
-
 
 ## 🚙 Roadmap <a id="roadmap"></a>
 

@@ -98,7 +98,7 @@ const Guessing = () => {
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
     let [drop_out_alert_message, setDrop_out_alert_message] =
-        useState(<div className="lobby drop-out-alert-message"></div>);
+        useState(<div className="guessing drop-out-alert-message"></div>);
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
 
@@ -119,6 +119,8 @@ const Guessing = () => {
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
+    let [reload, setReload] = useState(0);
+
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
@@ -169,10 +171,44 @@ const Guessing = () => {
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
+                let username = localStorage.getItem("username");
                 console.log(data);
-                setDrop_out_alert_message(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}>
-                    <b>친구</b> has left the game! </Alert>);
-                // TODO: refetch role
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("I DROPPED OUT???")
+                    localStorage.removeItem('token');
+                    history.push("/start")
+                } else if (data.endGame) {
+                    unsubscribe("/topic/games/" + lobbyId + "/endRound");
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                         unsubscribe("/topic/games/" + lobbyId + "/guesses");
+                                                         unsubscribe("/topic/games/" + lobbyId + "/hints");
+                                                         unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+                                                         history.push("/game/" + lobbyId + "/score");
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
+               /** } else if ((hostId) && data.host) {
+                        console.log("HOST DROPPED OUT")
+                        setHostId(data.newHostId);
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                         }}>
+                            <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);**/
+                } else {
+                    console.log("USER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="guessing drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="guessing drop-out-alert-message"></div>);
+                                                         setReload(reload+1);
+                                                         // TODO : reload needed?
+                                                     }}>
+                        <b>{data.name}</b> has left the game! </Alert>);
+                }
             });
         }
 
@@ -235,7 +271,7 @@ const Guessing = () => {
             makeSubscription();
         }
 
-    }, [history]);
+    }, [history, reload]);
 
     const submitInput = () => {
         if (role === "SPIER") {
@@ -386,7 +422,7 @@ const Guessing = () => {
             <div className = "setlocation alert-div">
                 {alert_message}
             </div>
-            <div className = "lobby drop-out-alert-div">
+            <div className = "guessing drop-out-alert-div">
                 {drop_out_alert_message}
             </div>
         </BaseContainer>
