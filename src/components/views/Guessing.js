@@ -198,6 +198,19 @@ const Guessing = () => {
                                                                  className="lobby drop-out-alert-message"></div>);
                                                          }}>
                             <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);**/
+                } else if (data.role.toString() === "SPIER") {
+                    console.log("SPIER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="guessing drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="guessing drop-out-alert-message"></div>);
+                                                         unsubscribe("/topic/games/" + lobbyId + "/guesses");
+                                                         unsubscribe("/topic/games/" + lobbyId + "/hints");
+                                                         unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+                                                         history.push(`/game/` + lobbyId + "/waitingroom");
+                                                         // TODO : reload needed?
+                                                     }}>
+                        <b>The SPIER {data.name}</b> has left the game! </Alert>);
                 } else {
                     console.log("USER DROPPED OUT")
                     setDrop_out_alert_message(<Alert className="guessing drop-out-alert-message" severity="warning"
