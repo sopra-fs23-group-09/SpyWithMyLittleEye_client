@@ -39,7 +39,7 @@ const MuteButton = ({ audio }) => {
     audio.muted = isMuted;
   }, [audio, isMuted]);
     return (
-      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+      <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" }}>
         <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
                       {isMuted ? (
                         <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
@@ -207,7 +207,7 @@ const LobbyView = () => {
             <div>
                 <div className="lobby lobby-code">
                 <button className="icon-button" onClick={handleCopyClick}>
-                  <Icon icon="lucide:clipboard-copy" color="white" style={{ fontSize: '1.75rem' }} />
+                  <Icon icon="lucide:clipboard-copy" color="white" style={{ fontSize: '1.5vw' }} />
                 </button>
                     <div className="lobby lobby-code-text">
                         Code: {lobby.accessCode}
@@ -270,7 +270,7 @@ const LobbyView = () => {
             <div className="lobby lobby-text">
                 LOBBY
             </div>
-            {button_startGame}
+
         </BaseContainer>
     );
 

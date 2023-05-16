@@ -2,15 +2,12 @@
 
 .primary-button {
   &:hover {
-    transform: translateY(-4px); //TODO fix this
+    transform: translateY(-4px);
   }
   box-sizing: border-box;
 
   /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+
   //padding: 10px;
   //gap: 10px;
 
@@ -316,11 +313,11 @@
   //gap: 10px;
 
   position: absolute;
-  left: 43vw;
+  left: 45vw;
   top: 80vh;
 
 
-  width: 15vw;
+  width: 10vw;
   height: 10vh;
 
   background: #97E1D4;
@@ -481,7 +478,7 @@
   top: 75vh;
 
   background: #97E1D4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 40px;
