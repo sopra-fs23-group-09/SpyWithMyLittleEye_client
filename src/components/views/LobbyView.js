@@ -59,7 +59,7 @@ const LobbyView = () => {
     let lobbyId = localStorage.getItem("lobbyId");
     let token = localStorage.getItem("token");
     const history = useHistory();
-    const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
     let counter = -1;
 

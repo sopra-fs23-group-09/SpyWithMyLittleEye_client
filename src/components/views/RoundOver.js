@@ -51,7 +51,7 @@ const RoundOver = () => {
     const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-    const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
     let [keyword, setKeyword] = useState(null);
     let [hostId, setHostId] = useState(null)
