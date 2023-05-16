@@ -7,7 +7,6 @@ import React, {useEffect, useState} from 'react';
 import {Icon} from '@iconify/react';
 import 'styles/views/Code.scss';
 
-
 import {
     connect,
     getConnection,
@@ -16,7 +15,7 @@ import {
     notifyLobbyJoined, unsubscribe
 } from "../../helpers/stompClient";
 import {getProfilePic} from "../../helpers/utilFunctions";
-import {api} from "../../helpers/api";
+import {Alert} from "@mui/material";
 const MuteButton = ({ audio }) => {
   const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
 
@@ -52,36 +51,49 @@ const MuteButton = ({ audio }) => {
   };
 const LobbyView = () => {
     let userId = localStorage.getItem("userId");
+    let username = localStorage.getItem("username");
     var [lobby, setLobby] = useState(null);
     var [players, setPlayers] = useState(null);
-    var [profilePics, setProfilePics]= useState(null);
+    var [profilePics, setProfilePics] = useState(null);
     const [copySuccess, setCopySuccess] = useState(false);
+    let [hostId, setHostId] = useState(null);
     let lobbyId = localStorage.getItem("lobbyId");
     let token = localStorage.getItem("token");
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
+
     let counter = -1;
 
     // KEEP ALIVE: to tell if an user has become idle
-    useEffect(()=>{
-        if (!(localStorage.getItem("intervalId"))) {
-            let token = localStorage.getItem("token");
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        if (!(localStorage.getItem("intervalId")) && (token)) {
 
             let intervalId = setInterval(async () => {
                 try {
                     await api.put("/users/keepAlive", {}, {headers: {Token: token}})
                     console.log("I am alive!!! " + token)
                 } catch (e) {
+                    console.log(getErrorMessage(e))
                     history.push("/start");
                 }
             }, 2000)
             localStorage.setItem("intervalId", String(intervalId));
             console.log("Localstorage : " + localStorage.getItem("intervalId") + " actual: " + intervalId);
         }
+        if ((!(localStorage.getItem("token"))) || (!(localStorage.getItem("username")))) { // ure dropped out?
+            console.log("I don't have the info anymore!!!!")
+            history.push("/start");
+        }
     }, [history])
 
-    useEffect( () => {
+    /**
+     useEffect( () => {
+    window.location.reload(true)
         // ignore this for now, ill use this to remove someone from the lobby in the callback for userDropOut
         let username = "ff";
         if (lobby && lobby.playerNames && lobby.playerNames.includes(username)) {
@@ -93,15 +105,20 @@ const LobbyView = () => {
                 console.log(lobby.playerNames)
             }
         }
-    }, [lobby])
+    }, [lobby])**/
 
 
     useEffect(() => {
         console.log("Connected: " + getConnection())
         if (getConnection()) {
-            subscribeToLobbyInformation();
+            makeSubscription();
         } else {
-            connect(subscribeToLobbyInformation)
+            connect(makeSubscription);
+        }
+
+        function makeSubscription() {
+            subscribeToLobbyInformation()
+            subscribeToUserDropOut();
         }
 
         // Get information if someone new joins, or the host starts the game
@@ -114,8 +131,9 @@ const LobbyView = () => {
                     if (event.toString() === ("joined").toString()) {
                         console.log("JOINED")
                         setLobby(data);
+                        console.log(username)
+                        setHostId(data.hostId);
                         setPlayers(data.playerNames);
-                        console.log(data.profilePictures);
                         setProfilePics(data.profilePictures);
                         // TODO set profile pictures!!!!!
                     } else if (event.toString() === ("started").toString()) {
@@ -129,39 +147,61 @@ const LobbyView = () => {
             });
 
             notifyLobbyJoined(lobbyId, token);
-            subscribeToUserDropOut();
 
         }
 
         // Be notified if someone drops out if they close the tab / browser
         function subscribeToUserDropOut() {
-            subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
+            subscribe("/topic/games/" + lobbyId + "/userDropOut", data => {
                 console.log(data);
+                console.log(data.name)
+                console.log(data.name.toString() === username.toString())
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("BYEE")
+                    localStorage.removeItem('token');
+                    history.push("/start")
 
-                /**
-                // Remove this person from the lobby
-                let username = "ff";
-                if (players&& players.includes(username)) {
-                    const index = players.indexOf(username) ;
-                    if (index > -1) {
-                        console.log("removing")
-                        // lobby.playerNames = lobby.playerNames.filter(e => e !== username);
-                        setPlayers(players)
-                        console.log(players)
+                } else {
+                    if ((hostId) && data.host) {
+                        console.log("HOST DROPPED OUT")
+                        setHostId(data.newHostId);
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                         }}>
+                            <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);
+                    } else if (data.endGame) {
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                             unsubscribe("/topic/lobbies/" + lobbyId);
+                                                             unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
+                                                             history.push("/game/"+lobbyId+"/score");
+                                                         }}>
+                            <b>{data.name}</b> has left the game! The game is over.</Alert>);
+                    } else {
+                        console.log("USER DROPPED OUT")
+                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                         onClose={() => {
+                                                             setDrop_out_alert_message(<div
+                                                                 className="lobby drop-out-alert-message"></div>);
+                                                         }}>
+                            <b>{data.name}</b> has left the game! </Alert>);
                     }
-                }**/
+                }
             });
         }
 
         function redirectToGame() {
             let gameId = lobbyId;
             unsubscribe("/topic/lobbies/" + lobbyId);
-            unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
             localStorage.setItem("gameId", gameId);
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
-    }, [lobbyId, history, token]);
+    }, [lobbyId, history, token, username, hostId]);
 
     function startGameButtonClick() {
         audio.play();
@@ -169,15 +209,14 @@ const LobbyView = () => {
         // TODO DUplicate code
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
-        unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
+        unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
         localStorage.setItem("gameId", gameId);
         history.push(`/game/` + lobbyId + "/waitingroom");
     }
 
 
-
     let button_startGame = (<div></div>);
-    if ((lobby) && (lobby.hostId.toString() === userId.toString()) && (lobby.playerNames.length >= 2)) {
+    if ((lobby) && (hostId) && (hostId.toString() === userId.toString()) && (lobby.playerNames.length >= 2)) {
         button_startGame = (<Button className="primary-button" onClick={() => startGameButtonClick()}
         >
             <div className="lobby button-text">
@@ -186,19 +225,19 @@ const LobbyView = () => {
         </Button>)
     }
     const handleCopyClick = () => {
-      navigator.clipboard.writeText(lobby.accessCode)
-        .then(() => setCopySuccess(true))
-        .catch((error) => console.error('Failed to copy:', error));
+        navigator.clipboard.writeText(lobby.accessCode)
+            .then(() => setCopySuccess(true))
+            .catch((error) => console.error('Failed to copy:', error));
     };
     useEffect(() => {
-      let timeoutId;
-      if (copySuccess) {
-        timeoutId = setTimeout(() => {
-          setCopySuccess(false);
-        }, 2000);
-      }
+        let timeoutId;
+        if (copySuccess) {
+            timeoutId = setTimeout(() => {
+                setCopySuccess(false);
+            }, 2000);
+        }
 
-      return () => clearTimeout(timeoutId);
+        return () => clearTimeout(timeoutId);
     }, [copySuccess]);
 
     let content = <Spinner/>;
@@ -226,25 +265,25 @@ const LobbyView = () => {
                     </div>
                 </div>
                 <ul className="lobby player-list">
-                    {players.map(name =>
-                    {   counter++;
-                        console.log(profilePics[counter])
+                    {players.map(name => {
+                        counter++;
                         return (<li className="lobby player-container">
-                            <img
-                                src= {getProfilePic(profilePics[counter]) /**TODO change from name to profilePic**/}
-                                style={{
-                                    borderRadius: '50%',
-                                    height: '6.5vw',
-                                    width: '6.5vw',
-                                    objectFit: 'cover',
-                                }}
-                                alt="profile pic"
-                            />
-                            <div className="lobby player-name">
-                                {name}
-                            </div>
-                        </li>
-                    )})
+                                <img
+                                    src={getProfilePic(profilePics[counter]) /**TODO change from name to profilePic**/}
+                                    style={{
+                                        borderRadius: '50%',
+                                        height: '6.5vw',
+                                        width: '6.5vw',
+                                        objectFit: 'cover',
+                                    }}
+                                    alt="profile pic"
+                                />
+                                <div className="lobby player-name">
+                                    {name}
+                                </div>
+                            </li>
+                        )
+                    })
                     }
                 </ul>
                 {button_startGame}
@@ -255,7 +294,7 @@ const LobbyView = () => {
     return (
         <BaseContainer>
             <div className="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -269,6 +308,10 @@ const LobbyView = () => {
             {content}
             <div className="lobby lobby-text">
                 LOBBY
+            </div>
+            {button_startGame}
+            <div className="lobby drop-out-alert-div">
+                {drop_out_alert_message}
             </div>
 
         </BaseContainer>

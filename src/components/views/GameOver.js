@@ -11,7 +11,7 @@ import {
     notifyGameEndedButtonClicked,
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
-import {getProfilePic} from "../../helpers/utilFunctions";
+import {clearGameLocalStorage, getProfilePic} from "../../helpers/utilFunctions";
 import {Alert} from "@mui/material";
 
 const MuteButton = ({ audio }) => {
@@ -67,10 +67,14 @@ const GameOver = () => {
     let [third, setThird] = useState({username: "", points: ""})
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="lobby drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
+    let [reload,setReload] = useState(0);
 
     // KEEP ALIVE: to tell if an user has become idle
-    useEffect(()=>{
+    useEffect(() => {
         if (!(localStorage.getItem("intervalId"))) {
             let token = localStorage.getItem("token");
 
@@ -87,7 +91,7 @@ const GameOver = () => {
         }
     }, [history])
 
-    useEffect( () => {
+    useEffect(() => {
         async function fetchData() {
             try {
                 let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
@@ -102,22 +106,24 @@ const GameOver = () => {
                 });
 
                 setFirst(playerPoints[0]);
-                setSecond(playerPoints[1]);
-
+                if (playerPoints.length > 1) {
+                    setSecond(playerPoints[1]);
+                }
                 if (playerPoints.length > 2) {
                     setThird(playerPoints[2]);
                 }
             } catch (e) {
                 let msg = getErrorMessage(e);
                 console.log(msg);
-                setAlert_Message(<Alert className ="roundover alert-message" severity="error"><b>Something went wrong when fetching the data:</b> {msg}</Alert>);
+                setAlert_Message(<Alert className="roundover alert-message" severity="error"><b>Something went wrong
+                    when fetching the data:</b> {msg}</Alert>);
             }
         }
         fetchData();
 
-    }, [gameId, token]);
+    }, [gameId, token, userId]);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (getConnection()) {
             makeSubscription();
         } else {
@@ -132,33 +138,57 @@ const GameOver = () => {
         function subscribeToEndGame() {
             subscribe("/topic/games/" + gameId + "/gameOver", data => {
                 console.log("Inside callback");
-                // empty local storage
-                localStorage.removeItem("location");
-                localStorage.removeItem("color");
-                localStorage.removeItem("duration");
-                localStorage.removeItem("lobbyId");
-                localStorage.removeItem("gameId");
-                unsubscribe("/topic/games/" + gameId+ "/userDropOut");
+                unsubscribe("/topic/games/" + gameId + "/userDropOut");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
+                clearGameLocalStorage();
                 history.push("/home/");
             });
         }
 
         function subscribeToUserDropOut() {
-            subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
+            subscribe("/topic/games/" + gameId + "/userDropOut", data => {
+                let username = localStorage.getItem("username");
                 console.log(data);
-                // refetch ur role , TODO maybe force site to reload
-
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("I DROPPED OUT???")
+                    localStorage.removeItem('token');
+                    history.push("/start")
+                } else if (data.host) {
+                    console.log("HOST DROPPED OUT")
+                    setHostId(data.newHostId);
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setReload(reload+1);
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                     }}>
+                        <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);
+                } else if (data.endGame) {
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
+                } else {
+                    console.log("USER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                     }}>
+                        <b>{data.name}</b> has left the game! </Alert>);
+                }
             });
         }
 
-    }, [gameId, history]);
+    }, [gameId, history, hostId, reload]);
 
 
-    let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture):null;
-    let picture2 = (second && second.profilePicture) ?getProfilePic(second.profilePicture):null;
-    let picture3 = (third && third.profilePicture) ?getProfilePic(third.profilePicture):null;
+    let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture) : null;
+    let picture2 = (second && second.profilePicture) ? getProfilePic(second.profilePicture) : null;
+    let picture3 = (third && third.profilePicture) ? getProfilePic(third.profilePicture) : null;
+
     function endGame() {
         audio.play();
         notifyGameEndedButtonClicked(gameId, token);
@@ -167,7 +197,9 @@ const GameOver = () => {
     let button_gameEnded = (<div></div>);
 
 
-    if ((hostId) && (userId) && (hostId.toString() === userId.toString())) { // has to be == for it to work
+    if (((hostId) && (userId) && (hostId.toString() === userId.toString()))
+        //|| ((second) && (second.username.toString() === "")))
+    ){ // if ure the only left
         button_gameEnded = (
             <Button className="roundover primary-button" onClick={() => endGame()}
             >
@@ -180,7 +212,7 @@ const GameOver = () => {
     return (
         <BaseContainer>
             <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -198,14 +230,18 @@ const GameOver = () => {
                 <div className="gameover rounds">
                     You played {currentRoundNr} Rounds.
                 </div>
-                <div className="gameover solution">
-                    The object of last round was "{keyword}"
-                </div>
+                {keyword && (
+                    <>
+                        <div className="gameover solution">
+                            The object of last round was "{keyword}"
+                        </div>
+                    </>
+                )}
                 <div className="gameover leaderboard-text">
                     Leaderboard
                 </div>
                 <div>
-                    <img className="score profile-picture-1st" src = {picture1} alt ="profilePicture">
+                    <img className="score profile-picture-1st" src={picture1} alt="profilePicture">
                     </img>
                     <div className="score name-1st">
                         {first.username}
@@ -213,27 +249,33 @@ const GameOver = () => {
                     <div className="score points-1st">
                         {first.points}
                     </div>
-                    <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
-                    </img>
-                    <div className="score name-2nd">
-                        {second.username}
-                    </div>
-                    <div className="score points-2nd">
-                        {second.points}
-                    </div>
+                    {second && second.username && (
+                        <>
+                            <img className="score profile-picture-2nd" src={picture2} alt="profilePicture"/>
+                            <div className="score name-2nd">
+                                {second.username}
+                            </div>
+                            <div className="score points-2nd">
+                                {second.points}
+                            </div>
+                        </>
+                    )}
                     {third && third.username && (
                         <>
-                            <img className="score profile-picture-3rd" src={picture3} alt="profilePicture" />
+                            <img className="score profile-picture-3rd" src={picture3} alt="profilePicture"/>
                             <div className="score name-3rd">{third.username}</div>
                             <div className="score points-3rd">{third.points}</div>
                         </>
                     )}
                 </div>
             </div>
-            <div className = "roundover alert-div">
+            <div className="roundover alert-div">
                 {alert_message}
             </div>
             {button_gameEnded}
+            <div className="lobby drop-out-alert-div">
+                {drop_out_alert_message}
+            </div>
 
         </BaseContainer>
     );
