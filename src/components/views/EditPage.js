@@ -118,7 +118,7 @@ FormFieldPassword.propTypes = {
 
 const EditPage = () => {
   const history = useHistory();
-  const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+  const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
   const [birthday] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
