@@ -16,6 +16,7 @@ import {
 } from "../../helpers/stompClient";
 import {getProfilePic} from "../../helpers/utilFunctions";
 import {Alert} from "@mui/material";
+import {api, getErrorMessage} from "../../helpers/api";
 const MuteButton = ({ audio }) => {
   const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
 
