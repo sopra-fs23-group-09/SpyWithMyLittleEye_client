@@ -93,7 +93,7 @@ const Guessing = () => {
     const playerUsername = localStorage.getItem("username");
     const token = localStorage.getItem("token");
     const duration = localStorage.getItem("duration");
-    console.log("DURATION IS: " + duration);
+    //console.log("DURATION IS: " + duration);
     const role = localStorage.getItem("role");
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
@@ -115,7 +115,7 @@ const Guessing = () => {
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
     const [timeLeft, setTimeLeft] = useState(duration * 60);
-    console.log("TIME LEFT: " + timeLeft);
+   // console.log("TIME LEFT: " + timeLeft);
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
@@ -208,10 +208,10 @@ const Guessing = () => {
                                                          unsubscribe("/topic/games/" + lobbyId + "/hints");
                                                          unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
                                                          history.push(`/game/` + lobbyId + "/waitingroom");
-                                                         if (currentRound < amountOfRounds) {
+                                                         if (!(data.endGame)) {
                                                              history.push(`/game/` + lobbyId + "/waitingroom");
                                                          }
-                                                         else if(currentRound === amountOfRounds) {
+                                                         else if(data.endGame) {
                                                              history.push("/game/"+lobbyId+"/score");
                                                          }
                                                      }}>
@@ -222,12 +222,14 @@ const Guessing = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="guessing drop-out-alert-message"></div>);
-                                                         setReload(reload+1);
+                                                         //setReload(reload+1);
                                                          // TODO : reload needed?
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
             });
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+
         }
 
         function subscribeToGuessInformation() {
@@ -286,10 +288,11 @@ const Guessing = () => {
             connect(makeSubscription);
         }
         else {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
             makeSubscription();
         }
 
-    }, [history, reload, amountOfRounds, currentRound]);
+    }, [history]);
 
     const submitInput = () => {
         if (role === "SPIER") {
