@@ -45,7 +45,7 @@ const MuteButton = ({ audio }) => {
 // TODO profile pic, remove foo profiles
 const Leaderboard = () => {
         const history = useHistory();
-        const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
+        const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
 
         const userId = localStorage.getItem('userId');
         let [users, setUsers] = useState([]);

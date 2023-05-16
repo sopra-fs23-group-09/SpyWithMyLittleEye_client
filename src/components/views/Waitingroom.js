@@ -46,7 +46,7 @@ const Waitingroom = () => {
     const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-    const audio = useMemo(() => new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3"), []);
+    const audio = useMemo(() => new Audio("https://storage.cloud.google.com/soundss/waiting-music-116216.mp3"), []);
 
 
     let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
