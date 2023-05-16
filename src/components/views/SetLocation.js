@@ -98,7 +98,7 @@ const SetLocation = (props) => {
 
     const [location, setlocation] = useState("");
     const [color, setColor] = useState("");
-    const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const [object, setObject] = useState("");
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);

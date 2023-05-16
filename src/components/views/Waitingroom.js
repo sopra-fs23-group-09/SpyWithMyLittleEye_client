@@ -30,7 +30,7 @@ const MuteButton = ({ audio }) => {
     audio.muted = isMuted;
   }, [audio, isMuted]);
     return (
-      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" , zIndex:900}}>
+      <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" , zIndex:900}}>
         <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" , zIndex:900}}>
                       {isMuted ? (
                         <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh', zIndex: 900 }} />
@@ -46,7 +46,7 @@ const Waitingroom = () => {
     const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-    const audio = useMemo(() => new Audio("https://storage.cloud.google.com/soundss/waiting-music-116216.mp3"), []);
+    const audio = useMemo(() => new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3"), []);
 
 
     let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
@@ -181,7 +181,7 @@ const Waitingroom = () => {
               <img
                 src="https://media.tenor.com/4MsBgyiY65YAAAAi/cat-peach.gif"
                 alt="Cat Peach Sticker - Cat Peach Tap Stickers"
-                style={{ height: '15em', width: '15em', position: 'absolute', top:"22em" }}
+                style={{ height: '17vw', width: '17vw', position: 'absolute', top:"55vh" }}
               />
             </div>
             <div className = "waitingroom alert-div">

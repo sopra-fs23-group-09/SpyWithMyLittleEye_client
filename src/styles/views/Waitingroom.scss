@@ -15,17 +15,17 @@
 
   &.header {
     position: absolute;
-    width: 30%;
-    height: 30%;
-    left: 32%;
-    right: 35%;
-    top: 15%;
+    width: 30vh;
+    height: 30vh;
+    left: 32vw;
+    right: 35vw;
+    top: 15vh;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 6em;
-    line-height: 1em;
+    font-size: 7vw;
+    line-height: 2vw;
     /* identical to box height */
     text-align: center;
 
@@ -34,14 +34,14 @@
 
   &.information {
     position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 35%;
+    left: 20vw;
+    right: 20vw;
+    top: 35vh;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 1.5em;
+    font-size: 1.75vw;
 
     /* identical to box height */
     text-align: center;
@@ -52,8 +52,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
-  width: 300px;
+  height: 30vw;
+  width: 30vw;
   background-color: #f5f5f5;
   z-index:100;
   }

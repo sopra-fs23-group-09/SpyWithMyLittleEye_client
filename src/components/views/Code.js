@@ -87,7 +87,7 @@ const Code = () => {
     const history = useHistory();
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     let [accessCode, setAccessCode] = useState(null);
     let [alert_message, setAlert_Message] = useState(<div className="code alert-message"></div>);
 

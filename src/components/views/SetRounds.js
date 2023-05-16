@@ -109,7 +109,7 @@ const SetRounds = () => {
     const history = useHistory();
     const [time, setTime] = useState(1);
     const [amountRounds, setAmountRounds] = useState(null);
-    const [audio] = useState(new Audio('https://storage.cloud.google.com/soundss/decidemp3-14575.mp3'));
+    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
 
     let [alert_message, setAlert_Message] = useState(<div className="rounds alert-message"></div>);
 
