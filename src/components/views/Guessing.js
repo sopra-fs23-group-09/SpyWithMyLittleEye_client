@@ -38,7 +38,7 @@ const MuteButton = ({ audio }) => {
     audio.muted = isMuted;
   }, [audio, isMuted]);
     return (
-      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+      <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" }}>
         <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
                       {isMuted ? (
                         <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
@@ -58,7 +58,7 @@ const StreetView = () => {
         const location = JSON.parse(localStorage.getItem("location"));
         console.log("LOCATION: " + location);
         const loader = new Loader({
-            apiKey: "AIzaSyANPbeW_CcEABRwu38LTYSi_Wc43QV-GuQ",
+            apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
             version: 'weekly',
         });
 
@@ -148,6 +148,14 @@ const Guessing = () => {
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
+
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const container = containerRef.current;
+        container.scrollTop = container.scrollHeight;
+    }, [guesses]);
+
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(()=>{
@@ -315,8 +323,8 @@ const Guessing = () => {
 
     return (
         <BaseContainer>
-            <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+            <div className="code left-field">
+              <Icon icon="ph:eye-closed-bold" color="white" style={{ fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -349,7 +357,7 @@ const Guessing = () => {
                  </span>
             </div>
             <div className="guessing container">
-                <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto" }}>
+                <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto"}} ref={containerRef}>
                     {guesses.map(gs => {
                         if (gs[1] === "CORRECT"){
                             return (
