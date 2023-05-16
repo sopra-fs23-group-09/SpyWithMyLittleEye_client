@@ -93,7 +93,7 @@ const Guessing = () => {
     const playerUsername = localStorage.getItem("username");
     const token = localStorage.getItem("token");
     const duration = localStorage.getItem("duration");
-    //console.log("DURATION IS: " + duration);
+    console.log("DURATION IS: " + duration);
     const role = localStorage.getItem("role");
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
@@ -103,8 +103,8 @@ const Guessing = () => {
 
 
 //    const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
- //   const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
- //   const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
+    //   const [audio2] = useState(new Audio('https://drive.google.com/uc?export=download&id=1ydNFfCdRiPYINcTpu5LiccoTy0SJKz-Z'));
+    //   const [playedCorrectAudio, setPlayedCorrectAudio] = useState(false);
 
     const history = useHistory();
 
@@ -115,11 +115,11 @@ const Guessing = () => {
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
     const [timeLeft, setTimeLeft] = useState(duration * 60);
-   // console.log("TIME LEFT: " + timeLeft);
+    console.log("TIME LEFT: " + timeLeft);
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
-    let [reload, setReload] = useState(0);
+    //let [reload, setReload] = useState(0);
 
 
     // KEEP ALIVE: to tell if an user has become idle
@@ -181,39 +181,15 @@ const Guessing = () => {
                     unsubscribe("/topic/games/" + lobbyId + "/endRound");
                     setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
                                                      onClose={() => {
-                                                         setDrop_out_alert_message(<div
-                                                             className="lobby drop-out-alert-message"></div>);
-                                                         unsubscribe("/topic/games/" + lobbyId + "/guesses");
-                                                         unsubscribe("/topic/games/" + lobbyId + "/hints");
-                                                         unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
-                                                         history.push("/game/" + lobbyId + "/score");
+                                                         redirectToGameOver();
                                                      }}>
                         <b>{data.name}</b> has left the game! The game is over.</Alert>);
-               /** } else if ((hostId) && data.host) {
-                        console.log("HOST DROPPED OUT")
-                        setHostId(data.newHostId);
-                        setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
-                                                         onClose={() => {
-                                                             setDrop_out_alert_message(<div
-                                                                 className="lobby drop-out-alert-message"></div>);
-                                                         }}>
-                            <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);**/
+
                 } else if (data.role.toString() === "SPIER") {
                     console.log("SPIER DROPPED OUT")
                     setDrop_out_alert_message(<Alert className="guessing drop-out-alert-message" severity="warning"
                                                      onClose={() => {
-                                                         setDrop_out_alert_message(<div
-                                                             className="guessing drop-out-alert-message"></div>);
-                                                         unsubscribe("/topic/games/" + lobbyId + "/guesses");
-                                                         unsubscribe("/topic/games/" + lobbyId + "/hints");
-                                                         unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
-                                                         history.push(`/game/` + lobbyId + "/waitingroom");
-                                                         if (!(data.endGame)) {
-                                                             history.push(`/game/` + lobbyId + "/waitingroom");
-                                                         }
-                                                         else if(data.endGame) {
-                                                             history.push("/game/"+lobbyId+"/score");
-                                                         }
+                                                         redirectToWaitingRoom();
                                                      }}>
                         <b>The SPIER {data.name}</b> has left the game! </Alert>);
                 } else {
@@ -228,9 +204,10 @@ const Guessing = () => {
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
             });
-            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+           // unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
 
         }
+
 
         function subscribeToGuessInformation() {
             subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
@@ -253,15 +230,36 @@ const Guessing = () => {
                 console.log("CURRENT ROUND: " + cr);
                 console.log("TOTAL AMOUNT OF ROUNDS : " + ar);
                 if (cr < ar) {
-                    console.log("ENTER HERE WHEN TIME IS UP OR ALL GUESSED CORRECTLY");
-                    history.push("/game/"+lobbyId+"/rounds/score");
+                    redirectToRoundOver();
                 }
                 else if(cr === ar) {
-                    console.log("ENTER HERE WHEN GAME IS OVER");
-                    history.push("/game/"+lobbyId+"/score");
+                    redirectToGameOver();
                 }
             });
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
+        }
+
+        function redirectToRoundOver() {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            history.push("/game/"+lobbyId+"/rounds/score");
+        }
+        function redirectToGameOver() {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            history.push("/game/" + lobbyId + "/score");
+        }
+
+        function redirectToWaitingRoom() {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            history.push(`/game/` + lobbyId + "/waitingroom");
         }
 
         /*function subscribeToTimeInformation() {
@@ -288,7 +286,6 @@ const Guessing = () => {
             connect(makeSubscription);
         }
         else {
-            unsubscribe("/topic/games/" + lobbyId + "/guesses");
             makeSubscription();
         }
 
@@ -344,7 +341,7 @@ const Guessing = () => {
     return (
         <BaseContainer>
             <div class="code left-field">
-              <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white"style={{ fontSize: '4rem'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
