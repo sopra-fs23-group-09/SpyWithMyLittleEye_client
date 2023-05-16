@@ -397,8 +397,8 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
+                            disabled={playerInput === ""}
                             onClick={() => submitInput()}
-
                     >
                         <div className="guessing send-button-text">
                             Send
