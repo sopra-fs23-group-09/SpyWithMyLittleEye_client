@@ -7,7 +7,6 @@ import {api, getErrorMessage} from "../../helpers/api";
 import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import {Alert} from "@mui/material";
-import {clearGameLocalStorage} from "../../helpers/utilFunctions";
 
 
 const Waitingroom = () => {
@@ -124,7 +123,6 @@ const Waitingroom = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
-                                                         clearGameLocalStorage();
                                                          unsubscribe("/topic/games/" + gameId + "/spiedObject");
                                                          unsubscribe("/topic/games/" + gameId+ "/userDropOut");
                                                          history.push("/game/"+gameId+"/score");

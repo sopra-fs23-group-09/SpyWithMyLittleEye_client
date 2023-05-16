@@ -61,7 +61,6 @@ const GameOver = () => {
 
     useEffect(() => {
         async function fetchData() {
-            console.log(userId)
             try {
                 let response = await api.get("/games/" + gameId + "/round/results", {headers: {Token: token}});
                 console.log(response)
@@ -88,7 +87,6 @@ const GameOver = () => {
                     when fetching the data:</b> {msg}</Alert>);
             }
         }
-
         fetchData();
 
     }, [gameId, token, userId]);
@@ -123,13 +121,6 @@ const GameOver = () => {
                     console.log("I DROPPED OUT???")
                     localStorage.removeItem('token');
                     history.push("/start")
-                } else if (data.endGame) {
-                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
-                                                     onClose={() => {
-                                                         setDrop_out_alert_message(<div
-                                                             className="lobby drop-out-alert-message"></div>);
-                                                     }}>
-                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
                 } else if (data.host) {
                     console.log("HOST DROPPED OUT")
                     setHostId(data.newHostId);
@@ -140,6 +131,13 @@ const GameOver = () => {
                                                              className="lobby drop-out-alert-message"></div>);
                                                      }}>
                         <b>{data.name}</b> has left the game! A new host has been assigned. </Alert>);
+                } else if (data.endGame) {
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="lobby drop-out-alert-message"></div>);
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
                 } else {
                     console.log("USER DROPPED OUT")
                     setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
