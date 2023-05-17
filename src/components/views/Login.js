@@ -106,7 +106,12 @@ const Login = () => {
     let [alert_message, setAlert_Message] = useState(<div className="login alert-message"></div>);
 
     const doLogin = async () => {
-        audio.play();
+        try {
+            audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
+
         try {
             const response = await api.get('/users/login?username=' + username + '&pass=' + password);
             const token = response.headers.token;

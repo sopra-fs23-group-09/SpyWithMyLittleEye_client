@@ -42,7 +42,6 @@ const MuteButton = ({ audio }) => {
       </div>
     );
   };
-// TODO profile pic, remove foo profiles
 const Leaderboard = () => {
         const history = useHistory();
         const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));

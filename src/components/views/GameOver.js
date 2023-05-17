@@ -48,11 +48,9 @@ const MuteButton = ({ audio }) => {
     );
   };
 const GameOver = () => {
-    // TODO add fourth place
-    // TODO set profile picture
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
-    const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
+    const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
@@ -71,7 +69,7 @@ const GameOver = () => {
         useState(<div className="lobby drop-out-alert-message"></div>);
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
-    let [reload,setReload] = useState(0);
+    //let [reload,setReload] = useState(0);
 
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(() => {
@@ -100,10 +98,6 @@ const GameOver = () => {
                 setHostId(response.data["hostId"])
                 setCurrentRoundNr(response.data["currentRoundNr"])
                 let playerPoints = response.data["playerPoints"];
-
-                playerPoints.sort((a, b) => { // TODO comes sorted already
-                    return b.points - a.points;
-                });
 
                 setFirst(playerPoints[0]);
                 if (playerPoints.length > 1) {
@@ -158,7 +152,7 @@ const GameOver = () => {
                     setHostId(data.newHostId);
                     setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
                                                      onClose={() => {
-                                                         setReload(reload+1);
+                                                        // setReload(reload+1);
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
                                                      }}>
@@ -182,7 +176,7 @@ const GameOver = () => {
             });
         }
 
-    }, [gameId, history, hostId, reload]);
+    }, [gameId, history]);
 
 
     let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture) : null;
