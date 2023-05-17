@@ -128,7 +128,7 @@ const EditPage = () => {
 
 
     const doUpdate = async () => {
-  audio.play();
+    audio.play();
     try {
       const requestBody = JSON.stringify({username, password, birthday});
       await api.put('/users/'+ userId, requestBody, {headers: {Token: localStorage.getItem("token")}});

@@ -132,8 +132,9 @@ const Guessing = () => {
 
 
     let [alert_message, setAlert_Message] = useState(<div className="setlocation alert-message"></div>);
-
-
+    let [drop_out_alert_message, setDrop_out_alert_message] =
+        useState(<div className="guessing drop-out-alert-message"></div>);
+    //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
     const history = useHistory();
 
@@ -148,6 +149,8 @@ const Guessing = () => {
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
     const isLast10Seconds = timeLeft <= 10;
+    //let [reload, setReload] = useState(0);
+
 
     const containerRef = useRef(null);
 
@@ -206,12 +209,43 @@ const Guessing = () => {
 
         function subscribeToUserDropOut() {
             subscribe("/topic/games/" + lobbyId+ "/userDropOut", data => {
-                alert("Someone dropped out!");
+                let username = localStorage.getItem("username");
                 console.log(data);
-                // go to waiting room, abort round
+                if (data.name.toString() === username.toString()) { // u're the one dropping out!
+                    console.log("I DROPPED OUT???")
+                    localStorage.removeItem('token');
+                    history.push("/start")
+                } else if (data.endGame) {
+                    unsubscribe("/topic/games/" + lobbyId + "/endRound");
+                    setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         redirectToGameOver();
+                                                     }}>
+                        <b>{data.name}</b> has left the game! The game is over.</Alert>);
 
+                } else if (data.role.toString() === "SPIER") {
+                    console.log("SPIER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="guessing drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         redirectToWaitingRoom();
+                                                     }}>
+                        <b>The SPIER {data.name}</b> has left the game! </Alert>);
+                } else {
+                    console.log("USER DROPPED OUT")
+                    setDrop_out_alert_message(<Alert className="guessing drop-out-alert-message" severity="warning"
+                                                     onClose={() => {
+                                                         setDrop_out_alert_message(<div
+                                                             className="guessing drop-out-alert-message"></div>);
+                                                         //setReload(reload+1);
+                                                         // TODO : reload needed?
+                                                     }}>
+                        <b>{data.name}</b> has left the game! </Alert>);
+                }
             });
+           // unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+
         }
+
 
         function subscribeToGuessInformation() {
             subscribe("/topic/games/" + lobbyId + "/guesses",(response) => {
@@ -234,15 +268,36 @@ const Guessing = () => {
                 console.log("CURRENT ROUND: " + cr);
                 console.log("TOTAL AMOUNT OF ROUNDS : " + ar);
                 if (cr < ar) {
-                    console.log("ENTER HERE WHEN TIME IS UP OR ALL GUESSED CORRECTLY");
-                    history.push("/game/"+lobbyId+"/rounds/score");
+                    redirectToRoundOver();
                 }
                 else if(cr === ar) {
-                    console.log("ENTER HERE WHEN GAME IS OVER");
-                    history.push("/game/"+lobbyId+"/score");
+                    redirectToGameOver();
                 }
             });
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
+        }
+
+        function redirectToRoundOver() {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            history.push("/game/"+lobbyId+"/rounds/score");
+        }
+        function redirectToGameOver() {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            history.push("/game/" + lobbyId + "/score");
+        }
+
+        function redirectToWaitingRoom() {
+            unsubscribe("/topic/games/" + lobbyId + "/guesses");
+            unsubscribe("/topic/games/" + lobbyId + "/hints");
+            unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
+            unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            history.push(`/game/` + lobbyId + "/waitingroom");
         }
 
         /*function subscribeToTimeInformation() {
@@ -424,6 +479,9 @@ const Guessing = () => {
             </div>
             <div className = "setlocation alert-div">
                 {alert_message}
+            </div>
+            <div className = "guessing drop-out-alert-div">
+                {drop_out_alert_message}
             </div>
         </BaseContainer>
     );

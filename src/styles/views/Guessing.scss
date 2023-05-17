@@ -20,6 +20,19 @@
 
   }
 
+  &.drop-out-alert-div {
+    position: absolute;
+    left:50vw;
+    transform: translateX(-50%);
+    top: 10vh;
+
+  }
+
+  &.drop-out-alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.last-10-seconds {
     animation: blink 1s infinite;
 

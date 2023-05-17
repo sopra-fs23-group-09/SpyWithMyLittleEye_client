@@ -1,6 +1,20 @@
 @import 'styles/theme';
 
 .lobby {
+
+  &.drop-out-alert-div {
+    position: absolute;
+    left:50vw;
+    transform: translateX(-50%);
+    top: 80vh;
+
+  }
+
+  &.drop-out-alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
+  }
+
   &.success-message{
   color: white;
   position: fixed;

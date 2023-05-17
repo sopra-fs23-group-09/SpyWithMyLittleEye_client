@@ -55,11 +55,15 @@ export const getProfilePic = (pp_name) => {
 export const logout = async () => {
     try {
         const title = {title: 'logout request'};
+        //console.log(localStorage.getItem('intervalId'))
+
         await api.put('/users/logout', title, {headers: {Token: localStorage.getItem("token")}});
         console.log("Logout successful");
 
-        console.log("I am no longer alive....")
-        clearInterval(parseInt(localStorage.getItem('intervalId')));
+        if (localStorage.getItem('intervalId')) {
+            console.log("I am no longer alive....")
+            clearInterval(parseInt(localStorage.getItem('intervalId')));
+        }
 
         disconnect();
 
@@ -71,6 +75,7 @@ export const logout = async () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('duration');
+        localStorage.removeItem("username");
         localStorage.removeItem('intervalId');
 
         const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
@@ -80,4 +85,11 @@ export const logout = async () => {
         let msg = getErrorMessage(error);
         return msg;
     }
+}
+export const clearGameLocalStorage = async () => {
+    localStorage.removeItem("location");
+    localStorage.removeItem("color");
+    localStorage.removeItem("duration");
+    localStorage.removeItem("lobbyId");
+    localStorage.removeItem("gameId");
 }
