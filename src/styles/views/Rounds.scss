@@ -4,9 +4,9 @@
 
   &.alert-div {
     position: absolute;
+    left:50vw;
+    transform: translateX(-50%);
     top: 10vh;
-    left: 32vw;
-    color: #FFFFFF;
   }
 
   &.alert-message {
