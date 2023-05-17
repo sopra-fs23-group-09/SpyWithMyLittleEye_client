@@ -64,7 +64,7 @@ const RoundOver = () => {
         useState(<div className="lobby drop-out-alert-message"></div>);
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
-    let [reload, setReload] = useState(0);
+    //let [reload, setReload] = useState(0);
 
 
     // KEEP ALIVE: to tell if an user has become idle
@@ -126,7 +126,6 @@ const RoundOver = () => {
         }
 
         function subscribeToContinueToNextRound() {
-
             subscribe("/topic/games/" + gameId + "/nextRound", data => {
                 console.log("Inside callback");
                 localStorage.removeItem("location");
@@ -160,7 +159,7 @@ const RoundOver = () => {
                     setHostId(data.newHostId);
                     setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
                                                      onClose={() => {
-                                                         setReload(reload + 1);
+                                                         //setReload(reload + 1);
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
                                                      }}>
@@ -171,13 +170,13 @@ const RoundOver = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
-                                                         setReload(reload + 1);
+                                                         //setReload(reload + 1);
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
             });
         }
-    }, [gameId, history, hostId, reload]);
+    }, [gameId, history]);
 
 
 
@@ -250,14 +249,18 @@ const RoundOver = () => {
                     <div className="score points-1st">
                         {first.points}
                     </div>
-                    <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
-                    </img>
-                    <div className="score name-2nd">
-                        {second.username}
-                    </div>
-                    <div className="score points-2nd">
-                        {second.points}
-                    </div>
+                    {third && third.username && (
+                        <>
+                        <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
+                        </img>
+                        <div className="score name-2nd">
+                            {second.username}
+                        </div>
+                        <div className="score points-2nd">
+                            {second.points}
+                        </div>
+                        </>
+                    )}
                     {third && third.username && (
                         <>
                             <img className="score profile-picture-3rd" src={picture3} alt="profilePicture" />
