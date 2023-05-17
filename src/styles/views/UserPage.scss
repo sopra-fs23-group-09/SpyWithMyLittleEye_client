@@ -5,9 +5,12 @@
   &.alert-div {
 
     position: absolute;
+    left:-6vw;
+    transform: translateX(-50%);
     top: -10vh;
-    left: 6vw;
+    z-index: 100;
     color: #FFFFFF;
+
 
   }
 
