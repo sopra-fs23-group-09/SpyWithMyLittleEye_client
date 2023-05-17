@@ -310,7 +310,6 @@ const LobbyView = () => {
             <div className="lobby lobby-text">
                 LOBBY
             </div>
-            {button_startGame}
             <div className="lobby drop-out-alert-div">
                 {drop_out_alert_message}
             </div>

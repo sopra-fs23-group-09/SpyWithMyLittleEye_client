@@ -144,7 +144,13 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
-    const [timeLeft, setTimeLeft] = useState(duration * 60);
+    const [timeLeft, setTimeLeft] = useState(() => {
+        // Retrieve the stored timer value from localStorage,
+        // or use the default duration if it doesn't exist
+        const storedTime = localStorage.getItem('timeLeft');
+        return storedTime ? parseInt(storedTime) : duration * 60;
+    });
+
     console.log("TIME LEFT: " + timeLeft);
     const minutes = Math.floor(timeLeft/ 60).toString().padStart(2, '0');
     const seconds = (timeLeft % 60).toString().padStart(2, '0');
@@ -158,6 +164,13 @@ const Guessing = () => {
         const container = containerRef.current;
         container.scrollTop = container.scrollHeight;
     }, [guesses]);
+
+    useEffect(() => {
+        // Store the current timer value in localStorage
+        localStorage.setItem('timeLeft', timeLeft.toString());
+
+        // Update the stored value whenever the timer changes
+    }, [timeLeft]);
 
 
     // KEEP ALIVE: to tell if an user has become idle
@@ -350,8 +363,7 @@ const Guessing = () => {
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }
-
+    };
     //Implementation to display timer in seconds
     /*useEffect(() => {
         const timer = setInterval(() => {

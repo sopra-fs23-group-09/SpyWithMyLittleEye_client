@@ -54,14 +54,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 285px;
-    height: 58px;
-    left: 780px;
-    top: 67px;
+    width: 18vw;
+    height: 6vh;
+    left: 45vw;
+    top: 7vh;
 
     background: rgba(255, 255, 255, 0.3);
     border-radius: 40px;
@@ -69,13 +69,13 @@
 
   &.role-text {
     //width: 240px;
-    height: 38px;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -92,10 +92,10 @@
     box-sizing: border-box;
 
     position: absolute;
-    width: 477px;
-    height: 875px;
-    left: 1200px;
-    top: 34px;
+    width: 27.6vw;
+    height: 93vh;
+    left: 70vw;
+    top: 3.75vh;
 
     background: rgba(255, 255, 255, 0.43);
     border: 3px solid #FFFFFF;
@@ -120,10 +120,10 @@
 
   &.header-container {
     position: absolute;
-    width: 477px;
-    height: 124px;
-    left: -3px;
-    top: 0px;
+    width: 27.6vw;
+    height: 14vh;
+    left: -0.18vw;
+    top: 0;
 
     background: #FFFFFF;
     border-radius: 40px;
@@ -131,16 +131,16 @@
 
   &.header {
     position: absolute;
-    width: 119px;
-    height: 38px;
-    left: 180px;
-    top: 45px;
+    //width: 119px;
+    //height: 38px;
+    left: 10.5vw;
+    top: 4.75vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -168,28 +168,28 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    //padding: 10px;
+    //gap: 10px;
 
     position: absolute;
-    width: 402px;
-    height: 62px;
-    left: 38px;
-    top: 150px;
+    width: 23.25vw;
+    height: 7vh;
+    left: 2.25vw;
+    top: 16vh;
 
     background: rgba(255, 255, 255, 0.26);
     border-radius: 40px;
   }
 
   &.hint-text {
-    width: 331px;
-    height: 38px;
+    //width: 331px;
+    //height: 38px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -203,31 +203,31 @@
   }
 
   &.field {
-    box-sizing: border-box;
+    //box-sizing: border-box;
 
     /* Auto layout */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    //display: flex;
+    //flex-direction: row;
+    //align-items: center;
     //padding: 10px;
     //gap: 10px;
 
-    position: absolute;
-    width: 290px;
-    height: 60px;
-    left: 37px;
-    top: 775px;
+    //position: absolute;
+    //width: 290px;
+    //height: 60px;
+    left: 2.1vw;
+    top: 82.5vh;
 
-    background: rgba(255, 255, 255, 0.62);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(30px);
+    //background: rgba(255, 255, 255, 0.62);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
-    border-radius: 40px;
+    //border-radius: 40px;
   }
 
   &.input {
-    height: 60px;
-    width: 290px;
+    height: 6.25vh;
+    width: 16vw;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -236,29 +236,29 @@
     border: none;
     margin-bottom: 20px;
     color: black;
-    background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(30px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 40px;
     position: absolute;
-    top: 0px;
-    left: -10px;
-    font-size: 25px;
-    line-height: 50px;
+    top: 0;
+    left: -0.5vw;
+    font-size: 1.5vw;
+    //line-height: 50px;
 
     font-family: 'Quicksand', sans-serif;
   }
 
   &.send-button-text {
-    width: 73px;
-    height: 63px;
+    //width: 73px;
+    //height: 63px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 63px;
+    font-size: 1.5vw;
+    //line-height: 63px;
     /* identical to box height */
     text-align: center;
 
@@ -273,16 +273,16 @@
 
   &.color-text {
     //width: 331px;
-    height: 38px;
+    //height: 38px;
 
     position: absolute;
-    top: 825px;
-    left: 240px;
+    top: 88vh;
+    left: 14vw;
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -320,12 +320,12 @@
   }
 
   &.streetview-container {
-    top: 200px;
-    height: 600px;
+    top: 20vh;
+    height: 35vw;
     border: 3px solid #FFFFFF;
     border-radius: 40px;
-    left: 275px;
-    width: 600px;
+    left: 15.5vw;
+    width: 35vw;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -357,10 +357,10 @@
     margin-bottom: 50px; /* Add margin-bottom to create gap between containers */
 
     position: relative;
-    width: 390px;
-    height: 61px;
-    left: 10px;
-    top: 30px;
+    width: 22vw;
+    height: 6.5vh;
+    left: 0.6vw;
+    top: 3vh;
 
     background: rgba(214, 24, 47, 0.26);
     border-radius: 40px;
@@ -370,10 +370,10 @@
     margin-bottom: 50px; /* Add margin-bottom to create gap between containers */
 
     position: relative;
-    width: 402px;
-    height: 61px;
-    left: 5px;
-    top: 35px;
+    width: 22vw;
+    height: 6.5vh;
+    left: 0.6vw;
+    top: 3.5vh;
 
     background: rgba(24, 214, 43, 0.26);
     border-radius: 40px;
@@ -382,14 +382,14 @@
   &.name {
 
     position: absolute;
-    left: 25px;
-    top: -25px;
+    left: 1.5vw;
+    top: -3vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 1.15vw;
+    //line-height: 25px;
     /* identical to box height */
     text-align: center;
 
@@ -398,18 +398,18 @@
   }
 
   &.wrong-guess {
-    width: 67px;
-    height: 25px;
+    //width: 67px;
+    //height: 25px;
 
     position: absolute;
-    left: 25px;
-    top: 16px;
+    left: 1.5vw;
+    top: 1.6vh;
 
-    font-family: 'Quicksand';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 1.25vw;
+    //line-height: 25px;
     /* identical to box height */
 
 
@@ -423,14 +423,14 @@
   }
 
   &.correct-guess {
-    width: 200px;
-    height: 25px;
+    //width: 200px;
+    //height: 25px;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 1.25vw;
+    //line-height: 25px;
     /* identical to box height */
     text-align: center;
 
@@ -442,8 +442,8 @@
     order: 0;
     flex-grow: 0;
     position: absolute;
-    left: 100px;
-    top: 16px;
+    left: 6.25vw;
+    top: 1.8vh;
   }
 
 }
