@@ -77,8 +77,13 @@ export const logout = async () => {
         localStorage.removeItem("username");
         localStorage.removeItem('intervalId');
 
-        const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
-        await audio.play();
+        try {
+            const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
+            await audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
+
         return "Success";
     } catch (error) {
         let msg = getErrorMessage(error);

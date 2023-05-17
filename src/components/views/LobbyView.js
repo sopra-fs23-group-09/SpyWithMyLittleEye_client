@@ -204,7 +204,12 @@ const LobbyView = () => {
     }, [lobbyId, history, token, username, hostId]);
 
     function startGameButtonClick() {
-        audio.play();
+        try {
+            audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
+
         startGame(lobbyId, token); // from stompClient
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);

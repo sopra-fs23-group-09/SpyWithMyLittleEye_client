@@ -71,7 +71,11 @@ const StartPage = () => {
             </div>
             </div>
             <Button className="login-button-start-page" onClick={() => {
-            audio.play();
+            try {
+                audio.play();
+            } catch (e) {
+                console.log("Failed to play sound.")
+            }
             history.push('/login');
             }}>
                 <div className="start-page login-button-text">
@@ -79,7 +83,11 @@ const StartPage = () => {
                 </div>
             </Button>
             <Button className="signup-button-start-page" onClick={() => {
-            audio.play();
+            try {
+                audio.play();
+            } catch (e) {
+                console.log("Failed to play sound.")
+            }
             history.push('/register');
             }}>
                 <div className="start-page signup-button-text">

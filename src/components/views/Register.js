@@ -128,7 +128,11 @@ const Register = () => {
             console.log(msg);
             setAlert_Message(<Alert className ="login alert-message" severity="error"><b>Something went wrong during registration:</b> {msg}</Alert>);
         }
-        audio.play();
+        try {
+            audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
 
     };
 

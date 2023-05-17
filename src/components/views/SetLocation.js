@@ -274,7 +274,11 @@ const SetLocation = (props) => {
     }, []);
 
     function startGame() {
-        audio.play();
+        try {
+            audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
         localStorage.setItem("location", JSON.stringify(location));
         localStorage.setItem("color", JSON.stringify(color));
         notifySpiedObject(lobbyId, location, color, object, token);

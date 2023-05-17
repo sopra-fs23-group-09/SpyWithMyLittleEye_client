@@ -183,7 +183,15 @@ const RoundOver = () => {
 
 
     function startNewRound() {
-        audio.play();
+        try {
+            try {
+                audio.play();
+            } catch (e) {
+                console.log("Failed to play sound.")
+            }
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
         notifyNextRoundButtonClicked(gameId, token);
     }
 

@@ -12,13 +12,14 @@ const MuteButton = ({ audio }) => {
   const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
 
   const handleMuteClick = () => {
-    if (isMuted) {
-      audio.volume = 1; // Unmute the audio
-      audio.muted = false; // Unmute the button sound
-    } else {
-      audio.volume = 0; // Mute the audio
-      audio.muted = true; // Mute the button sound
-    }
+      if (isMuted) {
+          audio.volume = 1; // Unmute the audio
+          audio.muted = false; // Unmute the button sound
+      } else {
+          audio.volume = 0; // Mute the audio
+          audio.muted = true; // Mute the button sound
+      }
+
 
     setIsMuted(!isMuted);
     localStorage.setItem("isMuted", !isMuted); // Store the updated isMuted state in local storage
@@ -26,8 +27,10 @@ const MuteButton = ({ audio }) => {
 
   useEffect(() => {
     // Set the initial mute state of the audio and button sound when the component mounts
-    audio.volume = isMuted ? 0 : 1;
-    audio.muted = isMuted;
+
+      audio.volume = isMuted ? 0 : 1;
+      audio.muted = isMuted;
+
   }, [audio, isMuted]);
     return (
       <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" , zIndex:900}}>
@@ -47,6 +50,7 @@ const Waitingroom = () => {
     const userId = localStorage.getItem("userId");
     const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
+
     const audio = useMemo(() => new Audio("https://cdn.pixabay.com/download/audio/2022/08/03/audio_a567664e9d.mp3?filename=waiting-music-116216.mp3"), []);
 
 
@@ -60,11 +64,16 @@ const Waitingroom = () => {
 
   let [role, setRole] = useState(null)
   useEffect(() => {
-    audio.loop = true;
-    audio.play();
-    return () => {
-      audio.pause();
-    }
+      try {
+          audio.loop = true;
+          audio.play();
+          return () => {
+              audio.pause();
+          }
+      } catch (e) {
+          console.log("Failed to play sound.")
+      }
+
   }, [audio]);
 
 
