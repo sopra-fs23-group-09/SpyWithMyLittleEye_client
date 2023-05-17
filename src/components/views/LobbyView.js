@@ -136,7 +136,6 @@ const LobbyView = () => {
                         setHostId(data.hostId);
                         setPlayers(data.playerNames);
                         setProfilePics(data.profilePictures);
-                        // TODO set profile pictures!!!!!
                     } else if (event.toString() === ("started").toString()) {
                         console.log("STARTED");
                         redirectToGame();
@@ -207,7 +206,6 @@ const LobbyView = () => {
     function startGameButtonClick() {
         audio.play();
         startGame(lobbyId, token); // from stompClient
-        // TODO DUplicate code
         let gameId = lobbyId;
         unsubscribe("/topic/lobbies/" + lobbyId);
         unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
@@ -270,7 +268,7 @@ const LobbyView = () => {
                         counter++;
                         return (<li className="lobby player-container">
                                 <img
-                                    src={getProfilePic(profilePics[counter]) /**TODO change from name to profilePic**/}
+                                    src={getProfilePic(profilePics[counter])}
                                     style={{
                                         borderRadius: '50%',
                                         height: '6.5vw',

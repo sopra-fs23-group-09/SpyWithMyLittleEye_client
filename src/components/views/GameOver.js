@@ -48,11 +48,9 @@ const MuteButton = ({ audio }) => {
     );
   };
 const GameOver = () => {
-    // TODO add fourth place
-    // TODO set profile picture
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
-    const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
+    const gameId = localStorage.getItem("gameId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
@@ -100,10 +98,6 @@ const GameOver = () => {
                 setHostId(response.data["hostId"])
                 setCurrentRoundNr(response.data["currentRoundNr"])
                 let playerPoints = response.data["playerPoints"];
-
-                playerPoints.sort((a, b) => { // TODO comes sorted already
-                    return b.points - a.points;
-                });
 
                 setFirst(playerPoints[0]);
                 if (playerPoints.length > 1) {

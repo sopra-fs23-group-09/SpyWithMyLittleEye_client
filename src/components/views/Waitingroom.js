@@ -102,10 +102,8 @@ const Waitingroom = () => {
                 localStorage.setItem("role", role);
                 if (role.toString() === ("SPIER").toString()) {
                     console.log("You're a spier this round.")
-                   // if (getConnection()) { TODO Thereza: I need to test this properly before pushing
-                       unsubscribe("/topic/games/" + gameId + "/userDropOut");
-                       unsubscribe("/topic/games/" + gameId + "/spiedObject");
-                    //}
+                   unsubscribe("/topic/games/" + gameId + "/userDropOut");
+                   unsubscribe("/topic/games/" + gameId + "/spiedObject");
                     history.push("/game/" + gameId + "/location")
                 } else if (role.toString() === ("GUESSER").toString()) {
                     console.log("You're a guesser this round.")
@@ -168,7 +166,6 @@ const Waitingroom = () => {
                                                              setDrop_out_alert_message(<div
                                                                  className="lobby drop-out-alert-message"></div>);
                                                              setReload(reload+1);
-                                                             // TODO : reload needed?
                                                          }}>
                             The SPIER <b>{data.name}</b> has left the game! </Alert>);
                     }
@@ -178,7 +175,6 @@ const Waitingroom = () => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
                                                          setReload(reload+1);
-                                                         // TODO : reload needed?
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }

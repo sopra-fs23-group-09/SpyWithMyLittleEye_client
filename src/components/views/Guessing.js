@@ -236,8 +236,6 @@ const Guessing = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="guessing drop-out-alert-message"></div>);
-                                                         //setReload(reload+1);
-                                                         // TODO : reload needed?
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }

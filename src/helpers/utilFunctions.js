@@ -12,7 +12,6 @@ import {api, getErrorMessage} from "./api";
 import {disconnect} from "./stompClient";
 
 export const getProfilePic = (pp_name) => {
-    // TODO get profile picture
     let picture = "";
     switch (pp_name) {
         case 'Bear':
