@@ -134,6 +134,7 @@ const GameOver = () => {
                 console.log("Inside callback");
                 unsubscribe("/topic/games/" + gameId + "/userDropOut");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
+                localStorage.removeItem("timeLeft");
                 clearGameLocalStorage();
                 history.push("/home/");
             });

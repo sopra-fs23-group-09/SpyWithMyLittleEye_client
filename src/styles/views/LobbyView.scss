@@ -176,17 +176,17 @@
     flex-grow: 0;
   }
 
-  &.player-amount-container {
+  /*&.player-amount-container {
 
     position: absolute;
-    width: 7vw;
-    height: 7vw;
+    width: 7.5vw;
+    height: 7.5vw;
     left: 89vw;
     top: 18vh;
     border-radius: 100px;
 
     background: rgba(255, 255, 255, 0.46);
-  }
+  }*/
 
 
   &.player-name {
@@ -198,7 +198,6 @@
     color: #FFFFFF;
     position: absolute;
     text-align: center;
-    //transform: translateX(-50%);
     width: 6.5vw;
 
 
@@ -221,8 +220,8 @@
     position: absolute;
     //width: 84px;
     //height: 50px;
-    left: 1vw;
-    top: 3.6vh;
+    left: 90.25vw;
+    top: 18vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;

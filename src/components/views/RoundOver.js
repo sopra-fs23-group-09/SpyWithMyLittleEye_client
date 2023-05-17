@@ -131,6 +131,7 @@ const RoundOver = () => {
                 console.log("Inside callback");
                 localStorage.removeItem("location");
                 localStorage.removeItem("color");
+                localStorage.removeItem("timeLeft");
                 unsubscribe("/topic/games/" + gameId + "/nextRound");
                 unsubscribe("/topic/games/" + gameId + "/userDropOut");
                 history.push(`/game/` + gameId + "/waitingroom");
