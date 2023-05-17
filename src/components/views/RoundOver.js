@@ -98,8 +98,9 @@ const RoundOver = () => {
 
 
                 setFirst(playerPoints[0]);
-                setSecond(playerPoints[1]);
-
+                if (playerPoints.length > 1) {
+                    setSecond(playerPoints[1]);
+                }
                 if (playerPoints.length > 2) {
                     setThird(playerPoints[2]);
                 }
@@ -249,7 +250,7 @@ const RoundOver = () => {
                     <div className="score points-1st">
                         {first.points}
                     </div>
-                    {third && third.username && (
+                    {second && second.username && (
                         <>
                         <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
                         </img>
