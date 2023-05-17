@@ -223,7 +223,7 @@ const Waitingroom = () => {
             {messageForGuessers}
             <div className="waitingroom information">
                 You are a GUESSER this round.
-                Enjoy this calming music and this adorable cat until the spier is ready to start!
+                Enjoy this calming music and this adorable cat until the SPIER is ready to start!
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'relative', zIndex: '1' }}>
               <img
