@@ -45,12 +45,7 @@ const MuteButton = ({ audio }) => {
     );
   };
 
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
+
 
 const FormField = props => {
   const [showPassword, setShowPassword] = useState(false);
@@ -74,7 +69,7 @@ const FormField = props => {
             <Icon
               icon={showPassword ? eyeOpenIcon : eyeClosedIcon}
               color="gray"
-              style={{ fontSize: '4vh' }}
+              style={{ fontSize: '4vh'}}
             />
           </div>
       </div>
@@ -164,12 +159,9 @@ const Login = () => {
 
                     />
                     {alert_message}
-
                     <div className="login button-container">
-                        <Button className="button login-button-loginpage"
-                                style={{marginRight: "2px"}}
+                        <Button className="login-button-loginpage"
                                 disabled={!username || !password}
-                                width="100%"
                                 onClick={() => doLogin()}
                         >
                             <div className="login login-text">

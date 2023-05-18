@@ -100,30 +100,46 @@ body {
   flex-direction: column;
   align-items: center;
   width: 85vw;
-  height: 80vh;
+  height: 73vh;
   left: 3vw;
-  //right: 0;
-  margin: 0 5%;
-  top: 80vh;
-  //padding: 2em;
+  top:80vh;
+  margin-left: 5%;
+    margin-bottom: 7%;
   background: rgba(255, 255, 255, 0.46);
   border-radius: 4em;
   }
 
   &.introduction-text {
     position: absolute;
+    display: inline-block;
+
     width: 70vw;
     //height: 30%;
     left: 7.5vw;
-    top: 8vh;
+    top: 15vh;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 1.5vw;
     line-height: 1.5em;
-    text-align: center;
+    text-align: justify;
 
+    color: #000000;
+
+  }
+  &.header-intro {
+    position: absolute;
+    width: 100vw;
+    top: 10vh;
+    left: -7.5vw;
+    transform: translateY(-50%);
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.7vw;
+    //margin-bottom: 1em;
     color: #000000;
 
   }
@@ -131,7 +147,7 @@ body {
   &.header-rules {
     position: absolute;
     width: 100vw;
-    top: 40vh;
+    top: 41vh;
     left: -7.5vw;
     transform: translateY(-50%);
     text-align: center;
@@ -155,8 +171,8 @@ body {
     font-style: normal;
     font-weight: 500;
     font-size: 1.5vw;
-    line-height: 2em;
-    text-align: center;
+    line-height: 1.5em;
+    text-align: justify;
 
     color: #000000;
 
@@ -219,5 +235,27 @@ body {
   top: 33vh;
   z-index: 101;
 
+  }
+
+  &.credits{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85vw;
+    height: 5vh;
+    left: 3vw;
+    top:165vh;
+    margin-left: 5%;
+    margin-bottom: 10%;
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1vw;
+    line-height: 1.5em;
+    text-align: justify;
+
+    color: #000000;
   }
 }

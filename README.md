@@ -39,6 +39,12 @@ Find the front-ends main 3 components below. What is their role?
 How are they correlated? Reference the main class, file, or function in the README text
 with a link.
 
+### 🧑‍🤝‍🧑 Lobby
+
+The host can create
+a [Lobby](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Lobby.js) with
+1-20 rounds with each round taking 1-4 minutes. Up to 10 users can join it. If there are more than 2 in it, the host can decide to start the game, and all users will be redirected to the WaitingRoom.
+
 ### 📍 Set Location
 
 [SetLocation](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/SetLocation.js)
@@ -62,13 +68,25 @@ The chat works through a websocket connection with the backend. Once the timer h
 successful, the round is over and the players are redirected to [RoundOver]() or [GameOver](), depending on the round
 one is currently in.
 
+### ⏱️ RoundOver
+
+[RoundOver](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/RoundOver.js)
+is the View shown to users after they have finished playing the round (timer ran out, every GUESSER guessed correctly).
+It shows an updated ranking of the top 3 users during this game. On this page, the host can choose to advance further by
+clicking "Continue", and the other players will be redirected to the WaitingRoom.
+
+### 🏆 Ranking
+
+The [Ranking](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Ranking.js)
+features two leaderboards: one shows the top 15 players ranked by the total amount of points they have collected during
+their accounts lifetime, and the other one shows the top 15 players ranked by the amount of games they have won. <br>
+One fetches the data from the server using an GET request to the REST API.
+
 ### 🫀 Keep Alive
 
-This feature arose due to the need of handling idle users or ones that close the tab during the game. While not a component per-se, it still is a big feature. (TODO: Take out maybe)
+KeepAlive() / UserDropOut() arose due to the need of handling idle users or ones that close the tab during the game. While not a
+component per-se, it still is a essential feature to understand. Users get "kicked" from the game and their co-players are informed of this. 
 
-### 🏆 Leaderboard
-
-The [Leaderboard](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Ranking.js)
 ## 🚀 Launch & Development <a id="launch--development"></a>
 
 These are the steps a new developer joining the team would
@@ -94,7 +112,8 @@ Start the app with: `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**We strongly recommend to use Google Chrome in full screen *only*, and alay no matter if you have deployed the app or are accessing it locally**.
+**We strongly recommend to use Google Chrome in full screen *only*, and alay no matter if you have deployed the app or
+are accessing it locally**.
 
 ### Tests
 
