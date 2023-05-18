@@ -3,7 +3,6 @@ import {api, getErrorMessage} from 'helpers/api';
 import User from 'models/User';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import 'styles/views/Register.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import 'styles/views/Login.scss';
@@ -173,13 +172,11 @@ const Register = () => {
                     {alert_message}
                     <div className="login button-container">
                         <Button className="login-button-loginpage"
-                                style={{marginRight: "2px"}}
                                 disabled={!username || !password}
-                                width="100%"
                                 onClick={() => doRegistration()}
                         >
                             <div className="login login-text">
-                                Create account
+                                Register
                             </div>
                         </Button>
                         <div className="login login-line">

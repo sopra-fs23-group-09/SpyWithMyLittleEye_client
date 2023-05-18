@@ -53,11 +53,10 @@
   &.login-title{
   width: 10vw;
   height: 2vw;
-    font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 3vw;
-  line-height: 0vh;
   padding-left: 2vh;
   padding-bottom: 3vh;
   color: #000000;
@@ -85,11 +84,9 @@
     flex-direction: row;
     align-items: center;
     padding-left: 3vh;
-    //padding-top: 1vh;
     margin-left: 1vh;
     margin-right: 1vh;
     border: none;
-    margin-bottom: 0vh;
     color: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
@@ -105,11 +102,9 @@
     flex-direction: row;
     align-items: center;
     padding-left: 3vh;
-    //padding-top: 1.5vh;
     margin-left: 1vh;
     margin-right: 1vh;
     border: none;
-    margin-bottom: 0vh;
     color: rgba(0, 0, 0, 0.7);
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
@@ -143,11 +138,11 @@
   }
   &.login-line{
       position: absolute;
-      width: 123vh;
+      width: 120vh;
       height: 0;
       left: 0;
-      top: calc(100% + 20px);
-      border: 0.1em solid #97E1D4;
+      top: 10vh;
+    border: 0.1em solid #97E1D4;
   }
   &.button-container {
     display: flex;
@@ -156,8 +151,9 @@
     justify-content: center;
     flex-direction: row;
     align-items:center;
-    padding: 0.5vh;
-   // gap: 10vh;
+    padding-left: 3vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
     margin-top: 4vh;
     background: #97E1D4;
     box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
@@ -181,10 +177,6 @@
   top: 13vh;
   }
 
-  &.register-text a {
-      font-weight: bold;
-      color: #000000;
-    }
   &.login-text{
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
