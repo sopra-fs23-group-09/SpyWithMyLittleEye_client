@@ -95,12 +95,14 @@ const StartPage = () => {
                 </div>
             </Button>
             <div className="start-page instructions-container">
-                <div className="start-page introduction-text">
+                <div className="start-page header-intro">
                     Looking for a game that will keep you and your friends entertained for hours?
+                </div>
+                <div className="start-page introduction-text">
                     Look no further than "I Spy with My Little Eye"! This classic game has been enjoyed by generations
                     of children and adults and it's sure to provide hours of excitement and laughter. With every round,
                     you'll be on the edge of your seat, trying to figure out the clues and beat your opponents.
-                    And the best part is, you can play for as long as you want. Thanks to the Google Maps API our game
+                    And the best part is, you will never get bored:  Thanks to the Google Maps API our game
                     never gets old, and there's always a new and exciting place on this earth for you to discover.
                 </div>
                 <div className="start-page header-rules">
@@ -113,7 +115,8 @@ const StartPage = () => {
                     the object and a hint, and let the guessers guess.The faster one guesses, the more points one will
                     get. Don’t forget to compare your scores afterwards!
                 </div>
-
+            </div>
+            <div className="start-page credits"> Software Engineering Lab FS2023 
             </div>
         </BaseContainer>
         </body>
