@@ -21,29 +21,29 @@
     top: 3vw;
 
     background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
   }
 
   &.primary-button {
-    width: 20vw;
-    height: 6vw;
+    width: 16.5vw;
+    height: 5vw;
     position: absolute;
-    left: 41vw;
+    left: 42.75vw;
     top: 41vw;
   }
 
   &.button-text {
 
-    width: 271px;
-    height: 63px;
+    //width: 271px;
+    //height: 63px;
 
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 2.75vw;
-    line-height: 63px;
+    //line-height: 63px;
     /* identical to box height */
     text-align: center;
 
@@ -76,9 +76,9 @@
 
   &.solution {
     position: absolute;
-    width: 35vw;
+    //width: 35vw;
     //height: 63px;
-    left: 11vw;
+    left: 16.5vw;
     top: 8vw;
 
 
@@ -98,7 +98,7 @@
     position: absolute;
     width: 10vw;
     //height: 38px;
-    left: 23.25vw;
+    left: 23vw;
     top: 14vw;
 
 
@@ -145,7 +145,7 @@
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 2vw;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
@@ -162,7 +162,7 @@
     position: absolute;
     width: 3.5vw;
     //height: 63px;
-    left: 27vw;
+    left: 26.85vw;
     top: 29vw;
 
 
@@ -268,7 +268,7 @@
     width: 6.5vw;
     //height: 10vw;
     left: 17.5vw;
-    top: 28vw;
+    top: 27.5vw;
 
 
     font-family: 'Quicksand', sans-serif;
@@ -328,7 +328,7 @@
     width: 6.5vw;
     //height: 38px;
     left: 33vw;
-    top: 28vw;
+    top: 27.5vw;
 
 
     font-family: 'Quicksand', sans-serif;

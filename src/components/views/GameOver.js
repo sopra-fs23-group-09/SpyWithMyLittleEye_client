@@ -36,7 +36,7 @@ const MuteButton = ({ audio }) => {
     audio.muted = isMuted;
   }, [audio, isMuted]);
     return (
-      <div className="mute-button" style={{ position: "absolute", top: "3vh", left: "8vw", backgroundColor: "transparent", border: "none" }}>
+      <div className="mute-button" style={{ position: "absolute", top: "92vh", left: "1vw", backgroundColor: "transparent", border: "none" }}>
         <button onClick={handleMuteClick} style={{ backgroundColor: "transparent", border: "none" }}>
                       {isMuted ? (
                         <Icon icon="ph:speaker-slash-bold" color="white" style={{ fontSize: '6vh' }} />
@@ -213,7 +213,7 @@ const GameOver = () => {
     return (
         <BaseContainer>
             <div class="code left-field">
-                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4rem'}}/>
+                <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
             </div>
@@ -242,30 +242,30 @@ const GameOver = () => {
                     Leaderboard
                 </div>
                 <div>
-                    <img className="score profile-picture-1st" src={picture1} alt="profilePicture">
+                    <img className="finalscore profile-picture-1st" src={picture1} alt="profilePicture">
                     </img>
-                    <div className="score name-1st">
+                    <div className="finalscore name-1st">
                         {first.username}
                     </div>
-                    <div className="score points-1st">
+                    <div className="finalscore points-1st">
                         {first.points}
                     </div>
                     {second && second.username && (
                         <>
-                            <img className="score profile-picture-2nd" src={picture2} alt="profilePicture"/>
-                            <div className="score name-2nd">
+                            <img className="finalscore profile-picture-2nd" src={picture2} alt="profilePicture"/>
+                            <div className="finalscore name-2nd">
                                 {second.username}
                             </div>
-                            <div className="score points-2nd">
+                            <div className="finalscore points-2nd">
                                 {second.points}
                             </div>
                         </>
                     )}
                     {third && third.username && (
                         <>
-                            <img className="score profile-picture-3rd" src={picture3} alt="profilePicture"/>
-                            <div className="score name-3rd">{third.username}</div>
-                            <div className="score points-3rd">{third.points}</div>
+                            <img className="finalscore profile-picture-3rd" src={picture3} alt="profilePicture"/>
+                            <div className="finalscore name-3rd">{third.username}</div>
+                            <div className="finalscore points-3rd">{third.points}</div>
                         </>
                     )}
                 </div>
