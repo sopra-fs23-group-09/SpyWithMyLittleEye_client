@@ -2,28 +2,28 @@
 .gameover {
   &.container {
     position: absolute;
-    width: 1000px;
-    height: 800px;
-    left: 375px;
-    top: 75px;
+    width: 58vw;
+    height: 48vw;
+    left: 22vw;
+    top: 3vw;
 
     background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    //box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
   }
 
   &.header {
     position: absolute;
-    width: 700px;
-    height: 88px;
-    left: 150px;
-    top: 50px;
+    //width: 40vw;
+    //height: 40vw;
+    left: 11vw;
+    top: 3vw;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 70px;
-    line-height: 88px;
+    font-size: 4vw;
+    //line-height: 88px;
     /* identical to box height */
     text-align: center;
 
@@ -32,16 +32,16 @@
 
   &.rounds {
     position: absolute;
-    width: 700px;
-    height: 88px;
-    left: 150px;
-    top: 130px;
+    //width: 700px;
+    //height: 88px;
+    left: 16.5vw;
+    top: 15vh;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 60px;
-    line-height: 88px;
+    font-size: 2.5vw;
+    //line-height: 88px;
     /* identical to box height */
     text-align: center;
 
@@ -50,16 +50,16 @@
 
   &.solution {
     position: absolute;
-    width: 630px;
-    height: 63px;
-    left: 185px;
-    top: 220px;
+    //width: 630px;
+    //height: 63px;
+    left: 9.75vw;
+    top: 22vh;
 
-    font-family: 'Gill Sans';
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
-    line-height: 63px;
+    font-size: 2.5vw;
+    //line-height: 63px;
     /* identical to box height */
     text-align: center;
 
@@ -69,16 +69,17 @@
 
   &.leaderboard-text {
     position: absolute;
-    width: 184px;
-    height: 38px;
-    left: 400px;
-    top: 300px;
+    //width: 10vw;
+    //height: 38px;
+    left: 23vw;
+    top: 30vh;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 1.75vw;
+    //line-height: 38px;
     /* identical to box height */
     text-align: center;
 
@@ -112,119 +113,249 @@
 .finalscore {
   &.name-1st {
     position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 435px;
-    top: 450px;
+    width: 6.75vw;
+    //height: 38px;
+    left: 25.2vw;
+    top: 28vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
 
     color: #000000;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 3s;
+
 
 
   }
 
   &.points-1st {
     position: absolute;
-    width: 60px;
-    height: 63px;
-    left: 465px;
-    top: 525px;
+    //width: 3.5vw;
+    //height: 63px;
+    left: 27.7vw;
+    top: 30.5vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 50px;
-    line-height: 63px;
+    font-size: 3vw;
+    //line-height: 63px;
     /* identical to box height */
     text-align: center;
 
     color: #FFFFFF;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 3s;
   }
 
+  &.profile-picture-1st {
+    width: 6.5vw;
+    height: 6.5vw;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 25.25vw;
+    top: 21vw;
+
+    //FADE-IN
+    //opacity: 0; /* start with 0 opacity */
+    //animation: fade-in-bounce 1s ease-in-out forwards;
+
+    //SPIN
+    //animation: spin 3s linear infinite; /* rotate continuously */
+
+    //BOUNCE
+    opacity: 0; /* bounce continuously */
+    //animation: fade-in-bounce 1.5s ease-in-out forwards infinite alternate 3s;
+    animation: fade-in 1s ease-in forwards 3s, bounce 1.5s ease-in-out infinite 4s;
+
+    //GLITCH
+    //animation: glitch 2s ease-in-out infinite; /* glitch continuously */
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0; /* start with 0 opacity */
+    }
+    to {
+      opacity: 1; /* end with full opacity */
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg); /* starting rotation */
+    }
+    100% {
+      transform: rotate(360deg); /* end rotation */
+    }
+  }
+
+  @keyframes bounce {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes glitch {
+    0% {
+      transform: translateX(0) skew(0); /* starting position */
+    }
+    20% {
+      transform: translateX(10px) skew(5deg); /* first glitch */
+    }
+    40% {
+      transform: translateX(-10px) skew(-5deg); /* second glitch */
+    }
+    60% {
+      transform: translateX(10px) skew(5deg); /* third glitch */
+    }
+    80% {
+      transform: translateX(-10px) skew(-5deg); /* fourth glitch */
+    }
+    100% {
+      transform: translateX(0) skew(0); /* end position */
+    }
+  }
 
   &.name-2nd {
     position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 300px;
-    top: 475px;
+    width: 6.5vw;
+    //height: 10vw;
+    left: 17.5vw;
+    top: 30vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
 
     color: #000000;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 2s;
 
   }
 
   &.points-2nd {
     position: absolute;
-    width: 48px;
-    height: 50px;
-    left: 333px;
-    top: 550px;
+    width: 3.25vw;
+    //height: 50px;
+    left: 19.25vw;
+    top: 32.75vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 2.5vw;
     line-height: 50px;
     text-align: center;
 
     color: #FFFFFF;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 2s;
+  }
+
+  &.profile-picture-2nd {
+    width: 6.5vw;
+    height: 6.5vw;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 17.5vw;
+    top: 23vw;
+    opacity: 0; /* start with 0 opacity */
+    animation: fade-in 1s ease-in-out forwards 2s;
+
   }
 
   &.name-3rd {
     position: absolute;
-    width: 113px;
-    height: 38px;
-    left: 570px;
-    top: 475px;
+    width: 6.5vw;
+    //height: 38px;
+    left: 33vw;
+    top: 30vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.75vw;
     line-height: 38px;
     /* identical to box height */
     text-align: center;
 
     color: #000000;
+    animation: fade-in 1s ease-in-out forwards 1s;
+    opacity: 0;
 
   }
 
   &.points-3rd {
     position: absolute;
-    width: 48px;
-    height: 50px;
-    left: 605px;
-    top: 550px;
+    width: 2.5vw;
+    //height: 50px;
+    left: 35.2vw;
+    top: 32.75vw;
 
-    font-family: 'Gill Sans';
+
+    font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 2.5vw;
     line-height: 50px;
     text-align: center;
 
     color: #FFFFFF;
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 1s;
   }
 
+  &.profile-picture-3rd {
+    width: 6.5vw;
+    height: 6.5vw;
+    border-radius: 50%;
+    border: 2px solid #97E1D4FF;
+    //background-image: url('./../../images/RedPanda.png');
+    //background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 33vw;
+    top: 23vw;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards 1s;
+  }
 }
