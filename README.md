@@ -94,7 +94,7 @@ Start the app with: `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**We strongly recommend to use Google Chrome *only*, no matter if you have deployed the app or are accessing it locally**.
+**We strongly recommend to use Google Chrome in full screen *only*, and alay no matter if you have deployed the app or are accessing it locally**.
 
 ### Tests
 

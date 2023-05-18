@@ -120,7 +120,11 @@ const UserPage = () => {
                     </div>
                 </div>
                 <Button className="edit-button" disabled={userId !== String(localStorage.getItem("userId"))} onClick={() => {
-                    audio.play();
+                    try {
+                        audio.play();
+                    } catch (e) {
+                        console.log("Failed to play sound.")
+                    }
                     history.push("/users/" + userId + "/edit");
                 }}>
                     <div className="userPage edit-button-text">
@@ -148,7 +152,11 @@ const UserPage = () => {
           <div className="base-container ellipse4">
           </div>
           <Button className="ranking-button" onClick={() => {
-              audio.play();
+              try {
+                  audio.play();
+              } catch (e) {
+                  console.log("Failed to play sound.")
+              }
               history.push('/leaderboard');
           }}>
               <div className="home-page ranking-text">
@@ -156,7 +164,11 @@ const UserPage = () => {
               </div>
           </Button>
           <Button className="profile-button" onClick={() => {
-              audio.play();
+              try {
+                  audio.play();
+              } catch (e) {
+                  console.log("Failed to play sound.")
+              }
               history.push('/home');
           }}>
               <div className="leaderboard-page ranking-text">

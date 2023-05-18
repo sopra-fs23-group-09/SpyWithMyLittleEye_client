@@ -45,8 +45,6 @@ const MuteButton = ({ audio }) => {
     );
   };
 const RoundOver = () => {
-    // TODO add fourth place
-    // TODO set profile picture
     const history = useHistory();
     const gameId = localStorage.getItem("gameId"); // TODO this is equal to lobbyId
     const userId = localStorage.getItem("userId");
@@ -66,7 +64,7 @@ const RoundOver = () => {
         useState(<div className="lobby drop-out-alert-message"></div>);
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
-    let [reload, setReload] = useState(0);
+    //let [reload, setReload] = useState(0);
 
 
     // KEEP ALIVE: to tell if an user has become idle
@@ -98,12 +96,11 @@ const RoundOver = () => {
                 setCurrentRoundNr(response.data["currentRoundNr"])
                 let playerPoints = response.data["playerPoints"];
 
-                playerPoints.sort((a, b) => { // TODO comes sorted already
-                    return b.points - a.points;
-                });
-                setFirst(playerPoints[0]);
-                setSecond(playerPoints[1]);
 
+                setFirst(playerPoints[0]);
+                if (playerPoints.length > 1) {
+                    setSecond(playerPoints[1]);
+                }
                 if (playerPoints.length > 2) {
                     setThird(playerPoints[2]);
                 }
@@ -136,13 +133,13 @@ const RoundOver = () => {
                 localStorage.removeItem("color");
                 localStorage.removeItem("timeLeft");
                 unsubscribe("/topic/games/" + gameId + "/nextRound");
-                unsubscribe("/topic/games/" + gameId+ "/userDropOut");
+                unsubscribe("/topic/games/" + gameId + "/userDropOut");
                 history.push(`/game/` + gameId + "/waitingroom");
             });
         }
 
         function subscribeToUserDropOut() {
-            subscribe("/topic/games/" + gameId+ "/userDropOut", data => {
+            subscribe("/topic/games/" + gameId + "/userDropOut", data => {
                 let username = localStorage.getItem("username");
                 console.log(data);
                 if (data.name.toString() === username.toString()) { // u're the one dropping out!
@@ -155,8 +152,8 @@ const RoundOver = () => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
                                                          unsubscribe("/topic/games/" + gameId + "/nextRound");
-                                                         unsubscribe("/topic/games/" + gameId+ "/userDropOut");
-                                                         history.push("/game/"+gameId+"/score");
+                                                         unsubscribe("/topic/games/" + gameId + "/userDropOut");
+                                                         history.push("/game/" + gameId + "/score");
                                                      }}>
                         <b>{data.name}</b> has left the game! The game is over.</Alert>);
                 } else if (data.host) {
@@ -164,7 +161,7 @@ const RoundOver = () => {
                     setHostId(data.newHostId);
                     setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
                                                      onClose={() => {
-                                                         setReload(reload+1);
+                                                         //setReload(reload + 1);
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
                                                      }}>
@@ -175,20 +172,27 @@ const RoundOver = () => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
-                                                         setReload(reload+1);
-                                                         // TODO : reload needed?
+                                                         //setReload(reload + 1);
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
             });
         }
-    }, [gameId, history, hostId, reload]);
+    }, [gameId, history]);
 
 
 
 
     function startNewRound() {
-        audio.play();
+        try {
+            try {
+                audio.play();
+            } catch (e) {
+                console.log("Failed to play sound.")
+            }
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
         notifyNextRoundButtonClicked(gameId, token);
     }
 
@@ -247,14 +251,18 @@ const RoundOver = () => {
                     <div className="score points-1st">
                         {first.points}
                     </div>
-                    <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
-                    </img>
-                    <div className="score name-2nd">
-                        {second.username}
-                    </div>
-                    <div className="score points-2nd">
-                        {second.points}
-                    </div>
+                    {second && second.username && (
+                        <>
+                        <img className="score profile-picture-2nd" src = {picture2} alt ="profilePicture">
+                        </img>
+                        <div className="score name-2nd">
+                            {second.username}
+                        </div>
+                        <div className="score points-2nd">
+                            {second.points}
+                        </div>
+                        </>
+                    )}
                     {third && third.username && (
                         <>
                             <img className="score profile-picture-3rd" src={picture3} alt="profilePicture" />

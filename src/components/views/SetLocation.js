@@ -197,7 +197,6 @@ const SetLocation = (props) => {
                 unsubscribe("/topic/games/" + gameId + "/spiedObject");
                 unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
                 history.push("/game/" + gameId);
-                //TODO Thereza: I need to test this properly before pushing
             });
 
         }
@@ -234,8 +233,6 @@ const SetLocation = (props) => {
                                                      onClose={() => {
                                                          setDrop_out_alert_message(<div
                                                              className="lobby drop-out-alert-message"></div>);
-                                                         //setReload(reload+1);
-                                                         // TODO : reload needed?
                                                      }}>
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
@@ -277,7 +274,11 @@ const SetLocation = (props) => {
     }, []);
 
     function startGame() {
-        audio.play();
+        try {
+            audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
         localStorage.setItem("location", JSON.stringify(location));
         localStorage.setItem("color", JSON.stringify(color));
         notifySpiedObject(lobbyId, location, color, object, token);

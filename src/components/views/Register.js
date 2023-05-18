@@ -120,16 +120,19 @@ const Register = () => {
             localStorage.setItem('token', user.token);
             localStorage.setItem('userId', user.id);
             localStorage.setItem("username", user.username);
-            localStorage.setItem("profilePicture", user.profilePicture); // TODO remove if not necessary
+            localStorage.setItem("profilePicture", user.profilePicture);
 
             history.push(`/home`);
         } catch (error) {
-            //alert(`Something went wrong during the registration: \n${handleError(error)}`);
             let msg = getErrorMessage(error);
             console.log(msg);
             setAlert_Message(<Alert className ="login alert-message" severity="error"><b>Something went wrong during registration:</b> {msg}</Alert>);
         }
-        audio.play();
+        try {
+            audio.play();
+        } catch (e) {
+            console.log("Failed to play sound.")
+        }
 
     };
 
