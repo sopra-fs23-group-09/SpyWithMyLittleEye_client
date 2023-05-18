@@ -162,7 +162,7 @@ const LobbyView = () => {
                     history.push("/start")
 
                 } else {
-                    if ((hostId) && data.host) {
+                    if (data.host) {
                         console.log("HOST DROPPED OUT")
                         setHostId(data.newHostId);
                         setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"

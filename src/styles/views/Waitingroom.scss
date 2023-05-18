@@ -17,8 +17,9 @@
 
   &.alert-div {
     position: absolute;
-    top: 12vh;
     left: 30vw;
+    transform: translateX(-50%);
+    top: 12vh;
     color: #FFFFFF;
   }
 

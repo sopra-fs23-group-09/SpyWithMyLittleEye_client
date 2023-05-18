@@ -66,15 +66,16 @@
   margin-top: -12vh;
   }
   &.password-field {
-      display: flex;
-      align-items: center;
+      //display: flex;
+      //align-items: center;
+    position: relative;
     }
 
   &.password-toggle {
-      position: absolute;
-      top: 38.25vh;
-      right: 15vw; /* Adjust the positioning as needed */
-      transform: translateY(-50%);
+    position: absolute;
+    top: 4.3vh;
+    right: 3vw;
+    transform: translateY(-50%);
       cursor: pointer;
     }
   &.input-username {
@@ -179,6 +180,7 @@
   left: 0;
   top: 13vh;
   }
+
   &.register-text a {
       font-weight: bold;
       color: #000000;

@@ -74,7 +74,7 @@ const FormField = props => {
             <Icon
               icon={showPassword ? eyeOpenIcon : eyeClosedIcon}
               color="gray"
-              style={{ fontSize: '4vh' }}
+              style={{ fontSize: '4vh'}}
             />
           </div>
       </div>
