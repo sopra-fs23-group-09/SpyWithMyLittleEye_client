@@ -44,6 +44,10 @@
     justify-content: center;
   }
 
+  &.field select option {
+    background-color: rgba(128, 128, 128, 0.2); /* Set the desired grey color and opacity value */
+    }
+
     &.input {
       height: 12vh; /* Adjust the height as needed */
       display: flex;
