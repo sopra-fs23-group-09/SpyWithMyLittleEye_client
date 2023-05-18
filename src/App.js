@@ -7,7 +7,7 @@ import AppRouter from "components/routing/routers/AppRouter";
  * Overhauled by Kyrill Hux
  */
 const App = () => {
-    window.onbeforeunload = () => {localStorage.removeItem('intervalId'); alert("WHWHH")};
+    window.onbeforeunload = () => {localStorage.removeItem('intervalId'); alert("You're leaving the game!")};
 
     return (
     <div>
