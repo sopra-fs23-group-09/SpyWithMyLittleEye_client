@@ -266,6 +266,7 @@ const Guessing = () => {
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
                 if (lastGuess === "CORRECT") {
                     setCorrectGuessPlayer(lastUsername);
+                    setCorrectGuess(true);
                 }
             });
             unsubscribe("/topic/games/" + lobbyId + "/guesses");
@@ -462,7 +463,7 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            disabled={playerInput === ""}
+                            disabled={playerInput === "" || correctGuess === true}
                             onClick={() => submitInput()}
                     >
                         <div className="guessing send-button-text">
