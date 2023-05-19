@@ -1,6 +1,18 @@
 @import 'styles/theme';
 
 .lobby {
+  &.exit-text{
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 4vh;
+    line-height: 1.2vh;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: white;
+}
 
   &.drop-out-alert-div {
     position: absolute;

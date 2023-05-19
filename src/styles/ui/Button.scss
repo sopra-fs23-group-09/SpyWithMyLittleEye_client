@@ -1,5 +1,35 @@
 @import 'styles/theme';
 
+.exit-lobby {
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  //padding: 1em;
+ // gap: 1em;
+
+  position: absolute;
+  width: 17vw;
+  max-width: 20vw;
+  height: 8vh;
+  left: 14vw;
+  top: 2vh;
+
+  background: #97E1D4;
+  box-shadow: 1em 1em 1em rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2em);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 40px;
+  border: none;
+  z-index: 999;
+}
 .primary-button {
   &:hover {
     transform: translateY(-4px);
