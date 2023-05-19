@@ -68,7 +68,17 @@ const LobbyView = () => {
     //useState(<Alert className ="lobby drop-out-alert-message" severity="warning" onClose={() => {setDrop_out_alert_message(<div className="lobby drop-out-alert-message"></div>)}}><b>친구</b> has left the game! </Alert>);
 
     let counter = -1;
-
+  async function exitLobby() {
+    try {
+      const requestBody = JSON.stringify({ token });
+      await api.put(`/lobbies/${lobbyId}/exit/${userId}`, requestBody, {
+        headers: { Token: token },
+      });
+      history.push(`/home`);
+    } catch (error) {
+      console.error('Exit lobby failed:', error);
+    }
+  }
     // KEEP ALIVE: to tell if an user has become idle
     useEffect(() => {
         let token = localStorage.getItem("token");
@@ -308,6 +318,11 @@ const LobbyView = () => {
             </div>
             <div className="base-container ellipse4">
             </div>
+            <Button className="lobby exit-lobby"  onClick={() => exitLobby()}>
+                            <div className="lobby exit-text">
+                                exit lobby
+                            </div>
+                        </Button>
             <MuteButton audio={audio}/>
             {content}
             <div className="lobby lobby-text">
