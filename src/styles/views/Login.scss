@@ -1,15 +1,17 @@
 @import 'styles/theme';
 
 .login {
-  &.alert-message {
-    margin-top: 1vw;
-    margin-bottom: -1.5vw;
-    border-radius: 4vw;
-    width: 121vh;
-    margin-left: 0.5vw;
-    //justify-content: center;
-    font-family: 'Quicksand', sans-serif;
+  &.alert-div {
+    position: absolute;
+    left:50vw;
+    transform: translateX(-50%);
+    top: 10vh;
+    z-index: 10;
+  }
 
+  &.alert-message {
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 4vw;
   }
 
   &.container {
@@ -62,7 +64,7 @@
   color: #000000;
   display: flex;
   text-align: right;
-  margin-top: -12vh;
+  margin-top: -2vh;
   }
   &.password-field {
       //display: flex;
@@ -137,31 +139,27 @@
         flex-grow: 0;
   }
   &.login-line{
-      position: absolute;
-      width: 120vh;
-      height: 0;
-      left: 0;
-      top: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 3vh;
+    margin-left: 3vh;
+    margin-right: 1vh;
+    margin-top: 3vh;
+    width: 117vh;
     border: 0.1em solid #97E1D4;
   }
   &.button-container {
     display: flex;
     height: 7vh;
-    width: 120vh;
+    width: 121vh;
     justify-content: center;
-    flex-direction: row;
     align-items:center;
-    padding-left: 3vh;
-    margin-left: 1vh;
+    padding-left: 1vh;
+    margin-left: 0.3vh;
     margin-right: 1vh;
     margin-top: 4vh;
-    background: #97E1D4;
-    box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(3em);
-    /* Note: backdrop-filter has minimal browser support */
 
-
-    border-radius: 4vh;
   }
   &.register-text{
   display: flex;
@@ -170,11 +168,13 @@
   padding: 1vh;
   gap: 1vh;
 
-  position: absolute;
-  width: 80vh;
-  height: 20vh;
-  left: 0;
-  top: 13vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 3vh;
+    margin-right: 1vh;
+    margin-top: 2vh;
+    width: 80vh;
   }
 
   &.login-text{

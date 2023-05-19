@@ -150,6 +150,7 @@ const Register = () => {
             </div>
             <MuteButton audio={audio}/>
             <div className="login container">
+                <div className="login alert-div">{alert_message}</div>
                 <div className="login form">
                     <div className="login login-title">
                         Signup
@@ -169,7 +170,6 @@ const Register = () => {
                         onChange={n => setPassword(n)}
 
                     />
-                    {alert_message}
                     <div className="login button-container">
                         <Button className="login-button-loginpage"
                                 disabled={!username || !password}
@@ -179,11 +179,11 @@ const Register = () => {
                                 Register
                             </div>
                         </Button>
-                        <div className="login login-line">
-                        </div>
-                        <div className="login register-text">
-                            Already have an account? <a href="/login">Log in</a>
-                        </div>
+                    </div>
+                    <div className="login login-line">
+                    </div>
+                    <div className="login register-text">
+                        Already have an account? <a href="/login">Log in</a>
                     </div>
                 </div>
             </div>
