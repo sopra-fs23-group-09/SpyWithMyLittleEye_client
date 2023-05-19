@@ -144,6 +144,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
+    const [correctGuess, setCorrectGuess] = useState(null);
     const [timeLeft, setTimeLeft] = useState(() => {
         // Retrieve the stored timer value from localStorage,
         // or use the default duration if it doesn't exist
@@ -266,6 +267,7 @@ const Guessing = () => {
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
                 if (lastGuess === "CORRECT") {
                     setCorrectGuessPlayer(lastUsername);
+                    setCorrectGuess(true);
                 }
             });
             unsubscribe("/topic/games/" + lobbyId + "/guesses");
@@ -462,7 +464,7 @@ const Guessing = () => {
                         </div>
                     </div>
                     <Button className="game-send-button"
-                            disabled={playerInput === ""}
+                            disabled={playerInput === "" || correctGuess === true}
                             onClick={() => submitInput()}
                     >
                         <div className="guessing send-button-text">
