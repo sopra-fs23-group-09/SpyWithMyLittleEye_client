@@ -144,6 +144,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
+    const [correctGuess, setCorrectGuess] = useState(null);
     const [timeLeft, setTimeLeft] = useState(() => {
         // Retrieve the stored timer value from localStorage,
         // or use the default duration if it doesn't exist
