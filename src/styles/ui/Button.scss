@@ -230,16 +230,18 @@
       transform: none;
     }
   }
-  font-family: "Mulish";
+  height: 100%;
+  width: 100%;
+  font-family: 'Quicksand', sans-serif;
   background-color: transparent;
   font-style: normal;
   font-weight: 700;
   font-size: 50px;
-  line-height: 63px;
   text-align: center;
   flex-grow: 0;
   border: none;
   align-self: stretch;
+  z-index: 999;
 
 }
 .register-button-registerpage{
