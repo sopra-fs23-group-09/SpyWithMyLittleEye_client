@@ -75,6 +75,7 @@ const LobbyView = () => {
         headers: { Token: token },
       });
       history.push(`/home`);
+      audio.play();
     } catch (error) {
       console.error('Exit lobby failed:', error);
     }
@@ -320,7 +321,7 @@ const LobbyView = () => {
             </div>
             <Button className="lobby exit-lobby"  onClick={() => exitLobby()}>
                             <div className="lobby exit-text">
-                                exit lobby
+                            <Icon icon="majesticons:door-exit-line" color="white" />
                             </div>
                         </Button>
             <MuteButton audio={audio}/>
