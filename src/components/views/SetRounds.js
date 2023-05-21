@@ -124,6 +124,7 @@ const SetRounds = () => {
             const lobbyId = response.data["id"]
             localStorage.setItem('lobbyId', lobbyId);
             const accessCode = response.data["accessCode"]
+            localStorage.setItem('accessCode', accessCode);
             history.push("/lobby/" + accessCode)
         } catch (error) {
             let msg = getErrorMessage(error);

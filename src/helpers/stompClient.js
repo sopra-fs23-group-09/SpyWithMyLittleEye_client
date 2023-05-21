@@ -112,3 +112,11 @@ export const notifyGameEndedButtonClicked = (gameId, token) => {
     };
     ws.send("/app/games/"+gameId+"/gameOver", headers);
 }
+
+export const notifyPlayAgain= (gameId, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    };
+    ws.send("/app/games/"+gameId+"/playAgain", headers);
+}
