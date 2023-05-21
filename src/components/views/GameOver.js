@@ -146,7 +146,7 @@ const GameOver = () => {
         }
 
         function subscribeToPlayAgain() {           //TODO subscribe to playAgain
-            subscribe("/topic/games" + gameId + "/playAgain", data => {
+            subscribe("/topic/games/" + gameId + "/playAgain", data => {
                 unsubscribe("/topic/games/" + gameId + "/userDropOut");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
                 unsubscribe("/topic/games/" + gameId + "/playAgain");
@@ -209,10 +209,10 @@ const GameOver = () => {
     function startNewGame() {               //TODO Start a new game
         audio.play();
         notifyPlayAgain(gameId, token);
-
     }
 
     let button_gameEnded = (<div></div>);
+    let button_playAgain = (<div></div>);
 
 
     if (((hostId) && (userId) && (hostId.toString() === userId.toString()))
@@ -225,7 +225,22 @@ const GameOver = () => {
                     End Game
                 </div>
             </Button>)
+        button_playAgain = (
+            <Button className="play-again" onClick={() => {  //TODO PLAY AGAIN BUTTON
+                    startNewGame();
+                    try {
+                        audio.play();
+                    } catch (e) {
+                        console.log("Failed to play sound.")
+                    }
+                }}>
+                    <div className="gameover play-again-button-text">
+                        Play again
+                    </div>
+                </Button>
+            )
     }
+
 
     return (
         <BaseContainer>
@@ -291,19 +306,7 @@ const GameOver = () => {
                 {alert_message}
             </div>
             {button_gameEnded}
-            <Button className="play-again" onClick={() => {  //TODO PLAY AGAIN BUTTON
-                startNewGame();
-                try {
-                    audio.play();
-                } catch (e) {
-                    console.log("Failed to play sound.")
-                }
-                history.push('/lobby/' + accessCode);
-            }}>
-                <div className="gameover play-again-button-text">
-                    Play again
-                </div>
-            </Button>
+            {button_playAgain}
             <div className="lobby drop-out-alert-div">
                 {drop_out_alert_message}
             </div>
