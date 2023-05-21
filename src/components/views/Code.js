@@ -99,6 +99,7 @@ const Code = () => {
             console.log(response);
             const lobbyId = response.data["id"]
             localStorage.setItem('lobbyId', lobbyId);
+            localStorage.setItem('accessCode', accessCode);
 
             history.push("/lobby/" + accessCode);
         } catch (error) {

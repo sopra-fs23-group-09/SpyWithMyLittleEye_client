@@ -8,7 +8,7 @@ import {Button} from "../ui/Button";
 import {
     connect,
     getConnection,
-    notifyGameEndedButtonClicked,
+    notifyGameEndedButtonClicked, notifyPlayAgain,
     subscribe, unsubscribe
 } from "../../helpers/stompClient";
 import {clearGameLocalStorage, getProfilePic} from "../../helpers/utilFunctions";
@@ -51,8 +51,11 @@ const GameOver = () => {
     const history = useHistory();
     const [audio] = useState(new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF'));
     const gameId = localStorage.getItem("gameId");
+    //const lobbyId = localStorage.getItem("lobbyId");
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+    const accessCode = localStorage.getItem("accessCode");
+    console.log("ACCESS CODE IS: " + accessCode);
 
     let [keyword, setKeyword] = useState(null);
     //let [roundOverStatus, setRoundOverStatus] = useState(null);
@@ -125,6 +128,7 @@ const GameOver = () => {
         }
 
         function makeSubscription() {
+            subscribeToPlayAgain();
             subscribeToEndGame();
             subscribeToUserDropOut();
         }
@@ -134,9 +138,22 @@ const GameOver = () => {
                 console.log("Inside callback");
                 unsubscribe("/topic/games/" + gameId + "/userDropOut");
                 unsubscribe("/topic/games/" + gameId + "/gameOver");
+                unsubscribe("/topic/games/" + gameId + "/playAgain");
                 localStorage.removeItem("timeLeft");
                 clearGameLocalStorage();
                 history.push("/home/");
+            });
+        }
+
+        function subscribeToPlayAgain() {           //TODO subscribe to playAgain
+            subscribe("/topic/games/" + gameId + "/playAgain", data => {
+                unsubscribe("/topic/games/" + gameId + "/userDropOut");
+                unsubscribe("/topic/games/" + gameId + "/gameOver");
+                unsubscribe("/topic/games/" + gameId + "/playAgain");
+                localStorage.removeItem("timeLeft");
+                localStorage.removeItem("location");
+                localStorage.removeItem("color");
+                history.push("/lobby/" + accessCode);
             });
         }
 
@@ -177,7 +194,7 @@ const GameOver = () => {
             });
         }
 
-    }, [gameId, history]);
+    }, [gameId, history, accessCode]);
 
 
     let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture) : null;
@@ -189,7 +206,13 @@ const GameOver = () => {
         notifyGameEndedButtonClicked(gameId, token);
     }
 
+    function startNewGame() {               //TODO Start a new game
+        audio.play();
+        notifyPlayAgain(gameId, token);
+    }
+
     let button_gameEnded = (<div></div>);
+    let button_playAgain = (<div></div>);
 
 
     if (((hostId) && (userId) && (hostId.toString() === userId.toString()))
@@ -202,11 +225,26 @@ const GameOver = () => {
                     End Game
                 </div>
             </Button>)
+        button_playAgain = (
+            <Button className="play-again" onClick={() => {  //TODO PLAY AGAIN BUTTON
+                    startNewGame();
+                    try {
+                        audio.play();
+                    } catch (e) {
+                        console.log("Failed to play sound.")
+                    }
+                }}>
+                    <div className="gameover play-again-button-text">
+                        Play again
+                    </div>
+                </Button>
+            )
     }
+
 
     return (
         <BaseContainer>
-            <div class="code left-field">
+            <div className ="code left-field">
                 <Icon icon="ph:eye-closed-bold" color="white" style={{fontSize: '4vw'}}/>
             </div>
             <div className="base-container ellipse1">
@@ -268,6 +306,7 @@ const GameOver = () => {
                 {alert_message}
             </div>
             {button_gameEnded}
+            {button_playAgain}
             <div className="lobby drop-out-alert-div">
                 {drop_out_alert_message}
             </div>

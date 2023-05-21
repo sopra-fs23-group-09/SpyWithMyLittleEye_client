@@ -108,6 +108,26 @@
     flex-grow: 0;
   }
 
+  &.play-again-button-text {
+    position: absolute;
+    width: 15vw;
+    //height: 38px;
+    left: 0.75vw;
+    top: 1.75vh;
+
+
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.5vw;
+    //line-height: 38px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #ffffff;
+
+  }
+
 }
 
 .finalscore {
