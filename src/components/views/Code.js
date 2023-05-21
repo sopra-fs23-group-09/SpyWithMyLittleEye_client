@@ -72,6 +72,7 @@ const FormField = props => {
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
+                onKeyDown={e => props.onKeyPress(e)}
             />
         </div>
     );
@@ -80,7 +81,8 @@ const FormField = props => {
 FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
-    accessCode : PropTypes.string
+    accessCode : PropTypes.string,
+    onKeyPress: PropTypes.func
 };
 
 const Code = () => {
@@ -109,6 +111,12 @@ const Code = () => {
         }
     };
 
+    function handleKeyPress(event) {
+        if(event.key === "Enter" && accessCode) {
+            joinLobby()
+        }
+    }
+
     return (
         <BaseContainer>
             <Link to="/home" className="code left-field">
@@ -131,6 +139,7 @@ const Code = () => {
                 placeholder = "Enter your code..."
                 value={accessCode}
                 onChange={ac => setAccessCode(ac)}
+                onKeyPress={handleKeyPress}
             />
             <Button className="ok-button"
                     disabled={!accessCode}

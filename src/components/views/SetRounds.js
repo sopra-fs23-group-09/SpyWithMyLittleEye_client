@@ -72,6 +72,7 @@ const FormField = (props) => {
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          onKeyPress={e => props.onKeyPress(e)}
         />
       </div>
     );
@@ -103,6 +104,7 @@ const FormField = (props) => {
 FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    onKeyPress: PropTypes.func,
 };
 
 const SetRounds = () => {
@@ -133,7 +135,12 @@ const SetRounds = () => {
         }
     }
 
-
+    function handleKeyPress(event) {
+        console.log("Pressed key: " + event.key)
+        if(event.key === "Enter"){
+            createLobby()
+        }
+    }
 
     return (
         <BaseContainer>
@@ -159,6 +166,7 @@ const SetRounds = () => {
                 placeholder="Enter your number..."
                 value={amountRounds}
                 onChange={r => setAmountRounds(r)}
+                onKeyPress={handleKeyPress}
             />
             <div className="rounds header">
                 How long should a round be?

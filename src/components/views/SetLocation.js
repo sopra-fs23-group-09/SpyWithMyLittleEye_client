@@ -56,6 +56,7 @@ const FormFieldObject = props => {
                 value={props.value}
                 onChange={props.onChange}
                 type={props.type}
+                onKeyDown={e => props.onKeyPress(e)}
             />
         </div>
     );
@@ -72,6 +73,7 @@ const FormFieldColor = props => {
                 value={props.value}
                 onChange={props.onChange}
                 type={props.type}
+                onKeyDown={e => props.onKeyPress(e)}
             />
         </div>
     );
@@ -81,14 +83,16 @@ FormFieldObject.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    onKeyPress: PropTypes.func
 };
 FormFieldColor.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    onKeyPress: PropTypes.func
 };
 const SetLocation = (props) => {
     const history = useHistory();
@@ -284,6 +288,12 @@ const SetLocation = (props) => {
         notifySpiedObject(lobbyId, location, color, object, token);
     }
 
+    function handleKeyPress(event) {
+        if(event.key === "Enter" && color && object){
+            startGame()
+        }
+    }
+
     return (
         <BaseContainer>
             <div className ="code left-field">
@@ -319,6 +329,7 @@ const SetLocation = (props) => {
                 placeholder="The color of my object is..."
                 value={color}
                 onChange={handleColorChange}
+                onKeyPress={handleKeyPress}
                 type="text"
             />
             <FormFieldObject
@@ -326,6 +337,7 @@ const SetLocation = (props) => {
                 placeholder="Your object..."
                 value={object}
                 onChange={handleObjectChange}
+                onKeyPress={handleKeyPress}
                 type="text"
             />
             <div className="setlocation readytext">

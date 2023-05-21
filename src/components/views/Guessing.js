@@ -107,6 +107,7 @@ const FormField = props => {
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
+                onKeyDown={e => props.onKeyPress(e)}
             />
         </div>
     );
@@ -115,6 +116,7 @@ const FormField = props => {
 FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    onKeyPress: PropTypes.func,
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -387,6 +389,12 @@ const Guessing = () => {
             .padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
     }*/
 
+    function handleKeyPress(event) {
+        if(event.key === "Enter" && playerInput !== "" && !correctGuess){
+            submitInput()
+        }
+    }
+
 
     return (
         <BaseContainer>
@@ -485,6 +493,7 @@ const Guessing = () => {
                             placeholder= {pl}
                             value={playerInput}
                             onChange={i => setPlayerInput(i)}
+                            onKeyPress={handleKeyPress}
                         />
                     )
                 })()}

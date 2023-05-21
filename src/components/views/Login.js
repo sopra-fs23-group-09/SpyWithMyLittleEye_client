@@ -64,6 +64,7 @@ const FormField = props => {
             placeholder={props.placeholder}
             value={props.value}
             onChange={e => props.onChange(e.target.value)}
+            onKeyDown={e => props.onKeyPress(e)}
           />
           <div className="login password-toggle" onClick={handleTogglePassword}>
             <Icon
@@ -80,6 +81,7 @@ const FormField = props => {
           placeholder={props.placeholder}
           value={props.value}
           onChange={e => props.onChange(e.target.value)}
+          onKeyDown={e => props.onKeyPress(e)}
         />
       )}
     </div>
@@ -90,7 +92,8 @@ FormField.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    password: PropTypes.string
+    password: PropTypes.string,
+    onKeyPress: PropTypes.func
 };
 
 const Login = () => {
@@ -125,6 +128,12 @@ const Login = () => {
         }
     };
 
+    function handleKeyPress(event) {
+        if(event.key === "Enter" && username && password) {
+            doLogin()
+        }
+    }
+
     return (
         <BaseContainer>
             <div className="code left-field">
@@ -149,6 +158,7 @@ const Login = () => {
                         placeholder="Username"
                         value={username}
                         onChange={un => setUsername(un)}
+                        onKeyPress={handleKeyPress}
 
                     />
                     <FormField
@@ -156,6 +166,7 @@ const Login = () => {
                         placeholder="*******"
                         value={password}
                         onChange={n => setPassword(n)}
+                        onKeyPress={handleKeyPress}
 
                     />
                     {alert_message}
