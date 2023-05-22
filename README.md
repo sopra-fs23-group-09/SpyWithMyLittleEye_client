@@ -85,7 +85,8 @@ One fetches the data from the server using an GET request to the REST API.
 ### 🫀 Keep Alive
 
 KeepAlive() / UserDropOut() arose due to the need of handling idle users or ones that close the tab during the game. While not a
-component per-se, it still is a essential feature to understand. Users get "kicked" from the game and their co-players are informed of this. 
+component per-se, it still is a essential feature to understand. Users get "kicked" from the game and their co-players are informed of this. <br>
+However, this also makes it very important that the players have a **stable internet connection** as else they might be seen as inresponsive.
 
 ## 🚀 Launch & Development <a id="launch--development"></a>
 
