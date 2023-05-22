@@ -157,7 +157,7 @@ const UserPage = () => {
               } catch (e) {
                   console.log("Failed to play sound.")
               }
-              history.push('/leaderboard');
+              history.push('/ranking');
           }}>
               <div className="home-page ranking-text">
                   Ranking

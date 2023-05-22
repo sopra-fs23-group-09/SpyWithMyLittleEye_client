@@ -96,7 +96,7 @@ const HomePage = () => {
                         <MuteButton audio={audio}/>
                     <Button className="ranking-button" onClick={() => {
                         audio.play();
-                        history.push('/leaderboard');
+                        history.push('/ranking');
                     }}>
                     <div className="home-page ranking-text">
                         Ranking
@@ -141,7 +141,7 @@ const HomePage = () => {
             </Button>
             <Button className="create-lobby-button" onClick={() => {
             audio.play();
-            history.push('/rounds');
+            history.push('/gamesettings');
             }}
             >
                 <div className="home-page create-lobby-button-text">

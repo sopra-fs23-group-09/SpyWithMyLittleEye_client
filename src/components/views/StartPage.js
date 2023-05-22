@@ -88,7 +88,7 @@ const StartPage = () => {
             } catch (e) {
                 console.log("Failed to play sound.")
             }
-            history.push('/register');
+            history.push('/signup');
             }}>
                 <div className="start-page signup-button-text">
                     Sign up
