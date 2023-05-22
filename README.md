@@ -32,8 +32,9 @@ During the development of the front-end, we used the following technologies:
 * [MUI](https://mui.com/material-ui/react-alert/) - React UI framework used mainly for Alert components
 * [Axios API](https://axios-http.com/docs/api_intro) - Used for REST-based communication with the server
 * [Stomp](https://stomp-js.github.io/stomp-websocket/) - Used for websocket communication with the server
+* [Google Maps Streetview API](https://developers.google.com/maps/documentation/javascript/streetview?hl=de) - Used to embed streetview into the game
 
-## 🧩 High-level Components (TODO) <a id="high-level-components"></a>
+## 🧩 High-level Components <a id="high-level-components"></a>
 
 Find the front-ends main 3 components below. What is their role?
 How are they correlated? Reference the main class, file, or function in the README text
@@ -100,12 +101,12 @@ dependencies, including React, get installed with:
 
 ```npm install```
 
-Furthermore, one needs to install the libraries used :
+Furthermore, you need to install the libraries used :
 
 * MUI: `npm install @mui/material @emotion/react @emotion/styled`
 * Google Maps: `npm install @googlemaps/js-api-loader`
 * Iconify: `npm install --save-dev @iconify/react`
-* TODO is there more?
+* Depending on your existing setup, you might need to install more.
 
 ### Commands to build and run the project locally
 
@@ -130,7 +131,11 @@ To build the app, run `npm run build` <br>
 
 Both the client and the server have to be running for the application to behave as expected.
 
-### Releases TODO idk about this
+### Contributing
+If you want to contribute, please contact the authors first. If you want to make changes to or add features, please do so on your own branch first and properly test it before submitting a pull request to the main repository. 
+
+### Releases 
+We recommend to follow this [tutorial](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) and to properly document and comment your release. 
 
 ## 🖼️ Illustrations (TODO: insert new pictures) <a id="illustrations"></a>
 
