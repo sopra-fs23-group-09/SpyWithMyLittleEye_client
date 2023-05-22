@@ -183,7 +183,7 @@ const Login = () => {
                     <div className="login login-line">
                     </div>
                     <div className="login register-text">
-                        Don’t have an account yet? <a href="/Register">Sign up</a>
+                        Don’t have an account yet? <a href="/Signup">Sign up</a>
                     </div>
                 </div>
             </div>
