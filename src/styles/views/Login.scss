@@ -10,9 +10,16 @@
   }
 
   &.alert-message {
-    font-family: 'Quicksand', sans-serif;
+    margin-top: 1vw;
+    margin-bottom: -1.5vw;
     border-radius: 4vw;
+    width: 119vh;
+    margin-left: 1vw;
+    //justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+
   }
+
 
   &.container {
     margin-top: 7vw;
