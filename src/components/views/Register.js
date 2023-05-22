@@ -150,7 +150,6 @@ const Register = () => {
             </div>
             <MuteButton audio={audio}/>
             <div className="login container">
-                <div className="login alert-div">{alert_message}</div>
                 <div className="login form">
                     <div className="login login-title">
                         Signup
@@ -170,6 +169,7 @@ const Register = () => {
                         onChange={n => setPassword(n)}
 
                     />
+                    {alert_message}
                     <div className="login button-container">
                         <Button className="login-button-loginpage"
                                 disabled={!username || !password}
