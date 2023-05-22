@@ -54,7 +54,7 @@ the **GUESSERs** to find in the StreetView of the picked location.
 <br>
 This View interacts with the Google Maps and StreetView API. It also fetches data about the current round from the
 server via a REST GET request. Once the **SPIER** has confirmed their choice, it is sent
-to the backend using the websocket. The **GUESSERs** in the Waiting Room are informed through a Websocket Channel
+to the backend using the websocket. The **GUESSERs** in the WaitingRoom are informed through a Websocket Channel
 they are subscribed to, and redirected to the main part of the game: [Guessing](#-guessing).
 
 ### ⁉️ Guessing
@@ -86,8 +86,8 @@ One fetches the data from the server using an GET request to the REST API.
 ### 🫀 Keep Alive
 
 KeepAlive() / UserDropOut() arose due to the need of handling idle users or ones that close the tab during the game. While not a
-component per-se, it still is a essential feature to understand. Users get "kicked" from the game and their co-players are informed of this. <br>
-However, this also makes it very important that the players have a **stable internet connection** as else they might be seen as inresponsive.
+component per-se, it still is a essential feature of this game to understand. Users get "kicked" from the game and logged out and their co-players are informed of this. <br>
+However, this also makes it very important that the players have a **stable internet connection** as else they might be seen as inresponsive by the server.
 
 ## 🚀 Launch & Development <a id="launch--development"></a>
 
@@ -114,7 +114,7 @@ Start the app with: `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**We strongly recommend to use Google Chrome in full screen *only*, and alay no matter if you have deployed the app or
+**We strongly recommend to use Google Chrome in full screen *only*, no matter if you have deployed the app or
 are accessing it locally**.
 
 ### Tests
@@ -126,6 +126,9 @@ Run the tests with: `npm run test`
 ### Build
 
 To build the app, run `npm run build` <br>
+
+### Deployment
+Deployment to the Google App Engine happens automatically when pushed to main. 
 
 ### External dependencies
 
@@ -139,16 +142,23 @@ We recommend to follow this [tutorial](https://docs.github.com/en/repositories/r
 
 ## 🖼️ Illustrations (TODO: insert new pictures) <a id="illustrations"></a>
 
+At first, everyone gathers in a Lobby. <br>
+![Image](./src/images/ScreenshotLobby.jpeg)
+<br>
 Below we will briefly describe and illustrate the main user flow of our interface. <br>
 A new round starts with the **SPIER**  selecting a place on Google Maps and choosing a random object on the Street View
 of that location. <br>
 ![Image](./src/images/ScreenshotSetLocation.jpeg)
 <br>
-Afterwards, the **GUESSERs** try to guess the object within the time limit. Dduring the game, where incorrect guesses
+Afterwards, the **GUESSERs** try to guess the object within the time limit. During the game incorrect guesses
 are highlighted in red and correct ones in green. Correct guesses are not revealed to the other players, they just see
 that a fellow player guessed correctly - so everyone can try to get it right!
 <br>
 ![Image](./src/images/ScreenshotGuessing.jpeg)
+Check out your place in the ranking and other players scores and profiles in Ranking!
+<br>
+![Image](./src/images/ScreenshotRanking.jpeg)
+
 
 ## 🚙 Roadmap <a id="roadmap"></a>
 
