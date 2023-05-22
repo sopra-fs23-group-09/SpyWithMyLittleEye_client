@@ -50,7 +50,7 @@ const AppRouter = () => {
               <EditPage/>
             </UserPageGuard>
         </Route>
-        <Route exact path="/register">
+        <Route exact path="/signup">
             <Register/>
         </Route>
         <Route exact path="/">
@@ -61,7 +61,7 @@ const AppRouter = () => {
                 <HomePage/>
             </GameGuard>
         </Route>
-        <Route exact path="/leaderboard">
+        <Route exact path="/ranking">
             <GameGuard>
                 <Leaderboard/>
             </GameGuard>
@@ -71,28 +71,40 @@ const AppRouter = () => {
                 <Code/>
             </GameGuard>
         </Route>
-        <Route exact path="/rounds">
+        <Route exact path="/gamesettings">
             <GameGuard>
                 <SetRounds/>
             </GameGuard>
         </Route>
-        <Route exact path ="/lobby/:lobbyId">
-            <LobbyView/>
+        <Route exact path ="/lobby/:accesscode">
+            <GameGuard>
+                <LobbyView/>
+            </GameGuard>
         </Route>
         <Route exact path="/game/:gameId/location">
-            <SetLocation/>
+            <GameGuard>
+                <SetLocation/>
+            </GameGuard>
         </Route>
-        <Route exact path="/game/:lobbyId/waitingroom">
-            <Waitingroom/>
+        <Route exact path="/game/:accesscode/waitingroom">
+            <GameGuard>
+                <Waitingroom/>
+            </GameGuard>
         </Route>
-        <Route exact path="/game/:lobbyId">
-            <Guessing/>
+        <Route exact path="/game/:accesscode">
+            <GameGuard>
+                <Guessing/>
+            </GameGuard>
         </Route>
         <Route exact path ="/game/:gameId/rounds/score">
-            <RoundOver/>
+            <GameGuard>
+                <RoundOver/>
+            </GameGuard>
         </Route>
         <Route exact path="/game/:gameId/score">
-            <GameOver/>
+            <GameGuard>
+                <GameOver/>
+            </GameGuard>
         </Route>
       </Switch>
     </BrowserRouter>
