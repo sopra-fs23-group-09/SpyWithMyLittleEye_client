@@ -78,6 +78,8 @@ const LobbyView = () => {
       audio.play();
     } catch (error) {
       console.error('Exit lobby failed:', error);
+      let msg = getErrorMessage(error);
+      setDrop_out_alert_message(<Alert className="login alert-message" severity="error"><b>Something went wrong while leaving the lobby :</b> {msg}</Alert>);
     }
   }
     // KEEP ALIVE: to tell if an user has become idle
@@ -103,21 +105,19 @@ const LobbyView = () => {
         }
     }, [history])
 
-    /**
-     useEffect( () => {
-    window.location.reload(true)
-        // ignore this for now, ill use this to remove someone from the lobby in the callback for userDropOut
-        let username = "ff";
-        if (lobby && lobby.playerNames && lobby.playerNames.includes(username)) {
-            const index = lobby.playerNames.indexOf(username) ;
-            if (index > -1) {
-                console.log("removing")
-               // lobby.playerNames = lobby.playerNames.filter(e => e !== username);
-                setPlayers(lobby.playerNames)
-                console.log(lobby.playerNames)
-            }
+    useEffect(() => {
+        if (!(localStorage.getItem("lobbyId"))) {
+            setDrop_out_alert_message(<Alert className="lobby drop-out-alert-message" severity="warning"
+                                             onClose={() => {
+                                                 setDrop_out_alert_message(<div
+                                                     className="lobby drop-out-alert-message"></div>);
+                                                 unsubscribe("/topic/lobbies/" + lobbyId);
+                                                 unsubscribe("/topic/games/" + lobbyId+ "/userDropOut");
+                                                 history.push("/code");
+                                             }}>
+                Are you sure you entered the code for a lobby?</Alert>);
         }
-    }, [lobby])**/
+    }, [history, lobbyId]);
 
 
     useEffect(() => {
