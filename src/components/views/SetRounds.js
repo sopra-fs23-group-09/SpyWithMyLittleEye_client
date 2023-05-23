@@ -63,20 +63,29 @@ const FormField = (props) => {
         }
     }, [history])
 
-  if (type === "number") {
-    return (
-      <div className="rounds field">
-        <input
-          type="number"
-          className="rounds input" // Add the "rounds" class here
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onKeyPress={e => props.onKeyPress(e)}
-        />
-      </div>
-    );
-  }
+if (type === "number") {
+  return (
+    <div className="rounds field">
+      <input
+        type="number"
+        className="rounds input" // Add the "rounds" class here
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => {
+          const newValue = e.target.value;
+          if (newValue < 0) {
+            onChange(0);
+          } else if (newValue > 20) {
+            onChange(20);
+          } else {
+            onChange(newValue);
+          }
+        }}
+        onKeyPress={e => props.onKeyPress(e)}
+      />
+    </div>
+  );
+}
 
   if (type === "dropdown") {
     return (
