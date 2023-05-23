@@ -91,10 +91,17 @@
   }
 
   &.ok-button-text {
+      width: 73px;
+      height: 63px;
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 3vw;
+   line-height: 63px;
+    text-align: center;
     color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
   }
 }
