@@ -26,12 +26,15 @@
   }
 
   &.primary-button {
+    &:hover {
+      transform: translateY(-4px);
+    }
     width: 16.5vw;
     height: 5vw;
     position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    top: 75%;
+    left: 42.5%;
+    //transform: translate(-50%,-50%);
 
 
   }
