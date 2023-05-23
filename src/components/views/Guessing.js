@@ -432,7 +432,7 @@ const Guessing = () => {
                  </span>
             </div>
             <div className="guessing container">
-                <div className="guessing container-guesses" style={{ maxHeight: "1000px", overflowY: "auto"}} ref={containerRef}>
+                <div className="guessing container-guesses" style={{ maxHeight: "55vh", overflowY: "auto"}} ref={containerRef}>
                     {guesses.map(gs => {
                         if (gs[1] === "CORRECT"){
                             return (
