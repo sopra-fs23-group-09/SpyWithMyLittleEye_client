@@ -219,9 +219,9 @@ const GameOver = () => {
         //|| ((second) && (second.username.toString() === "")))
     ){ // if ure the only left
         button_gameEnded = (
-            <Button className="roundover primary-button" onClick={() => endGame()}
+            <Button className="gameover primary-button" onClick={() => endGame()}
             >
-                <div className="roundover button-text">
+                <div className="gameover button-text">
                     End Game
                 </div>
             </Button>)
