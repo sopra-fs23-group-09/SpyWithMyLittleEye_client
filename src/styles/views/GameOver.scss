@@ -50,10 +50,11 @@
 
   &.solution {
     position: absolute;
-    //width: 630px;
-    //height: 63px;
-    left: 9.75vw;
-    top: 22vh;
+    top: 29%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 150%;
+
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;

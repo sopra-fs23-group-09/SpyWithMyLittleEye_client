@@ -74,10 +74,10 @@
 
   &.solution {
     position: absolute;
-    //width: 35vw;
-    //height: 63px;
-    left: 16.5vw;
-    top: 8vw;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 150%;
 
 
     font-family: 'Quicksand', sans-serif;
