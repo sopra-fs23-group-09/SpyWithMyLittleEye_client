@@ -115,9 +115,7 @@ const HomePage = () => {
                                 console.log("Logout Successful!")
                                 history.push("/start")
                             } else {
-                                setLogout_Alert_Message(<Alert className="home-page alert-message"
-                                                                           severity="error"><b>Something went wrong
-                                    during logout: </b> {r}</Alert>);
+                                history.push("/start");
                             }
                         });
                 }
