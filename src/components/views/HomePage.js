@@ -7,7 +7,6 @@ import { Icon } from '@iconify/react';
 import 'styles/views/Code.scss';
 import React, { useState, useEffect } from 'react';
 import {logout} from "../../helpers/utilFunctions";
-import {Alert} from "@mui/material";
 
 const HomePage = () => {
     const history = useHistory();
@@ -20,7 +19,7 @@ const HomePage = () => {
 
 
 
-    let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="home-page alert-message"></div>);
+    //let [logout_alert_message, setLogout_Alert_Message] = useState(<div className="home-page alert-message"></div>);
     //let [logout_alert_message, setLogout_Alert_Message] = useState(<Alert className="home-page alert-message" severity="error"><b>Something went wrong during logout: </b> Uuwuwuwuwuwuuw</Alert>);
     const goToProfile = () => {
         history.push(`/users/${userId}`);
@@ -124,9 +123,6 @@ const HomePage = () => {
                         Log out
                     </div>
                 </Button>
-            </div>
-            <div className = "home-page alert-div">
-                {logout_alert_message}
             </div>
             <Button className="join-lobby-button" onClick={() => {
             audio.play();
