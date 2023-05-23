@@ -13,6 +13,7 @@ import {
 } from "../../helpers/stompClient";
 import {clearGameLocalStorage, getProfilePic} from "../../helpers/utilFunctions";
 import {Alert} from "@mui/material";
+import Confetti from "react-confetti";
 
 const MuteButton = ({ audio }) => {
   const [isMuted, setIsMuted] = useState(localStorage.getItem("isMuted") === "true" || false);
@@ -256,6 +257,12 @@ const GameOver = () => {
             <div className="base-container ellipse4">
             </div>
             <MuteButton audio={audio}/>
+            <Confetti
+                width={window.innerWidth}
+                height={window.innerHeight}
+                colors={['#A7AEF9', '#DAA3EF', '#DDCCF8', '#F5C9C9', '#CEBBFA', '#A7AEF9',  '#FF72B6', '#F5C9D9',
+                    '#97E1D4', '#8359E3']}
+            />
             <div className="gameover container">
                 <div className="gameover header">
                     THE GAME IS OVER
