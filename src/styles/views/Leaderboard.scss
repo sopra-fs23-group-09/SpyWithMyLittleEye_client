@@ -236,12 +236,14 @@
   &.points {
     position: absolute;
     top: 1vh;
-    left: 28vw;
+    left: 29vw;
+
 
     font-family: 'Quicksand', sans-serif;
     font-style: italic;
     font-weight: 500;
     font-size: 2.5vh;
+
     /* identical to box height */
 
     color: #000000;
@@ -308,13 +310,13 @@
   &.points {
     position: absolute;
     top: 0.7vh;
-    left: 28vw;
+    left: 29vw;
 
     font-family: 'Quicksand', sans-serif;
     font-style: italic;
     font-weight: 600;
     font-size: 3.2vh;
-    text-align: center;
+    text-align: right;
 
     color: #000000;
   }
@@ -355,7 +357,7 @@
   &.text {
     position: absolute;
     top: 0.7vh;
-    left: 25.25vw;
+    right: 2vw;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
@@ -371,7 +373,7 @@
   &.rank {
     position: absolute;
     top: 0.7vh;
-    left: 1.5vw;
+    left: 2vw;
 
     font-family: 'Quicksand', sans-serif;
     font-style: normal;
