@@ -344,7 +344,7 @@ const Guessing = () => {
             makeSubscription();
         }
 
-    }, [history]);
+    }, [history, playerUsername]);
 
     const submitInput = () => {
         if (role === "SPIER") {
