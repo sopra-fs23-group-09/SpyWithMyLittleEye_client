@@ -38,6 +38,7 @@ const HomePage = () => {
                     console.log("I am alive!!! " + token)
                 } catch (e) {
                     console.log(getErrorMessage(e))
+                    clearInterval(parseInt(localStorage.getItem('intervalId')));
                     history.push("/start");
                 }
             }, 2000)
