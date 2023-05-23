@@ -161,7 +161,7 @@ const EditPage = () => {
       <div className="user-edit-page container">
           <FormFieldUsername
             label="Enter your new username:"
-            placeholder="New username..."
+            placeholder="New username... (max. 7 characters)"
             value={username}
             type = "text"
             onChange={un => setUsername(un)}
