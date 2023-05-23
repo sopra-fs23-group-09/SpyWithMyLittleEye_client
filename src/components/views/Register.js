@@ -161,11 +161,11 @@ const Register = () => {
             <div className="login container">
                 <div className="login form">
                     <div className="login login-title">
-                        Signup
+                        Sign Up
                     </div>
                     <FormField
                         type="text"
-                        placeholder="Username"
+                        placeholder="Username (max. 7 characters)"
                         value={username}
                         onChange={un => setUsername(un)}
                         onKeyPress={handleKeyPress}
@@ -185,7 +185,7 @@ const Register = () => {
                                 onClick={() => doRegistration()}
                         >
                             <div className="login login-text">
-                                Register
+                                Sign Up
                             </div>
                         </Button>
                     </div>
