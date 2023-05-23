@@ -112,8 +112,11 @@ const StartPage = () => {
                     After logging in, you can directly start the game and generate a code. Up to 10 friends or family
                     members can join you, by entering the code. It’s up to you how many rounds you want to play! If you
                     started the game, you will be the first spier. Decide on an object in the 360° google view. Enter
-                    the object and a hint, and let the guessers guess.The faster one guesses, the more points one will
+                    the object and a hint, and let the guessers guess. The faster one guesses, the more points one will
                     get. Don’t forget to compare your scores afterwards!
+                </div>
+                <div className="start-page browser-info">
+                    We recommend to use <b>Google Chrome</b> in fullscreen for the best playing experience.
                 </div>
             </div>
             <div className="start-page credits"> Software Engineering Lab FS2023 
