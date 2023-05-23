@@ -269,7 +269,9 @@ const Guessing = () => {
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
                 if (lastGuess === "CORRECT") {
                     setCorrectGuessPlayer(lastUsername);
-                    setCorrectGuess(true);
+                    if (lastUsername.toString() === playerUsername.toString()) {
+                        setCorrectGuess(true);
+                    }
                 }
             });
             unsubscribe("/topic/games/" + lobbyId + "/guesses");
