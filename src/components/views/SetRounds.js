@@ -73,8 +73,8 @@ if (type === "number") {
         value={value}
         onChange={(e) => {
           const newValue = e.target.value;
-          if (newValue < 0) {
-            onChange(0);
+          if (newValue < 1) {
+            onChange(1);
           } else if (newValue > 20) {
             onChange(20);
           } else {
