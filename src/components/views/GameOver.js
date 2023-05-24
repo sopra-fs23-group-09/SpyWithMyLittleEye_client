@@ -240,6 +240,10 @@ const GameOver = () => {
                     </div>
                 </Button>
             )
+    }  else {
+        button_gameEnded = (<div className = "gameover waiting-msg">
+            (Please wait until the host ends the current game.)
+        </div>)
     }
 
 

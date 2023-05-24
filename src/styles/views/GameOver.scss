@@ -157,6 +157,22 @@
     flex-grow: 0;
   }
 
+  &.waiting-msg{
+    position: absolute;
+    left: 33vw;
+    top: 43.5vw;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4vw;
+    //line-height: 63px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #f5f5f5;
+
+  }
+
 }
 
 .finalscore {

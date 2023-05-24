@@ -207,6 +207,10 @@ const RoundOver = () => {
                 Continue
             </div>
             </Button>)
+    } else {
+        button_newRound = (<div className = "roundover waiting-msg">
+            (Please wait until the host advances to the next round.)
+        </div>)
     }
 
     let picture1 = (first && first.profilePicture) ? getProfilePic(first.profilePicture):null;
