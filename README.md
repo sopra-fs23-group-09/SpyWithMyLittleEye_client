@@ -179,6 +179,12 @@ Check out your place in the ranking and other players scores and profiles in Ran
 We want to thank our Teaching Assistant [Sheena Lang](https://github.com/SheenaGit) for guiding us through the course.
 We also couldn't have made it without our ✨ceremonies✨ 🍣✨ 🍱 🫶 after each Milestone.
 
+## Attributions 
+
+We want to attribute the source that allowed us to use the cute handdrawn animal pictures!
+
+* Birds: Images by <a href="https://www.freepik.com/free-vector/hand-drawn-cute-animal-avatars-element-set_32987087.htm">Freepik</a>
+
 ## ©️ License <a id="license"></a>
 
 This project is licensed under the GNU GPLv3 License. 
