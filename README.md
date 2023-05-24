@@ -184,6 +184,9 @@ We also couldn't have made it without our ✨ceremonies✨ 🍣✨ 🍱 🫶 aft
 We want to attribute the source that allowed us to use the cute handdrawn animal pictures!
 
 * Birds: Images by <a href="https://www.freepik.com/free-vector/hand-drawn-cute-animal-avatars-element-set_32987087.htm">Freepik</a>
+* Rabbit: Image by <a href="https://www.freepik.com/free-vector/animal-avatars-element-set_32987131.htm">Freepik</a>
+* Bears: Images by <a href="https://www.freepik.com/free-vector/animal-avatars-element-pack_32987146.htm">Freepik</a>
+* Sloth: Image by <a href="https://www.freepik.com/free-vector/hand-drawn-animal-avatars-element-pack_32987111.htm">Freepik</a>
 
 ## ©️ License <a id="license"></a>
 
