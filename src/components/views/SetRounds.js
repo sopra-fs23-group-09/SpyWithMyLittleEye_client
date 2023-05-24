@@ -172,7 +172,7 @@ const SetRounds = () => {
             </div>
             <FormField
                 type= "number"
-                placeholder="Enter your number..."
+                placeholder="Enter your number (1-20)"
                 value={amountRounds}
                 onChange={r => setAmountRounds(r)}
                 onKeyPress={handleKeyPress}
