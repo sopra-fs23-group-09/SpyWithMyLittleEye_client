@@ -16,6 +16,7 @@ Check out the back-end implementation [here](https://github.com/sopra-fs23-group
 6. [🚙 Roadmap](#roadmap)
 7. [👩‍💻 Authors](#authors)
 8. [🫂 Acknowledgments](#acknowledgments)
+9. [🐙 Attributions](#attributions)
 10. [©️ License](#license)
 
 ## ✨ Introduction <a name="introduction"></a>
