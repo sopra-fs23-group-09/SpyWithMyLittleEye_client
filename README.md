@@ -170,7 +170,7 @@ Check out your place in the ranking and other players scores and profiles in Ran
 ## 🚙 Roadmap <a id="roadmap"></a>
 
 * *Hard game mode*: When one person guesses correctly, the round is over
-* *More metrics*: Allow the leaderboard to be filterable by other metrics (f.ex. fasted guessed)
+* *More metrics*: Allow the leaderboard to be filterable by other metrics (f.ex. fastest guessed)
 * *Edit profile picture*
 
 ## 👩‍💻 Authors <a id="authors"></a>
@@ -194,6 +194,7 @@ We want to attribute the source that allowed us to use the cute handdrawn animal
 * Rabbit: Image by <a href="https://www.freepik.com/free-vector/animal-avatars-element-set_32987131.htm">Freepik</a>
 * Bears: Images by <a href="https://www.freepik.com/free-vector/animal-avatars-element-pack_32987146.htm">Freepik</a>
 * Sloth: Image by <a href="https://www.freepik.com/free-vector/hand-drawn-animal-avatars-element-pack_32987111.htm">Freepik</a>
+* Cat: Gif by <a href="https://tenor.com/bM7wd.gif">Tenor</a>
 
 ## ©️ License <a id="license"></a>
 
