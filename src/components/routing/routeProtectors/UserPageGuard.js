@@ -6,7 +6,7 @@ export const UserPageGuard = props => {
   if (localStorage.getItem("token")) {
     return props.children;
   }
-  return <Redirect to="/login"/>;
+  return <Redirect to="/start"/>;
 };
 
 UserPageGuard.propTypes = {
