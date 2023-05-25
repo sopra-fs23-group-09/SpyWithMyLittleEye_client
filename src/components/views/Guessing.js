@@ -146,7 +146,7 @@ const Guessing = () => {
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
     const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
-    const [correctGuess, setCorrectGuess] = useState(null);
+    const [correctGuess, setCorrectGuess] = useState((localStorage.getItem("guessedCorrectly"))?(localStorage.getItem("guessedCorrectly").toString() === "true") : false);
     const [timeLeft, setTimeLeft] = useState(() => {
         // Retrieve the stored timer value from localStorage,
         // or use the default duration if it doesn't exist
@@ -229,6 +229,7 @@ const Guessing = () => {
                 console.log(data);
                 if (data.name.toString() === username.toString()) { // u're the one dropping out!
                     console.log("I DROPPED OUT???")
+                    localStorage.setItem("guessedCorrectly","false");
                     localStorage.removeItem('token');
                     history.push("/start")
                 } else if (data.endGame) {
@@ -266,11 +267,13 @@ const Guessing = () => {
                 console.log("Response: " + response);
                 const lastUsername = response[response.length -1]["guesserName"]
                 const lastGuess = response[response.length - 1]["guess"]
+                const lastCorrect = response[response.length - 1]["correct"]
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
-                if (lastGuess === "CORRECT") {
+                if (lastCorrect.toString() === "1") {
                     setCorrectGuessPlayer(lastUsername);
                     if (lastUsername.toString() === playerUsername.toString()) {
                         setCorrectGuess(true);
+                        localStorage.setItem("guessedCorrectly", "true");
                     }
                 }
             });
@@ -299,6 +302,7 @@ const Guessing = () => {
             unsubscribe("/topic/games/" + lobbyId + "/hints");
             unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            localStorage.setItem("guessedCorrectly", "false");
             history.push("/game/"+lobbyId+"/rounds/score");
         }
         function redirectToGameOver() {
@@ -306,6 +310,7 @@ const Guessing = () => {
             unsubscribe("/topic/games/" + lobbyId + "/hints");
             unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            localStorage.setItem("guessedCorrectly", "false");
             history.push("/game/" + lobbyId + "/score");
         }
 
@@ -314,6 +319,7 @@ const Guessing = () => {
             unsubscribe("/topic/games/" + lobbyId + "/hints");
             unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
             unsubscribe("/topic/games/" + lobbyId + "/endRound");
+            localStorage.setItem("guessedCorrectly","false");
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
 
@@ -355,6 +361,7 @@ const Guessing = () => {
             if (correctGuessPlayer === playerUsername) {
                 return;
             }
+            if (correctGuess) {return;}
             notifyGuess(lobbyId, playerId, playerInput, token);
             console.log("Guess: " + playerInput);
             setPlayerInput("");
