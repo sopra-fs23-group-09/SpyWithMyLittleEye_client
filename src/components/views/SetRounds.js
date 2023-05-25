@@ -63,29 +63,39 @@ const FormField = (props) => {
         }
     }, [history])
 
-if (type === "number") {
-  return (
-    <div className="rounds field">
-      <input
-        type="number"
-        className="rounds input" // Add the "rounds" class here
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => {
-          const newValue = e.target.value;
-          if (newValue < 1) {
-            onChange(1);
-          } else if (newValue > 20) {
-            onChange(20);
-          } else {
-            onChange(newValue);
-          }
-        }}
-        onKeyPress={e => props.onKeyPress(e)}
-      />
-    </div>
-  );
-}
+    if (type === "number") {
+        return (
+            <div className="rounds field">
+                <input
+                    type="number"
+                    className="rounds input"
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={(e) => {
+                        let newValue = e.target.value;
+
+                        // Handle the case when the input is empty
+                        if (newValue === "") {
+                            onChange(""); // Clear the value
+                        } else {
+                            newValue = parseInt(newValue, 10); // Parse the input value as an integer
+
+                            if (isNaN(newValue)) {
+                                onChange(""); // Set the value to empty if it's not a valid number
+                            } else if (newValue < 1) {
+                                onChange(1);
+                            } else if (newValue > 20) {
+                                onChange(20);
+                            } else {
+                                onChange(newValue);
+                            }
+                        }
+                    }}
+                    onKeyPress={e => props.onKeyPress(e)}
+                />
+            </div>
+        );
+    }
 
   if (type === "dropdown") {
     return (
@@ -146,7 +156,7 @@ const SetRounds = () => {
 
     function handleKeyPress(event) {
         console.log("Pressed key: " + event.key)
-        if(event.key === "Enter"){
+        if(event.key === "Enter" && (amountRounds !== null && amountRounds !== "")){
             createLobby()
         }
     }
@@ -186,7 +196,9 @@ const SetRounds = () => {
                 value={time}
                 onChange={t => setTime(parseFloat(t))}
               />
-            <Button className="ok-button" onClick={() => createLobby()}>
+            <Button className="ok-button"
+                    disabled={amountRounds === null || amountRounds === ""}
+                    onClick={() => createLobby()}>
                 <div className="rounds ok-button-text">
                     OK
                 </div>
