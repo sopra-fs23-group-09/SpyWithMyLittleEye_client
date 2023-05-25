@@ -336,6 +336,14 @@
     transform: translateY(-4px);
   }
 
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    &:hover {
+      transform: none;
+    }
+  }
+
   box-sizing: border-box;
 
   /* Auto layout */
