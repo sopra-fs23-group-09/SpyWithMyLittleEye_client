@@ -162,21 +162,21 @@ A new round starts with the **SPIER**  selecting a place on Google Maps and choo
 of that location. 
 
 ![Image](./src/images/location.png)
-<br>
+
 Afterwards, the **GUESSERs** try to guess the object within the time limit. During the game incorrect guesses
 are highlighted in red and correct ones in green. Correct guesses are not revealed to the other players, they just see
 that a fellow player guessed correctly - so everyone can try to get it right!
-<br>
+
 ![Image](./src/images/guessingpage.png)
-<br>
+
 When a round is over, all players can see a leaderboard of the top three scorers!
-<br>
+
 ![Image](./src/images/roundover.png) 
-<br>
+
 Check out your place in the ranking and other players scores and profiles in Ranking!
-<br>
+
 ![Image](./src/images/ranking.png)
-<br>
+
 
 ## 🚙 Roadmap <a id="roadmap"></a>
 
