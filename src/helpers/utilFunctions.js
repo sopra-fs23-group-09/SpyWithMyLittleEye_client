@@ -78,10 +78,12 @@ export const logout = async () => {
         localStorage.removeItem('intervalId');
 
         try {
-            const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
+          const audio = new Audio('https://drive.google.com/uc?export=download&id=1U_EAAPXNgmtEqeRnQO83uC6m4bbVezsF');
+          if (localStorage.getItem("isMuted") !== "true") {
             await audio.play();
+          }
         } catch (e) {
-            console.log("Failed to play sound.")
+          console.log("Failed to play sound.");
         }
 
         return "Success";
