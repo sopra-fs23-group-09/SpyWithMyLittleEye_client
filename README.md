@@ -16,7 +16,8 @@ Check out the back-end implementation [here](https://github.com/sopra-fs23-group
 6. [🚙 Roadmap](#roadmap)
 7. [👩‍💻 Authors](#authors)
 8. [🫂 Acknowledgments](#acknowledgments)
-9. [©️ License](#license)
+9. [🐙 Attributions](#attributions)
+10. [©️ License](#license)
 
 ## ✨ Introduction <a name="introduction"></a>
 
@@ -179,7 +180,7 @@ Check out your place in the ranking and other players scores and profiles in Ran
 We want to thank our Teaching Assistant [Sheena Lang](https://github.com/SheenaGit) for guiding us through the course.
 We also couldn't have made it without our ✨ceremonies✨ 🍣✨ 🍱 🫶 after each Milestone.
 
-## Attributions 
+## 🐙 Attributions <a id="attributions"></a>
 
 We want to attribute the source that allowed us to use the cute handdrawn animal pictures!
 
