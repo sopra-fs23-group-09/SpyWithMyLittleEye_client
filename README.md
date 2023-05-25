@@ -84,11 +84,16 @@ features two leaderboards: one shows the top 15 players ranked by the total amou
 their accounts lifetime, and the other one shows the top 15 players ranked by the amount of games they have won. <br>
 One fetches the data from the server using an GET request to the REST API.
 
-### 🫀 Keep Alive
+### Additional Features
+
+#### 🫀 Keep Alive
 
 KeepAlive() / UserDropOut() arose due to the need of handling idle users or ones that close the tab during the game. While not a
 component per-se, it still is a essential feature of this game to understand. Users get "kicked" from the game and logged out and their co-players are informed of this. <br>
 However, this also makes it very important that the players have a **stable internet connection** as else they might be seen as inresponsive by the server.
+
+#### 🔐 Token Authorization
+In every REST request the client sends (expect for login / register), and in every Websocket send / subscribe event, it includes the logged in users current token. This ensures all requests we make are authorized and prevents malicious use of our API / Websocket.
 
 ## 🚀 Launch & Development <a id="launch--development"></a>
 
