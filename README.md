@@ -153,14 +153,14 @@ We recommend to follow this [tutorial](https://docs.github.com/en/repositories/r
 ## 🖼️ Illustrations (TODO: insert new pictures) <a id="illustrations"></a>
 
 At first, everyone gathers in a Lobby.
-<br>
+
 ![Image](./src/images/lobbypicture.png)
-<br>
+
 Below we will briefly describe and illustrate the main user flow of our interface. 
-<br>
+
 A new round starts with the **SPIER**  selecting a place on Google Maps and choosing a random object on the Street View
 of that location. 
-<br>
+
 ![Image](./src/images/location.png)
 <br>
 Afterwards, the **GUESSERs** try to guess the object within the time limit. During the game incorrect guesses
