@@ -257,8 +257,6 @@ const Guessing = () => {
                         <b>{data.name}</b> has left the game! </Alert>);
                 }
             });
-           // unsubscribe("/topic/games/" + lobbyId + "/userDropOut");
-
         }
 
 
@@ -323,22 +321,11 @@ const Guessing = () => {
             history.push(`/game/` + lobbyId + "/waitingroom");
         }
 
-        /*function subscribeToTimeInformation() {
-            subscribe("/topic/games/" + lobbyId + "/spiedObject",(response) => {
-                const d = response["duration"];
-                setTimeLeft(d * 60);
-
-
-            });
-            unsubscribe("/topic/games/" + lobbyId + "/spiedObject");
-        }*/
-
         const makeSubscription = ()  => {
             subscribeToHintInformation();
             subscribeToGuessInformation();
             subscribeToEndRoundInformation();
             subscribeToUserDropOut();
-            //subscribeToTimeInformation();
         }
 
         displayCurrentRound();
@@ -373,28 +360,6 @@ const Guessing = () => {
 
         return () => clearInterval(intervalId);
     };
-    //Implementation to display timer in seconds
-    /*useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft((time) => time - 1);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);*/
-
-    /*useEffect(() => {
-        const intervalId = setInterval(() => {
-            setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    }, [timeLeft]);*/
-
-    /*const formatTime = (time) => {
-        return `${Math.floor(time / 60)
-            .toString()
-            .padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
-    }*/
 
     function handleKeyPress(event) {
         if(event.key === "Enter" && playerInput !== "" && !correctGuess){
