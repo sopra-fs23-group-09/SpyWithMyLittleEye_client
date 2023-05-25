@@ -152,12 +152,15 @@ We recommend to follow this [tutorial](https://docs.github.com/en/repositories/r
 
 ## 🖼️ Illustrations (TODO: insert new pictures) <a id="illustrations"></a>
 
-At first, everyone gathers in a Lobby. <br>
+At first, everyone gathers in a Lobby.
+<br>
 ![Image](./src/images/lobbypicture.png)
 <br>
-Below we will briefly describe and illustrate the main user flow of our interface. <br>
+Below we will briefly describe and illustrate the main user flow of our interface. 
+<br>
 A new round starts with the **SPIER**  selecting a place on Google Maps and choosing a random object on the Street View
-of that location. <br>
+of that location. 
+<br>
 ![Image](./src/images/location.png)
 <br>
 Afterwards, the **GUESSERs** try to guess the object within the time limit. During the game incorrect guesses
@@ -165,10 +168,15 @@ are highlighted in red and correct ones in green. Correct guesses are not reveal
 that a fellow player guessed correctly - so everyone can try to get it right!
 <br>
 ![Image](./src/images/guessingpage.png)
+<br>
+When a round is over, all players can see a leaderboard of the top three scorers!
+<br>
+![Image](./src/images/roundover.png) 
+<br>
 Check out your place in the ranking and other players scores and profiles in Ranking!
 <br>
 ![Image](./src/images/ranking.png)
-
+<br>
 
 ## 🚙 Roadmap <a id="roadmap"></a>
 
