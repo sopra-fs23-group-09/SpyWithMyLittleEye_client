@@ -158,16 +158,16 @@ At first, everyone gathers in a Lobby. <br>
 Below we will briefly describe and illustrate the main user flow of our interface. <br>
 A new round starts with the **SPIER**  selecting a place on Google Maps and choosing a random object on the Street View
 of that location. <br>
-![Image](./src/images/ScreenshotSetLocation.jpeg)
+![Image](./src/images/location.png)
 <br>
 Afterwards, the **GUESSERs** try to guess the object within the time limit. During the game incorrect guesses
 are highlighted in red and correct ones in green. Correct guesses are not revealed to the other players, they just see
 that a fellow player guessed correctly - so everyone can try to get it right!
 <br>
-![Image](./src/images/ScreenshotGuessing.jpeg)
+![Image](./src/images/guessingpage.png)
 Check out your place in the ranking and other players scores and profiles in Ranking!
 <br>
-![Image](./src/images/ScreenshotRanking.jpeg)
+![Image](./src/images/ranking.png)
 
 
 ## 🚙 Roadmap <a id="roadmap"></a>
