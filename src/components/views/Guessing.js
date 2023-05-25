@@ -145,7 +145,7 @@ const Guessing = () => {
     const [guesses, setGuesses] = useState([]);
     const [currentRound, setCurrentRound] = useState(null);
     const [amountOfRounds, setAmountOfRounds] = useState(null);
-    const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
+    //const [correctGuessPlayer, setCorrectGuessPlayer] = useState(null);
     const [correctGuess, setCorrectGuess] = useState((localStorage.getItem("guessedCorrectly"))?(localStorage.getItem("guessedCorrectly").toString() === "true") : false);
     const [timeLeft, setTimeLeft] = useState(() => {
         // Retrieve the stored timer value from localStorage,
@@ -270,7 +270,7 @@ const Guessing = () => {
                 const lastCorrect = response[response.length - 1]["correct"]
                 setGuesses(prevGuesses => [...prevGuesses, [lastUsername, lastGuess]]);
                 if (lastCorrect.toString() === "1") {
-                    setCorrectGuessPlayer(lastUsername);
+                    //setCorrectGuessPlayer(lastUsername);
                     if (lastUsername.toString() === playerUsername.toString()) {
                         setCorrectGuess(true);
                         localStorage.setItem("guessedCorrectly", "true");
@@ -358,9 +358,7 @@ const Guessing = () => {
             console.log("Hint: " + playerInput);
             setPlayerInput("");
         }else if( role === "GUESSER") {
-            if (correctGuessPlayer === playerUsername) {
-                return;
-            }
+            //if (correctGuessPlayer === playerUsername) {return;}
             if (correctGuess) {return;}
             notifyGuess(lobbyId, playerId, playerInput, token);
             console.log("Guess: " + playerInput);
@@ -494,7 +492,7 @@ const Guessing = () => {
                     if (role === "SPIER"){
                         pl = "Enter your hint..."
                     }
-                    else if (role === "GUESSER"  && correctGuessPlayer !== playerUsername) {
+                    else if (role === "GUESSER"  && !(correctGuess)) {
                         pl = "Enter your guess..."
                     }
                     return (
