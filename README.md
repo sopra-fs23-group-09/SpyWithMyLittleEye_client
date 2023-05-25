@@ -1,4 +1,5 @@
 # I Spy With My Little Eye
+<div style="text-align: justify"> 
 
 ![Image](./src/images/LogoHeader.png)
 
@@ -198,4 +199,4 @@ We want to attribute the source that allowed us to use the cute handdrawn animal
 
 This project is licensed under the GNU GPLv3 License. 
 
- 
+</div>
