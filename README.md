@@ -46,8 +46,9 @@ with a link.
 
 The host can create
 a [Lobby](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Lobby.js) with
-1-20 rounds with each round taking 1-4 minutes. Up to 10 users can join it. If there are more than 2 in it, the host can decide to start the game, and all users will be redirected to the WaitingRoom.
-
+1-20 rounds with each round taking 1-4 minutes. Up to 10 users can join it. If there are more than 2 in it, the host can decide to start the game, and all users will be redirected to the WaitingRoom. <br>
+Users are informed about people joining / dropping out of the lobby or the host starting the game by a message sent to a Websocket Channel.
+  
 ### 📍 Set Location
 
 [SetLocation](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/SetLocation.js)
@@ -77,13 +78,15 @@ one is currently in.
 is the View shown to users after they have finished playing the round (timer ran out, every GUESSER guessed correctly).
 It shows an updated ranking of the top 3 users during this game. On this page, the host can choose to advance further by
 clicking "Continue", and the other players will be redirected to the WaitingRoom.
+  <br>
+  Information about the Round is fetched using a REST request, and the players listen to a Websocket channel to know when the host is moving on to the next round.
 
 ### 🏆 Ranking
 
 The [Ranking](https://github.com/sopra-fs23-group-09/SpyWithMyLittleEye_client/blob/main/src/components/views/Ranking.js)
 features two leaderboards: one shows the top 15 players ranked by the total amount of points they have collected during
 their accounts lifetime, and the other one shows the top 15 players ranked by the amount of games they have won. <br>
-One fetches the data from the server using an GET request to the REST API.
+The data is fetched from the server using an GET request to the REST API.
 
 ### Additional Features
 
@@ -94,7 +97,7 @@ component per-se, it still is a essential feature of this game to understand. Us
 However, this also makes it very important that the players have a **stable internet connection** as else they might be seen as inresponsive by the server.
 
 #### 🔐 Token Authorization
-In every REST request the client sends (expect for login / register), and in every Websocket send / subscribe event, it includes the logged in users current token. This ensures all requests we make are authorized and prevents malicious use of our API / Websocket.
+In every REST request the client sends (except for login / register), and in every Websocket send / subscribe event, it includes the logged in users current token. This ensures all requests we make are authorized and prevents malicious use of our API / Websocket.
 
 ## 🚀 Launch & Development <a id="launch--development"></a>
 
